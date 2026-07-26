@@ -25,3 +25,9 @@ https://cognition.com/blog
 https://www.trychroma.com/research
 https://code.claude.com/docs/en/best-practices
 https://genai.owasp.org/
+https://modelcontextprotocol.io/specification/versioning
+
+note: the MCP versioning page was added 2026-07-26 because that run found the pack a full
+protocol revision behind (facts cited 2025-06-18 while 2025-11-25 was current). It is cheap
+to check and names the current revision directly; when it changes, re-read that revision's
+changelog and re-check the kb/*/ai/agents/tools/mcp/** facts.
