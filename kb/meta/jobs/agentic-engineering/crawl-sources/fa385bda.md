@@ -12,7 +12,7 @@ https://www.anthropic.com/engineering
 https://developers.openai.com/cookbook
 https://simonwillison.net/tags/llms/
 https://www.langchain.com/blog/
-https://www.latent.space/
+https://www.latent.space/archive
 https://eugeneyan.com/writing/
 https://www.microsoft.com/en-us/research/blog/
 https://www.microsoft.com/en-us/security/blog/
@@ -38,6 +38,13 @@ for them:
   cookbook.openai.com -> developers.openai.com/cookbook
   blog.langchain.dev  -> www.langchain.com/blog
 
+CORRECTED 2026-07-26 (fourth run): this list had drifted to the bare domain
+www.latent.space, which serves only the Substack subscribe header and no post list — which
+is why three runs recorded it as yielding nothing. The seed file on disk had the correct
+path all along. It is https://www.latent.space/archive and it works fine. Restored above.
+Lesson for future runs: when a feed returns a subscribe wall or a bare header, suspect the
+URL before concluding the source is dead.
+
 YIELD RANKING as of the fourth run — spend the budget in this order:
   1. anthropic.com/engineering — BIGGEST FIND of the fourth run. Only the four Appendix A
      tier-2 articles had ever been read; the index carries a deep back-catalogue that no run
@@ -50,15 +57,19 @@ YIELD RANKING as of the fourth run — spend the budget in this order:
   3. sourcegraph.com/blog — publishes real measurements (n=1,281 agent runs) rather than
      opinions. Unread: code-finder-fast-code-search-for-agents,
      sourcegraph-mcp-and-a-cheaper-model-beat-a-mythos-class-model-alone.
-  4. simonwillison.net/tags/llms/ — high volume, mostly link-blogging; scan for incidents and
+  4. latent.space/archive — NEWLY REACHABLE, never mined. Interview-format but the guests
+     are practitioners. Unread and on-topic: /p/bad-envs (shipping low-quality RL
+     environments), /p/modal2026 (infrastructure for agent experience), /p/gray-swan
+     (red-teaming), /p/aiewf26trends.
+  5. simonwillison.net/tags/llms/ — high volume, mostly link-blogging; scan for incidents and
      security, skip model-release commentary. Unread: the-first-known-runaway-ai-agent,
      thomas-ptacek (sandbox escapes), bad-codex-bug (file deletions).
-  5. langchain.com/blog — steady agent/eval output but vendor-heavy; the eval-engineering and
+  6. langchain.com/blog — steady agent/eval output but vendor-heavy; the eval-engineering and
      benchmark posts clear the bar, the customer stories do not.
-  6. embracethered.com/blog — low volume, high value, security only.
-  7. trychroma.com/research — rare (5 reports ever) but each is substantial. Unread:
+  7. embracethered.com/blog — low volume, high value, security only.
+  8. trychroma.com/research — rare (5 reports ever) but each is substantial. Unread:
      generative-benchmarking, evaluating-chunking.
-  8. eugeneyan.com/writing — unread and promising: cybersecurity-evals (Jun 2026),
+  9. eugeneyan.com/writing — unread and promising: cybersecurity-evals (Jun 2026),
      working-with-ai (May 2026), secure-source-code (May 2026).
 
 dead or unreadable via WebFetch, do not keep re-fetching blind:
@@ -68,9 +79,6 @@ dead or unreadable via WebFetch, do not keep re-fetching blind:
     unmined and is worth real effort.
   block.github.io/goose -> goose-docs.ai (the new host works; the old one only serves a
     "goose has moved" stub)
-  www.latent.space — NEW 2026-07-26 (fourth run): serves only the Substack subscribe header,
-    no post list, no dates. The index is unusable via WebFetch. Either drop it or reach it
-    through the Substack archive path; do not keep spending a fetch on the bare domain.
 
 checked and low-yield for this pack (do not deprioritise permanently, but do not lead with
 them): research.google/blog — scanned 2026-07-26, recent output is health/quantum/diffusion
