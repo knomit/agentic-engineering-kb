@@ -1,7 +1,7 @@
 ---
 type: observation
 domain: [agentic-engineering, rag, context-engineering, evaluation]
-confidence: 0.75
+confidence: 0.7
 sources: 1
 entities: [Databricks, Claude 3.5 Sonnet, GPT-4o, Mixtral, DBRX]
 refs: ['https://www.databricks.com/blog/long-context-rag-performance-llms']
@@ -18,4 +18,4 @@ The important part is the failure taxonomy, because these do not look like degra
 
 Consequence for evaluation: an accuracy-only score conflates "refused", "summarised instead", and "answered wrongly", which have completely different fixes. Classify failures by type before tuning chunk counts. Also note retrieval recall itself saturates at very different points by corpus — 8k on Natural Questions but 128k on HotPotQA and FinanceBench — so there is no portable "right" number of chunks.
 
-Staleness caveat: measured on 2024-era models. The thresholds will move; the taxonomy of failure modes is the durable part.
+STALENESS: published 2024-08-12, covering 13 models current as of mid-2024; verified 2026-07-26 as still live and NOT updated for newer models. Every named threshold is therefore a point-in-time measurement several model generations old and should not be quoted as current — do not conclude anything about a 2026 model's behaviour from the GPT-4o row. The durable contributions are the failure taxonomy and the finding that the corpus, not just the model, sets where retrieval recall saturates.
