@@ -21,3 +21,7 @@ https://research.google/blog/
 https://embracethered.com/blog/
 https://metr.org/blog/
 https://sourcegraph.com/blog
+https://cognition.com/blog
+https://www.trychroma.com/research
+https://code.claude.com/docs/en/best-practices
+https://genai.owasp.org/
