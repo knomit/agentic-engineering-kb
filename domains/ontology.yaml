@@ -1,68 +1,70 @@
-id: source-code
-name: Source Code Knowledge
-description: Knowledge categories for AI agents working in a codebase.
+id: agentic-engineering
+name: Agentic Engineering Knowledge
+description: Knowledge for people building agentic products, and for coding agents handed this pack as context. Every fact is distilled from a named external source and carries at least one URL. The bar is altitude — if a competent model would already produce the claim at this specificity from its own priors, it does not belong here.
 topics:
   architecture:
-    description: Structural facts — what lives where, how it connects
+    description: Structural patterns — how agent components fit together, and the conditions where a shape stops being the right one
     children:
-      flows:
-        description: Request/data flow paths
-      integrations:
-        description: External services, libraries, MCP servers
-      modules:
-        description: Package/module purpose and boundaries
+      ai:
+        description: All knowledge in this pack sits under ai/
+        children:
+          agents:
+            description: Agent engineering — tools and MCP, context-engineering, multi-agent, runtime, security, guardrails, interop, operations, state-management, coding-agents
+          rag:
+            description: Retrieval-augmented generation and long-context behaviour
   conventions:
-    description: How we do things here — idioms, patterns, style
+    description: Idioms and practices that work, stated with the reason and the boundary condition rather than generically
     children:
-      errors:
-        description: Wrapping, surfacing, fallbacks
-      git:
-        description: Commit messages, branch model, PR norms
-      logging:
-        description: Library, levels, structured fields
-      naming:
-        description: File, type, function naming patterns
-      testing:
-        description: Mocks, fixtures, structure
+      ai:
+        description: All knowledge in this pack sits under ai/
+        children:
+          agents:
+            description: Agent engineering — tools, coding-agents, evaluation, prompting, reliability, design, frameworks, operations
+          rag:
+            description: Retrieval-augmented generation and long-context behaviour
   decisions:
-    description: Design choices with rationale
+    description: Tradeoffs with rationale and the conditions that decide them, including live disagreements between credible sources kept as a decision rather than flattened
     children:
-      accepted:
-        description: Decisions in force
-      rejected:
-        description: Alternatives considered and rejected
-      superseded:
-        description: Previously accepted, now replaced
+      ai:
+        description: All knowledge in this pack sits under ai/
+        children:
+          agents:
+            description: Agent engineering — context-engineering, multi-agent, orchestration, reasoning, evaluation, harness-design, model-selection, reliability, tools, architecture-patterns
+          rag:
+            description: Retrieval strategy and long-context tradeoffs
   gotchas:
-    description: Sharp edges and surprises
+    description: Sharp edges and surprises — an observable symptom paired with its stated cause
     children:
-      libraries:
-        description: Third-party library quirks
-      runtime:
-        description: Language/runtime traps
-      tools:
-        description: Build, test, dev-tool gotchas
+      ai:
+        description: All knowledge in this pack sits under ai/
+        children:
+          agents:
+            description: Agent engineering — evaluation, tools, coding-agents, multi-agent, reliability, context-engineering, security, prompting, frameworks
+          rag:
+            description: Retrieval and long-context failure modes
   incidents:
-    description: Past bugs and their fixes (regression-test anchored)
+    description: A specific documented failure and its fix, anchored to a published account
     children:
-      bugs:
-        description: Bugs that landed
-      near-misses:
-        description: Caught before merging
+      ai:
+        description: All knowledge in this pack sits under ai/
+        children:
+          agents:
+            description: Agent engineering — security incidents, exfiltration, autonomous intrusion
   invariants:
-    description: Load-bearing rules that must never be violated
+    description: Load-bearing rules — violate one and it breaks. Spec-level constraints and hard limits belong here
     children:
-      architecture:
-        description: Layering, dependency, ownership constraints
-      concurrency:
-        description: Thread, lock, ordering rules
-      data:
-        description: Invariants on data models, schemas, indexes
-      protocol:
-        description: API contracts, wire-format guarantees
+      ai:
+        description: All knowledge in this pack sits under ai/
+        children:
+          agents:
+            description: Agent engineering — security, tools and MCP, reliability, frameworks, prompting
+          governance:
+            description: Regulatory and risk-management frameworks (NIST AI RMF, and similar)
   meta:
-    description: Knowledge about the knowledge
+    description: Knowledge about the knowledge — pack spec and crawl-job state, not knowledge of the field itself
     children:
+      jobs:
+        description: Per-job state. Holds the read-only spec mirror, the recurring source list, and the last crawl run
       ontology:
         description: Notes about how this ontology is used
       reasoning:
@@ -86,7 +88,7 @@ topics:
       anti-patterns:
         description: Choices the designer rejects
       mission:
-        description: What knomit exists to solve, who it's for
+        description: What this pack exists to solve, who it's for
       philosophy:
         description: Mental-model rules that span subsystems
       ux:
