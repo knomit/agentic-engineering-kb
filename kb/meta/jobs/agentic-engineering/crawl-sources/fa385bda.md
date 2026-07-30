@@ -30,6 +30,58 @@ https://modelcontextprotocol.io/specification/versioning
 https://github.com/vectara/hallucination-leaderboard
 https://huggingface.co/blog
 
+*** MCP PROTOCOL REVISION MOVED — 2025-11-25 IS SUPERSEDED BY 2026-07-28 (found eleventh run) ***
+The versioning page now names **2026-07-28** as Current. This is a LARGE backwards-incompatible
+revision, not a point update. Appendix A on disk still says 'MCP's current revision is
+2025-11-25' — THAT LINE IS NOW WRONG and a human should fix the disk copy.
+What changed (all recorded in the kb): protocol sessions and Mcp-Session-Id REMOVED; the
+initialize/initialized handshake REMOVED (version + capabilities now per-request in _meta);
+mandatory server/discover RPC; SSE resumability REMOVED; ping / logging/setLevel /
+notifications/roots/list_changed REMOVED; tasks moved OUT of core into extension
+io.modelcontextprotocol/tasks; server-initiated requests replaced by Multi Round-Trip Requests;
+Roots, Sampling and Logging DEPRECATED; OAuth Dynamic Client Registration deprecated in favour
+of Client ID Metadata Documents; error codes renumbered with a new allocation policy.
+The sixth run's lesson held again: GREP THE REFS, NOT JUST THE BODIES. Facts updated this run:
+031dab74, f89c1d7a, b471f9ef, 46eeb374, 62312b79 (ref repoint), 62c9a78b (version pin).
+STILL UNREAD in this revision and worth a future fetch: /specification/2026-07-28/basic/
+authorization/client-registration (CIMD), .../basic/patterns/mrtr, .../deprecated (the registry),
+and /docs/extensions/overview. Also unread: the AgentCore Gateway post is a useful
+second-source read on the same revision — aws.amazon.com/blogs/machine-learning/
+how-agentcore-gateway-supports-the-mcp-2026-07-28-spec/ (READ this run).
+WATCH: the versioning page remains the cheapest tripwire in the pack. Check it EVERY run.
+
+*** FOUR RECURRING FEEDS HAD NEVER BEEN SWEPT IN TEN RUNS — FOUND AND FIXED, ELEVENTH RUN ***
+This is the exact failure the job description warns about: a URL sitting in the recurring list
+is NOT evidence anyone followed it. Cross-referencing the list against every crawl-state
+revision showed four indexes with ZERO article-level fetches ever:
+  microsoft.com/en-us/research/blog/  — never swept. HIGH YIELD. Surfaced SkillOpt (fact
+    f0fdc77a, +23.5 pts absolute, 52/52 cells) and Memora (fact eaacbe8a). This is a real seam.
+  aws.amazon.com/blogs/machine-learning/ — never swept. Surfaced the MCP 2026-07-28 spec change
+    above, which is the single most consequential finding of the run. High volume, heavily
+    product-marketing, but AgentCore/Bedrock posts track spec changes early. WORTH KEEPING.
+  www.latent.space/archive — the bare domain was fetched (4th run, subscribe wall) and ONE
+    article was read (5th run), but the ARCHIVE INDEX had never been swept. Swept this run;
+    the newest post (ontologies-agentic-systems) is discussion-level with no numbers and no
+    failure conditions — BELOW THE BAR, not written up. Still unread: /p/aiewf26trends,
+    /p/modal2026, /p/poolside, /p/chatgpt-work.
+  genai.owasp.org/ — the init run fetched three DEEP links but never the index. Swept this run.
+    See the PDF blocker below.
+GENERALISE THIS: before trusting any recurring source as 'up to date', check the history for an
+ARTICLE-LEVEL fetch from it, not merely a mention. Four of twenty-one were phantoms.
+
+*** OWASP RESOURCES ARE GATED PDFs — DO NOT SPEND REPEATED FETCHES (eleventh run) ***
+genai.owasp.org/ index reads fine and enumerates resources, but the substantive reports sit
+behind download links as PDFs, and there is no PDF renderer in this session (same failure mode
+as the OpenAI practical-guide PDF that Appendix A already tells us to skip). Landing pages
+carry only a title, date and one-line description.
+Named and UNREAD for this reason: 'State of Agentic AI Security and Governance 2.01' (Jun 2026),
+'AIUC-1 Crosswalks OWASP Top 10 For Agentic Applications' (May 2026), 'AI Security Solutions
+Landscape for AI and Agentic Red Teaming Q2 2026' (Apr 2026).
+HTML blog posts on the same site DO read and are the way in. Unread and promising:
+  /2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/  (ASI06 memory/context poisoning)
+  /2026/04/14/owasp-genai-exploit-round-up-report-q1-2026/
+  /2026/04/14/finbot-ctf-is-live-...
+
 *** kb/principles/** IS READ-ONLY TO JOBS — FOUND THE TENTH RUN, AFFECTS THE STALENESS PASS ***
 knomit_update on a fact under kb/principles/ fails with:
     validation "must-have-designer-entity" at principles: principles must be authored via
@@ -37,68 +89,54 @@ knomit_update on a fact under kb/principles/ fails with:
 Pipeline-minted synthesis facts (origin: distilled or discovered) live under kb/principles/ and
 legitimately have no 'designer' entity. Do NOT add one to get past the validator — it would
 falsely assert designer authorship, and origin is immutable, so there is no honest fix from
-inside a job. Affected facts, all unfixable from here: 1feacc9e, 2c0e8e7c, b9b45ff5, 0f260eea,
-6ec9b2b6, 00d3ef19, 28ba65db, c2f12069.
-PRACTICAL EFFECT ON THE STALENESS PASS: you can read and verify these, but you cannot record
-the result — no confidence bump, no correction, no note. Sampling them spends budget for no
-durable change. PREFER OTHER TOPICS unless a human resolves this. The tenth run verified
-c2f12069 (durability substrate) as CONFIRMED and could not write it; the check will have to be
-redone by whoever fixes this.
-THIS ALSO MAKES THE REF-COMPLIANCE ISSUE BELOW UNFIXABLE, not merely unflagged — see below.
+inside a job. Affected: 1feacc9e, 2c0e8e7c, b9b45ff5, 0f260eea, 6ec9b2b6, 00d3ef19, 28ba65db,
+c2f12069. You can READ and verify these but cannot record the result. PREFER OTHER TOPICS.
+THIS ALSO MAKES THE REF-COMPLIANCE ISSUE BELOW UNFIXABLE, not merely unflagged.
 
-*** SPEC-COMPLIANCE ISSUE, escalated by the tenth run, for a human to decide ***
+*** SPEC-COMPLIANCE ISSUE, for a human to decide ***
 Synthesis facts minted by the discovery/distill pipelines carry only LOCAL refs and no external
 URL — e.g. kb/principles/ai/rag/evaluation/28ba65db, kb/principles/ai/agents/architecture/
 c2f12069. The spec says every fact MUST carry at least one URL in refs. Their grounding is real
-(it flows through the local refs, which do carry URLs), so this is arguably fine for synthesis
-specifically, but the spec has no such carve-out. The ninth run flagged it. The TENTH run tried
-to FIX it on c2f12069 — listing the external URLs already reached through its local refs
-alongside them, which changes grounding not at all — and the edit was REJECTED by the
-designer-entity validator above. So a job cannot close this. Either the spec needs the carve-out
-written in, or the pipelines need to propagate external refs at mint time, or kb/principles/
-needs to accept job edits to pipeline-origin facts. Not retracted; the facts are sound.
+(it flows through the local refs), so this is arguably fine for synthesis, but the spec has no
+such carve-out. The tenth run tried to fix it and was REJECTED by the designer-entity validator.
+Either the spec needs the carve-out, or the pipelines must propagate external refs at mint time,
+or kb/principles/ must accept job edits to pipeline-origin facts.
+RELATED, and this one IS job-fixable: ordinary facts can also have refs MISFILED. The eleventh
+run found c99ec745 carrying an external GitHub URL inside refs.local. Re-sending the full refs
+list as external corrected it. Worth spot-checking during staleness passes.
 
 *** READ THIS FIRST: 'JS-RENDERED, UNREADABLE' VERDICTS IN THIS PACK ARE UNRELIABLE ***
-Two separate sources have now been written off as unreachable and turned out not to be.
+Two sources were written off as unreachable and turned out not to be.
   builder.aws.com — recorded dead by three runs. The browser reads it fine (method below).
-  Vectara hallucination leaderboard — recorded as needing a browser. It does not: the
-    canonical source is the GitHub README at github.com/vectara/hallucination-leaderboard,
-    which is server-rendered and reads with a plain WebFetch.
-Before recording ANY source as dead, do both of these: (1) look for a server-rendered
-canonical mirror — a GitHub README, a raw file, an RSS/Atom feed, an archive path; (2) check
-whether the claude-in-chrome browser tools are loadable in the session.
+  Vectara hallucination leaderboard — the canonical source is the GitHub README at
+    github.com/vectara/hallucination-leaderboard, server-rendered, plain WebFetch.
+Before recording ANY source as dead: (1) look for a server-rendered canonical mirror — GitHub
+README, raw file, RSS/Atom feed, archive path; (2) check whether the claude-in-chrome browser
+tools are loadable. A GATED PDF (OWASP above) is a different and genuine blocker — no browser
+helps, because the content is not HTML at all.
 
 Browser method, works first try, no clicking or waiting:
     mcp__claude-in-chrome__navigate {url}        -> returns a tabId
     mcp__claude-in-chrome__get_page_text {tabId} -> full article text
-CAVEAT, settled across four runs: on builder.aws.com the FIRST get_page_text after a navigate
-SOMETIMES returns a stub ending in the literal string 'Loading article'; call it again and the
-full text is there. Sixth run: reproduced every time. Seventh: zero times in five fetches.
-Eighth: once. NINTH: zero times in four fetches. Genuine but intermittent race, plausibly
-cold-cache-related. Always check whether the text ends at 'Loading article' and re-call if so.
-Never conclude 'blocked' from one empty call.
-To pull links/hrefs off an index, use
-    mcp__claude-in-chrome__javascript_tool with a querySelectorAll expression —
-    mcp__claude-in-chrome__find returns element refs but NOT hrefs.
-NOTE (tenth run): large learn.microsoft.com pages exceed WebFetch's inline limit and are
-persisted to a file on disk; just Read the path returned. This is normal, not a failure — the
-multi-backend gateway guide (6,881 words) and the agent-design-patterns page (7,133 words) both
-did this. Ask a NARROW prompt if you want the answer inline instead.
+CAVEAT: on builder.aws.com the FIRST get_page_text after a navigate SOMETIMES returns a stub
+ending in 'Loading article'; call it again. Intermittent across runs (6th: every time; 7th and
+9th: never; 8th: once). Never conclude 'blocked' from one empty call.
+To pull links/hrefs off an index use mcp__claude-in-chrome__javascript_tool with a
+querySelectorAll expression — mcp__claude-in-chrome__find returns element refs but NOT hrefs.
+NOTE: large learn.microsoft.com pages exceed WebFetch's inline limit and are persisted to a file
+on disk; just Read the path returned. Ask a NARROW prompt to keep the answer inline instead.
+Likewise a large knomit_query result can exceed the tool-result limit — lower `limit`, or filter,
+rather than trying to read the spill file (its lines are too long for Read's chunking).
 
 *** BUILDERS' LIBRARY — SOME ARTICLES ARE VIDEO-ONLY (ninth run) ***
-Two of the four titles the eighth run ranked as highest-value turned out to have NO PROSE BODY.
-The page renders a title, a one-line abstract, an author and a date, and nothing else — they are
-landing pages for recorded conference talks. Confirmed video-only, DO NOT RE-FETCH:
-  amazons-approach-to-failing-successfully   | 3F05J4fjklUZCE7kjuIp6LaTacl  ('Formerly presented
-     by Becky Weiss' — that byline phrasing is the tell)
+Confirmed video-only, no prose body, DO NOT RE-FETCH:
+  amazons-approach-to-failing-successfully   | 3F05J4fjklUZCE7kjuIp6LaTacl
   beyond-five-9s-lessons-from-our-highest-available-data-planes | 3F073j4jJOsSRTDlQM3eiZxkFLm
-Both are 'Published Jun 12, 2026', as are leader-election and lunch-rush which DO have full
-prose — so publication date does not predict it. Budget one cheap fetch per article and abandon
-immediately if the text ends right after the byline.
+Publication date does not predict it. Budget one cheap fetch per article and abandon immediately
+if the text ends right after the byline.
 
-*** AWS BUILDERS' LIBRARY — COMPLETE ARTICLE ENUMERATION (30 of 30, fully expanded on the
-    seventh run; this is the WHOLE catalogue, no more pagination) ***
-Article URLs are opaque content IDs and CANNOT be guessed from titles. Form the URL as:
+*** AWS BUILDERS' LIBRARY — COMPLETE ENUMERATION (30 of 30, no more pagination) ***
+URLs are opaque content IDs, NOT guessable from titles. Form as:
     https://builder.aws.com/content/<ID>/<slug>
 
 READ (16 of 30):
@@ -116,16 +154,11 @@ READ (16 of 30):
   avoiding-overload-...-smaller-service-in-control | 3EukISjbJAGNdrxjKaN6RG0wlHG   (2 facts)
   reliability-constant-work-and-a-good-cup-of-coffee | 3F05oqNtNUWxHJ5r6L6I2HrH4rI (3 facts)
   instrumenting-distributed-systems-for-operational-visibility | 3EuxPBdIiiUhB5IK47p3O3fxhy7 (6+2upd)
-  leader-election-in-distributed-systems | 3Ev0vH0hfkcUizISUWYTvHibtcp             (2 facts, ninth run)
-  resilience-lessons-from-the-lunch-rush | 3Ev17ZWA9QX88MmoaULAKevIR8H             (1 fact, ninth run)
+  leader-election-in-distributed-systems | 3Ev0vH0hfkcUizISUWYTvHibtcp             (2 facts)
+  resilience-lessons-from-the-lunch-rush | 3Ev17ZWA9QX88MmoaULAKevIR8H             (1 fact)
 
-VIDEO-ONLY, NO PROSE — do not re-fetch (2 of 30):
-  amazons-approach-to-failing-successfully | 3F05J4fjklUZCE7kjuIp6LaTacl
-  beyond-five-9s-lessons-from-our-highest-available-data-planes | 3F073j4jJOsSRTDlQM3eiZxkFLm
-
-UNREAD (12) — reliability first, CI/CD last. Expect LOWER yield than the read set: lunch-rush
-was largely a survey of articles already mined (1 new fact, 3 corroborations), and 6 of these
-are CI/CD and deployment, further from this pack's centre.
+UNREAD (12) — reliability first, CI/CD last. Expect LOWER yield: 6 of these are CI/CD and
+deployment, further from this pack's centre.
   amazons-approach-to-building-resilient-services | 3Ev4sNuZLsnpwl9CZAOOO8hkZyf
   architecting-and-operating-resilient-serverless-systems-at-scale | 3Ev4bbEHBC5KvyYC6IcNazUXJmk
   automating-safe-hands-off-deployments | 3ErTKQOTKc5NIw031UePBPxTQ6I
@@ -139,150 +172,137 @@ are CI/CD and deployment, further from this pack's centre.
   my-cicd-pipeline-is-my-release-captain | 3Ev3XnnYuuBhlgnywbbVFzwibm1
   going-faster-with-continuous-delivery | 3F08Mhh186qOa4VhG19egs06NJa
 
-NOTE: two articles cross-referenced from inside the ones already read are NOT in the
-30-item catalogue and appear to be retired — 'Caching challenges and strategies' and 'Static
-stability using Availability Zones'. Do not keep hunting for them. Static stability IS covered
-in substance inside smaller-service-in-control, and caching's failure modes inside
-constant-work and lunch-rush, so neither gap is as bad as it looked.
+'Caching challenges and strategies' and 'Static stability using Availability Zones' are NOT in
+the catalogue and appear retired. Do not hunt them. Static stability is covered inside
+smaller-service-in-control; caching's failure modes inside constant-work and lunch-rush.
 
-note: the MCP versioning page names the current protocol revision directly and is cheap to
-check; when it changes, re-read that revision's changelog and re-check the
-kb/*/ai/agents/tools/mcp/** facts. Checked 2026-07-26 (fourth run): still 2025-11-25. The
-sixth run found kb/architecture/ai/agents/interop/protocols/62312b79 still REFERENCING the
-superseded 2025-06-18 revision and repointed it — when the revision moves, grep the refs, not
-just the bodies.
-
-redirects folded into the list above so future runs stop paying a round-trip for them:
+redirects folded in so future runs stop paying a round-trip:
   cookbook.openai.com -> developers.openai.com/cookbook
   blog.langchain.dev  -> www.langchain.com/blog
   aws.amazon.com/builders-library -> builder.aws.com/learn/topics/builders-library
-  www.latent.space -> www.latent.space/archive (the bare domain serves only a subscribe wall)
+  www.latent.space -> www.latent.space/archive (bare domain serves only a subscribe wall)
 
-CORRECTED (fifth run): two cognition slugs guessed from titles 404'd. Always pull
+CORRECTED (fifth run): cognition slugs guessed from titles 404. Always pull
 https://cognition.com/blog for exact slugs.
   'Coding Agents 101' = /blog/coding-agents-101-the-art-of-actually-getting-things-done
 
-STRANDS DOC URLS — FOUND (seventh run). Three earlier runs 404'd on guessed paths. The
-working base is https://strandsagents.com/docs/... (NOT /latest/..., which 404s):
-  https://strandsagents.com/docs/user-guide/concepts/agents/conversation-management/  (READ)
-  https://strandsagents.com/docs/api/python/strands.agent.conversation_manager.conversation_manager/
-  https://strandsagents.com/docs/api/python/strands.agent.agent/
-The sdk-python GitHub README is marketing-level and yielded nothing — go straight to /docs.
-Still unread there: Swarm / Graph / Agent-as-Tool multi-agent patterns, session persistence.
+STRANDS DOC URLS — base is https://strandsagents.com/docs/... (NOT /latest/..., which 404s):
+  .../user-guide/concepts/agents/conversation-management/  (READ)
+  .../api/python/strands.agent.conversation_manager.conversation_manager/
+  .../api/python/strands.agent.agent/
+The sdk-python GitHub README is marketing-level. Still unread: Swarm / Graph / Agent-as-Tool
+multi-agent patterns, session persistence.
 
-AZURE ARCHITECTURE CENTER — doc URLs harvested from the ai-ml index (eighth run). The index
-itself is a pure catalogue with no guidance of its own; do not re-fetch it. Prefix every one
-with https://learn.microsoft.com/en-us/azure/architecture/ai-ml/
-  .../guide/ai-agent-design-patterns                       (READ — fact c926c07b; re-verified
-      tenth run for c1bbf73f, dated 2026-02-12 refreshed 2026-05-12)
-  .../guide/manage-foundation-models-lifecycle             (READ, ninth run — updated 27652a82)
-  .../guide/azure-openai-gateway-guide                     (READ, tenth run — 2 facts + upd 5ad0fb45)
-  .../guide/azure-openai-gateway-multi-backend             (READ, tenth run — 4 facts + upd 27652a82;
-      the single densest page in this seam so far, 6,881 words, heavily prescriptive)
-  .../guide/azure-openai-gateway-monitoring                <- LAST of the gateway trio, still unread
-  .../guide/rag/rag-solution-design-and-evaluation-guide   <- NEXT RUN, plus per-phase pages:
+AZURE ARCHITECTURE CENTER — prefix with
+https://learn.microsoft.com/en-us/azure/architecture/ai-ml/
+  .../guide/ai-agent-design-patterns                       (READ — c926c07b)
+  .../guide/manage-foundation-models-lifecycle             (READ — updated 27652a82)
+  .../guide/azure-openai-gateway-guide                     (READ — 2 facts + upd 5ad0fb45)
+  .../guide/azure-openai-gateway-multi-backend             (READ — 4 facts + upd 27652a82)
+  .../guide/azure-openai-gateway-monitoring                <- LAST of the gateway trio, UNREAD
+  .../guide/rag/rag-solution-design-and-evaluation-guide   <- LARGEST unread block, plus:
       rag-preparation-phase, rag-chunking-phase, rag-enrichment-phase,
       rag-generate-embeddings, rag-information-retrieval, rag-llm-evaluation-phase
   .../guide/secure-multitenant-rag
   .../guide/genaiops-for-mlops
 
-YIELD RANKING as of the TENTH run — spend the budget in this order:
-  1. PRIMARY INCIDENT POST-MORTEMS, wherever they appear (huggingface.co/blog, vendor
-     engineering blogs, simonwillison as a pointer to them). VALIDATED TWICE NOW. The ninth run
-     promoted this on the strength of the HF timeline; the tenth run's two Anthropic postmortems
-     produced 6 facts from 2 fetches and established a whole new axis for the pack (the SERVING
-     STACK degrades a pinned model while evals stay green). Across those two postmortems, SIX
-     regressions and not one was a weights change. When a primary post-mortem appears for an
-     incident already in the kb, fetch it and re-verify — do not assume the kb version is right.
-  2. Azure Architecture Center doc pages listed above — PROMOTED from 3. Best-validated unread
-     seam in the pack: the gateway pair gave 5 new facts + 2 updates from 2 fetches. Microsoft
-     doc pages are prescriptive, structured, dated, and on 180-day update cycles, which clears
-     this pack's bar far better than vendor blog posts. The six-part RAG series is the largest
-     coherent unread block anywhere in this file — take it next.
-  3. anthropic.com/engineering — still strong, and BOTH postmortems are now read. STILL UNREAD:
-     eval-awareness-browsecomp, AI-resistant-technical-evaluations, building-c-compiler,
-     contextual-retrieval, swe-bench-sonnet, desktop-extensions. The first two look strongest.
-     Index re-checked 2026-07-29: nothing newer than how-we-contain-claude.
-  4. builder.aws.com Builders' Library — still good but visibly exhausting: 16 of 30 read for
-     55+ facts, but the ninth run got only 3 facts from 4 fetches (2 video-only, 1 survey
-     article). The remaining 12 skew CI/CD. Read resilient-services and resilient-serverless,
-     then reassess whether the seam deserves further budget.
-  5. cognition.com/blog — dense, specific, publishes reversals of its own positions. Unread
+YIELD RANKING as of the ELEVENTH run — spend the budget in this order:
+  1. SPEC AND PROTOCOL TRIPWIRES — NEW AT RANK 1, and it earned it. One cheap fetch of
+     modelcontextprotocol.io/specification/versioning caught a whole protocol revision that
+     invalidated parts of five existing facts. Spec pages are dated, authoritative, and change
+     underneath you silently. Check the MCP versioning page EVERY run; when it moves, read the
+     changelog and grep the refs.
+  2. PRIMARY INCIDENT POST-MORTEMS, wherever they appear. Validated twice (ninth, tenth runs).
+     When one appears for an incident already in the kb, fetch it and re-verify — do not assume
+     the kb version is right.
+  3. microsoft.com/en-us/research/blog — NEW ENTRY, swept for the first time this run and
+     immediately produced 2 facts from 2 fetches, one of them (SkillOpt) with unusually strong
+     measurements. Research-grade, dated, method-and-numbers posts. Scan for agent/memory/skill/
+     eval posts; skip health, quantum and diffusion. STRONG.
+  4. anthropic.com/engineering — still strong. eval-awareness-browsecomp READ this run (fact
+     2d280a46). STILL UNREAD: AI-resistant-technical-evaluations, building-c-compiler,
+     contextual-retrieval, swe-bench-sonnet, desktop-extensions.
+  5. Azure Architecture Center doc pages above. The gateway pair gave 5 facts + 2 updates from
+     2 fetches. The six-part RAG series is the largest coherent unread block in this file.
+  6. aws.amazon.com/blogs/machine-learning — NEW ENTRY. High volume and heavily product-
+     marketing, but it is where spec-level changes surface early (it is how 2026-07-28 was
+     caught). Scan titles for spec/protocol/security/identity; skip customer stories and
+     'build X with Y' tutorials, which are most of the feed.
+  7. builder.aws.com Builders' Library — 16 of 30 read for 55+ facts, but visibly exhausting.
+     Read resilient-services and resilient-serverless, then reassess.
+  8. cognition.com/blog — dense, specific, publishes reversals of its own positions. Unread
      TECHNICAL posts: coding-agents-101-the-art-of-actually-getting-things-done, swe-grep,
      blockdiff, devin-annual-performance-review-2025, evaluating-coding-agents,
      making-fable-cheaper-than-opus, devin-fusion, swe-1-7,
      measuring-open-source-model-trustworthiness, introducing-devin-security-swarm,
      frontier-code and frontier-code-1.1, ai-productivity.
      Skip partnership/funding/office/acquisition posts — about half the feed.
-  6. huggingface.co/blog — INDEX SWEPT FOR THE FIRST TIME on the tenth run, and it paid: it
-     surfaced ibm-research/model-routing-is-simple-until-it-isnt (READ, 1 fact with real
-     AppWorld cost measurements) plus security-incident-july-2026 (Jul 16, HF's own FIRST
-     disclosure of the intrusion — UNREAD, but the Jul 27 technical timeline already read by
-     the ninth run supersedes most of it; low priority). Confirmed as a real recurring seam,
-     not a one-article fluke. Scan for incident, infrastructure and engineering posts; SKIP
-     model/dataset announcements, which are most of the feed. Note posts can be namespaced
-     under an org (huggingface.co/blog/<org>/<slug>) — those are easy to miss.
-  7. sourcegraph.com/blog — real measurements, not opinions. Unread:
-     compliance-first-ai-proving-agent-provenance (Jul 27),
-     sourcegraph-mcp-and-a-cheaper-model-beat-a-mythos-class-model-alone (Jun 16),
+  9. huggingface.co/blog — real recurring seam. Scan for incident, infrastructure and
+     engineering posts; SKIP model/dataset announcements, which are most of the feed. Posts can
+     be namespaced under an org (huggingface.co/blog/<org>/<slug>) — easy to miss.
+     Unread: security-incident-july-2026 (low priority, superseded by the Jul 27 timeline).
+ 10. genai.owasp.org — HTML blog posts only; the reports are gated PDFs (see above).
+ 11. sourcegraph.com/blog — real measurements. Unread:
+     compliance-first-ai-proving-agent-provenance, 
+     sourcegraph-mcp-and-a-cheaper-model-beat-a-mythos-class-model-alone,
      owning-a-codebase, the-hidden-cost-of-code-that-nobody-touches.
-  8. eugeneyan.com/writing — unread: secure-source-code (May 2026) and anything newer.
-  9. simonwillison.net/tags/llms/ — high volume, mostly link-blogging, but the fastest POINTER
-     to primary post-mortems. Scan for incidents and security; skip model-release commentary.
-     Index re-checked 2026-07-29. discovering-cryptographic-weaknesses-with-claude is now READ
-     (fact 1a3b1ccf: 60h, ~$100k). Unread: the-first-known-runaway-ai-agent (Jul 23),
-     are-ai-labs-pelicanmaxxing (Jul 22), thomas-ptacek (sandbox escapes), bad-codex-bug
-     (file deletions), relay-market (Jul 26, token-reseller fraud). Nothing new since Jul 28
-     except a TIL on adding MCP servers to Claude/ChatGPT, which is below the bar.
- 10. latent.space/archive — interview format but yields thresholds. Unread: /p/modal2026,
-     /p/gray-swan, /p/aiewf26trends.
- 11. langchain.com/blog — eval and benchmark posts clear the bar; customer stories do not.
-     3-years-of-graph-engineering-with-langgraph re-verified live 2026-07-29 (dated 2026-07-22).
- 12. embracethered.com/blog — low volume, high value, security only.
- 13. trychroma.com/research — rare but substantial. Unread: evaluating-chunking.
+ 12. eugeneyan.com/writing — unread: secure-source-code (May 2026) and anything newer.
+ 13. simonwillison.net/tags/llms/ — high volume, mostly link-blogging, but the fastest POINTER
+     to primary post-mortems. Unread: the-first-known-runaway-ai-agent (Jul 23),
+     are-ai-labs-pelicanmaxxing, thomas-ptacek (sandbox escapes), bad-codex-bug (file
+     deletions), relay-market (token-reseller fraud).
+ 14. latent.space/archive — interview format, yields thresholds. Unread: /p/aiewf26trends,
+     /p/modal2026, /p/poolside, /p/chatgpt-work. NOTE: the newest post as of Jul 30
+     (ontologies-agentic-systems) was checked and is BELOW THE BAR — no numbers, no failure
+     conditions, no comparison. This feed skews discussion-level; verify a post has
+     measurements before spending a full read.
+ 15. langchain.com/blog — eval and benchmark posts clear the bar; customer stories do not.
+ 16. embracethered.com/blog — low volume, high value, security only.
+ 17. trychroma.com/research — rare but substantial. Unread: evaluating-chunking.
+ 18. research.google/blog — checked twice, recent output is health/quantum/diffusion. Low yield.
+     microsoft.com/en-us/security/blog — one good agent-identity post, otherwise threat intel.
 
 dead or unreadable, do not keep re-fetching blind:
-  block.github.io/goose -> goose-docs.ai (old host serves only a 'goose has moved' stub).
-  https://strandsagents.com/latest/... -> 404. Use /docs/... (see STRANDS DOC URLS above).
-  NOTE: builder.aws.com and the Vectara leaderboard were BOTH listed here and neither was
-    ever dead. See the warning at the top of this file before adding anything to this list.
+  block.github.io/goose -> goose-docs.ai (old host serves a 'goose has moved' stub).
+  https://strandsagents.com/latest/... -> 404. Use /docs/... above.
+  OWASP resource PDFs — gated download, no renderer. HTML blog posts are fine.
+  NOTE: builder.aws.com and the Vectara leaderboard were BOTH listed here and neither was ever
+    dead. See the warning near the top before adding anything to this list.
 
-checked and low-yield for this pack (do not deprioritise permanently, but do not lead with
-them): research.google/blog — recent output is health/quantum/diffusion, nothing on agents,
-tools, or evals. microsoft.com/en-us/security/blog — one good agent-identity post (re-verified
-live on the tenth run, 2026-07-16, every claim confirmed), otherwise threat intel unrelated to
-building agents.
+TIER 6 GITHUB READMEs — CLOSED OUT, verdict consistent across two runs. Five of six returned
+catalogue- or marketing-level text below the bar. The ONLY two things worth having from the
+whole tier were MAINTENANCE-STATUS notices (autogen's maintenance mode; semantic-kernel's 'now
+Microsoft Agent Framework'), which generalises: a repo README is worth a fetch for LIFECYCLE
+STATUS and nothing else. If a repo matters, go to its DOCS site. Only remaining tier-6 item:
+the x1xhlol INDIVIDUAL prompt files. Frame anything from those as 'this harness's published
+prompt does X', never as 'the correct approach is X'.
 
-TIER 6 GITHUB READMEs — CLOSED OUT, verdict consistent across two runs. Checked seventh run:
-microsoft/autogen, NirDiamant/GenAI_Agents, strands-agents/sdk-python. Checked eighth run:
-anthropics/claude-cookbooks, NirDiamant/RAG_Techniques, microsoft/semantic-kernel. Five of
-those six returned catalogue- or marketing-level text below this pack's altitude bar. The ONLY
-two things worth having from the whole tier were MAINTENANCE-STATUS notices — autogen's
-maintenance mode and semantic-kernel's 'now Microsoft Agent Framework' succession — which
-generalises: a repo README is worth a fetch for LIFECYCLE STATUS and nothing else. Do not spend
-more budget here; if a repo matters, go to its DOCS site. Only remaining tier-6 item: the
-x1xhlol INDIVIDUAL prompt files. Frame anything from those as 'this harness's published prompt
-does X', never as 'the correct approach is X'.
+STALENESS-POOL NOTE (updated eleventh run). Tracked as checked so far — cb98732e, 27652a82,
+111f8b2c, 2b74037b, 5ad0fb45, 62312b79, 0fe91ac7, fc249ffc, a5ade87d, dee636a2, 77b3e628,
+f877f05d, d4e3b247, bcbf13c2, d468cbbe, 089c7cba, 15e7bf02, 46f3ea69, 56986e8f, d87795d4,
+882100d9, 28ba65db, c93d93ee, c7290868, c1bbf73f, 48c4e555, c2f12069, and (eleventh run)
+62c9a78b, e9b7eef3, 96ebc34e, c858a924, c99ec745.
+Nothing in this kb is yet older than 90 days, so confidence remains the only sampling axis;
+when the pool is exhausted, switch to age per the spec. AVOID SAMPLING kb/principles/**.
 
-STALENESS-PASS POOL NOTE (updated tenth run): the low-confidence pool is shallow and runs had
-begun re-sampling the same facts. Tracked as checked so far — cb98732e, 27652a82, 111f8b2c,
-2b74037b, 5ad0fb45, 62312b79, 0fe91ac7, fc249ffc, a5ade87d, dee636a2, 77b3e628, f877f05d,
-d4e3b247, bcbf13c2, d468cbbe, 089c7cba, 15e7bf02, 46f3ea69, 56986e8f, d87795d4, 882100d9,
-28ba65db, and (tenth run) c93d93ee, c7290868, c1bbf73f, 48c4e555, c2f12069.
-The three facts the ninth run listed as UNCHECKED are now all done. Nothing in this kb is yet
-older than 90 days, so confidence remains the only sampling axis; when the pool is exhausted,
-switch to age per the spec. AVOID SAMPLING kb/principles/** — see the write-block at the top.
-
-WHAT THE STALENESS PASS ACTUALLY FINDS — three runs of evidence, worth acting on. It is NOT
-finding stale facts (nothing here is 90 days old yet). It is finding CITATION-FIDELITY defects
-in facts whose underlying claims are entirely correct:
-  ninth run  — 56986e8f: a paraphrase wearing quote marks.
-  tenth run  — c93d93ee: an overclaiming gloss ('a loop is a DCG with ONE node') attributed to
-               the source, which said only 'a loop is just a directed, cyclic graph'.
-  tenth run  — c7290868: INVERTED CAUSATION. Source: managers are prescriptive because they were
-               TRAINED on small-scoped delegation, and shallow codebase context makes that
-               BACKFIRE. The fact had said shallow context CAUSES the prescriptiveness, and then
-               drew a diagnostic inference that pointed at the wrong remedy.
-So: when re-checking a fact, verify QUOTATION BOUNDARIES and CAUSAL DIRECTION explicitly, not
-just whether the claim is still true. An accurate claim with the causality reversed is worse
-than a stale one, because it silently redirects the reader's fix.
+WHAT THE STALENESS PASS ACTUALLY FINDS — FOUR RUNS OF EVIDENCE, and it is now the single most
+reliable defect-finder in this job. It is NOT finding stale facts. It is finding
+CITATION-FIDELITY defects in facts whose underlying claims are correct:
+  ninth   — 56986e8f: a paraphrase wearing quote marks.
+  tenth   — c93d93ee: an overclaiming gloss attributed to the source.
+  tenth   — c7290868: INVERTED CAUSATION pointing at the wrong remedy.
+  eleventh— 96ebc34e: BOTH at once. A pack gloss ('more tools made performance worse due to poor
+            strategic usage') was presented as a quote AND reversed the blame — the source says
+            agents 'weren't given sufficient strategic information', i.e. the BUILDER under-
+            documented the tools. The gloss implies the model is bad at choosing and a stronger
+            model would help; the source says fix your tool descriptions. Also scoped wrong:
+            'this' in the source is CONTEXT OVERFLOW, not general performance.
+  eleventh— c858a924: WRONG ACTOR. '94% agreement between independent auditors' → the auditors
+            were GPT-5.5 and Opus 4.6, i.e. LLM judges, across 313 tasks. The fact concluded
+            'human transcript review is reproducible enough to be worth doing'. It licensed a
+            practice the evidence never supported.
+CHECKLIST for future passes — verify all four explicitly, not just 'is the claim still true':
+  (1) quotation boundaries, (2) causal direction, (3) WHO the actor is in a cited measurement
+  (human vs model vs tool), (4) what the pronoun in a quoted sentence actually refers to.
+Also spot-check refs classification (local vs external) and `sources` counts — e9b7eef3 carried
+sources: 0 with one real source; c99ec745 had an external URL filed as local.
