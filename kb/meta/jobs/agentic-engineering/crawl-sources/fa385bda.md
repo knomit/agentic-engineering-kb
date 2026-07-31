@@ -4,7 +4,7 @@ domain: [agentic-engineering, job-state]
 confidence: 1
 sources: 0
 entities: [agentic-engineering]
-refs: ['https://github.com/knomit/knomit']
+refs: ['https://github.com/knomit/knomit', kb/meta/jobs/agentic-engineering/crawl-state/037911b0.md]
 ---
 # Recurring crawl sources
 
