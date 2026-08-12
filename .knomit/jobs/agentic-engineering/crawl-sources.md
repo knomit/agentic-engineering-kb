@@ -105,17 +105,14 @@ pypdf caveats that still hold: the true page count can exceed what the Read tool
 (AIUC-1 announced 15pp, is 55); Read's `limit` counts LINES and one PDF page is one very long line;
 slide-deck PDFs lose word spacing but stay readable.
 
-*** THE HISTORY WALK IS OVER — DO NOT REOPEN IT ***
-crawl-state at .knomit/jobs/agentic-engineering/crawl-state.md is SELF-CONTAINED: it carries the
-complete ALREADY_CRAWLED union in its own body. It is revision 1 of a named slot; knomit_explain
-returns one revision with more_available:false and that is CORRECT AND COMPLETE, not truncated.
-The orphaned pre-migration lineage was reconciled with git out of band and folded in. The old
-kb/meta/jobs/agentic-engineering/** facts are CONFIRMED RETRACTED (verified 14th run: a prefix query
-on kb/meta/jobs/ returns zero facts). Nothing to repair, nothing to walk.
-STILL FOR A HUMAN: DO NOT RUN knomit_review SCOPED TO domain=agentic-engineering — that is what
-deleted the fact originally. Both job-state slots carry that domain tag and are textually similar,
-which is what the dedup pass latched onto. Answering "keep" inside a work item is NOT protection.
-
+*** THE HISTORY WALK IS BACK — THE MODEL CHANGED 2026-08-11. WALK IT. ***
+Supersedes every earlier "the walk is over / do not reopen it" banner in this file. crawl-state no
+longer carries a cumulative union; each run REPLACES its body with only what that run newly crawled,
+and the full ALREADY_CRAWLED set is reconstructed by walking crawl-state's revisions with
+knomit_explain. Protocol and the aging rule are in Appendix S. The last cumulative revision (14th
+run, 197 URLs) is the BACKFILL FLOOR — a walk that reaches it has reached the bottom.
+Why: a cumulative body grows without bound and is re-read in full every run, and a flat union has no
+per-URL dates, so it cannot express "older than N days counts as never crawled".
 OWASP GenAI PDF REPORTS — STATUS:
   AIUC-1 Crosswalks OWASP Top 10 for Agentic Applications (May 2026, 55pp)  READ (11th), 3 facts+1 upd
   AI Security Solutions Landscape for AI/Agentic Red Teaming Q2 2026 (15pp) READ (11th), 1 fact
