@@ -34,7 +34,11 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    Both are read-only navigation + text extraction and both cracked openai.com. The server must run
    REAL Chrome, not headless Chromium — headless Chromium gets a Cloudflare "Just a moment..."
    interstitial. Plain curl also 403s. Do NOT record openai.com as paywalled or dead — it is
-   WebFetch-403, browser-readable. VERIFIED 2026-08-11 on four separate openai.com/index/ posts.
+   WebFetch-403, browser-readable. VERIFIED 2026-08-11 on four separate openai.com/index/ posts, and
+   AGAIN 2026-08-12 (15th run) on three more with mcp__claude-in-chrome__*, first try, no retries.
+   NOTE THE HOST BOUNDARY: this is openai.com ONLY. developers.openai.com and cdn.openai.com are NOT
+   403 — the API guides read fine with plain WebFetch, and cdn.openai.com PDFs download with plain
+   curl -A. Do not spend a browser navigation on either.
 
 1b. *** CHEAPEST WAY TO RESOLVE AN UNKNOWN SLUG: WebSearch WITH allowed_domains. NEW, 14th run. ***
    Guessed slugs have now 404'd on cognition, strands, adk and openai. The standing advice was
@@ -44,6 +48,14 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    knew existed. Use it before spending a browser navigation. Then still pull hrefs off the page
    with javascript_tool for anything you intend to fetch — a querySelectorAll over a[href*="/index/"]
    returns slug + title + date together and is how the two Aug 10 posts were found.
+   VALIDATED AGAIN TWICE, 15th run, and it is now the single highest-leverage call in this file:
+     - one search on openai.com surfaced the Safe Url post, a linked cdn.openai.com PAPER, a
+       Nov-2025 post nobody had seen, and a developers.openai.com guide — four new targets, one call;
+     - two searches on genai.owasp.org resolved both wanted OWASP resource slugs exactly, and one of
+       them returned a download id (52117) in the result snippet without any page fetch at all.
+   The pattern worth generalising: search results carry SIBLING links, so a search aimed at a URL you
+   already want is also the cheapest discovery sweep available. Prefer it over a feed index when you
+   have a specific title in hand.
 
 2. OWASP PDF DOWNLOADS ARE GATED ON THE USER-AGENT. NOTHING ELSE. `-A` IS THE WHOLE FIX.
      curl -sL -A "Mozilla/5.0" -o out.pdf "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
@@ -65,6 +77,19 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    carrying passenger flags is worse than verbose: it sends the next run hunting a cookie that
    does not exist, and it manufactures a false "this source is gated" when the real gate moves.
    The tmstv token is NOT an expiring nonce — the same value worked six days later.
+   RE-CONFIRMED 2026-08-12 (15th run) on two NEW ids (49059, 46950), both first try, `-A` alone, no
+   Referer and no cookie jar. To be explicit about what this run did and did not establish: it USED
+   the recorded recipe, it did not re-run the A/B. The recipe is now four-for-four across three runs.
+
+2b. GETTING THE OWASP DOWNLOAD ID — THE TWO-STEP, CONFIRMED 15th RUN.
+   The id in /download/<id>/ is not derivable from the slug and is not in the ALREADY_CRAWLED list.
+   Reliable two-step, both halves cheap:
+     (i)  WebFetch https://genai.owasp.org/resource/<slug>/ asking for "the direct PDF download URL
+          if present in the page HTML (look for links containing /download/)". The resource PAGE is
+          NOT UA-gated — plain WebFetch reads it and returns the full URL including ?tmstv=.
+     (ii) curl that URL with -A per route 2.
+   Only the DOWNLOAD endpoint is gated, not the resource page. Do not reach for curl on step (i).
+   Ids captured so far live in crawl-sources.md, not here — they are catalogue, not route.
 
 The 12th run's WebFetch route still works and needs no headers — keep it as the fallback:
   1. WebFetch the RESOURCE PAGE asking for "the direct PDF download URL if present in the page HTML".
@@ -74,6 +99,10 @@ The 12th run's WebFetch route still works and needs no headers — keep it as th
 pypdf caveats that still hold: the true page count can exceed what the Read tool advertises
 (AIUC-1 announced 15pp, is 55); Read's `limit` counts LINES and one PDF page is one very long line;
 slide-deck PDFs lose word spacing but stay readable.
+PDF NAVIGATION TIP (15th run): on a long extracted .txt, `grep -n` for numbered section headings
+first and read targeted slices. The two OWASP guides read this run extract to 4783 and 3879 lines;
+the useful material was four slices totalling ~600 lines. Reading linearly wastes the budget on
+licence boilerplate and bullet-list control checklists that are below this pack's altitude bar.
 BROWSER CAVEATS: on builder.aws.com the FIRST get_page_text after a navigate SOMETIMES returns a stub
 ending in 'Loading article'; call it again. Never conclude 'blocked' from one empty call.
 To pull links/hrefs off an index use javascript_tool with a querySelectorAll expression — `find`
@@ -82,6 +111,8 @@ NOTE: large learn.microsoft.com and platform.claude.com pages exceed WebFetch's 
 persisted to a file on disk; just Read the path returned, or grep it. Ask a NARROW prompt to keep the
 answer inline instead. Likewise a broad knomit_query can exceed the tool-result limit — CONFIRMED
 AGAIN 14th run: sort=recent with limit=60 blew the limit at 69k chars. Use limit<=25.
+AND knomit_explain ON crawl-state.md NOW EXCEEDS IT TOO (15th run: 51.5KB, persisted to a file).
+That is expected, not an error — the tool result names the path; just Read it. Do not retry the call.
 *** BUILDERS' LIBRARY — SOME ARTICLES ARE VIDEO-ONLY ***
 Confirmed video-only, no prose body, DO NOT RE-FETCH:
   amazons-approach-to-failing-successfully   | 3F05J4fjklUZCE7kjuIp6LaTacl
