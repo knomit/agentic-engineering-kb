@@ -6,7 +6,7 @@ sources: 1
 entities: [OWASP, MAESTRO, MASEC, Krawiecka, Schroeder de Witt, verifier, refiner, planner, executor, Goodhart's law]
 refs: ['https://arxiv.org/abs/2508.09815', 'https://genai.owasp.org/resource/multi-agentic-system-threat-modeling-guide-v1-0/', 'kb://bc6eac5f37df/kb/conventions/ai/agents/security/threat-modeling/c02ac546.md', 'kb://bc6eac5f37df/kb/gotchas/ai/agents/evaluation/verifier-design/a5ade87d.md']
 ---
-# Most of the threats missing from OWASP's multi-agent guide converge on one component — the verifier agent, defeated without anyone being compromised
+# Seven of the sixteen threats a published critique says OWASP's multi-agent guide misses are the same thing — a verifier agent defeated without anyone being compromised
 
 Krawiecka and Schroeder de Witt (Oxford / ACM, arXiv 2508.09815, 13 Aug 2025) propose sixteen threat classes as extensions to OWASP's Multi-Agentic System Threat Modeling Guide v1.0, each tabulated against whether OWASP covers it. **Read their table by target rather than by name and the list collapses onto one component.** Seven of the proposed classes are ways a *verifier agent* stops working, and not one of them requires an attacker, a compromise, or a spoofed identity:
 
