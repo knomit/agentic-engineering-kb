@@ -21,8 +21,29 @@ behind this slot to recover.
 STEP-0 PRECONDITION CHECKED AND CLEARED THIS RUN: the three superseded kb/meta/jobs/agentic-engineering/**
 facts ARE retracted — a prefix query on kb/meta/jobs/ returns zero facts. The state file no longer has
 a live twin. This was the 13th run's open question; it is closed and needs no further checking.
-STILL FOR A HUMAN: DO NOT RUN knomit_review SCOPED TO domain=agentic-engineering — that is what
-deleted the fact in the first place.
+THE knomit_review BAN IS LIFTED — 2026-08-11. What follows is HISTORY, not a standing prohibition.
+Earlier revisions carried "DO NOT RUN knomit_review SCOPED TO domain=agentic-engineering". Do not
+reinstate it, and do not open a report by deferring to it.
+WHAT HAPPENED: on 2026-07-31 the review pipeline's dedup pass merged crawl-state into crawl-sources
+and removed it (1f5497f3 merge, dc738aee remove, a2b4bbfe restore 16 minutes later). 11 URLs survive
+only in crawl-sources because of it, which is why the old "~195 distinct" figure was never
+reproducible from crawl-state alone.
+DEDUP WAS NOT MALFUNCTIONING, and it never reached outside kb/ — it did not have to. State was then
+stored as ORDINARY FACTS at kb/meta/jobs/agentic-engineering/**, inside the ontology root, where a
+knowledge-maintenance pass is entitled to sweep. And to a semantic dedup pass, "a list of
+agentic-engineering URLs" and "a list of agentic-engineering URLs" are duplicates. The ban was a
+workaround for WHERE the state lived, not a defect in review.
+IT NAMED ITS OWN EXPIRY — "until they are retracted, two copies of the state exist". Both conditions
+are now met and were verified against the running server on 2026-08-11:
+  (1) State lives at .knomit/jobs/agentic-engineering/, OUTSIDE kb/, and dot-segment paths are
+      excluded from the fact index. Dedup draws its candidates from the index, so the slots can never
+      enter the candidate set. Verified: knomit_query on the .knomit/ prefix returns 0 facts while
+      both slots demonstrably read fine via knomit_explain.
+  (2) Nothing is left in kb/ to sweep — the three superseded kb/meta facts were retracted
+      2026-08-12 00:23Z and 00:42Z. Verified: topic=meta returns 0, and the old UUID paths 404.
+  Belt and braces: synthesize/decision.go refuses to WRITE any private path from merge/distill/propose.
+SO: review scoped to this domain can no longer touch the state slots. It CAN still merge or retract
+genuine KNOWLEDGE facts in the pack — that is its job. Judge that on its merits, not on this incident.
 
 recurring-feed indexes swept: ONE ONLY, deliberately.
 https://modelcontextprotocol.io/specification/versioning     (tripwire — UNCHANGED, still 2026-07-28)
