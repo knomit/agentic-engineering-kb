@@ -61,17 +61,22 @@ https://huggingface.co/blog
    with javascript_tool for anything you intend to fetch — a querySelectorAll over a[href*="/index/"]
    returns slug + title + date together and is how the two Aug 10 posts were found.
 
-2. OWASP PDF DOWNLOADS NEED A SESSION COOKIE. `Referer` ALONE IS NOT ENOUGH.
+2. OWASP PDF DOWNLOADS NEED A SESSION COOKIE **AND** A BROWSER USER-AGENT. THREE THINGS, NOT ONE.
    The gate is a WordPress Download Manager cookie (wp-dlm_cookie) set when you VISIT THE RESOURCE
-   PAGE. Two curls, one jar:
-     curl -sL -c cj.txt -o /dev/null "https://genai.owasp.org/resource/<slug>/"
-     curl -sL -b cj.txt -H "Referer: https://genai.owasp.org/resource/<slug>/" \
+   PAGE, plus a Referer, plus -A. COPY THIS EXACTLY — every flag below is load-bearing:
+     curl -sL -A "Mozilla/5.0" -c cj.txt -o /dev/null "https://genai.owasp.org/resource/<slug>/"
+     curl -sL -A "Mozilla/5.0" -b cj.txt -H "Referer: https://genai.owasp.org/resource/<slug>/" \
           -o out.pdf "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
      file out.pdf     # MUST say "PDF document". "HTML document" = you hit the gate.
      pdftotext out.pdf out.txt      # then Read out.txt
-   VERIFIED 2026-08-11 (13th run): Top 10 2026 = 122pp, 2.4MB, 228KB of extracted text.
+   -A IS NOT OPTIONAL. Isolated A/B 2026-08-11: cookie+Referer WITHOUT -A returns the 821KB "No
+   Access" HTML; the SAME two curls WITH -A on BOTH return the real PDF (122pp, 2.4MB, 228KB text).
+   An earlier revision of this note omitted -A because it was verified with the flag and written
+   down without it. A headless test run then failed and reported the source as gated — the recipe
+   was wrong in exactly the way that manufactures a false "dead source". If a download returns HTML,
+   check your flags against this line character by character BEFORE concluding anything about OWASP.
    The tmstv token is NOT an expiring nonce — the same value worked six days later. Do not blame
-   tmstv for a failure; blame the missing cookie.
+   tmstv for a failure; blame a missing cookie or a missing -A.
    NO python3 IN THIS JOB. Use `pdftotext`, which is allow-listed. The `Read` tool cannot open PDFs
    either — it shells out to pdftoppm and renders page images.
 
