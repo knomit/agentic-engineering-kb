@@ -56,6 +56,49 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    The pattern worth generalising: search results carry SIBLING links, so a search aimed at a URL you
    already want is also the cheapest discovery sweep available. Prefer it over a feed index when you
    have a specific title in hand.
+   VALIDATED A THIRD TIME, 16th run: one search resolved the ANS resource slug, which contains a TYPO
+   nobody would guess — /resource/agent-name-service-ans-for-secure-al-agent-discovery-v1-0/ spells
+   AI as "al". Guessing that slug was impossible; searching it took one call. Slugs with OCR-style
+   typos are exactly why the guess-then-404 loop must never be entered.
+
+*** 3. modelcontextprotocol.io UNREACHABLE -> READ THE SPEC REPO ON GITHUB. NEW, 16th run. ***
+   On 2026-08-12 the host refused connections outright: WebFetch returned
+   `connect ECONNREFUSED 76.76.21.21:443` on three separate paths, and `curl` timed out (exit 28,
+   HTTP 000). Not a 403, not a block — the origin was down. Every other host that run was fine, so
+   isolate before blaming the tool.
+   THE MIRROR IS THE SPEC ITSELF, not a copy: the site renders .mdx files straight out of
+   github.com/modelcontextprotocol/modelcontextprotocol. This route is authoritative and it worked
+   first try for six documents.
+     # enumerate — the ONLY reliable way to find a page, because paths have moved (see below)
+     curl -sL -A "Mozilla/5.0" \
+       "https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/git/trees/main?recursive=1" \
+       -o tree.json
+     grep -oE '"path":"[^"]*<keyword>[^"]*"' tree.json | sort -u
+     # then fetch raw
+     curl -sL -A "Mozilla/5.0" -o out.mdx \
+       "https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/<path>"
+   Listing a single directory is also cheap:
+     curl -sL -A "Mozilla/5.0" \
+       "https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/docs/specification"
+   *** THE TRIPWIRE HAS A ZERO-FETCH FORM. *** That last call lists one directory per released
+   revision (2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25, 2026-07-28, draft). A new revision
+   appears as a new directory. That is the cheapest possible check of the versioning tripwire and it
+   does not depend on the website being up at all — prefer it.
+   *** PATH MAPPING — THE SITE URL IS NOT THE REPO PATH, AND GUESSING COSTS 404s. ***
+     site /specification/<rev>/...   -> repo docs/specification/<rev>/...
+     site /docs/<rev>/...            -> repo docs/docs/<rev>/...
+   And pages MOVE between those trees. Confirmed 16th run: security_best_practices used to be cited
+   as /specification/2025-06-18/basic/security_best_practices and now lives at
+   docs/docs/<rev>/tutorials/security/security_best_practices.mdx — i.e. it left the specification
+   tree for the docs tree. Likewise /docs/concepts/tools no longer exists; that material is now
+   docs/docs/<rev>/learn/server-concepts.mdx. ALWAYS grep the recursive tree instead of constructing
+   a path from the old URL.
+   CAVEAT TO STATE IN ANY FACT BUILT THIS WAY: `main` is the live editing branch, not a release tag.
+   Frozen revision directories should be stable, but say in the fact that the text came from the repo
+   and that exact strings want re-confirming against the rendered page.
+   BONUS THIS ROUTE UNLOCKS FOR FREE: diffing two revisions of the same page is one `diff` command,
+   and it is the highest-yield staleness technique found so far — see the note at the foot of this
+   file.
 
 2. OWASP PDF DOWNLOADS ARE GATED ON THE USER-AGENT. NOTHING ELSE. `-A` IS THE WHOLE FIX.
      curl -sL -A "Mozilla/5.0" -o out.pdf "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
@@ -79,9 +122,10 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    The tmstv token is NOT an expiring nonce — the same value worked six days later.
    RE-CONFIRMED 2026-08-12 (15th run) on two NEW ids (49059, 46950), both first try, `-A` alone, no
    Referer and no cookie jar. To be explicit about what this run did and did not establish: it USED
-   the recorded recipe, it did not re-run the A/B. The recipe is now four-for-four across three runs.
+   the recorded recipe, it did not re-run the A/B. RE-CONFIRMED AGAIN 16th run on id 47278 (ANS v1.0),
+   first try, `-A` alone. Five-for-five across four runs.
 
-2b. GETTING THE OWASP DOWNLOAD ID — THE TWO-STEP, CONFIRMED 15th RUN.
+2b. GETTING THE OWASP DOWNLOAD ID — THE TWO-STEP, CONFIRMED 15th RUN AND AGAIN 16th.
    The id in /download/<id>/ is not derivable from the slug and is not in the ALREADY_CRAWLED list.
    Reliable two-step, both halves cheap:
      (i)  WebFetch https://genai.owasp.org/resource/<slug>/ asking for "the direct PDF download URL
@@ -103,6 +147,15 @@ PDF NAVIGATION TIP (15th run): on a long extracted .txt, `grep -n` for numbered 
 first and read targeted slices. The two OWASP guides read this run extract to 4783 and 3879 lines;
 the useful material was four slices totalling ~600 lines. Reading linearly wastes the budget on
 licence boilerplate and bullet-list control checklists that are below this pack's altitude bar.
+SECOND PDF TIP (16th run): `grep -c` for a distinctive token is a ZERO-COST NEGATIVE TEST. Grepping
+the ANS extract for "well-known" returned nothing, which settled in one call that ANS does not
+document the key path another fact had reconstructed. Negative results are cheap and publishable.
+*** PDF TABLES EXTRACT WITH THEIR COLUMNS SHUFFLED — DO NOT CITE ONE (16th run). ***
+Beyond the known hyphen-wrapping problem, pdftotext on a multi-column table interleaves cells so
+that rows pair with descriptions belonging to other rows. In the ANS v1.0 "Summary of ANS Functional
+Layers" table this produced plausible-looking but wrong pairings, and a third-party summary of ANS
+repeats one of them. If a claim rests only on a table cell, either confirm it against the document's
+prose or say in the fact that you did not. Prose extracts reliably; tables do not.
 BROWSER CAVEATS: on builder.aws.com the FIRST get_page_text after a navigate SOMETIMES returns a stub
 ending in 'Loading article'; call it again. Never conclude 'blocked' from one empty call.
 To pull links/hrefs off an index use javascript_tool with a querySelectorAll expression — `find`
@@ -119,3 +172,13 @@ Confirmed video-only, no prose body, DO NOT RE-FETCH:
   beyond-five-9s-lessons-from-our-highest-available-data-planes | 3F073j4jJOsSRTDlQM3eiZxkFLm
 Publication date does not predict it. Budget one cheap fetch per article and abandon if the text ends
 right after the byline.
+
+*** VERIFICATION TECHNIQUE, NOT A FETCH ROUTE, BUT IT LIVES HERE BECAUSE IT IS A RECIPE (16th run) ***
+DIFF TWO REVISIONS OF THE SAME SPEC PAGE. Where a source is versioned and mirrored in git, the
+staleness pass stops being "re-read and hope you notice" and becomes a diff:
+  curl the <old-rev> and <new-rev> copies of the page, then `diff a b`
+On the MCP security page this took one command and yielded, in a single pass: a heading rename that
+CONFIRMED a fact's prediction (Session Hijacking -> State Handle Hijacking), a MUST downgraded to
+SHOULD that CORRECTED the same fact, a new subsection that explicitly contradicted another fact's
+title ("SSRF risks are not limited to MCP clients"), and three wholly new attack sections worth a
+fact of their own. Prefer this over re-reading whenever the source is versioned.
