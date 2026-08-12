@@ -12,12 +12,21 @@ crawled: 2026-08-11 (fourteenth run; one day after the thirteenth. A SAME-WEEK r
 standing rule NO broad feed sweep was attempted — the budget went to the 13th run's queued backlog
 instead, which is what a one-day gap is for.)
 
-*** THIS SLOT IS SELF-CONTAINED — DO NOT WALK ANY HISTORY ***
-The complete ALREADY_CRAWLED union is written out in full at the foot of this file. knomit_explain
-returns a short history with more_available:false; that is CORRECT AND COMPLETE, not truncated. The
-union was computed once with git, out of band, over every path the state has ever occupied (34
-revisions, 719 URL mentions, 190 distinct after canonicalisation) and folded in. There is nothing
-behind this slot to recover.
+*** THIS SLOT HOLDS ONE RUN. THE HISTORY IS THE RECORD. WALK IT. ***
+MODEL CHANGED 2026-08-11 — this revision is the LAST one written under the old cumulative model,
+and the ALREADY_CRAWLED union at the foot is its final full listing. From the NEXT run onward:
+REPLACE this body with ONLY what that run newly crawled, and reconstruct the full set by walking
+this slot's revision history with knomit_explain (protocol in Appendix S). Do NOT carry the union
+forward. Do NOT append. One run, one revision, one commit date.
+THIS REVISION IS THE BACKFILL FLOOR. The union below (197 URLs) covers everything crawled up to and
+including the 14th run — it was computed once with git over every path the state has ever occupied
+(34 revisions, 719 URL mentions, 190 distinct) and extended by the 14th run's 7. A walk that reaches
+this revision has reached the bottom; read it, union it, and stop. Nothing behind it is recoverable
+and nothing behind it is needed.
+WHY THE MODEL CHANGED: a cumulative body grows without bound and is re-read in full every run, and
+a flat union carries no per-URL dates, so it cannot express "anything older than N days counts as
+never crawled". Per-revision bodies get both: bounded size, and an ageable history keyed on each
+revision's commit date. Aging is OFF by default — walk everything unless told otherwise.
 STEP-0 PRECONDITION CHECKED AND CLEARED THIS RUN: the three superseded kb/meta/jobs/agentic-engineering/**
 facts ARE retracted — a prefix query on kb/meta/jobs/ returns zero facts. The state file no longer has
 a live twin. This was the 13th run's open question; it is closed and needs no further checking.
