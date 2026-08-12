@@ -86,8 +86,7 @@ grader sets the headline number.
 ## Maintenance
 
 A periodic crawl job refreshes the pack. Its state lives under
-`kb/meta/jobs/agentic-engineering/`: `spec/` is a read-only mirror of the pack spec
-(authoritative copy is on disk), `crawl-sources/` holds the live source list, yield
+`.knomit/jobs/agentic-engineering/`: `crawl-sources/` holds the live source list, yield
 ranking and known-dead URLs, and `crawl-state/` holds **only the most recent run** —
 the full crawl record is that fact's revision history, not its body. Each run also
 re-checks a sample of low-confidence and ageing facts against their sources and
