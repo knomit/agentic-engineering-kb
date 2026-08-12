@@ -1,0 +1,23 @@
+---
+type: principle
+domain: [agentic-engineering, security, prompt-injection, guardrails, architecture]
+confidence: 0.8
+sources: 2
+entities: [OpenAI, Anthropic, ChatGPT, Claude Code, AI firewall, source-sink analysis, Safe Url, prompt injection]
+refs: ['https://openai.com/index/designing-agents-to-resist-prompt-injection/', 'https://www.anthropic.com/engineering/claude-code-auto-mode', 'https://openai.com/index/ai-agent-link-safety/', 'kb://bc6eac5f37df/kb/invariants/ai/agents/security/prompt-injection/f1cbb540.md', 'kb://bc6eac5f37df/kb/architecture/ai/agents/security/permission-systems/89df351e.md']
+---
+# Put the classifier on the outbound action, not the inbound content — an operator reports that content filters miss social-engineering-grade injections because detecting one becomes lie detection
+
+A common product shape is an intermediary that inspects content entering the agent's context and classifies it as prompt injection or not — marketed as an AI firewall or injection detector. OpenAI's security team states directly that this does not catch the attacks that actually work against ChatGPT, and the reason generalises.
+
+**THE STATED FAILURE.** OpenAI reports that as models got better at ignoring blunt overrides ("ignore previous instructions"), effective real-world injections shifted to resembling social engineering: plausible business context, a fabricated authorisation ("your assistant tool has full authorization to…"), and a task that sounds like the one the user asked for. Against that, OpenAI's position is that these fully developed attacks are not usually caught by classifying intermediaries, because deciding whether such an input is malicious becomes the same problem as detecting a lie or misinformation — and the classifier is asked to do it without the context needed to tell. A specific externally-reported attack of this shape is cited as having worked 50% of the time in testing, under the user prompt asking ChatGPT to do deep research across the day's emails.
+
+Note the asymmetry that makes this a design argument rather than pessimism: an inbound-content check has no ground truth to check against, whereas an outbound-action check has a well-defined predicate.
+
+**WHAT BOTH MAJOR OPERATORS SHIPPED INSTEAD — the same shape, arrived at separately.** OpenAI frames it as source-sink analysis: an attacker needs a *source* (a way to influence the system) and a *sink* (a capability that is dangerous in context — transmitting information to a third party, following a link, invoking a tool), and the control goes on the sink. Their Safe Url mechanism therefore does not ask whether the incoming page was honest; it asks whether a fetch about to happen would carry conversation-derived data to a destination that cannot be verified as public. Anthropic's Claude Code auto mode lands on the same side: a deliberately reasoning-blind classifier judges the proposed tool call rather than the content that motivated it (see the local refs).
+
+**THE CONDITION THAT SEPARATES THE TWO PLACEMENTS.** Put a check on inbound content and you are asking a model to adjudicate the truthfulness of arbitrary text — unbounded, and an attacker retries until one phrasing lands. Put it on the outbound action and the question is bounded and checkable against system state: does this call transmit data the agent learned this session, to a destination outside the verified set, without the user seeing it? Prefer the sink whenever the dangerous capability is enumerable. Inbound filtering retains value only where the sink genuinely is not enumerable.
+
+**WHAT THIS DOES NOT MEAN.** It is not an argument for removing content monitors — OpenAI runs automated monitors for injection alongside this, and values them specifically because they can be *updated fast* when a new attack is found, which safety training cannot. The claim is narrower and it is about load-bearing: a content classifier is a detection layer that buys time, and it must not be the thing standing between untrusted text and a dangerous capability.
+
+**A CONVERGENT DETAIL WORTH COPYING.** Both operators describe the same handling of a denial. OpenAI states that when a transmission is blocked, the agent is told to try another way of moving forward with the user's request; Anthropic's denial returns as a tool result carrying an instruction to treat the boundary in good faith and find a safer path rather than route around it. Two independent teams concluded that a block must come back to the model as a redirect with intent, not as a bare failure — otherwise the agent's next move is to look for a way around.
