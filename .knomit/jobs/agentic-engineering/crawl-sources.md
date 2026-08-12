@@ -47,6 +47,11 @@ https://openai.com/index/                                                <- ADDE
 https://developers.openai.com/api/docs/guides/                           <- ADDED 15th run. The API guides tree is
     a DIFFERENT source from openai.com/index and from the cookbook, it is plain-WebFetch-readable (no browser,
     no 403), and agent-builder-safety was found there unread. Scan it for new guides, not just the two known ones.
+https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/docs/specification
+    <- ADDED 16th run. THE MCP TRIPWIRE, ZERO-FETCH FORM, AND IT WORKS WHEN THE WEBSITE DOES NOT.
+    Returns one directory per released revision; a new revision is a new directory. On 2026-08-12
+    modelcontextprotocol.io refused connections all run and this route answered first try. Prefer it
+    over the rendered /specification/versioning page. Route details in fetch-routes route 3.
 https://github.com/vectara/hallucination-leaderboard
 https://huggingface.co/blog
 
@@ -57,25 +62,30 @@ The PDF lives at https://genai.owasp.org/download/<id>/?tmstv=<epoch>, and the i
 Get it by WebFetching the /resource/<slug>/ page and asking for the download URL, then curl it with -A
 (see fetch-routes). The tmstv token does not expire — the same value has worked days later.
 IDs captured so far:
-  50592  State of Agentic AI Security and Governance 2.01   (139pp, read 12th run)
-  56857  OWASP GenAI LLM Top 10 2026                        (122pp, read 13th run)
+  50592  State of Agentic AI Security and Governance 2.01   (139pp, read 12th run) tmstv=1754459367
+  56857  OWASP GenAI LLM Top 10 2026                        (122pp, read 13th run) tmstv=1785822482
   49059  Securing Agentic Applications Guide 1.0            (July 2025, read 15th run) tmstv=1753666640
   46950  Multi-Agentic System Threat Modeling Guide v1.0    (April 2025, read 15th run) tmstv=1745459605
-  52117  OWASP Top 10 for Agentic Applications 2026         <- id surfaced by search 15th run, NOT YET FETCHED.
-         Resource slug: /resource/owasp-top-10-for-agentic-applications-for-2026/ — note this is a DIFFERENT
-         page from /resource/agentic-ai-threats-and-mitigations/ and from the 2025/12/09 announcement post,
-         both of which are already crawled. The resource page itself has never been fetched.
-RESOURCE SLUGS RESOLVED BUT UNFETCHED (route 1b, one search each):
-  /resource/securing-agentic-applications-guide-1-0/          READ 15th run
-  /resource/multi-agentic-system-threat-modeling-guide-v1-0/  READ 15th run
+  47278  Agent Name Service (ANS) for Secure AI Agent Discovery v1.0  (14 May 2025, READ 16th run)
+         tmstv=1747275418. Resource slug CONTAINS A TYPO and is unguessable — note "al" for "AI":
+         /resource/agent-name-service-ans-for-secure-al-agent-discovery-v1-0/
+  52117  OWASP Top 10 for Agentic Applications 2026         <- FULL URL NOW RESOLVED, 16th run, still UNFETCHED.
+         https://genai.owasp.org/download/52117/?tmstv=1765059207   (published 9 Dec 2025)
+         This is ONE curl away — no resource-page fetch needed. Resource slug:
+         /resource/owasp-top-10-for-agentic-applications-for-2026/ — a DIFFERENT page from
+         /resource/agentic-ai-threats-and-mitigations/ and from the 2025/12/09 announcement post,
+         both already crawled. Highest-priority unfetched OWASP item.
 
-*** COUNTER-POSITION TARGET, found 15th run ***
-https://arxiv.org/pdf/2508.09815 — "Extending the OWASP Multi-Agentic System Threat Modeling Guide:
-  Insights from Multi-Agent Security Research". A published critique naming GAPS in the OWASP guide read
-  this run: reasoning collapse across planner-executor chains, metric overfitting, unsafe delegation
-  escalation, emergent covert coordination, heterogeneous multi-agent exploits, benign goal drift,
-  cross-agent hallucination propagation, affective prompt framing, multi-agent backdoors. This is a
-  Tier-1-shaped PAIR with the guide — fetch it before writing anything more from the OWASP MAS guide.
+*** COUNTER-POSITION TARGET — READ 16th RUN, keep for provenance ***
+https://arxiv.org/abs/2508.09815 (PDF: https://arxiv.org/pdf/2508.09815) — Krawiecka & Schroeder de Witt,
+  "Extending the OWASP Multi-Agentic System Threat Modeling Guide". 8pp, downloads with plain curl -A.
+  READ 16th run: 3 facts + 1 update to c02ac546. Sixteen proposed threat classes tabulated against
+  OWASP coverage. NOTE ITS MODALITY — anticipatory, no measurements, no incidents; every fact written
+  from it says so. Its reference list is a small unmined catalogue of multi-agent eval work:
+  NetSafe (arXiv 2410.15686, topological safety of agent networks), TrustAgent (EMNLP Findings 2024),
+  chaos engineering for LLM MAS (arXiv 2505.03096), The Traitors (arXiv 2505.12923, deception/trust
+  in MAS simulations), Open Challenges in Multi-Agent Security (arXiv 2505.02077). NetSafe and the
+  chaos-engineering paper look closest to this pack's bar; the rest are game-simulation benchmarks.
 
 *** AWS BUILDERS' LIBRARY — COMPLETE ENUMERATION (30 of 30, no more pagination) ***
 URLs are opaque content IDs, NOT guessable from titles: https://builder.aws.com/content/<ID>/<slug>
@@ -133,6 +143,21 @@ STRANDS DOC URLS — base is https://strandsagents.com/docs/... (NOT /latest/...
 Still unread: Swarm / Graph / Agent-as-Tool multi-agent patterns, session persistence.
 NOTE (15th run): the Strands docs carry snake_case AND camelCase spellings side by side and document
 some defaults for the TypeScript binding only. Do not record a default without recording its binding.
+
+*** MCP SPECIFICATION — THE REPO IS THE SOURCE, AND SITE URLs DO NOT MAP TO REPO PATHS ***
+github.com/modelcontextprotocol/modelcontextprotocol renders directly to modelcontextprotocol.io.
+Enumerate with the recursive git-tree API and grep; NEVER build a repo path from an old site URL.
+  site /specification/<rev>/...  -> repo docs/specification/<rev>/...
+  site /docs/<rev>/...           -> repo docs/docs/<rev>/...
+PAGES HAVE MOVED BETWEEN THOSE TREES (found 16th run, and it is ref rot in four existing facts):
+  security_best_practices: WAS cited as /specification/2025-06-18/basic/security_best_practices,
+    NOW at docs/docs/<rev>/tutorials/security/security_best_practices.mdx — and it exists for every
+    revision, so old revisions stay readable. This is what makes revision-diffing possible.
+  /docs/concepts/tools: GONE. That material is now docs/docs/<rev>/learn/server-concepts.mdx.
+    Two facts (ee3bc7d3, ca3382bd) still cite the dead path and are UNCHECKED — next staleness sample.
+RELEASED REVISION DIRECTORIES as of 2026-08-12: 2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25,
+  2026-07-28, plus draft. Unchanged since the 11th run.
+
 CLAUDE PLATFORM DOCS — the prompting page routes to PER-MODEL sub-pages (found 12th run):
   .../prompt-engineering/prompting-claude-opus-5    <- has a 'Controlling subagent spawning' section
   .../prompt-engineering/prompting-claude-opus-4-8
