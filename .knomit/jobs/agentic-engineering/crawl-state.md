@@ -44,6 +44,8 @@ https://www.trychroma.com/research/context-rot        (ONE fetch verified THREE 
 https://cognition.com/blog/multi-agents-working       (ONE fetch verified TWO facts)
 https://cognition.com/blog/dont-build-multi-agents    (same pair)
 https://strandsagents.com/docs/user-guide/concepts/agents/conversation-management/
+https://developers.openai.com/api/docs/guides/agent-builder-safety  <- RE-fetched in the self-review
+  pass with a verbatim-quote prompt, having first been read via a narrow summarising prompt.
 
 errored / not obtained: NONE. No paywalls, no dead sources, no 403 the browser did not solve, no 404s
 — every slug this run was resolved by search before being fetched, so nothing was guessed.
@@ -73,8 +75,10 @@ OpenAI's Safe Url paper is the best single artifact this pack has read on exfilt
     hygiene. fdad859e retitled from "two documented bypasses" to three.
   * The replacement: exact-URL match against OpenAI's own search-crawler index, which runs with zero
     access to user data. That isolation IS the security argument — a crawler that never saw your data
-    cannot have visited a URL containing it. Coverage ~10% -> "over 80%". Requires canonicalization
-    (query-param ordering) or trivial reordering defeats exact match.
+    cannot have visited a URL containing it. Requires canonicalization (query-param ordering) or
+    trivial reordering defeats exact match. COVERAGE, AND MIND THE MODALITY: 10% is MEASURED for the
+    old allowlist; "over 80%" is what OpenAI says "can eventually be covered" — a projected ceiling,
+    not achieved coverage. See FINDING 5; this fact's title got that wrong on first write.
   * Named residual: the "keyboard attack" — pre-seed and get crawled a large space of unique URLs to
     launder personal data into the index. Bounded by an inverse relation between URL count and bits
     per URL: a 36-char alphabet forces ~13 sequential fetches to leak "123 Main Street".
@@ -90,10 +94,11 @@ detecting such an input becomes the same problem as detecting a lie — without 
 tell. A cited external attack worked 50% of the time. This is a live position against a whole product
 category and it is now a `decisions` fact (eae23eac) rather than a flattened claim.
 WHAT MAKES IT A DESIGN ARGUMENT RATHER THAN PESSIMISM: an inbound-content check has no ground truth;
-an outbound-action check has a checkable predicate. Both major operators independently shipped the
-sink-side version — OpenAI's source-sink framing and Safe Url, Anthropic's reasoning-blind auto-mode
-classifier. AND BOTH INDEPENDENTLY CONCLUDED A BLOCK MUST RETURN TO THE MODEL AS A REDIRECT WITH
-INTENT, not a bare failure. That convergence corroborates f1cbb540 from a second vendor.
+an outbound-action check has a checkable predicate. NOTE THAT FRAMING IS THE PACK'S, NOT OPENAI'S —
+see FINDING 5. Both major operators independently shipped the sink-side version — OpenAI's source-sink
+framing and Safe Url, Anthropic's reasoning-blind auto-mode classifier. AND BOTH INDEPENDENTLY
+CONCLUDED A BLOCK MUST RETURN TO THE MODEL AS A REDIRECT WITH INTENT, not a bare failure. That
+convergence corroborates f1cbb540 from a second vendor.
 
 FINDING 4 — THE STALENESS PASS FOUND ITS DEFECT IN A PLACE THE EIGHT-ITEM CHECKLIST ALREADY NAMES,
 AND THE SAME DEFECT WAS DUPLICATED ACROSS TWO FACTS.
@@ -102,26 +107,73 @@ Cognition's sentence is "multi-agent systems work BEST TODAY when writes stay si
 the additional agents contribute intelligence rather than actions." BOTH f7dee43a and 9aaea0dc
 quoted it starting at "when writes…", dropping "best today" — converting a statement about which
 designs work BEST under CURRENT capability into a condition for working at all. Both corrected.
-THE NEW SUB-LESSON: when a quoted sentence is shared across facts, a modal defect in it is shared
-too. Grepping the kb for a quotation you are about to correct is cheap and finds the duplicates.
+THE SUB-LESSON: when a quoted sentence is shared across facts, a modal defect in it is shared too.
+Grepping the kb for a quotation you are about to correct is cheap and finds the duplicates.
 
-FACTS WRITTEN (8 new, 2 updated from crawling + 5 touched by the staleness pass, 0 retracted):
+*** FINDING 5 — THE MOST IMPORTANT ONE. A POST-WRITE SELF-REVIEW OF THIS RUN'S OWN NEW FACTS FOUND
+THE SAME DEFECT CLASS THE STALENESS PASS HAD JUST FOUND IN OLD ONES — WITHIN THE SAME RUN. ***
+After writing, the nine-item checklist was run against the eight facts written THIS run rather than
+only against the staleness sample. It found three defects. This is now a standing step (see the new
+sub-rule below); the previous fourteen runs applied the checklist only to old facts, on the tacit
+assumption that a fact is most accurate at the moment of writing. That assumption is wrong — a fact
+is written fast, from a source read once, under budget pressure, which is exactly the condition the
+checklist exists to catch.
+  b4d688b1 CORRECTED — MODAL STRENGTHENING IN THE TITLE, one hour after correcting two other facts
+    for that same class. The title read "10% coverage became 80%". OpenAI's paper says it "BELIEVES"
+    over 80% "CAN EVENTUALLY BE COVERED" — a projection, not an achievement. The body had it right
+    ("eventually covering"); the title did not. TITLES ARE WHAT QUERY RESULTS SHOW, so a hedge that
+    survives only in the body is a hedge most readers never see. Title rewritten to drop the number,
+    body now states explicitly that 10% is measured and 80% is a stated ceiling. NEW GENERAL RULE:
+    RUN CHECKLIST ITEM 8 ON THE TITLE SEPARATELY. A title compresses, and compression drops modals.
+  99aa74e6 UPGRADED, and it is the good outcome. The fact was written from a narrow SUMMARISING
+    WebFetch prompt and honestly carried a caveat that nothing in it was verbatim. Re-fetching the
+    same page with a VERBATIM-QUOTE prompt confirmed all four rules in the source's own words and
+    produced the actual rationale sentence, which the first version had loosely attributed to
+    OpenAI's separate Instruction Hierarchy research: "Because developer messages take precedence
+    over user and assistant messages, injecting untrusted input directly into developer messages
+    gives attackers the highest degree of control." Also recovered the source's own HEDGE — "to
+    limit their influence", not to remove it — and flagged the model-choice leg as version-tied to
+    GPT-5/GPT-5-mini, both since superseded. conf 0.8->0.85.
+    THE METHOD POINT: A SUMMARISING FETCH PROMPT AND A VERBATIM FETCH PROMPT ARE DIFFERENT READS OF
+    THE SAME PAGE, and only the second can support a quotation. When a page is worth a fact, spend
+    the second fetch. It is cheap and it is the difference between a fact and a paraphrase.
+  0720e9d7 CORRECTED — A PDF LINE-WRAP RECONSTRUCTED AND PRINTED AS VERBATIM. pdftotext rendered the
+    key path as "/.well-known/agentpublic-key.json"; the fact silently restored the hyphen to
+    "agent-public-key.json". That is almost certainly right and was still wrong to print unmarked.
+    NEW GENERAL RULE FOR PDF SOURCES: pdftotext BREAKS HYPHENATED TOKENS ACROSS LINES. Any literal
+    taken from a PDF — header name, well-known path, identifier, flag — is a RECONSTRUCTION unless
+    confirmed against a non-PDF source. Mark it as such, or confirm it. The argument never depends
+    on these strings; the reader's code always does.
+  ALSO FLAGGED, not rewritten — PACK ANALYSIS SITTING ADJACENT TO SOURCE CLAIMS. In eae23eac the
+    ground-truth asymmetry argument (an inbound check has nothing to check against, an outbound check
+    has a predicate) and in 805bc132 the mechanism for why a broad brief defeats an approval gate are
+    BOTH this pack's reasoning, not the operator's. Each is marked in its own fact, and 805bc132
+    already carries conf 0.7 and a note that the source asserts a direction without measuring it.
+    Recording it here because the pattern is the one that produced c93d93ee and 96ebc34e in earlier
+    runs: a gloss written next to a citation gets read as cited. Prefer an explicit "that framing is
+    this pack's, not the source's" line, which 99aa74e6 now models.
+
+FACTS WRITTEN (8 new, 2 updated from crawling + 5 touched by the staleness pass + 3 revised by the
+self-review, 0 retracted):
   NEW —
-    kb/architecture/ai/agents/security/url-exfiltration/b4d688b1  (Safe Url: 10%->80%, keyboard
-      attack, canonicalization, and the GET-only threat-model boundary that decides transferability)
+    kb/architecture/ai/agents/security/url-exfiltration/b4d688b1  (Safe Url: the provenance argument,
+      keyboard attack, canonicalization, and the GET-only threat-model boundary that decides
+      transferability. TITLE REWRITTEN post-review — see FINDING 5.)
     kb/decisions/ai/agents/security/guardrail-placement/eae23eac  (classify the outbound action, not
       the inbound content; both operators' convergent denial-as-redirect handling)
     kb/conventions/ai/agents/security/design-heuristics/f4bba0ae  (derive controls by asking what
       limits a human in the same seat would have; assumes deception succeeds)
     kb/invariants/ai/agents/security/instruction-hierarchy/99aa74e6 (never interpolate untrusted text
-      into a developer message — it promotes the attacker into the trusted tier)
+      into a developer message — it promotes the attacker into the trusted tier. Re-verified verbatim
+      post-review, conf 0.85.)
     kb/gotchas/ai/agents/security/task-scoping/805bc132           (task breadth is a security
       parameter; the confirmation gate does not compensate for a broad brief)
     kb/conventions/ai/agents/security/threat-modeling/c02ac546    (MAESTRO: a taxonomy is a checklist,
       a layer-walk is a generator — 13 threats fell out that the taxonomy lacks; cross-layer is a
       separate pass a per-layer review structurally cannot reach)
     kb/architecture/ai/agents/interop/outbound-identity/0720e9d7  (RFC 9421 signing, ANS, X-Agent-
-      Intent, with OWASP's own maturity ratings — the outbound direction of agent identity)
+      Intent, with OWASP's own maturity ratings — the outbound direction of agent identity. String-
+      fidelity caveat added post-review.)
     kb/architecture/ai/agents/multi-agent/swarm/af3acf92          (a swarm has no in-band guidepost
       for correct action or trusted peer; assign both out-of-band, gate self-expansion on a human)
   UPDATED FROM CRAWLING —
@@ -174,10 +226,10 @@ SUGGESTED SPLIT FOR THE NEXT RUN:
     guide. Details in crawl-sources.
 (3) OWASP companion corpus, still the richest unread block, route fully solved (see fetch-routes 2b).
     Next: Agent Name Service (ANS) v1.0 — now pairs with THREE facts (8b32c15a, 995c167b, and the new
-    0720e9d7, which cites ANS without having read its spec). Then Solutions Landscape Red Teaming
-    Taxonomy, A Practical Guide for Secure MCP Server Development, CheatSheet — Securely Using
-    Third-Party MCP Servers, GenAI Red Teaming Guide, Agentic AI Solution Landscape, OWASP AIBOM,
-    GenAI Data Security Risks & Mitigations.
+    0720e9d7, which cites ANS without having read its spec, AND carries a PDF-reconstructed key path
+    that the ANS spec would confirm or correct). Then Solutions Landscape Red Teaming Taxonomy, A
+    Practical Guide for Secure MCP Server Development, CheatSheet — Securely Using Third-Party MCP
+    Servers, GenAI Red Teaming Guide, Agentic AI Solution Landscape, OWASP AIBOM, GenAI Data Security.
 (4) /resource/owasp-top-10-for-agentic-applications-for-2026/ — download id 52117 ALREADY KNOWN, so
     this is one curl away. The resource page has never been fetched despite the announcement post and
     the threats-and-mitigations page both being crawled.
@@ -323,14 +375,15 @@ for LIFECYCLE STATUS and nothing else. If a repo matters, go to its DOCS site.
 Only remaining tier-6 item: the x1xhlol INDIVIDUAL prompt files. Frame anything from those as
 'this harness's published prompt does X', never as 'the correct approach is X'.
 
-STALENESS-POOL NOTE (updated 15th run). Checked so far — cb98732e, 27652a82, 111f8b2c, 2b74037b,
+VERIFICATION-POOL NOTE (updated 15th run; renamed from STALENESS-POOL because the pass now covers
+newly written facts too — see FINDING 5). Checked so far — cb98732e, 27652a82, 111f8b2c, 2b74037b,
 5ad0fb45, 62312b79, 0fe91ac7, fc249ffc, a5ade87d, dee636a2, 77b3e628, f877f05d, d4e3b247, bcbf13c2,
 d468cbbe, 089c7cba, 15e7bf02, 46f3ea69, 56986e8f, d87795d4, 882100d9, 28ba65db, c93d93ee, c7290868,
 c1bbf73f, 48c4e555, c2f12069, 62c9a78b, e9b7eef3, 96ebc34e, c858a924, c99ec745, 30869b36, c436422a,
 c1e18090, 9920b5d6, 773a89ee, 48c9de1b, afce1dae, 4b0261d0, 052c2b66, f78a326a, 38c06627, d18637a2,
 1beb89e6, f1cbb540, 89df351e, 4e923405, and (15th run) 714a540c, f7dee43a, 9aaea0dc, 9e29d93a,
-1531a0d1.
-THREE AXES NOW, ROTATE THEM. Confidence (lowest first), earliest-committed, and SHARED-REF grouping.
+1531a0d1, plus this run's own b4d688b1, 99aa74e6, 0720e9d7 via the self-review.
+THREE AXES, ROTATE THEM. Confidence (lowest first), earliest-committed, and SHARED-REF grouping.
 The 13th ran earliest-committed (2 defects in 5); the 14th ran confidence (1 defect + 1 partial);
 the 15th ran shared-ref (3 defects in 5, at 4 fetches — the best yield-per-fetch so far, because
 grouping by source lets one fetch adjudicate several facts and surfaces defects DUPLICATED across
@@ -338,16 +391,27 @@ them). Next run: rotate back to earliest-committed. Nothing here is yet older th
 AVOID SAMPLING kb/principles/** — write-blocked, you cannot record the result.
 SUB-RULE (14th): a PARTIAL confirmation must be written down as partial, in the fact. Do not bump
 confidence as though the whole fact were checked.
-SUB-RULE (15th, NEW): WHEN A QUOTED SENTENCE APPEARS IN MORE THAN ONE FACT, A DEFECT IN IT IS
-DUPLICATED TOO. Before correcting a quotation, query the kb for it and fix every copy — f7dee43a and
-9aaea0dc carried the identical modal defect and would have been half-fixed otherwise.
-SUB-RULE (15th, NEW): CHECK THAT A CITED PAGE ACTUALLY CARRIES THE DETAIL ATTRIBUTED TO IT. 714a540c
-held parameters that came from a sibling API-reference page never added to its refs. This is checklist
-item 7 (which ref supports which number) extended to: does ANY listed ref support it at all?
+SUB-RULE (15th): WHEN A QUOTED SENTENCE APPEARS IN MORE THAN ONE FACT, A DEFECT IN IT IS DUPLICATED
+TOO. Before correcting a quotation, query the kb for it and fix every copy — f7dee43a and 9aaea0dc
+carried the identical modal defect and would have been half-fixed otherwise.
+SUB-RULE (15th): CHECK THAT A CITED PAGE ACTUALLY CARRIES THE DETAIL ATTRIBUTED TO IT. 714a540c held
+parameters that came from a sibling API-reference page never added to its refs. Checklist item 7
+extended to: does ANY listed ref support it at all?
+*** SUB-RULE (15th, THE BIG ONE): RUN THE CHECKLIST ON THE FACTS YOU JUST WROTE, NOT ONLY ON THE
+SAMPLE. *** Budget a post-write pass over this run's own new facts before finishing. The 15th run did
+this for the first time and found three defects in eight facts — a HIGHER defect rate than the
+staleness sample found in old facts (3 in 5, but those were sampled adversarially). A fact is written
+fast, from a source read once, under budget pressure; that is exactly the condition the checklist
+exists to catch, and it does not improve with age on its own. Two cheap, high-yield sub-checks:
+  - CHECK THE TITLE SEPARATELY against checklist item 8. Titles compress and compression drops
+    modal qualifiers, and the title is what a query result shows. b4d688b1's body hedged correctly
+    while its title did not.
+  - IF A FACT WAS BUILT FROM A SUMMARISING FETCH PROMPT, RE-FETCH WITH A VERBATIM PROMPT before
+    finishing. They are different reads of the same page and only the second supports a quotation.
 
-WHAT THE STALENESS PASS ACTUALLY FINDS — EIGHT RUNS OF EVIDENCE, and it is the single most reliable
-defect-finder in this job. It is NOT finding stale facts. It finds CITATION-FIDELITY defects in facts
-whose underlying claims are correct:
+WHAT THE VERIFICATION PASS ACTUALLY FINDS — EIGHT RUNS OF EVIDENCE, and it is the single most
+reliable defect-finder in this job. It is NOT finding stale facts. It finds CITATION-FIDELITY defects
+in facts whose underlying claims are correct:
   ninth      — 56986e8f: a paraphrase wearing quote marks.
   tenth      — c93d93ee: an overclaiming gloss attributed to the source.
   tenth      — c7290868: INVERTED CAUSATION pointing at the wrong remedy.
@@ -364,17 +428,25 @@ whose underlying claims are correct:
     Dropping 'best today' turned a current-capability preference into a hard condition.
   fifteenth  — 714a540c: ATTRIBUTION TO AN UNLISTED REF — parameters credited to a page that does not
     document them, plus a language-binding error (a TypeScript default recorded as the Python one).
-CHECKLIST — verify all NINE explicitly, not just 'is the claim still true':
+  fifteenth  — b4d688b1: MODAL STRENGTHENING IN A TITLE, in a fact written THIS RUN, one hour after
+    the same class was corrected in two others. A projection ('can eventually be covered') stated as
+    an achievement. This is why the post-write pass is now standing.
+  fifteenth  — 0720e9d7: A PDF LINE-WRAP SILENTLY RECONSTRUCTED and printed as a literal path.
+CHECKLIST — verify all TEN explicitly, not just 'is the claim still true':
   (1) quotation boundaries — is every quoted string actually in the source, and does the quote START
       where the source's sentence starts, or has a qualifier been cut off the front;
   (2) causal direction; (3) WHO the actor is in a cited measurement (human vs model vs tool);
   (4) what the pronoun in a quoted sentence refers to; (5) are the TERMS attributed to the source
   actually the source's terms; (6) refs classification (local vs external) and `sources` counts;
   (7) FOR MULTI-REF FACTS, which specific ref supports each specific number — and is a single
-  reported instance being presented as a general rule;
-  (8) MODAL STRENGTH AND SCOPE: does the fact state as a rule what the source stated as a caution
-  ('is noise' vs 'deserves skepticism', 'works when' vs 'works best today when'), and does a number
-  measured on ONE benchmark/model/config get presented as holding generally;
-  (9) NEW — DOES ANY LISTED REF SUPPORT THE DETAIL AT ALL? A fact can accumulate specifics from
-  sources that were read but never cited. If no listed ref carries it, remove it or add the ref.
-  And for framework docs: record the LANGUAGE BINDING a default belongs to.
+  reported instance being presented as a general rule; and does ANY listed ref support it at all;
+  (8) MODAL STRENGTH AND SCOPE, IN THE BODY AND IN THE TITLE SEPARATELY: does the fact state as a
+  rule what the source stated as a caution ('is noise' vs 'deserves skepticism', 'works when' vs
+  'works best today when', 'became 80%' vs 'can eventually reach 80%'), and does a number measured on
+  ONE benchmark/model/config get presented as holding generally;
+  (9) LANGUAGE BINDING AND VERSION for anything from framework or vendor docs — a default belongs to
+  a binding, and a model recommendation belongs to a generation;
+  (10) NEW — LITERALS TAKEN FROM A PDF ARE RECONSTRUCTIONS. pdftotext breaks hyphenated tokens across
+  lines, so every header name, path, identifier and flag is suspect until confirmed against a
+  non-PDF source. Mark it or confirm it. And distinguish PACK ANALYSIS from SOURCE CLAIM in the
+  prose — a gloss written next to a citation gets read as cited.
