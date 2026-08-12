@@ -6,7 +6,7 @@ sources: 1
 entities: [OWASP, Agent Name Service, ANS, ANSName, A2A, MCP, ACP, PKI, MAESTRO, ICANN, semantic versioning]
 refs: ['https://genai.owasp.org/resource/agent-name-service-ans-for-secure-al-agent-discovery-v1-0/', 'https://genai.owasp.org/download/47278/?tmstv=1747275418', 'kb://bc6eac5f37df/kb/architecture/ai/agents/interop/discovery/8b32c15a.md', 'kb://bc6eac5f37df/kb/architecture/ai/agents/interop/outbound-identity/0720e9d7.md']
 ---
-# ANS resolves a name to a verified endpoint and stops there — it explicitly does not translate between agent protocols, and its identifier pins a capability and version rather than an agent
+# ANS resolves a name to a PKI-verified endpoint and stops there — its own spec disclaims cross-protocol translation, and its identifier carries a capability and version alongside the agent
 
 Agent Name Service v1.0 (OWASP GenAI Security Project, Agentic Security Initiative, 14 May 2025) is the DNS-inspired discovery layer that several facts in this pack cite without anyone having read it. What it actually specifies, and — more usefully — where it stops.
 
