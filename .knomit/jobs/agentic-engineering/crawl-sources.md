@@ -61,24 +61,26 @@ https://huggingface.co/blog
    with javascript_tool for anything you intend to fetch — a querySelectorAll over a[href*="/index/"]
    returns slug + title + date together and is how the two Aug 10 posts were found.
 
-2. OWASP PDF DOWNLOADS NEED A SESSION COOKIE **AND** A BROWSER USER-AGENT. THREE THINGS, NOT ONE.
-   The gate is a WordPress Download Manager cookie (wp-dlm_cookie) set when you VISIT THE RESOURCE
-   PAGE, plus a Referer, plus -A. COPY THIS EXACTLY — every flag below is load-bearing:
-     curl -sL -A "Mozilla/5.0" -c cj.txt -o /dev/null "https://genai.owasp.org/resource/<slug>/"
-     curl -sL -A "Mozilla/5.0" -b cj.txt -H "Referer: https://genai.owasp.org/resource/<slug>/" \
-          -o out.pdf "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
-     file out.pdf     # MUST say "PDF document". "HTML document" = you hit the gate.
+2. OWASP PDF DOWNLOADS ARE GATED ON THE USER-AGENT. NOTHING ELSE. `-A` IS THE WHOLE FIX.
+     curl -sL -A "Mozilla/5.0" -o out.pdf "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
+     file out.pdf     # MUST say "PDF document". "HTML document" = the default curl UA went out.
      pdftotext out.pdf out.txt      # then Read out.txt
-   -A IS NOT OPTIONAL. Isolated A/B 2026-08-11: cookie+Referer WITHOUT -A returns the 821KB "No
-   Access" HTML; the SAME two curls WITH -A on BOTH return the real PDF (122pp, 2.4MB, 228KB text).
-   An earlier revision of this note omitted -A because it was verified with the flag and written
-   down without it. A headless test run then failed and reported the source as gated — the recipe
-   was wrong in exactly the way that manufactures a false "dead source". If a download returns HTML,
-   check your flags against this line character by character BEFORE concluding anything about OWASP.
-   The tmstv token is NOT an expiring nonce — the same value worked six days later. Do not blame
-   tmstv for a failure; blame a missing cookie or a missing -A.
-   NO python3 IN THIS JOB. Use `pdftotext`, which is allow-listed. The `Read` tool cannot open PDFs
-   either — it shells out to pdftoppm and renders page images.
+   ISOLATED A/B, 2026-08-11, same URL, four requests back to back:
+     bare curl                  -> HTML  (821KB, <title> "No Access - OWASP Gen AI Security Project")
+     -A only                    -> PDF   122pp, 2.4MB, 228KB extracted text
+     Referer only               -> HTML
+     -A + Referer, NO cookies   -> PDF
+   THIS SOURCE HAS NOW BEEN MISDIAGNOSED THREE TIMES, EACH BY A RUN THAT SUCCEEDED WITHOUT
+   ISOLATING THE VARIABLE:
+     11th run   "gated PDF, needs a form"          -> wrong; no form exists
+     13th run   "gated on a Referer header"        -> wrong; Referer alone returns HTML
+     14th pass  "needs a wp-dlm session cookie"    -> wrong; an EMPTY cookie jar downloads fine,
+                and the jar it prescribed was verified empty in the run that "proved" it
+   Every one was written down from a command that happened to work, crediting all flags equally.
+   WHEN A FETCH FINALLY WORKS, DROP ONE FLAG AT A TIME BEFORE RECORDING THE RECIPE. A recipe
+   carrying passenger flags is worse than verbose: it sends the next run hunting a cookie that
+   does not exist, and it manufactures a false "this source is gated" when the real gate moves.
+   The tmstv token is NOT an expiring nonce — the same value worked six days later.
 
 The 12th run's WebFetch route still works and needs no headers — keep it as the fallback:
   1. WebFetch the RESOURCE PAGE asking for "the direct PDF download URL if present in the page HTML".
