@@ -44,10 +44,38 @@ https://modelcontextprotocol.io/specification/2026-07-28/deprecated      <- ADDE
 https://owasp-agentic-ai-security-incidents.lovable.app/                 <- ADDED 12th run (ASI incidents tracker)
 https://www.aisi.gov.uk/blog/                                            <- ADDED 13th run (RANK 2)
 https://openai.com/index/                                                <- ADDED 13th run (RANK 2)
+https://developers.openai.com/api/docs/guides/                           <- ADDED 15th run. The API guides tree is
+    a DIFFERENT source from openai.com/index and from the cookbook, it is plain-WebFetch-readable (no browser,
+    no 403), and agent-builder-safety was found there unread. Scan it for new guides, not just the two known ones.
 https://github.com/vectara/hallucination-leaderboard
 https://huggingface.co/blog
 
 === SOURCE INVENTORIES — catalogues that cost real fetches to enumerate ===
+
+*** OWASP GenAI — RESOURCE SLUG + DOWNLOAD ID MAP ***
+The PDF lives at https://genai.owasp.org/download/<id>/?tmstv=<epoch>, and the id is NOT guessable.
+Get it by WebFetching the /resource/<slug>/ page and asking for the download URL, then curl it with -A
+(see fetch-routes). The tmstv token does not expire — the same value has worked days later.
+IDs captured so far:
+  50592  State of Agentic AI Security and Governance 2.01   (139pp, read 12th run)
+  56857  OWASP GenAI LLM Top 10 2026                        (122pp, read 13th run)
+  49059  Securing Agentic Applications Guide 1.0            (July 2025, read 15th run) tmstv=1753666640
+  46950  Multi-Agentic System Threat Modeling Guide v1.0    (April 2025, read 15th run) tmstv=1745459605
+  52117  OWASP Top 10 for Agentic Applications 2026         <- id surfaced by search 15th run, NOT YET FETCHED.
+         Resource slug: /resource/owasp-top-10-for-agentic-applications-for-2026/ — note this is a DIFFERENT
+         page from /resource/agentic-ai-threats-and-mitigations/ and from the 2025/12/09 announcement post,
+         both of which are already crawled. The resource page itself has never been fetched.
+RESOURCE SLUGS RESOLVED BUT UNFETCHED (route 1b, one search each):
+  /resource/securing-agentic-applications-guide-1-0/          READ 15th run
+  /resource/multi-agentic-system-threat-modeling-guide-v1-0/  READ 15th run
+
+*** COUNTER-POSITION TARGET, found 15th run ***
+https://arxiv.org/pdf/2508.09815 — "Extending the OWASP Multi-Agentic System Threat Modeling Guide:
+  Insights from Multi-Agent Security Research". A published critique naming GAPS in the OWASP guide read
+  this run: reasoning collapse across planner-executor chains, metric overfitting, unsafe delegation
+  escalation, emergent covert coordination, heterogeneous multi-agent exploits, benign goal drift,
+  cross-agent hallucination propagation, affective prompt framing, multi-agent backdoors. This is a
+  Tier-1-shaped PAIR with the guide — fetch it before writing anything more from the OWASP MAS guide.
 
 *** AWS BUILDERS' LIBRARY — COMPLETE ENUMERATION (30 of 30, no more pagination) ***
 URLs are opaque content IDs, NOT guessable from titles: https://builder.aws.com/content/<ID>/<slug>
@@ -97,10 +125,14 @@ CORRECTED (fifth run): cognition slugs guessed from titles 404. Always pull
 https://cognition.com/blog for exact slugs.
   'Coding Agents 101' = /blog/coding-agents-101-the-art-of-actually-getting-things-done
 STRANDS DOC URLS — base is https://strandsagents.com/docs/... (NOT /latest/..., which 404s):
-  .../user-guide/concepts/agents/conversation-management/  (READ)
-  .../api/python/strands.agent.conversation_manager.conversation_manager/
+  .../user-guide/concepts/agents/conversation-management/  (READ; re-verified 15th run)
+  .../api/python/strands.agent.conversation_manager.conversation_manager/   <- NEEDED. The 15th run found
+     fact 714a540c attributing pin_first / proactive_compression parameters to the user-guide page, which
+     does not document them. If those params are real they are here. Fetch before restoring them.
   .../api/python/strands.agent.agent/
 Still unread: Swarm / Graph / Agent-as-Tool multi-agent patterns, session persistence.
+NOTE (15th run): the Strands docs carry snake_case AND camelCase spellings side by side and document
+some defaults for the TypeScript binding only. Do not record a default without recording its binding.
 CLAUDE PLATFORM DOCS — the prompting page routes to PER-MODEL sub-pages (found 12th run):
   .../prompt-engineering/prompting-claude-opus-5    <- has a 'Controlling subagent spawning' section
   .../prompt-engineering/prompting-claude-opus-4-8
