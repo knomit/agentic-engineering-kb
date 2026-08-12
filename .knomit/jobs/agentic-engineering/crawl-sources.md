@@ -36,21 +36,33 @@ https://huggingface.co/blog
 
 *** TWO NEW FETCH ROUTES, BOTH FOUND 13th RUN. READ BEFORE CALLING ANYTHING BLOCKED. ***
 
-1. openai.com/index/<slug> RETURNS HTTP 403 TO WebFetch. IT READS FINE IN THE BROWSER.
-   mcp__claude-in-chrome__navigate {url} then get_page_text {tabId} returned the full article
-   first try. OpenAI is now a primary-post-mortem publisher (see rank 2), so this route matters.
-   Do NOT record openai.com as paywalled or dead — it is WebFetch-403, browser-readable.
+1. openai.com/index/<slug> RETURNS HTTP 403 TO WebFetch. IT READS FINE IN A REAL BROWSER.
+   CORRECTED 2026-08-11 — the 13th run's route named mcp__claude-in-chrome__* tools. Those come
+   from the Chrome EXTENSION attached to an interactive session; a headless run has no extension
+   and --strict-mcp-config drops them regardless. They do not exist in this job. Use the job's own
+   `browser` MCP server instead:
+     mcp__browser__browser_navigate {url}  then  mcp__browser__browser_snapshot
+   VERIFIED 2026-08-11 against the third-party-cyber-evaluations post: full article text, no
+   challenge. The server must run REAL Chrome, not headless Chromium — headless Chromium is served
+   a Cloudflare "Just a moment..." interstitial and gets nothing. mcp.json pins --browser chrome.
+   Plain curl also 403s. Do NOT record openai.com as paywalled or dead — it is WebFetch-403,
+   browser-readable.
 
-2. OWASP PDF DOWNLOADS ARE GATED ON A `Referer` HEADER, NOT ON A FORM.
-   This SUPERSEDES the 12th run's WebFetch route below — it is faster, and it explains the
-   "gated PDF" false positive that blocked this source for eleven runs.
-     curl -sL -o out.pdf -H "Referer: https://genai.owasp.org/resource/<slug>/" \
-          "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
-   WITHOUT the Referer you get a 840KB HTML page whose <title> is "No Access - OWASP Gen AI
-   Security Project" — note it is HTML with a .pdf filename, so CHECK `file out.pdf` rather than
-   trusting the download succeeded. With the Referer you get the real PDF (Top 10 2026 = 122pp,
-   2.4MB). Get the download id and tmstv by WebFetching the RESOURCE page and asking for the
-   direct PDF link. Then: python3 -c "from pypdf import PdfReader; ..." (pypdf 4.3.1 present).
+2. OWASP PDF DOWNLOADS NEED A SESSION COOKIE. `Referer` ALONE IS NOT ENOUGH.
+   CORRECTED 2026-08-11. The 13th run recorded "Referer header, not a form". Re-tested today:
+   Referer alone returns the 840KB "No Access" page. The gate is a WordPress Download Manager
+   cookie (wp-dlm_cookie) that is set when you VISIT THE RESOURCE PAGE. Two curls, one jar:
+     curl -sL -c cj.txt -o /dev/null "https://genai.owasp.org/resource/<slug>/"
+     curl -sL -b cj.txt -H "Referer: https://genai.owasp.org/resource/<slug>/" \
+          -o out.pdf "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
+     file out.pdf     # MUST say "PDF document". "HTML document" = you hit the gate.
+     pdftotext out.pdf out.txt      # then Read out.txt
+   VERIFIED 2026-08-11: Top 10 2026 = 122pp, 2.4MB, 228KB of extracted text.
+   The tmstv token is NOT an expiring nonce — the same value worked six days later, and the
+   resource page still serves it. Do not blame tmstv for a failure; blame the missing cookie.
+   NO python3 IN THIS JOB. The old recipe's `python3 -c "from pypdf import PdfReader"` is not
+   available: arbitrary code execution is not granted. Use `pdftotext`, which is allow-listed.
+   The `Read` tool cannot open PDFs either — it shells out to pdftoppm and renders page images.
 
 The 12th run's WebFetch route still works and needs no headers — keep it as the fallback:
   1. WebFetch the RESOURCE PAGE asking for "the direct PDF download URL if present in the page HTML".
@@ -65,11 +77,12 @@ OWASP PDFs "gated" (11th run, refuted by the 12th), and now the underlying OWASP
 to be one missing HTTP header. Every single source this pack has ever declared unreachable was
 reachable by another route. BEFORE RECORDING ANY SOURCE AS DEAD, exhaust:
   (1) a server-rendered canonical mirror — GitHub README, raw file, RSS/Atom, archive path;
-  (2) the claude-in-chrome browser tools (this is what cracked openai.com);
-  (3) a different PARSER for the same bytes (pypdf, not the Read tool);
+  (2) the `browser` MCP tools, real Chrome (this is what cracked openai.com);
+  (3) a different PARSER for the same bytes (pdftotext, not the Read tool);
   (4) the RESOURCE/LANDING page, asked for the asset URL;
-  (5) REQUEST HEADERS — Referer and User-Agent. This is what cracked OWASP, and it is the
-      cheapest of the five. Check `file` on any downloaded binary before believing it.
+  (5) REQUEST HEADERS **AND COOKIES** — Referer, User-Agent, and a cookie jar primed by
+      visiting the landing page first. This is what cracked OWASP (headers were only half of
+      it), and it is the cheapest of the five. `file` any downloaded binary before believing it.
 And prefer the wording "unread by method X" over "dead" — the wording is what future runs act on.
 pypdf caveats that still hold: the true page count can exceed what the Read tool advertises
 (AIUC-1 announced 15pp, is 55); Read's `limit` counts LINES and one PDF page is one very long line;
