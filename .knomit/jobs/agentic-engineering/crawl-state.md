@@ -232,6 +232,221 @@ SUGGESTED SPLIT FOR THE NEXT RUN:
 (5) MCP basic/index#meta (the _meta contract everything rides on) — server/discover is now DONE.
 (6) The OWASP ASI incidents tracker, now THREE runs in the list without a single fetch.
 
+
+=== PER-SOURCE STATUS AND QUEUE, as of the 14th run ===
+Moved here from crawl-sources.md on 2026-08-11: this is per-run state, and per-run state belongs in
+the slot whose revision history IS the run record. Each run REPLACES this section with its own —
+carry forward whatever is still unread, drop what you read, and re-rank if the evidence moved.
+
+OWASP GenAI PDF REPORTS — STATUS:
+  AIUC-1 Crosswalks OWASP Top 10 for Agentic Applications (May 2026, 55pp)  READ (11th), 3 facts+1 upd
+  AI Security Solutions Landscape for AI/Agentic Red Teaming Q2 2026 (15pp) READ (11th), 1 fact
+  State of Agentic AI Security and Governance 2.01 (Jun 2026, 139pp)        READ (12th), 8 facts+1 upd
+    ^ chapters still NOT written up: Enterprise Adoption Maturity Model (p53-62), Alignment with
+      Top 10 Agentic (p61), Future Trends / What Remains Unsolved (p63-68) incl. governance-
+      deployment collision, cyber-insurance coverage collapse, OT/ICS, adversarial agent
+      weaponisation; AI SBOM and Supply Chain Provenance (p46-48); Explainable AI (p49);
+      Appendix 1 agent-type taxonomy (p70-76); Appendix 3 ASI risk classes by adoption tier (p116);
+      Appendix 6 Top 10 Impacting Personal Agents (p128). Appendix 2 (regulatory) is low altitude.
+  OWASP GenAI LLM Top 10 2026 (2026-08-03, 122pp)   READ (13th), 2 facts + 1 update (4f5e9dfe).
+    download id 56857. Chapters NOT mined: the ten per-entry chapters themselves. LLM03:2026
+    Excessive Agency (p23-26) and LLM08:2026 Hidden Context Exposure (p46-49) are the two most
+    relevant to this pack and are UNREAD in detail. Appendix A coverage matrices (p58-105) map to
+    ASI 2026, DSGAI v1.0, MITRE ATLAS v2026.06, ATT&CK v19.1, CWE 4.20, NIST AI 600-1, NIST AI RMF,
+    CSA AICM v1.1 and AIVSS v0.8 — a large pre-done cross-framework mapping, worth one pass.
+STILL UNREAD, all named as companion resources and all HIGH PRIORITY:
+  Securing Agentic Applications Guide 1.0        (threat taxonomy -> architecture patterns + controls)
+  Multi-Agentic System Threat Modeling Guide 1.0
+  Solutions Landscape – Red Teaming Taxonomy (Jun 2026)
+  Agent Name Service (ANS) v1.0                  (pairs with discovery facts 8b32c15a and 995c167b)
+  A Practical Guide for Secure MCP Server Development
+  CheatSheet — Securely Using Third-Party MCP Servers 1.0
+  Agentic AI Solution Landscape
+  OWASP AIBOM / AIBOM Generator
+  GenAI Data Security Risks & Mitigations
+  GenAI Red Teaming Guide
+  ASI Exploits & Incidents Tracker — the GitHub repo URL is footnote 19 of State of Agentic AI and
+    has still NOT been captured. The visual explorer (owasp-agentic-ai-security-incidents.lovable.app)
+    is in the list above and has STILL NEVER BEEN FETCHED across THREE runs. Rank-2 material.
+OWASP HTML blog posts read fine with a plain WebFetch. Unread and promising:
+  /2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/  (ASI06; pairs with 7bd6c6c9)
+  /2026/04/14/owasp-genai-exploit-round-up-report-q1-2026/
+  /2026/04/14/finbot-ctf-is-live-a-hands-on-companion-to-the-owasp-genai-security-project/
+*** MCP 2026-07-28 — TRIPWIRE CHECKED 14th RUN, STILL UNCHANGED ***
+Still 2026-07-28, no movement since the 11th run. Check EVERY run anyway; cheapest high-value fetch
+in the pack. server/discover WAS READ THIS RUN (14th) — three facts had referenced it and none had
+read it; it produced 995c167b and corroborated 031dab74 (sources 2->3). Confirmed: servers MUST
+implement it, clients need not call it, serverInfo is self-reported and explicitly not for security
+decisions, `instructions` is server-controlled text on the injection path, and on stdio it is the
+SHOULD-do backward-compatibility probe because there is no HTTP status code to key fallback on.
+STILL UNREAD in this revision, in rough value order:
+  /specification/2026-07-28/basic/index#meta       (the _meta contract everything now rides on)
+  /specification/2026-07-28/basic/authorization/security-considerations
+  /specification/2026-07-28/basic/transports/streamable-http
+  /specification/2026-07-28/basic/versioning       (negotiation + backward-compat with 2025-11-25)
+  /specification/2026-07-28/basic/transports/stdio#backward-compatibility  <- NEW, named by discover
+  /specification/2026-07-28/server/utilities/caching  <- NEW, named by discover (ttlMs/cacheScope)
+  /extensions/tasks/overview and /extensions/apps/overview
+  /specification/2026-07-28/schema                 (reference only; expensive, low altitude)
+NOTE for a human: Appendix A on disk was corrected 2026-08-11 and now says 2026-07-28. Good.
+*** THE OPENAI CYBER CLUSTER — FOUR POSTS READ 14th RUN, AND THE FEED IS RANK 2 FOR A REASON ***
+openai.com/index carries primary security post-mortems under its Security tag and is the single
+highest-yield feed found in the last two runs. READ SO FAR:
+  /index/third-party-cyber-evaluations-involving-openai-models/          (Aug 4, read 13th)
+  /index/hugging-face-model-evaluation-security-incident/                (Jul 21 + updates Jul 28/29)
+     ^ THE PRIMARY OPERATOR ACCOUNT of the HF incident. Read 14th run, folded into bcbf13c2.
+       Nobody had fetched it for THIRTEEN RUNS while the fact rested on secondary reporting.
+  /index/responding-next-frontier-critical-cyber-capabilities/           (Aug 7)
+     ^ NOTE THE SLUG. The 13th run guessed "responding-TO-THE-next-frontier-..." and 404'd. The real
+       slug drops "to-the". Resolved via WebSearch+allowed_domains — see route 1b.
+  /index/expanding-daybreak-as-the-cyber-defense-window-narrows/         (Aug 10) HIGHEST YIELD of the
+     ^ four: hard numbers on refusal rates, a turn-budget ranking reversal, a composite-eval
+       regression, and real-world vulnerability counts. Three facts came off this one page.
+UNREAD AND WANTED NEXT RUN:
+  /index/putting-frontier-cyber-models-in-more-trusted-hands/            (Aug 10) — the only one of
+     the four Aug 7-10 posts not yet read. Likely program/policy; budget one cheap fetch.
+  /index/safety-alignment-long-horizon-models/     (linked from the HF post; long-horizon alignment)
+  /index/designing-agents-to-resist-prompt-injection/   <- SURFACED BY SEARCH, never seen before,
+     and squarely on this pack's subject. HIGH PRIORITY.
+  /index/trusted-access-for-cyber/, /index/scaling-trusted-access-for-cyber-defense/,
+  /index/updating-our-preparedness-framework/      (governance; lower altitude)
+WATCH FOR THESE TWO — both promised, neither published as of 2026-08-11, both aimed at this pack:
+  * OpenAI's full technical report on the Hugging Face incident.
+  * A JOINT METR + Redwood Research blog giving a third-party assessment of the model behaviour,
+    covering engagement terms, scope and findings. NOTE this partly re-rates metr.org/blog, which the
+    13th run demoted to rank 17 — if that joint post lands it is rank-2 material, not rank-17.
+  * Irregular's containment white paper for cyber evals (named in the Aug 4 post).
+Also still unread: https://www.cnn.com/2026/08/05/tech/meta-ai-hacking (a fifth lab; secondary —
+  find the primary), and the simonwillison queue: /2026/Jul/31/stateless-mcp/ (pairs with 3afa31af),
+  the-tokenpocalypse (404media), /2026/Aug/2/open-letters/.
+*** MICROSOFT RESEARCH — ALL THREE QUEUED POSTS READ 14th RUN. FEED NOW 2-FOR-3. ***
+  /orchard-an-open-framework-for-scalable-agentic-ai/  (Aug 3) READ. NO FACT. Framework announcement.
+    Numbers are model-capability scores (69.7% SWE-bench Verified at ~3B active params, 73% with
+    value-model reranking; 68.4% GUI; 59.6% Claw-Eval) that describe THEIR models, not a transferable
+    engineering constraint. The one idea near the bar — train inside the real deployment harness
+    rather than a simplified proxy — is asserted, not measured. Revisit only if they publish the
+    train/deploy mismatch as a measurement.
+  /echoverse-deep-evolving-environments-for-computer-use-agents/ (Jul 30) READ. 1 FACT (12966de6).
+    Best of the three: database-grounded verification and environment-repair loops are method claims
+    that transfer. 9B model 36.5%->67.1%; RL held-out 58%->69%.
+  /evolib-turning-experience-into-evolving-knowledge/ (Jul 30) READ. NO FACT. Inference-time memory
+    consolidation + utility weighting. The blog reports NO absolute numbers, NO named baselines and
+    NO failure modes — only shape claims ("higher performance throughout most of the compute range").
+    Below the bar as published. If a paper appears with numbers, revisit.
+YIELD RANKING as of the FOURTEENTH run — spend the budget in this order:
+  1. SPEC AND PROTOCOL TRIPWIRES. modelcontextprotocol.io/specification/versioning plus the
+     /deprecated registry. One cheap fetch caught a protocol revision that invalidated parts of five
+     facts. Spec pages are dated, authoritative, and change underneath you silently. EVERY run.
+  2. PRIMARY INCIDENT POST-MORTEMS, wherever they appear — openai.com/index, aisi.gov.uk/blog,
+     anthropic.com/news, and the OWASP ASI incidents tracker. Validated FIVE times now. THE 14th RUN
+     ADDS A SHARPER VERSION OF THIS RULE: when the kb holds a fact about an incident, CHECK WHETHER
+     THE OPERATOR HAS PUBLISHED ITS OWN ACCOUNT. bcbf13c2 rested on secondary reporting for thirteen
+     runs while OpenAI's primary post-mortem sat unfetched, and it contained a claim the secondary
+     account contradicted. A fact assembled from secondary sources is an OPEN TASK, not a done one.
+  3. OWASP GenAI PDF REPORTS. Four read across three runs for 14 facts + 3 corroborations, and the
+     read route is solved twice over. The companion guides list above is still the single richest
+     unread block in this file. HIGH PRIORITY.
+  4. MCP 2026-07-28 remaining spec pages (list above). server/discover is now DONE; basic/index#meta
+     is the next-most-referenced unread page.
+  5. microsoft.com/en-us/research/blog — all three queued posts now read (see above); 1 fact of 3.
+     Prefer METHOD posts over FRAMEWORK posts. Scan for agent/memory/skill/eval; skip health,
+     quantum, diffusion.
+  6. anthropic.com/engineering — UNREAD: AI-resistant-technical-evaluations, building-c-compiler,
+     contextual-retrieval, swe-bench-sonnet, desktop-extensions. Index quiet since Apr 2026.
+     anthropic.com/news is NEWLY ADDED to the recurring list — postmortems live there, not on
+     /engineering, and that is where the July incident review was published.
+  7. Azure Architecture Center. The six-part RAG series is the largest coherent unread block.
+  8. aws.amazon.com/blogs/machine-learning — high volume, heavily product-marketing, but where
+     spec-level changes surface early. Scan titles for spec/protocol/security/identity.
+  9. builder.aws.com Builders' Library — 16 of 30 read for 55+ facts, visibly exhausting.
+ 10. cognition.com/blog — dense, specific, publishes reversals of its own positions. Unread:
+     coding-agents-101-the-art-of-actually-getting-things-done, swe-grep, blockdiff,
+     devin-annual-performance-review-2025, evaluating-coding-agents, making-fable-cheaper-than-opus,
+     devin-fusion, swe-1-7, measuring-open-source-model-trustworthiness,
+     introducing-devin-security-swarm, frontier-code and frontier-code-1.1, ai-productivity.
+     Skip partnership/funding/office/acquisition posts — about half the feed.
+ 11. huggingface.co/blog — scan for incident/infrastructure/engineering; SKIP model and dataset
+     announcements. Posts can be namespaced under an org (huggingface.co/blog/<org>/<slug>).
+ 12. sourcegraph.com/blog — real measurements. Unread:
+     compliance-first-ai-proving-agent-provenance,
+     sourcegraph-mcp-and-a-cheaper-model-beat-a-mythos-class-model-alone,
+     owning-a-codebase, the-hidden-cost-of-code-that-nobody-touches.
+ 13. eugeneyan.com/writing — unread: secure-source-code (May 2026) and anything newer.
+ 14. simonwillison.net/tags/llms/ — high volume, mostly link-blogging, but the fastest POINTER to
+     primary post-mortems. Its VALUE IS THE LINKS: read the index, follow the primaries, rarely read
+     Simon himself. CAVEAT ADDED 14th run — his summaries of TALKS are the weakest link in this pack
+     and have now produced two claims no primary source corroborates (see 4e923405, bcbf13c2).
+     Use him to FIND primaries, not as a substitute for one.
+ 15. latent.space/archive — interview format. Unread: /p/aiewf26trends, /p/modal2026, /p/poolside,
+     /p/chatgpt-work. Skews discussion-level; verify measurements exist before a full read.
+ 16. langchain.com/blog — eval and benchmark posts clear the bar; customer stories do not.
+ 17. metr.org/blog — demoted 13th run; governance and policy review, one on-topic post redacted.
+     RE-RATE IF the joint METR + Redwood assessment of the OpenAI incident lands (see above).
+ 18. embracethered.com/blog — low volume, high value, security only.
+ 19. trychroma.com/research — rare but substantial. Unread: evaluating-chunking.
+ 20. research.google/blog — checked twice, output is health/quantum/diffusion. Low yield.
+     microsoft.com/en-us/security/blog — one good agent-identity post, otherwise threat intel.
+
+dead or unreadable — EMPTY except for host moves. Read the five-for-five warning above before adding.
+  block.github.io/goose -> goose-docs.ai (old host serves a 'goose has moved' stub).
+  https://strandsagents.com/latest/... -> 404. Use /docs/... above.
+  NOTE: builder.aws.com, the Vectara leaderboard, OWASP PDFs (three times, on three different
+    stated reasons) and openai.com were ALL listed or headed here and NONE was ever unreachable.
+
+TIER 6 GITHUB READMEs — CLOSED OUT. Five of six returned catalogue- or marketing-level text below
+the bar. The only useful things were MAINTENANCE-STATUS notices (autogen's maintenance mode;
+semantic-kernel's 'now Microsoft Agent Framework'), which generalises: a repo README is worth a fetch
+for LIFECYCLE STATUS and nothing else. If a repo matters, go to its DOCS site.
+Only remaining tier-6 item: the x1xhlol INDIVIDUAL prompt files. Frame anything from those as
+'this harness's published prompt does X', never as 'the correct approach is X'.
+
+STALENESS-POOL NOTE (updated 14th run). Checked so far — cb98732e, 27652a82, 111f8b2c, 2b74037b,
+5ad0fb45, 62312b79, 0fe91ac7, fc249ffc, a5ade87d, dee636a2, 77b3e628, f877f05d, d4e3b247, bcbf13c2,
+d468cbbe, 089c7cba, 15e7bf02, 46f3ea69, 56986e8f, d87795d4, 882100d9, 28ba65db, c93d93ee, c7290868,
+c1bbf73f, 48c4e555, c2f12069, 62c9a78b, e9b7eef3, 96ebc34e, c858a924, c99ec745, 30869b36, c436422a,
+c1e18090, 9920b5d6, 773a89ee, 48c9de1b, afce1dae, 4b0261d0, 052c2b66, f78a326a, 38c06627,
+and (14th run) d18637a2, 1beb89e6, f1cbb540, 89df351e, 4e923405.
+TWO AXES, ALTERNATE THEM. Confidence axis (lowest-confidence first) and earliest-committed axis.
+The 13th run introduced the earliest-committed axis and got 2 defects in 5; the 14th ran the
+confidence axis and got 1 clear defect + 1 partial-verification flag in 5. Both work. Nothing in this
+kb is yet older than 90 days. AVOID SAMPLING kb/principles/**.
+NEW SUB-RULE, 14th run: PREFER FACTS THAT SHARE A SOURCE. f1cbb540 and 89df351e both cite
+claude-code-auto-mode, so ONE fetch verified TWO facts. Group the sample by ref where you can — it
+roughly halves the fetch cost of the pass at no loss of coverage.
+SECOND SUB-RULE: if a narrow verification prompt confirms only PART of a fact, say so IN THE FACT
+rather than bumping confidence as if the whole thing were checked (see 1beb89e6's VERIFICATION SCOPE
+section). A silent partial confirmation is how an unverified claim acquires false authority.
+
+WHAT THE STALENESS PASS ACTUALLY FINDS — SEVEN RUNS OF EVIDENCE, and it is the single most reliable
+defect-finder in this job. It is NOT finding stale facts. It finds CITATION-FIDELITY defects in facts
+whose underlying claims are correct:
+  ninth   — 56986e8f: a paraphrase wearing quote marks.
+  tenth   — c93d93ee: an overclaiming gloss attributed to the source.
+  tenth   — c7290868: INVERTED CAUSATION pointing at the wrong remedy.
+  eleventh— 96ebc34e: BOTH at once, and the gloss reversed the blame.
+  eleventh— c858a924: WRONG ACTOR — 'independent auditors' were two LLM judges, not humans.
+  twelfth — 30869b36: a pack gloss wearing quote marks (the 'combined surface area' line).
+  twelfth — c436422a: WRONG TERMS attributed to the source (brain/hands/session).
+  thirteenth — f78a326a: WRONG TERM ('raw accuracy' for 'raw agreement') AND a single reported
+    instance generalised into a rule.
+  thirteenth — 38c06627: MISATTRIBUTION ACROSS A FACT'S OWN TWO REFS.
+  fourteenth — d18637a2: A RECOMMENDATION STRENGTHENED INTO A RULE. The fact said "treat sub-3-point
+    leaderboard gaps as noise"; the source says such gaps "deserve skepticism until the eval
+    configuration is documented and matched". Those prescribe different actions — discard the number
+    versus go and get the configuration. ALSO a scope error in the same fact: the 6-point figure is
+    Terminal-Bench 2.0 only; the same experiment moved SWE-bench just 1.54 points, so the headline
+    number had been silently generalised across benchmarks.
+CHECKLIST — verify all EIGHT explicitly, not just 'is the claim still true':
+  (1) quotation boundaries — is every quoted string actually in the source;
+  (2) causal direction; (3) WHO the actor is in a cited measurement (human vs model vs tool);
+  (4) what the pronoun in a quoted sentence refers to; (5) are the TERMS attributed to the source
+  actually the source's terms; (6) refs classification (local vs external) and `sources` counts;
+  (7) FOR MULTI-REF FACTS, which specific ref supports each specific number — and is a single
+  reported instance being presented as a general rule;
+  (8) NEW — MODAL STRENGTH AND SCOPE: does the fact state as a rule what the source stated as a
+  caution ('is noise' vs 'deserves skepticism', 'reduces' vs 'can reduce'), and does a number
+  measured on ONE benchmark/model/config get presented as holding generally?
+
 ALREADY_CRAWLED — the complete union, 197 URLs (190 carried forward verbatim + 7 added this run).
 THIS IS THE AUTHORITATIVE LIST. Do not fetch anything here again except for a deliberate staleness
 re-check. Ordered by the revision that first recorded each URL, oldest first. A trailing (feed) marks
