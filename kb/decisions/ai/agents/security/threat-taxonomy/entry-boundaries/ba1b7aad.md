@@ -4,7 +4,7 @@ domain: [agentic-engineering, security, threat-modeling, incident-response, mult
 confidence: 0.85
 sources: 1
 entities: [OWASP, ASI01, ASI04, ASI06, ASI07, ASI08, ASI10, cascading failures, blast radius, fan-out]
-refs: ['https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/', 'https://genai.owasp.org/download/52117/?tmstv=1765059207']
+refs: ['https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/', 'https://genai.owasp.org/download/52117/?tmstv=1765059207', 'kb://bc6eac5f37df/kb/invariants/ai/agents/security/threat-taxonomy/agentic-top-10-2026/703147ba.md']
 ---
 # Four of the OWASP agentic top ten are the same incident at different stages, not four different attacks — and the document gives an explicit rule for which one to file it under
 
