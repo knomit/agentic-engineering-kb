@@ -34,8 +34,12 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    Both are read-only navigation + text extraction and both cracked openai.com. The server must run
    REAL Chrome, not headless Chromium — headless Chromium gets a Cloudflare "Just a moment..."
    interstitial. Plain curl also 403s. Do NOT record openai.com as paywalled or dead — it is
-   WebFetch-403, browser-readable. VERIFIED 2026-08-11 on four separate openai.com/index/ posts, and
-   AGAIN 2026-08-12 (15th run) on three more with mcp__claude-in-chrome__*, first try, no retries.
+   WebFetch-403, browser-readable. VERIFIED 2026-08-11 on four separate openai.com/index/ posts,
+   AGAIN 2026-08-12 (15th run) on three more, and AGAIN 2026-08-14 (17th run) on two more with
+   mcp__claude-in-chrome__*, first try, no retries. Seven-plus posts across four runs; this route is settled.
+   NOTE ON navigate ERGONOMICS (17th run): calling `navigate` STANDALONE with no tabId auto-creates
+   the tab group and returns the tabId in the same result, so the documented
+   tabs_context_mcp-then-create dance is not needed for a simple read. Navigate, then get_page_text.
    NOTE THE HOST BOUNDARY: this is openai.com ONLY. developers.openai.com and cdn.openai.com are NOT
    403 — the API guides read fine with plain WebFetch, and cdn.openai.com PDFs download with plain
    curl -A. Do not spend a browser navigation on either.
@@ -58,14 +62,23 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    have a specific title in hand.
    VALIDATED A THIRD TIME, 16th run: one search resolved the ANS resource slug, which contains a TYPO
    nobody would guess — /resource/agent-name-service-ans-for-secure-al-agent-discovery-v1-0/ spells
-   AI as "al". Guessing that slug was impossible; searching it took one call. Slugs with OCR-style
-   typos are exactly why the guess-then-404 loop must never be entered.
+   AI as "al". Guessing that slug was impossible; searching it took one call.
+   VALIDATED A FOURTH TIME, 17th run, and this is the strongest instance yet: ONE search on
+   openai.com returned SIX previously-unknown post URLs, and among them the CORRECT slug for the post
+   the 13th run 404'd on by guessing — the real slug is
+   /index/responding-next-frontier-critical-cyber-capabilities/ (the guess had inserted "to-the" and
+   "of"). A 404 from a guessed slug is worth exactly one search, never a second guess.
+   *** ALSO USE THE ARTICLE FOOTER. *** openai.com posts carry a "Keep reading" block listing three
+   sibling posts with titles and dates. get_page_text returns it. Reading one post therefore yields
+   three more candidate URLs for free — no index sweep, no extra call.
 
 *** 3. modelcontextprotocol.io UNREACHABLE -> READ THE SPEC REPO ON GITHUB. NEW, 16th run. ***
    On 2026-08-12 the host refused connections outright: WebFetch returned
    `connect ECONNREFUSED 76.76.21.21:443` on three separate paths, and `curl` timed out (exit 28,
    HTTP 000). Not a 403, not a block — the origin was down. Every other host that run was fine, so
-   isolate before blaming the tool.
+   isolate before blaming the tool. THE HOST WAS BACK UP AND FULLY RESPONSIVE ON 2026-08-14 (17th
+   run) — that outage was transient, not a policy change. The repo route below remains preferred
+   anyway, because it is cheaper and enables diffing.
    THE MIRROR IS THE SPEC ITSELF, not a copy: the site renders .mdx files straight out of
    github.com/modelcontextprotocol/modelcontextprotocol. This route is authoritative and it worked
    first try for six documents.
@@ -84,21 +97,33 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    revision (2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25, 2026-07-28, draft). A new revision
    appears as a new directory. That is the cheapest possible check of the versioning tripwire and it
    does not depend on the website being up at all — prefer it.
-   *** PATH MAPPING — THE SITE URL IS NOT THE REPO PATH, AND GUESSING COSTS 404s. ***
+
+   *** PATH MAPPING — CORRECTED 2026-08-14 (17th run). THE 16th RUN'S VERSION WAS WRONG TWICE. ***
+   The two tree prefixes are right:
      site /specification/<rev>/...   -> repo docs/specification/<rev>/...
      site /docs/<rev>/...            -> repo docs/docs/<rev>/...
-   And pages MOVE between those trees. Confirmed 16th run: security_best_practices used to be cited
-   as /specification/2025-06-18/basic/security_best_practices and now lives at
-   docs/docs/<rev>/tutorials/security/security_best_practices.mdx — i.e. it left the specification
-   tree for the docs tree. Likewise /docs/concepts/tools no longer exists; that material is now
-   docs/docs/<rev>/learn/server-concepts.mdx. ALWAYS grep the recursive tree instead of constructing
-   a path from the old URL.
+   CORRECTION 1 — /docs/concepts/tools IS NOT GONE. The 16th run recorded it as dead. It answers
+   HTTP 200 and REDIRECTS to https://modelcontextprotocol.io/specification/2026-07-28/server/tools.
+   Tested with `curl -o /dev/null -w "%{http_code} %{url_effective}"`, 2026-08-14. The 16th run could
+   not test this because the host was down that day, and recorded the guess as a finding. Facts
+   citing the old URL were never actually broken.
+   CORRECTION 2 — THE SUCCESSOR PAGE NAMED BY THE 16th RUN IS THE WRONG PAGE. It recorded the
+   material as having moved to docs/docs/<rev>/learn/server-concepts.mdx. It did not. That page is a
+   high-level conceptual overview and contains NO mention of `annotations`, `outputSchema`,
+   `structuredContent` or `isError` — grepped for all four, zero hits, in the 2026-07-28 revision.
+   The tool CONTRACT material lives in the SPECIFICATION tree:
+     docs/specification/<rev>/server/tools.mdx        <- annotations MUST-untrusted warning,
+                                                         outputSchema, structuredContent, isError,
+                                                         tool-name charset rules, x-mcp-header
+   THE LESSON, and it generalises beyond MCP: a redirect target is evidence, a guessed successor is
+   not. Confirm a page move by GREPPING THE NEW PAGE FOR THE CONTENT, not by matching titles or
+   plausible paths. Both of the 16th run's errors came from reasoning about paths instead of reading
+   bytes — and both were recorded with enough confidence to send this run to the wrong file first.
    CAVEAT TO STATE IN ANY FACT BUILT THIS WAY: `main` is the live editing branch, not a release tag.
    Frozen revision directories should be stable, but say in the fact that the text came from the repo
    and that exact strings want re-confirming against the rendered page.
-   BONUS THIS ROUTE UNLOCKS FOR FREE: diffing two revisions of the same page is one `diff` command,
-   and it is the highest-yield staleness technique found so far — see the note at the foot of this
-   file.
+   BONUS THIS ROUTE UNLOCKS FOR FREE: diffing two revisions of the same page is one `diff` command —
+   see the note at the foot of this file.
 
 2. OWASP PDF DOWNLOADS ARE GATED ON THE USER-AGENT. NOTHING ELSE. `-A` IS THE WHOLE FIX.
      curl -sL -A "Mozilla/5.0" -o out.pdf "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
@@ -123,7 +148,9 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    RE-CONFIRMED 2026-08-12 (15th run) on two NEW ids (49059, 46950), both first try, `-A` alone, no
    Referer and no cookie jar. To be explicit about what this run did and did not establish: it USED
    the recorded recipe, it did not re-run the A/B. RE-CONFIRMED AGAIN 16th run on id 47278 (ANS v1.0),
-   first try, `-A` alone. Five-for-five across four runs.
+   and AGAIN 17th run on id 52117 (Agentic Top 10 2026, 1.2MB), first try, `-A` alone.
+   Six-for-six across five runs. The tmstv token 1765059207 was recorded 2026-08-12 and still
+   worked 2026-08-14 — further evidence it does not expire.
 
 2b. GETTING THE OWASP DOWNLOAD ID — THE TWO-STEP, CONFIRMED 15th RUN AND AGAIN 16th.
    The id in /download/<id>/ is not derivable from the slug and is not in the ALREADY_CRAWLED list.
@@ -156,6 +183,17 @@ that rows pair with descriptions belonging to other rows. In the ANS v1.0 "Summa
 Layers" table this produced plausible-looking but wrong pairings, and a third-party summary of ANS
 repeats one of them. If a claim rests only on a table cell, either confirm it against the document's
 prose or say in the fact that you did not. Prose extracts reliably; tables do not.
+*** BUT A TABLE IS STILL SAFE TO COUNT (NEW, 17th run). *** Column interleaving destroys the PAIRING
+between a row and its cells; it does NOT destroy the cells themselves. So `grep -oE '<TOKEN>' | sort
+| uniq -c` over a table region gives a trustworthy FREQUENCY even when no individual row can be
+quoted. That is how the OWASP incident tracker's per-threat-class counts were obtained. State in the
+fact which of the two you relied on — frequency is publishable, pairing is not.
+*** PDF LINE WRAPS DEFEAT grep IN BOTH DIRECTIONS (reinforced, 17th run). *** A grep for a label that
+IS present can return NOTHING because the label is wrapped across two lines ("Agent Behaviour\nHijack").
+A negative grep is therefore NOT proof of absence for any multi-word string. Grep the first word
+alone, or grep with `-A1`, before recording "the document does not say X". This nearly produced a
+false absence claim this run and is the mirror image of the 15th run's 0720e9d7 defect, where a wrap
+was silently reconstructed into a literal.
 BROWSER CAVEATS: on builder.aws.com the FIRST get_page_text after a navigate SOMETIMES returns a stub
 ending in 'Loading article'; call it again. Never conclude 'blocked' from one empty call.
 To pull links/hrefs off an index use javascript_tool with a querySelectorAll expression — `find`
@@ -182,3 +220,7 @@ CONFIRMED a fact's prediction (Session Hijacking -> State Handle Hijacking), a M
 SHOULD that CORRECTED the same fact, a new subsection that explicitly contradicted another fact's
 title ("SSRF risks are not limited to MCP clients"), and three wholly new attack sections worth a
 fact of their own. Prefer this over re-reading whenever the source is versioned.
+CALIBRATION NOTE (17th run): the same technique on docs/docs/<rev>/learn/server-concepts.mdx across
+2025-06-18 -> 2026-07-28 produced a THREE-LINE diff (one method rename, resources/subscribe ->
+subscriptions/listen). A near-empty diff is a REAL and useful result — it says the page is stable and
+costs two curls to establish. Do not read a small diff as a failed technique.
