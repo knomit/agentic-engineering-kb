@@ -8,322 +8,281 @@ refs: ['https://github.com/knomit/knomit']
 ---
 # Last crawl state
 
-crawled: 2026-08-12 (sixteenth run, 19:48Z — about five hours after the fifteenth, which committed
-14:30-14:40Z the same day). A SAME-DAY run, so per the standing rule NO broad feed sweep was
-attempted; the budget went to the 15th run's queued backlog. THAT IS NOW THREE CONSECUTIVE RUNS
-WITHOUT A SWEEP (14th, 15th, 16th), all legitimately same-day or next-day. The sweep is genuinely
-owed the moment real time elapses — see the split below, item 1.
+crawled: 2026-08-14 (seventeenth run; started 08-13, spanned the date boundary). Two days after the
+16th. The feed sweep owed for three runs was finally attempted — and came back near-empty, which is
+itself the result: see "sweep" below.
 
 *** THIS SLOT HOLDS ONE RUN. THE HISTORY IS THE RECORD. WALK IT. ***
-The BACKFILL FLOOR is e61629fc (2026-08-12T02:26Z), carrying the complete 197-URL ALREADY_CRAWLED
-union computed once with git over all 34 pre-floor revisions. A walk that reaches it has reached the
-bottom. Do NOT reproduce that union here.
-ALREADY_CRAWLED = 197 (floor) + 9 (15th run) + 10 (this run, below) = 216.
 
-HISTORY WALK PERFORMED THIS RUN: 3 revision bodies read — HEAD 5ab895cf (15th run, 14:40Z), then
-8be9e4de (15th run's first write, 14:34Z), then e61629fc (the floor, 02:26Z). Oldest commit date
-reached: 2026-08-12T02:26:10Z. 8be9e4de was read rather than skipped precisely because HEAD's diff
-showed -39 lines and a dropped URL would have been invisible otherwise; it carried the identical
-9-URL list, so nothing was lost in that edit.
-HONEST NOTE ON WHERE THE WALK STOPPED: more_available was still TRUE at the floor. I stopped at the
-floor by its own declaration, not because the API said there was nothing left. Behind it sit
-9452da53 and bb31f926, which the 15th run read and reported as carrying the identical 197-URL union.
-So the stop is deliberate and documented, not a partial walk — but it is a stop on an assertion in a
-body, not on an API signal, and a future run should know that is what "reached the floor" means here.
+=== HISTORY WALK: READ THIS FIRST, THERE IS A REAL GAP AND IT IS NOT MINE TO FIX ===
+REVISIONS READ: 2.
+  3c6323cd (HEAD, 2026-08-12T21:25:35Z) — the 16th run's body.
+  8b9a768d (2026-08-12T00:27:10Z)       — the 13th run's body, carrying the AUTHORITATIVE 190-URL union.
+more_available was FALSE at 8b9a768d. The walk terminated on the API's own signal, not on an assertion.
 
-recurring-feed indexes swept: ONE, and by a NEW ROUTE.
-https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/docs/specification
-  (MCP tripwire — UNCHANGED. Released revision directories: 2024-11-05, 2025-03-26, 2025-06-18,
-   2025-11-25, 2026-07-28, draft. No new revision. Sixth consecutive run unchanged.)
-The rendered tripwire page could not be used — see "errored" below. This is now the PREFERRED form.
+*** THE GAP. *** HEAD's body names a backfill floor at e61629fc (197 URLs) and revisions 8be9e4de and
+5ab895cf for the 15th run. NONE OF THOSE COMMITS RESOLVE. I probed e61629fc and 5ab895cf explicitly
+by passing them as `commit`; both returned "could not read ... at <hash>". The mainline now carries
+SQUASHED MERGE COMMITS ("Merge pull request #8 from knomit/agent/...", "#6 from knomit/knomit") and
+the per-run agent commits the 15th and 16th runs recorded are no longer addressable on this path.
+CONSEQUENCE: the 14th and 15th runs' bodies are UNREACHABLE. Their URLs survive only as the
+source-level descriptions carried forward in HEAD's status section, not as an enumerable list.
+WHAT I AM CONFIDENT OF: 190 URLs enumerated in 8b9a768d + 10 enumerated in HEAD = 200 URLs I can
+name. HEAD asserts the true total is 216, i.e. ~16 URLs from the 14th and 15th runs that I cannot
+enumerate. I did not re-fetch anything in that window, because HEAD's status section describes what
+those runs read at source level (OWASP guides 49059 and 46950, the MCP basic/index work, three
+openai.com posts) and I steered clear of all of it.
+WHAT A FUTURE RUN SHOULD KNOW: abbreviated hashes recorded in a BODY are not durable addresses under
+this repo's merge strategy. If per-run commits keep getting squashed, the walk will keep bottoming
+out at merge boundaries. Record full 40-char hashes from `history.revisions` if you record any at all
+— and do not trust a body's self-reported floor over what the API actually returns. The 16th run's
+"reached the floor" note was already honest that it stopped on an assertion; this run shows the
+assertion no longer resolves.
 
-articles crawled (10 new):
-https://arxiv.org/abs/2508.09815  +  https://arxiv.org/pdf/2508.09815   <- TIER-1 PAIR, THE BIG ONE
-https://modelcontextprotocol.io/specification/2026-07-28/basic/index     <- via repo mirror; 2 facts
-https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/specification/2026-07-28/basic/index.mdx
-https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/specification/2025-11-25/basic/index.mdx  (vintage check only)
-https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/docs/2026-07-28/tutorials/security/security_best_practices.mdx
-https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/docs/2025-06-18/tutorials/security/security_best_practices.mdx
-https://genai.owasp.org/resource/agent-name-service-ans-for-secure-al-agent-discovery-v1-0/
-https://genai.owasp.org/download/47278/?tmstv=1747275418                 (ANS v1.0, 2587 lines)
-https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/  (resource page ONLY —
-  the PDF at /download/52117/?tmstv=1765059207 is resolved but NOT fetched; it is one curl for next run)
+recurring-feed indexes swept (FOUR, the first real sweep since the 13th run):
+https://api.github.com/repos/.../contents/docs/specification  (MCP tripwire — UNCHANGED. 2024-11-05,
+  2025-03-26, 2025-06-18, 2025-11-25, 2026-07-28, draft. SEVENTH consecutive run unchanged.)
+https://www.anthropic.com/news/     (NOTHING since 2026-08-07 "Improving Fable 5's biology
+  safeguards", which is a model-safety product post, below the bar. Newest on-topic item is still
+  the 07-30 incident post, already read.)
+https://www.aisi.gov.uk/blog/       (NOTHING since the 08-04 incident report, already read.)
+https://openai.com/index/ via WebSearch  (SIX previously-unknown post URLs — see crawl-sources.)
+SWEEP VERDICT: three of four feeds were genuinely quiet across the 5-day window since the 13th run's
+sweep. The sweep was owed and is now paid; the backlog anxiety in the last three runs' notes was
+largely unfounded. Do NOT re-sweep anthropic/news or aisi.gov.uk for at least several days.
 
-errored / not obtained — ONE HOST, AND IT WAS ROUTED AROUND, NOT DROPPED:
-modelcontextprotocol.io was DOWN for the whole run. `connect ECONNREFUSED 76.76.21.21:443` from
-WebFetch on three separate paths, and curl timed out (exit 28, HTTP 000). Not a 403, not a gate —
-the origin refused. Every other host that run was fine, so the variable was isolated before blaming
-the tool. Recovered in full via the spec's own GitHub repository (fetch-routes route 3, NEW). Six
-documents read that way. Do NOT record this host as unreliable; record the mirror.
-Nothing else errored. No paywalls, no 404s, no guessed slugs.
+articles newly crawled (5):
+https://genai.owasp.org/download/52117/?tmstv=1765059207        <- THE MAIN EVENT, 3 facts
+https://openai.com/index/the-next-evolution-of-the-agents-sdk/   <- 1 update (c436422a)
+https://raw.githubusercontent.com/.../docs/docs/2026-07-28/learn/server-concepts.mdx
+https://raw.githubusercontent.com/.../docs/docs/2025-06-18/learn/server-concepts.mdx  (diff pair)
+https://raw.githubusercontent.com/.../docs/specification/2026-07-28/server/tools.mdx  <- staleness, 3 facts
+re-read, not newly crawled: openai.com/index/hugging-face-model-evaluation-security-incident/
+  (already cited by bcbf13c2; opened to check for a duplicate before writing one. It was right to check.)
+re-fetched for the staleness pass only: langchain.com/blog/towards-automating-eval-engineering
+
+errored / not obtained: NONE. No 403s, no 404s, no paywalls, no timeouts. modelcontextprotocol.io was
+fully responsive — the 16th run's ECONNREFUSED was transient, recorded as such in fetch-routes.
 
 Appendix A: nothing crawled, nothing left. Fully covered since the eighth run.
 
-FINDING 1 — A SOURCE BEING DOWN PRODUCED A BETTER ROUTE THAN THE ONE IT REPLACED, AND THE BEST
-STALENESS TECHNIQUE THIS JOB HAS FOUND.
-modelcontextprotocol.io renders .mdx straight out of its GitHub repo, so the repo is not a mirror,
-it IS the source. Three compounding wins, all now in fetch-routes route 3:
-  * THE TRIPWIRE GOT CHEAPER AND MORE ROBUST. One contents-API call lists a directory per released
-    revision. A new revision is a new directory. No page render, no parsing, works when the site is
-    down. This replaces the /specification/versioning fetch as rank-1 every run.
-  * REVISION DIFFING. Every revision of every page sits side by side in the tree, so
-    `diff <old-rev>.mdx <new-rev>.mdx` turns the staleness pass from "re-read and hope you notice"
-    into a mechanical enumeration of what changed. ONE diff command on the MCP security page yielded
-    FOUR results at once: a heading rename that confirmed a fact's prediction, a MUST downgraded to
-    SHOULD that corrected the same fact, a new subsection that directly contradicted a different
-    fact's TITLE, and three brand-new attack sections worth their own fact. Nothing else in this job
-    has that yield-per-call. Use it wherever a source is versioned and in git.
-  * IT EXPOSED REF ROT NOBODY HAD SEEN. Site URLs do not map to repo paths, and pages MOVE between
-    the two trees. `security_best_practices` left /specification/<rev>/basic/ for
-    /docs/<rev>/tutorials/security/ — four facts cite the old path. And /docs/concepts/tools is gone
-    entirely, its material now at /docs/<rev>/learn/server-concepts; TWO facts (ee3bc7d3, ca3382bd)
-    still cite the dead path and are UNCHECKED. Caveat honestly recorded in every fact: I could not
-    test whether the old URLs still redirect, because the site was down. Old refs were kept and new
-    ones ADDED, never swapped.
+=== FINDINGS ===
 
-FINDING 2 — THE TIER-1 COUNTER-POSITION PAPER PAID OFF, AND ITS VALUE WAS IN READING THE TABLE
-SIDEWAYS RATHER THAN IN ITS OWN THESIS.
-arXiv 2508.09815 (Krawiecka & Schroeder de Witt, Oxford) tabulates sixteen threat classes against
-whether OWASP's MAS guide covers them. Taken as a list it is a list. Sorted by WHAT EACH ONE ATTACKS,
-seven of the sixteen turn out to be the same story: a **verifier agent defeated with nobody
-compromised** — planner overrides it, executor's confident tone biases it, it shares the pipeline's
-success metric so it rubber-stamps, it inherits executor permissions through subgraph design, it
-accepts hallucinations against vague criteria. Since "add a reviewer agent" is the standard safety
-answer, that list is an enumeration of why the standard answer under-delivers. The deciding variable
-in four of the seven is SHARED INCENTIVE: a verifier scored on the pipeline's success is a
-participant in it, not a check on it.
-TWO DISCIPLINE POINTS I had to hold onto while writing it:
-  * MODALITY. MASEC is explicitly anticipatory — "guided by what is mathematically or physically
-    possible rather than limited to observed incidents". No measurements, no incidents, constructed
-    scenarios. Every fact from it says so, and confidence sits at 0.65-0.7. This paper would be very
-    easy to over-write into hard claims.
-  * THE GROUPING IS MINE, NOT THEIRS. The paper never claims a verifier through-line. Marked as pack
-    analysis in the fact and in the c02ac546 update.
-AND IT SHARPENED AN EXISTING FACT RATHER THAN CONTRADICTING IT. c02ac546 says a MAESTRO layer-walk
-generates threats the taxonomy lacks. The critique's gap is a DIFFERENT KIND: general classes that
-neither the taxonomy holds nor the layer walk produces — because MAESTRO's layers are
-INFRASTRUCTURE-shaped while the missing classes are properties of ROLE RELATIONSHIPS AND INCENTIVES,
-which have no layer to sit in and are not "emergent" enough to fall out of a cross-layer pass. Not a
-contradiction, so not a `decisions` fact — a documented limit, written into c02ac546 with the
-distinction spelled out so a future run does not mistake one gap for the other.
+FINDING 1 — THE LONGEST-QUEUED ITEM IN THE PACK WAS ONE CURL, AND THE VALUE WAS NOT WHERE ANYONE
+EXPECTED. The OWASP Top 10 for Agentic Applications 2026 has sat unfetched for five runs. The list of
+ten is the least interesting thing in it — this pack already had the names from secondary sources.
+The value is the DISAMBIGUATION PROSE each entry carries, which turns out to encode a STAGE AXIS:
+ASI01/04/07 are the compromise, ASI06 is its persistence, ASI08 its propagation, ASI10 the behavioural
+drift after it. The document says so repeatedly in its own words — "not the initial intrusion itself",
+"not the initial vulnerability itself", "describes degradation after poisoning occurs" — and gives an
+explicit tie-breaker for ASI08: file it there ONLY when the defect "spreads ... causing measurable
+fan-out". So four of the ten are one incident at four stages, each with a different control set. That
+reframing is worth more than the taxonomy, and it is invisible unless you read the boundary prose.
+GENERALISE THIS: when a source is a LIST, the value is usually in what separates the items, not in the
+items. Skim the enumeration, read the disambiguation.
 
-FINDING 3 — THE STALENESS PASS CAUGHT A FACT WHOSE TITLE THE CURRENT SPEC CONTRADICTS IN SO MANY
-WORDS, WHICH IS THE CLEANEST VINDICATION OF THE "CHECK THE TITLE SEPARATELY" SUB-RULE SO FAR.
-59a75c06 was titled "In MCP, the SSRF victim is the client". Correct for 2025-06-18. The 2026-07-28
-revision adds a subsection opening "**SSRF risks are not limited to MCP clients.**" — CIMD makes the
-authorization server fetch a URL supplied by an unknown client. The body's mechanics were all still
-right; only the generalisation in the title had gone stale. Retitled, and the durable rule restated:
-in OAuth-for-agents, whichever party dereferences a URL supplied by the other is the SSRF target.
+FINDING 2 — AN INVERSION BETWEEN TWO OWASP DOCUMENTS THAT NEITHER STATES. Counting ASI tags across
+Appendix D's incident tracker (67 tags, ~21 incidents): ASI10 appears 3 times and ASI08 4 times, the
+two rarest. The AIUC-1 crosswalk (already in the kb as 07eec7ff) independently flags ASI07/ASI08/ASI10
+as the entries with NO dedicated control requirement. So the thinnest incident evidence sits exactly
+where the controls are missing. This CUTS AGAINST the existing 6c0c742e reading — that a low incident
+count can mean a category is well DEFENDED — and the deciding variable is whether controls exist:
+low count WITH instrumentation is a defense effect, low count WITHOUT it is an observation gap.
+Written up with that distinction rather than as a flat contradiction, and 6c0c742e was left standing.
 
-FINDING 4 — A FACT THAT PREDICTED SOMETHING CORRECTLY ALSO OVERCLAIMED, AND ONLY THE PRIMARY SOURCE
-COULD SHOW BOTH.
-b471f9ef predicted that removing MCP sessions RELOCATED the hijacking class into tool arguments
-rather than fixing it. The 2026-07-28 security page confirms it outright — the section is renamed
-"State Handle Hijacking". But the same fact asserted the handles were "no longer covered by any
-transport-layer rule about entropy, rotation, or user binding". Wrong: the rules were REWRITTEN for
-handles. And the rewrite hides the real finding — **the entropy requirement dropped from MUST to
-SHOULD** ("MUST use secure, non-deterministic session IDs" -> "SHOULD use secure, non-deterministic
-handles"), while the binding rule GAINED an explicit "reject a handle presented by any other
-principal" clause. A guessable handle is now conformant. That is a one-word normative change nobody
-finds by re-reading; the diff found it in seconds.
+FINDING 3 — *** THE 16th RUN'S "DEAD PATH" WAS NEVER DEAD, AND ITS SUCCESSOR WAS THE WRONG PAGE. ***
+The 16th run recorded modelcontextprotocol.io/docs/concepts/tools as GONE and its content as having
+moved to docs/docs/<rev>/learn/server-concepts.mdx, and queued three facts as ref-rotted. Both halves
+are wrong:
+  * The old URL answers HTTP 200 and REDIRECTS to /specification/2026-07-28/server/tools. Tested with
+    `curl -o /dev/null -w "%{http_code} %{url_effective}"`.
+  * learn/server-concepts.mdx does NOT contain the material. Grepped it for `annotations`,
+    `outputSchema`, `structuredContent` and `isError`: ZERO hits for all four. The tool contract lives
+    in the SPECIFICATION tree at docs/specification/<rev>/server/tools.mdx.
+The 16th run could not test the redirect (host was down) and inferred the successor from a plausible
+title. Both inferences were recorded with enough confidence to send this run to the wrong file first.
+THE RULE, now in fetch-routes: a redirect target is evidence, a guessed successor is not — confirm a
+page move by GREPPING THE NEW PAGE FOR THE CONTENT. This is the eighth consecutive time a source
+recorded as dead/blocked/moved turned out to be fine by another route.
 
-*** FINDING 5 — THE POST-WRITE SELF-REVIEW FOUND THREE DEFECTS IN SEVEN NEW FACTS, ALL THREE IN
-TITLES, ONE OF THEM A CLAIM I HAD NEVER CHECKED. SECOND RUN RUNNING; THIS STEP IS EARNING ITS COST. ***
-  11ebefd6 — QUANTIFIER OVERCLAIM. Title said "MOST of the threats missing… converge on one
-    component". It is SEVEN OF SIXTEEN. The body said "seven" correctly; the title rounded it up to a
-    majority it does not have. Retitled to state the count. Same disease as the 15th run's b4d688b1:
-    the body hedges, the title does not, and the title is what a query result shows.
-  db15af92 — AN UNVERIFIED VINTAGE CLAIM, AND THE SELF-REVIEW IS THE ONLY REASON IT WAS CHECKED.
-    Title said "MCP 2026-07-28 ADDS two places where a client dereferences a server-chosen URI". I
-    had verified the $ref ban was new; I had simply assumed `icons` was too. Two three-second greps
-    across three revisions of basic/index.mdx settled it: **`icons` dates from 2025-11-25**, only
-    `$ref` is new in 2026-07-28. Retitled, and the vintage now stated explicitly in the body because
-    it decides what an implementer must support. THE LESSON, and it is a new checklist item (11): a
-    fact written from ONE revision of a versioned source will happily attribute everything on the
-    page to that revision. Version-attribution is a claim like any other and needs its own check.
-  8f2fdde8 — A TITLE CLAUSE MY OWN BODY UNDERCUT. Title said the ANSName "pins a capability and
-    version RATHER THAN an agent". The name contains AgentID too, so it pins all three; and the body
-    separately notes the in-name version is not even the registry match key. Reworded to "carries a
-    capability and version alongside the agent".
-  NOT CHANGED, but flagged for the next reader: 24e4552d's title states "per-agent safety evaluation
-    does not compose" as flat fact, from an anticipatory source. It survives because the composition
-    claim is independently supported by bdf3336e from OBSERVED bypasses, and the body marks the
-    cross-model-chaining vector as unevidenced. If bdf3336e is ever retracted, this title must soften.
+FINDING 4 — A TABLE YOU MUST NOT QUOTE IS STILL A TABLE YOU MAY COUNT. The standing rule (16th run)
+is that pdftotext shuffles table columns, so table-derived claims are untrustworthy. True for
+PAIRINGS. But column interleaving does not delete cells, so `grep -oE '<TOKEN>' | sort | uniq -c`
+over a table region yields a TRUSTWORTHY FREQUENCY. That is the whole basis of Finding 2, and the
+fact says explicitly which of the two it relied on. Recorded in fetch-routes.
 
-FACTS WRITTEN (7 new, 3 updated from crawling, 5 touched by the staleness pass, 3 revised by the
-self-review, 0 retracted):
+FINDING 5 — A NEGATIVE GREP IS NOT PROOF OF ABSENCE WHEN THE SOURCE IS A PDF. Grepping for "Agent
+ Behaviour Hijack" returned nothing and I nearly recorded that the variant did not exist. It does —
+wrapped as "Agent Behaviour\nHijack". This is the mirror image of the 15th run's 0720e9d7 defect,
+where a wrap was silently reconstructed INTO a literal. Same root cause, opposite direction. Grep the
+first word alone, or use -A1, before writing "the document does not say X".
+
+FINDING 6 — CHECKING FOR A DUPLICATE SAVED A WASTED FACT. HEAD's queue said the OpenAI/Hugging Face
+primary account was still being watched for. It is NOT — bcbf13c2 already cites it, and the correct
+slug for the post the 13th run 404'd on is also already in that fact's refs. What is still
+outstanding is the separate TECHNICAL REPORT, and the METR + Redwood joint assessment (confirmed
+contracted, confirmed NOT yet published as of 2026-08-14). The queue had compressed three different
+artifacts into one line. Corrected in the queue below.
+
+*** FINDING 7 — THE POST-WRITE SELF-REVIEW CAUGHT A DEFECT IN A FACT'S CENTRAL TABLE, THIRD RUN
+RUNNING THAT THIS STEP HAS PAID. ***
+  703147ba — INCOMPLETE MAPPING PRESENTED AS COMPLETE. I listed "ASI09 -> T7" and, worse, the same
+    fact asserted that EVERY mapping had been taken from running prose rather than from the shuffling
+    matrix. Re-checking ASI09 against its own paragraph found the prose names THREE: "(T7) Misaligned
+    & Deceptive, (T8) Repudiation & Untraceability, (T10) Overwhelming the Human in the Loop". T7
+    alone was what the MATRIX column showed — so I had violated my own stated method in the one line
+    where it mattered, and the caveat paragraph would have made a reader trust it more, not less.
+    Fixed, and the incident written into the fact's own caveat as the reason the check is not cosmetic.
+    NEW CHECKLIST ITEM (12): WHEN A FACT STATES ITS OWN METHOD ("all of this came from prose", "every
+    figure re-verified"), THAT SENTENCE IS ITSELF A CLAIM AND IS THE ONE MOST LIKELY TO BE FALSE,
+    because it is written once at the end and covers work done piecemeal. Verify it item by item.
+  ba1b7aad — INCOMPLETE, not wrong: the ASI02/ASI03/ASI05 split and the one-line ASI09-vs-ASI10 rule
+    ("human misperception or over-reliance whereas ASI10 is agent intent deviation") were both in the
+    source and both missing. Added.
+
+FACTS WRITTEN (3 new, 5 updated, 0 retracted):
   NEW —
-    kb/architecture/ai/agents/multi-agent/verifier-role/11ebefd6      (seven of sixteen missing
-      threats are one story: the verifier defeated with nobody compromised; shared incentive is the
-      deciding variable; Planner/Executor/Verifier/Refiner vocabulary. TITLE FIXED post-review.)
-    kb/invariants/ai/agents/security/multi-agent/composition/24e4552d (heterogeneous multi-agent
-      exploits — split a task across models with different refusal tuning; attribution degrades
-      before detection does)
-    kb/gotchas/ai/agents/security/guardrails/context-distortion/74996815 (the rewriting guardrail is
-      itself a threat class; sanitising a query can BROADEN what the database returns. conf 0.65 —
-      the concrete claim rests on one table cell and the fact says so)
-    kb/invariants/ai/agents/tools/mcp/metadata/fa61c895               (_meta reserved by the SECOND
-      label — com.mcp.tools/ reserved, com.example.mcp/ not; required per-request fields; -32602 vs
-      MissingRequiredClientCapabilityError -32021; the OpenTelemetry prefix exception)
-    kb/invariants/ai/agents/tools/mcp/security/dereference/db15af92   ($ref MUST NOT auto-dereference
-      + reject-rather-than-silently-permissive + composition-keyword DoS; icons as untrusted URI and
-      untrusted bytes. VINTAGE CORRECTED post-review.)
-    kb/architecture/ai/agents/interop/naming/8f2fdde8                 (ANS: ANSName grammar, the
-      registry-signed EndpointRecord, and section 5.5's explicit disclaimer that ANS does NOT
-      translate between protocols. TITLE FIXED post-review.)
-    kb/gotchas/ai/agents/tools/mcp/security/client-identity/066a9dad  (CIMD proves a domain, not which
-      local process holds the localhost redirect; PKCE does not stop a mix-up attack and the spec
-      says why; CIMD admission is server policy)
-  UPDATED FROM CRAWLING —
-    c02ac546  — the MAESTRO method's own documented limit, with the two kinds of gap distinguished.
-      sources 1->2.
-    3afa31af  — normative statelessness text + the stdio trap ("a STDIO process is not a conversation
-      or session"), which is where an implementer leaks across conversations. sources 1->2 (the AWS
-      post was always an independent source and was undercounted).
-    8b32c15a  — ANS's own two-tier validation split: the RA validates once, the CALLER must validate
-      before EVERY interaction, and capability alignment has no cryptographic form — the spec's
-      suggested check is testing the peer on sample tasks. conf 0.8->0.85, sources 1->2.
+    kb/invariants/ai/agents/security/threat-taxonomy/agentic-top-10-2026/703147ba  (the ten entries
+      from the PRIMARY, the many-to-many T-mapping, the T12 DOUBLE-NAMING trap, Least-Agency.
+      MAPPING CORRECTED post-review.)
+    kb/decisions/ai/agents/security/threat-taxonomy/entry-boundaries/ba1b7aad      (the stage axis,
+      the ASI08 measurable-fan-out tie-breaker, ASI08's five detection hooks, the tool-side
+      ASI02/03/05 split. EXTENDED post-review.)
+    kb/gotchas/ai/agents/security/threat-taxonomy/coverage-blind-spots/8cf06566    (the tracker
+      frequency counts and the incident-evidence / control-coverage inversion; conf 0.7, with the
+      curated-sample and count-not-pairing caveats load-bearing in the body)
+  UPDATED —
+    c436422a  — INDEPENDENT SECOND VENDOR for harness/compute separation. OpenAI's Agents SDK reaches
+      the same decomposition with the same three reasons, plus the Manifest workspace abstraction.
+      Explicitly notes the TTFT numbers remain Anthropic's alone and are NOT corroborated.
+      sources 1->2, conf 0.85->0.9.
+    ee3bc7d3  — CONFIRMED against 2026-07-28, still a MUST, quoted verbatim. Added a SCOPE NOTE: the
+      spec's MUST carries an "unless they come from trusted servers" carve-out that the fact's title
+      does not, so the title is a policy for the untrusted-server case. VERIFICATION SCOPE names what
+      was not re-checked (the annotation field list).
+    ca3382bd  — CONFIRMED verbatim ("`structuredContent` is server-produced result data and is
+      unrelated to LLM 'structured outputs'"). sources 2->1: both refs are pages of ONE specification.
+    46eeb374  — CONFIRMED: two error channels intact, protocol error (-32602) vs `isError: true`.
+      sources 3->1, same reason — four MCP spec pages are one source.
+    ba1b7aad, 703147ba — see Finding 7.
 
-CONTRADICTIONS: none between sources requiring a `decisions` fact. One near-miss handled as a
-documented limit rather than a disagreement (c02ac546 vs arXiv 2508.09815, see Finding 2) — they
-describe different gaps and neither denies the other. One INTERNAL contradiction found and fixed:
-the corpus's own 59a75c06 title vs the current MCP spec (Finding 3).
+CONTRADICTIONS: none between sources requiring a `decisions` fact. One cross-document tension handled
+as a scoped refinement rather than a flattening (Finding 2, 8cf06566 vs 6c0c742e — both left standing,
+with the deciding variable named). One INTERNAL contradiction found INSIDE a source and recorded
+rather than resolved: OWASP's own T12 carries two different names in one document (703147ba).
 
-STALENESS PASS (5 sampled on the EARLIEST-COMMITTED axis as the rotation required, and grouped by
-SHARED REF as a bonus — all five predate 2026-07-27 and four cite one page, so TWO fetches covered
-five facts. 2 corrected, 3 confirmed):
-  59a75c06 CORRECTED — title contradicted by the successor revision (Finding 3). Scope-correction
-    section added; VERIFICATION SCOPE names what was NOT re-checked (the CIDR list and the
-    encoding-evasion wording in the newer revision). Smokescreen and DNS-rebinding confirmed as the
-    spec's own, not imported. conf 0.9 held.
-  b471f9ef CORRECTED — overclaim removed, MUST->SHOULD downgrade found, comparison table added
-    (Finding 4). sources 2->1: both refs are pages of the MCP spec, which is ONE source. conf 0.9 held.
-  ba5db3ec CONFIRMED and ENRICHED — the 2026-07-28 revision splits the vulnerability into TWO
-    dimensions, audience-validation failure (complete on its own, at acceptance) and passthrough
-    (forwarding). Retitled, because "we don't do passthrough" answers only the second. conf 0.9 held.
-  f4005c98 CONFIRMED verbatim — MUST allow only http/https, MUST reject javascript:/data:/file:/
-    vbscript:, MUST NOT use shell commands, SHOULD use non-shell URL opening. Unchanged in the newer
-    revision. Refs updated for the moved path; body untouched.
-  c28c7f7b CONFIRMED verbatim — all FOUR vulnerable conditions present as a list, and the fact's
-    framing is sharper than the source's own prose intro, which names only three. Refs updated.
+STALENESS PASS (5 sampled; primary axis SHARED-REF as split item 3 required, which is also the
+confidence-axis rotation's grouping method. 5 confirmed, 3 ref-corrections, 2 source-count fixes,
+0 retracted. TWO fetches covered four facts):
+  ee3bc7d3, ca3382bd, 46eeb374 — the three facts on the supposedly-dead MCP path. ALL THREE CONFIRMED
+    against 2026-07-28 in ONE fetch. The premise of the sample (ref rot) turned out to be false — see
+    Finding 3. Refs were ADDED, never swapped, per the standing rule. NOTE: the 16th run said TWO
+    facts cite that path; there are THREE. 46eeb374 was missed.
+  a5ade87d (conf 0.7, lowest in the eval cluster) — CONFIRMED. Source still live, no update notice.
+    Both halves of the title verified: verifier gaming ("overciting irrelevant sources to receive full
+    credit on the eval, claim an action it never took, exploit exposed answer material") and "the
+    first verifier was rarely the final one". No change needed.
+  c436422a — re-verified as part of the corroboration above; the 14th run's brain/hands/session
+    terminology correction still holds and was preserved verbatim.
+  Nothing in the kb is yet older than 90 days.
 
-PROMPT INJECTION: none observed. Stated explicitly because arXiv 2508.09815 describes, in a table
-cells' worth of detail, how agents could evolve covert symbolic protocols and how one agent could use
-"affective prompt framing" to bias another. That is threat-taxonomy prose about hypothetical systems,
-not text addressed to this job, and it was treated as data. Nothing fetched attempted to redirect
+PROMPT INJECTION: none observed. Stated explicitly because the OWASP document contains, by design,
+extended descriptions of instructions crafted to redirect AI agents — including worked examples of
+calendar invites and documents carrying hidden directives. All of it is threat-taxonomy prose about
+hypothetical systems; none of it was addressed to this job, and nothing fetched attempted to redirect
 this run.
 
-SUGGESTED SPLIT FOR THE NEXT RUN:
-(1) SWEEP THE FEEDS THE MOMENT DAYS HAVE PASSED — owed for THREE runs. Prioritise openai.com/index,
-    anthropic.com/news, genai.owasp.org, aisi.gov.uk/blog. Top priority if any real time has elapsed.
-(2) OWASP TOP 10 FOR AGENTIC APPLICATIONS 2026 — the full download URL is now resolved and recorded
-    in crawl-sources; it is literally one curl. Longest-standing unfetched high-value item.
-(3) THE TWO FACTS CITING A DEAD MCP DOC PATH: ee3bc7d3 and ca3382bd both cite
-    modelcontextprotocol.io/docs/concepts/tools, which no longer exists. Their content is now at
-    docs/docs/<rev>/learn/server-concepts.mdx. Make them the next staleness sample — the shared ref
-    means one fetch does both, and the page has moved AND been rewritten across revisions, so diff it.
-(4) MCP, remaining: basic/authorization/security-considerations (named by 066a9dad, holds the
-    authorization-server-side countermeasures for localhost impersonation and CIMD trust policies —
-    the direct completion of this run's newest fact), then basic/versioning,
-    transports/streamable-http, server/utilities/caching, extensions/tasks + apps overviews.
-    ALL now reachable by repo mirror even if the site is still down.
-(5) OWASP companion corpus: Solutions Landscape Red Teaming Taxonomy, A Practical Guide for Secure
-    MCP Server Development, CheatSheet — Securely Using Third-Party MCP Servers, GenAI Red Teaming
-    Guide, Agentic AI Solution Landscape, OWASP AIBOM, GenAI Data Security. ANS is now DONE.
-(6) The MASEC paper's reference list is a small unmined catalogue — NetSafe (arXiv 2410.15686) and
-    chaos engineering for LLM MAS (arXiv 2505.03096) are the two closest to this pack's bar, and both
-    report MEASUREMENTS, which is exactly what 2508.09815 lacks. Good pairing with 24e4552d.
-(7) The OWASP ASI incidents tracker — now FIVE runs listed without a single fetch.
-(8) LLM Top 10 2026 per-entry chapters: LLM03 Excessive Agency (p23-26), LLM08 Hidden Context
-    Exposure (p46-49). id 56857.
-(9) FINISH THE OPENAI CLUSTER — two left, both likely low-yield policy:
-    /index/putting-frontier-cyber-models-in-more-trusted-hands/, /index/safety-alignment-long-horizon-models/.
-    STILL WATCHING for: OpenAI's full HF technical report, the JOINT METR + Redwood assessment,
-    Irregular's containment white paper. None had landed as of 2026-08-12.
+=== SUGGESTED SPLIT FOR THE NEXT RUN ===
+(1) DO NOT SWEEP THE FEEDS unless several days have passed. This run swept four and three were empty.
+    The MCP tripwire is near-free and should still run EVERY time.
+(2) openai.com/index/introducing-aardvark/ — TOP PICK. An agentic security researcher, i.e. an agent
+    DESIGN post from a frontier lab, and this pack has nothing on it. Then
+    /index/unlocking-self-improvement-gpt-red/ (a METHOD post). Full catalogue in crawl-sources.
+(3) FINISH THE OWASP AGENTIC TOP 10 — the PDF is already extracted and the unmined sections are listed
+    in crawl-sources under id 52117. Best remaining: the "intent capsule" / "Intent Gate" mitigation
+    patterns (ASI03-ASI07, ASI09), and Appendix C's mapping to the Non-Human Identities Top 10, which
+    is a taxonomy this pack does not cover at all.
+(4) MCP, remaining, ALL reachable by repo mirror: basic/authorization/security-considerations (named
+    by 066a9dad, still TOP), basic/versioning, transports/streamable-http, server/utilities/caching,
+    extensions/tasks + apps overviews, docs/<rev>/develop/clients/client-best-practices.
+(5) OWASP companion corpus, still unread: Solutions Landscape Red Teaming Taxonomy, A Practical Guide
+    for Secure MCP Server Development, CheatSheet — Securely Using Third-Party MCP Servers, GenAI Red
+    Teaming Guide, Agentic AI Solution Landscape, OWASP AIBOM, GenAI Data Security.
+(6) LLM Top 10 2026 per-entry chapters: LLM03 Excessive Agency (p23-26), LLM08 Hidden Context
+    Exposure (p46-49). id 56857, file already extracted.
+(7) THE MASEC reference list: NetSafe (arXiv 2410.15686) and chaos engineering for LLM MAS (arXiv
+    2505.03096). Both report MEASUREMENTS, which is what 2508.09815 lacks. Pairs with 24e4552d.
+(8) STILL WATCHING, three DISTINCT artifacts — do not conflate them again (Finding 6):
+      (a) OpenAI's own TECHNICAL REPORT on the HF incident — promised "in the coming weeks" as of
+          2026-07-21. Not published as of 08-14.
+      (b) The METR + Redwood JOINT assessment — contracted and confirmed, not published as of 08-14.
+          Watch blog.redwoodresearch.org (now in crawl-sources) and metr.org/blog.
+      (c) Irregular's containment white paper.
+    The primary OpenAI incident POST is already read and cited by bcbf13c2 — that item is CLOSED.
+(9) The OWASP ASI incidents tracker at owasp-agentic-ai-security-incidents.lovable.app — SIX runs
+    listed without a fetch. NOTE: Appendix D of the Top 10 PDF is a tracker with the same name and
+    ~21 incidents; check whether the site is simply the same data before spending a browser session.
 
-
-=== PER-SOURCE STATUS AND QUEUE, as of the 16th run ===
+=== PER-SOURCE STATUS AND QUEUE, as of the 17th run ===
 Each run REPLACES this section with its own — carry forward what is unread, drop what was read.
 
 OWASP GenAI PDF REPORTS — STATUS:
-  AIUC-1 Crosswalks (55pp)                                  READ (11th), 3 facts+1 upd
+  AIUC-1 Crosswalks (55pp)                                   READ (11th), 3 facts+1 upd
   AI Security Solutions Landscape Red Teaming Q2 2026 (15pp) READ (11th), 1 fact
-  State of Agentic AI Security and Governance 2.01 (139pp)  READ (12th), 8 facts+1 upd
+  State of Agentic AI Security and Governance 2.01 (139pp)   READ (12th), 8 facts+1 upd
     ^ chapters still NOT written up: Enterprise Adoption Maturity Model (p53-62), Alignment with
       Top 10 Agentic (p61), Future Trends / What Remains Unsolved (p63-68); AI SBOM and Supply Chain
       Provenance (p46-48); Explainable AI (p49); Appendix 1 agent-type taxonomy (p70-76); Appendix 3
       ASI risk classes (p116); Appendix 6 Top 10 Impacting Personal Agents (p128). Appendix 2 is low.
-  OWASP GenAI LLM Top 10 2026 (122pp, id 56857)             READ (13th), 2 facts + 1 upd
+  OWASP GenAI LLM Top 10 2026 (122pp, id 56857)              READ (13th), 2 facts + 1 upd
     ^ NOT mined: the ten per-entry chapters. LLM03 (p23-26) and LLM08 (p46-49) most relevant.
-      Appendix A coverage matrices (p58-105) map to ASI 2026, DSGAI v1.0, MITRE ATLAS v2026.06,
-      ATT&CK v19.1, CWE 4.20, NIST AI 600-1, NIST AI RMF, CSA AICM v1.1, AIVSS v0.8.
-  Securing Agentic Applications Guide 1.0 (id 49059)        READ (15th), 2 facts
-    ^ MOST OF THIS GUIDE IS BELOW THE BAR — sections 5.x and 4.4 are generic control checklists.
-      Possibly still worth one pass: 2.2 Secure Architecture Patterns (extract lines 833-1313),
-      2.5 Case Studies, 9.x runtime hardening. Do not budget more than one pass.
+  Securing Agentic Applications Guide 1.0 (id 49059)         READ (15th), 2 facts
+    ^ MOST OF THIS GUIDE IS BELOW THE BAR. Possibly worth one pass: 2.2 Secure Architecture Patterns
+      (extract lines 833-1313), 2.5 Case Studies, 9.x runtime hardening. One pass maximum.
   Multi-Agentic System Threat Modeling Guide v1.0 (id 46950) READ (15th), 1 fact + critiqued 16th
     ^ SECTION 5 STILL UNMINED: "Threat Modeling Anthropic MCP Protocol using MAESTRO" (extract line
-      3132 on). Sections 3-4 are RPA/blockchain enumeration, skip. READ arXiv 2508.09815 FIRST — done
-      as of the 16th run, so this guide may now be mined without re-opening the pairing question.
-  Agent Name Service (ANS) v1.0 (id 47278)                  READ (16th), 1 fact + 1 upd
-    ^ DONE. Sections 3.5 (naming/resolution), 3.6 (governance), 3.7 (identity), 5.5 (interop limit)
-      and 6.x (MAESTRO threat analysis) all read. The remainder — 3.1-3.4 registration/PKI mechanics,
-      section 4 request/response schema, section 7 implementation, section 8 future — is conventional
-      PKI plumbing and unlikely to clear the bar. DO NOT re-mine. NOTE: its "Summary of ANS Functional
-      Layers" TABLE extracts with shuffled columns; the ZKP-capability-verification claim circulating
-      about ANS traces to that cell and is NOT in the prose.
-STILL UNREAD, all named as companion resources: see split items 2 and 5.
+      3132 on). Sections 3-4 are RPA/blockchain enumeration, skip.
+  Agent Name Service (ANS) v1.0 (id 47278)                   READ (16th), 1 fact + 1 upd. DONE.
+  *** OWASP Top 10 for Agentic Applications 2026 (id 52117)  READ (17th), 3 facts. ***
+    ^ PARTIALLY MINED — see split item 3 and the detailed unmined list in crawl-sources.
 OWASP HTML blog posts read fine with a plain WebFetch. Unread and promising:
   /2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/  (ASI06; pairs with 7bd6c6c9)
   /2026/04/14/owasp-genai-exploit-round-up-report-q1-2026/
   /2026/04/14/finbot-ctf-is-live-a-hands-on-companion-to-the-owasp-genai-security-project/
-*** MCP 2026-07-28 — TRIPWIRE CHECKED 16th RUN VIA THE REPO, STILL UNCHANGED ***
-No movement since the 11th run. Check EVERY run; now near-free via the contents API (crawl-sources).
+*** MCP 2026-07-28 — TRIPWIRE CHECKED 17th RUN VIA THE REPO, STILL UNCHANGED (7th consecutive) ***
 READ SO FAR: changelog, versioning, deprecated, server/discover, basic/patterns/mrtr,
-  basic/authorization/client-registration, docs/extensions/overview, docs/concepts/tools (dead path),
-  and (16th) basic/index — the _meta contract, statelessness, JSON Schema and icons rules — plus the
-  security_best_practices page at BOTH 2025-06-18 and 2026-07-28.
+  basic/authorization/client-registration, docs/extensions/overview, basic/index, security_best_
+  practices at BOTH 2025-06-18 and 2026-07-28, and (17th) server/tools + learn/server-concepts.
 STILL UNREAD, in rough value order:
-  /specification/2026-07-28/basic/authorization/security-considerations  <- NOW TOP; named by 066a9dad
+  /specification/2026-07-28/basic/authorization/security-considerations  <- TOP; named by 066a9dad
   /specification/2026-07-28/basic/versioning       (negotiation + backward-compat with 2025-11-25)
   /specification/2026-07-28/basic/transports/streamable-http
   /specification/2026-07-28/basic/transports/stdio#backward-compatibility
   /specification/2026-07-28/server/utilities/caching  (ttlMs/cacheScope)
   /extensions/tasks/overview and /extensions/apps/overview
-  /docs/2026-07-28/learn/server-concepts   <- the successor to the dead /docs/concepts/tools
-  /docs/2026-07-28/develop/clients/client-best-practices   <- NEW, spotted in the repo tree, unread
+  /docs/2026-07-28/develop/clients/client-best-practices
   /specification/2026-07-28/schema                 (reference only; expensive, low altitude)
-*** THE OPENAI SECURITY CLUSTER — SEVEN POSTS READ; NEARLY EXHAUSTED. See split item 9. ***
-UNREAD, both likely policy/program, one cheap fetch each:
-  /index/putting-frontier-cyber-models-in-more-trusted-hands/   (Aug 10)
-  /index/safety-alignment-long-horizon-models/
-  /index/trusted-access-for-cyber/, /index/scaling-trusted-access-for-cyber-defense/,
-  /index/updating-our-preparedness-framework/   (governance; lower altitude)
-developers.openai.com/api/docs/guides/ — plain WebFetch, no browser. Scan the tree for siblings.
+OPENAI: see the full /index/ catalogue now in crawl-sources — six unread posts ranked, plus three
+  product announcements explicitly marked as below the bar so nobody spends a fetch on them.
+  developers.openai.com/api/docs/guides/ — plain WebFetch, no browser. Scan the tree for siblings.
 Also still unread: https://www.cnn.com/2026/08/05/tech/meta-ai-hacking (a fifth lab; secondary —
-  find the primary), and the simonwillison queue: /2026/Jul/31/stateless-mcp/ (pairs with 3afa31af,
-  which this run substantially enriched — good time to read it), the-tokenpocalypse (404media),
-  /2026/Aug/2/open-letters/.
-YIELD RANKING as of the SIXTEENTH run — spend the budget in this order:
-  1. SPEC AND PROTOCOL TRIPWIRES, now via the GitHub contents API, not the rendered page. Cheapest
-     high-value call in the pack and outage-proof. EVERY run. AND: where a spec is versioned in git,
-     DIFF REVISIONS rather than re-reading — highest yield-per-call found so far (Finding 1).
-  2. PRIMARY OPERATOR SECURITY POSTS — openai.com/index, aisi.gov.uk/blog, anthropic.com/news, the
-     OWASP ASI tracker. Validated six times. When the kb holds an incident fact, CHECK WHETHER THE
-     OPERATOR PUBLISHED ITS OWN ACCOUNT, by SEARCHING; the same search is also the cheapest discovery
-     sweep available (route 1b, now validated three runs running).
-  3. OWASP GenAI PDF REPORTS. Seven read across five runs for 18 facts + 5 corroborations. Route
-     solved twice over. Mine ARCHITECTURE, THREAT-MODEL METHOD and MATURITY sections; SKIP the
-     numbered control checklists, which are below the bar. And skip TABLES — they extract shuffled.
-  4. PUBLISHED CRITIQUES OF SOURCES ALREADY IN THE KB. NEW ENTRY, promoted straight to rank 4 on this
-     run's evidence: one 8-page arXiv paper produced 3 facts and sharpened an existing one, at a
-     fraction of the cost of a 139-page guide. When the kb holds a fact from a framework or standard,
-     search for "extending/critique/gaps in <that document>". Cheap, and it is the only reliable way
-     to find a limit that the document itself will never state.
+  find the primary), and the simonwillison queue: /2026/Jul/31/stateless-mcp/ (pairs with 3afa31af),
+  the-tokenpocalypse (404media), /2026/Aug/2/open-letters/.
+YIELD RANKING as of the SEVENTEENTH run — spend the budget in this order:
+  1. SPEC AND PROTOCOL TRIPWIRES via the GitHub contents API. Cheapest high-value call, outage-proof,
+     EVERY run. AND: where a spec is versioned in git, DIFF REVISIONS rather than re-reading. NOTE
+     the 17th run's calibration — a near-empty diff is a real result, not a failed technique.
+  2. OWASP GenAI PDF REPORTS. Eight read across six runs for 21 facts + 5 corroborations. Route
+     solved six times over. Mine ARCHITECTURE, THREAT-MODEL METHOD, DISAMBIGUATION and MATURITY
+     sections; SKIP numbered control checklists. Count tables, never quote their pairings.
+  3. PRIMARY OPERATOR SECURITY POSTS — openai.com/index, aisi.gov.uk/blog, anthropic.com/news.
+     Demoted from 2 to 3 THIS RUN on evidence: three of four feeds were empty over five days. Still
+     rank 3 because when they do fire, they fire hard. Use WebSearch+allowed_domains, not index sweeps.
+  4. PUBLISHED CRITIQUES OF SOURCES ALREADY IN THE KB. One 8-page paper produced 3 facts + 1
+     sharpening at a fraction of a 139-page guide's cost. Search "critique/gaps in <document>".
   5. MCP remaining spec pages (list above). security-considerations is next.
   6. anthropic.com/engineering — UNREAD: AI-resistant-technical-evaluations, building-c-compiler,
      contextual-retrieval, swe-bench-sonnet, desktop-extensions. Index quiet since Apr 2026.
-     anthropic.com/news is where postmortems actually land.
   7. microsoft.com/en-us/research/blog — 1 fact of 3 last time. Prefer METHOD over FRAMEWORK posts.
   8. Azure Architecture Center. The six-part RAG series is the largest coherent unread block.
   9. aws.amazon.com/blogs/machine-learning — product-heavy, but spec-level changes surface early.
@@ -340,60 +299,60 @@ YIELD RANKING as of the SIXTEENTH run — spend the budget in this order:
      the-hidden-cost-of-code-that-nobody-touches.
  14. eugeneyan.com/writing — unread: secure-source-code (May 2026) and anything newer.
  15. simonwillison.net/tags/llms/ — VALUE IS THE LINKS: read the index, follow the primaries. CAVEAT:
-     his summaries of TALKS are the weakest link here and produced two uncorroborated claims
-     (4e923405, bcbf13c2).
+     his summaries of TALKS are the weakest link here and produced two uncorroborated claims.
  16. latent.space/archive — unread: /p/aiewf26trends, /p/modal2026, /p/poolside, /p/chatgpt-work.
  17. langchain.com/blog — eval and benchmark posts clear the bar; customer stories do not.
- 18. metr.org/blog — demoted 13th run. RE-RATE IF the joint METR + Redwood assessment lands.
- 19. embracethered.com/blog — low volume, high value, security only.
- 20. trychroma.com/research — rare but substantial. Unread: evaluating-chunking.
- 21. research.google/blog — checked twice, output is health/quantum/diffusion. Low yield.
+ 18. blog.redwoodresearch.org — NEW, watch-only, for the METR+Redwood joint assessment.
+ 19. metr.org/blog — demoted 13th run. RE-RATE when the joint assessment lands.
+ 20. embracethered.com/blog — low volume, high value, security only.
+ 21. trychroma.com/research — rare but substantial. Unread: evaluating-chunking.
+ 22. research.google/blog — checked twice, output is health/quantum/diffusion. Low yield.
      microsoft.com/en-us/security/blog — one good agent-identity post, otherwise threat intel.
 
-dead or unreadable — EMPTY. Read the six-for-six warning in Appendix S first. It is now SEVEN for
-seven: modelcontextprotocol.io was hard-down for an entire run and was fully recovered via its repo.
+dead or unreadable — EMPTY, and now EIGHT FOR EIGHT on false dead ends. Read the warning in Appendix S.
   block.github.io/goose -> goose-docs.ai (old host serves a 'goose has moved' stub).
   https://strandsagents.com/latest/... -> 404. Use /docs/... instead.
-  modelcontextprotocol.io -> ECONNREFUSED 2026-08-12. NOT dead: use fetch-routes route 3.
+  modelcontextprotocol.io -> was ECONNREFUSED 2026-08-12; FULLY UP 2026-08-14. Transient.
+  modelcontextprotocol.io/docs/concepts/tools -> recorded GONE by the 16th run; it REDIRECTS (200).
   NOTE: builder.aws.com, the Vectara leaderboard, OWASP PDFs (three times, three stated reasons),
-    openai.com and now modelcontextprotocol.io were ALL listed or headed here and NONE was unreachable.
+    openai.com, modelcontextprotocol.io and now /docs/concepts/tools were ALL listed or headed here
+    and NONE was unreachable.
 
 TIER 6 GITHUB READMEs — CLOSED OUT. A repo README is worth a fetch for LIFECYCLE STATUS and nothing
-else. If a repo matters, go to its DOCS site. BUT NOTE THE 16th RUN'S AMENDMENT: a repo that HOSTS a
-documentation site is a different animal entirely — there the repo is the primary source and beats
-the site (fetch-routes route 3). The README rule was about marketing READMEs, not about source trees.
+else. If a repo matters, go to its DOCS site. AMENDMENT (16th run): a repo that HOSTS a documentation
+site is a different animal — there the repo is the primary source and beats the site.
 Only remaining tier-6 item: the x1xhlol INDIVIDUAL prompt files. Frame anything from those as
 'this harness's published prompt does X', never as 'the correct approach is X'.
 
-VERIFICATION-POOL NOTE (updated 16th run). Checked so far — cb98732e, 27652a82, 111f8b2c, 2b74037b,
+VERIFICATION-POOL NOTE (updated 17th run). Checked so far — cb98732e, 27652a82, 111f8b2c, 2b74037b,
 5ad0fb45, 62312b79, 0fe91ac7, fc249ffc, a5ade87d, dee636a2, 77b3e628, f877f05d, d4e3b247, bcbf13c2,
 d468cbbe, 089c7cba, 15e7bf02, 46f3ea69, 56986e8f, d87795d4, 882100d9, 28ba65db, c93d93ee, c7290868,
 c1bbf73f, 48c4e555, c2f12069, 62c9a78b, e9b7eef3, 96ebc34e, c858a924, c99ec745, 30869b36, c436422a,
 c1e18090, 9920b5d6, 773a89ee, 48c9de1b, afce1dae, 4b0261d0, 052c2b66, f78a326a, 38c06627, d18637a2,
 1beb89e6, f1cbb540, 89df351e, 4e923405, 714a540c, f7dee43a, 9aaea0dc, 9e29d93a, 1531a0d1, b4d688b1,
-99aa74e6, 0720e9d7, and (16th run) 59a75c06, b471f9ef, ba5db3ec, f4005c98, c28c7f7b, plus this run's
-own 11ebefd6, db15af92, 8f2fdde8 via the self-review.
+99aa74e6, 0720e9d7, 59a75c06, b471f9ef, ba5db3ec, f4005c98, c28c7f7b, 11ebefd6, db15af92, 8f2fdde8,
+and (17th run) ee3bc7d3, ca3382bd, 46eeb374, plus this run's own 703147ba and ba1b7aad via self-review.
 THREE AXES, ROTATE THEM: confidence (lowest first), earliest-committed, shared-ref grouping.
-13th ran earliest-committed (2 defects in 5); 14th confidence (1 + 1 partial); 15th shared-ref
-(3 in 5); 16th ran EARLIEST-COMMITTED **AND** SHARED-REF TOGETHER and got 2 defects in 5 at TWO
-fetches. THAT COMBINATION IS THE NEW DEFAULT WHERE IT IS AVAILABLE — the axes are not mutually
-exclusive, and the oldest facts in this kb turn out to cluster on a handful of source pages, so
-sorting by age and then grouping by ref costs nothing and halves the fetches. Next run: rotate the
-PRIMARY axis to confidence, still grouping by ref. Nothing here is yet older than 90 days.
+13th earliest-committed (2 defects in 5); 14th confidence (1 + 1 partial); 15th shared-ref (3 in 5);
+16th earliest-committed AND shared-ref together (2 in 5, two fetches); 17th SHARED-REF as primary
+(0 defects in 5, but 3 ref corrections + 2 source-count fixes, two fetches for four facts).
+READ THE 17th RESULT CAREFULLY: zero CLAIM defects is not zero yield — the pass invalidated the
+PREMISE it was given (the refs were never rotted) and fixed two source-count errors nobody had
+queried. NEXT RUN: rotate the primary axis to EARLIEST-COMMITTED, still grouping by shared ref.
 AVOID SAMPLING kb/principles/** — write-blocked, you cannot record the result.
 SUB-RULE (14th): a PARTIAL confirmation must be written down as partial, in the fact.
 SUB-RULE (15th): when a quoted sentence appears in more than one fact, a defect in it is duplicated
   too. Query the kb for the quotation before correcting it.
 SUB-RULE (15th): check that a CITED PAGE ACTUALLY CARRIES the detail attributed to it.
-SUB-RULE (15th): RUN THE CHECKLIST ON THE FACTS YOU JUST WROTE. Two runs, two harvests: 3 defects in
-  8 last run, 3 in 7 this run, and this run's rate is understated because one of the three was a
-  claim I would never have thought to check. Budget it; it is not optional.
+SUB-RULE (15th): RUN THE CHECKLIST ON THE FACTS YOU JUST WROTE. Three runs, three harvests: 3 defects
+  in 8, 3 in 7, and 2 in 3 this run. Budget it; it is not optional.
 SUB-RULE (16th): WHERE A SOURCE IS VERSIONED AND IN GIT, DIFF THE REVISIONS INSTEAD OF RE-READING.
-  One `diff` produced four distinct findings on one page. Re-reading finds what you notice; diffing
-  finds what changed, including one-word normative changes (MUST -> SHOULD) that no reader catches.
+SUB-RULE (17th): A CLAIM THAT A PATH IS DEAD, OR THAT CONTENT MOVED TO A PARTICULAR PLACE, IS A CLAIM
+  LIKE ANY OTHER. Test the redirect; grep the alleged successor for the content. The 16th run recorded
+  both without testing either, and both were wrong.
 
-WHAT THE VERIFICATION PASS ACTUALLY FINDS — NINE RUNS OF EVIDENCE. It is NOT finding stale facts. It
-finds CITATION-FIDELITY defects in facts whose underlying claims are correct:
+WHAT THE VERIFICATION PASS ACTUALLY FINDS — TEN RUNS OF EVIDENCE. It is mostly NOT finding stale
+facts. It finds CITATION-FIDELITY defects in facts whose underlying claims are correct:
   ninth      — 56986e8f: a paraphrase wearing quote marks.
   tenth      — c93d93ee: an overclaiming gloss attributed to the source.
   tenth      — c7290868: INVERTED CAUSATION pointing at the wrong remedy.
@@ -408,16 +367,17 @@ finds CITATION-FIDELITY defects in facts whose underlying claims are correct:
   fifteenth  — 714a540c: ATTRIBUTION TO AN UNLISTED REF + a language-binding error.
   fifteenth  — b4d688b1: MODAL STRENGTHENING IN A TITLE, in a fact written that same run.
   fifteenth  — 0720e9d7: A PDF LINE-WRAP SILENTLY RECONSTRUCTED and printed as a literal.
-  sixteenth  — 59a75c06: A TITLE THE SUCCESSOR REVISION EXPLICITLY CONTRADICTS. The body aged fine;
-    the generalisation in the title did not. First instance of genuine STALENESS rather than
-    citation infidelity — the fact was right when written.
-  sixteenth  — b471f9ef: AN OVERCLAIMED ABSENCE ('no longer covered by any rule') where the rules had
-    been rewritten, not removed — concealing the real finding, a MUST silently downgraded to SHOULD.
+  sixteenth  — 59a75c06: A TITLE THE SUCCESSOR REVISION EXPLICITLY CONTRADICTS. First instance of
+    genuine STALENESS rather than citation infidelity — the fact was right when written.
+  sixteenth  — b471f9ef: AN OVERCLAIMED ABSENCE concealing a MUST silently downgraded to SHOULD.
   sixteenth  — 11ebefd6 (own): A QUANTIFIER INFLATED IN A TITLE — 'most' for seven of sixteen.
-  sixteenth  — db15af92 (own): AN UNCHECKED VERSION ATTRIBUTION — features of an older revision
-    credited to the revision I happened to be reading.
+  sixteenth  — db15af92 (own): AN UNCHECKED VERSION ATTRIBUTION.
   sixteenth  — 8f2fdde8 (own): A TITLE CLAUSE THE FACT'S OWN BODY UNDERCUT.
-CHECKLIST — verify all ELEVEN explicitly, not just 'is the claim still true':
+  seventeenth— ca3382bd AND 46eeb374: SOURCE-COUNT INFLATION — N pages of ONE spec counted as N
+    sources. Neither claim was wrong; the corroboration signal was. This is the first time the pass
+    found the same defect in two facts by looking at frontmatter rather than prose.
+  seventeenth— 703147ba (own): AN INCOMPLETE MAPPING, plus a METHOD SENTENCE that vouched for it.
+CHECKLIST — verify all TWELVE explicitly, not just 'is the claim still true':
   (1) quotation boundaries — is every quoted string actually in the source, and does the quote START
       where the source's sentence starts, or has a qualifier been cut off the front;
   (2) causal direction; (3) WHO the actor is in a cited measurement (human vs model vs tool);
@@ -427,13 +387,14 @@ CHECKLIST — verify all ELEVEN explicitly, not just 'is the claim still true':
   (7) FOR MULTI-REF FACTS, which specific ref supports each specific number — is a single reported
   instance presented as a general rule — and does ANY listed ref support it at all;
   (8) MODAL STRENGTH, QUANTIFIERS AND SCOPE, IN THE BODY AND IN THE TITLE SEPARATELY: 'is noise' vs
-  'deserves skepticism', 'works when' vs 'works best today when', 'became 80%' vs 'can eventually
-  reach 80%', and — NEW — 'most' vs an actual count. Does a number measured on ONE
-  benchmark/model/config get presented as holding generally;
+  'deserves skepticism', 'became 80%' vs 'can eventually reach 80%', 'most' vs an actual count. Does
+  a number measured on ONE benchmark/model/config get presented as holding generally;
   (9) LANGUAGE BINDING AND VERSION for anything from framework or vendor docs;
   (10) LITERALS TAKEN FROM A PDF ARE RECONSTRUCTIONS — pdftotext breaks hyphenated tokens across
-  lines AND SHUFFLES TABLE COLUMNS. Mark it or confirm it against prose. And distinguish PACK
-  ANALYSIS from SOURCE CLAIM in the prose — a gloss written next to a citation gets read as cited;
-  (11) NEW — VERSION ATTRIBUTION IS A CLAIM. Reading one revision of a versioned document and
-  crediting everything on the page to that revision is an assumption, not an observation. If a fact
-  says a feature was ADDED in revision X, check the predecessor. Two greps settled db15af92.
+  lines AND SHUFFLES TABLE COLUMNS. A negative grep is ALSO unreliable for the same reason (17th).
+  Distinguish PACK ANALYSIS from SOURCE CLAIM — a gloss next to a citation gets read as cited;
+  (11) VERSION ATTRIBUTION IS A CLAIM. Reading one revision of a versioned document and crediting
+  everything on the page to that revision is an assumption. Check the predecessor;
+  (12) NEW — A FACT'S STATEMENT OF ITS OWN METHOD ('all from prose', 'every figure re-verified',
+  'refs updated throughout') IS THE CLAIM MOST LIKELY TO BE FALSE, because it is written once, at the
+  end, about work done piecemeal. Verify it item by item, or delete the sentence.
