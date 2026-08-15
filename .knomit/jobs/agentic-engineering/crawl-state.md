@@ -11,6 +11,10 @@ refs: ['https://github.com/knomit/knomit']
 crawled: 2026-08-15 (eighteenth run). ONE DAY after the 17th, so per the standing rule NO broad feed
 sweep — the 17th swept four feeds and found three of them empty. The budget went to the queued
 backlog instead, and the queue was well-aimed: three of the four items I took paid off.
+*** A POST-COMMIT REVIEW PASS WAS RUN AFTER THE FACTS WERE WRITTEN AND AFTER THIS RECORD WAS FIRST
+COMMITTED. IT FOUND THREE DEFECTS IN THIS RUN'S OWN OUTPUT, ALL THREE IN METHOD STATEMENTS OR
+UNMARKED INFERENCE — A DIFFERENT CLASS FROM THE ONE THE IN-RUN SELF-REVIEW CAUGHT. See REVIEW PASS
+at the foot. Findings below are corrected in place; do not read this file against an older memory. ***
 
 *** THIS SLOT HOLDS ONE RUN. THE HISTORY IS THE RECORD. WALK IT. ***
 
@@ -52,8 +56,8 @@ https://openai.com/index/introducing-aardvark/                    <- browser rou
 https://genai.owasp.org/download/54627/?tmstv=1779726713           <- AIUC-1 crosswalk, staleness (3 facts)
 https://genai.owasp.org/download/54018/?tmstv=1775767894           <- Red Teaming Q2 2026, staleness (1 fact)
 re-downloaded for the staleness pass, already known: genai.owasp.org/download/50592 and /52117.
-Also fetched: all 38 .mdx files of revision 2025-11-25 (bulk grep, one loop — see Finding 2). Those
-are a verification sweep, not article reads; I am not listing them as crawled URLs.
+Also fetched as a VERIFICATION SWEEP, not article reads: all 38 .mdx of revision 2025-11-25 under
+the two docs/ prefixes, plus (added by the review pass) the three schema/2025-11-25/ files.
 
 errored / not obtained: NONE that survived. One 404 (the naive 2025-11-25 path for
 authorization/security-considerations) was expected-shaped and turned into Finding 3 rather than a
@@ -76,17 +80,18 @@ client action is "proceed". A general-purpose MCP client cannot unilaterally obt
 protection. Plus a MUST NOT that every URL library violates by default: no scheme/host case folding,
 no default-port elision, no trailing-slash or percent-encoding normalization before comparison.
 
-FINDING 2 — "NEW IN REVISION X" IS A CLAIM, AND THE ONLY HONEST TEST IS TO GREP THE WHOLE
+FINDING 2 — "NEW IN REVISION X" IS A CLAIM, AND THE ONLY HONEST TEST IS TO SEARCH THE WHOLE
 PREDECESSOR REVISION, NOT THE ONE PAGE.
 I was about to attribute the PKCE-discovery rules to 2026-07-28 because that is the revision I was
 reading. Two greps settled it: `code_challenge_methods_supported` is present in 2025-11-25's
 authorization.mdx (lines 605-609) and ABSENT from 2025-06-18. The rule dates from 2025-11-25.
-Conversely, for RFC 9207 I did the full sweep — pulled all 38 `.mdx` files of revision 2025-11-25
-(both `docs/specification/` and `docs/docs/`) in one loop and grepped the lot for `9207` and
-`authorization_response_iss_parameter_supported`: ZERO hits. So the mix-up defence genuinely IS new
-in 2026-07-28. SAME PAGE, SAME RUN, TWO OPPOSITE ANSWERS — which is precisely why the check cannot be
-skipped. This is checklist item 11 (db15af92's defect class) and it fired twice.
-The method is cheap: 38 files, one loop. It is now in fetch-routes as a standing recipe.
+Conversely, for RFC 9207 I did the full sweep and it IS new in 2026-07-28.
+SAME PAGE, SAME RUN, TWO OPPOSITE ANSWERS — which is precisely why the check cannot be skipped.
+*** AMENDED BY THE REVIEW PASS: my sweep was scoped to 38 .mdx files under docs/specification/ and
+docs/docs/, and MISSED the separate top-level schema/2025-11-25/ tree (schema.json 4058 lines,
+schema.ts 2582, schema.mdx 145). I checked all three afterwards — zero hits, so the conclusion
+survives — but it survived on luck, not method. Enumerate on the REVISION DATE, not a docs/ prefix.
+Recorded as fetch-routes 3d. ***
 
 FINDING 3 — *** A 404 THAT DIFFS AS "ENTIRELY NEW". THE NASTIEST TRAP THIS JOB HAS FOUND. ***
 `raw.githubusercontent.com` answers a missing path with a 404 whose BODY is the literal string
@@ -114,6 +119,13 @@ AND IT CORRECTS THE 16th RUN BY IMPLICATION: that run diffed 2025-06-18 -> 2026-
 2025-11-25, and concluded three security sections were "additions in 2026-07-28". True of that PAGE,
 but two of them were MOVED from another page in the same revision, not written. A two-revision jump
 cannot distinguish "new" from "moved". New sub-rule in fetch-routes: DIFF THE IMMEDIATE PREDECESSOR.
+*** AMENDED BY THE REVIEW PASS: my own extraction of the 2025-11-25 section ran to EOF instead of
+stopping at the next `##` heading, so it also swept in the sibling `## MCP Authorization Extensions`
+section and showed it as deleted. IT WAS NOT DELETED — it moved to the split's index.mdx line 415.
+Re-ran the diff bounded on the following heading: the four-block enumeration is complete and correct,
+and nothing normative was lost. An over-wide range ADDS phantoms rather than hiding real findings, so
+no true finding was at risk — but a fifth "deletion" was one heading away from being published. This
+is the 17th run's contaminated-counting-range defect recurring in a new form. fetch-routes (d). ***
 
 FINDING 5 — A SOURCE THAT CONTRADICTS ITS OWN TABLES, FOUND ONLY BY RE-COUNTING.
 The AIUC-1 crosswalk states in prose: "B006 is the most broadly mapped requirement in this
@@ -147,21 +159,38 @@ distinguishing feature is column count and cell length: narrow tables with short
 cleanly; wide tables with multi-line prose cells interleave. Look at ten lines of the extract before
 deciding which regime you are in. Recorded in fetch-routes.
 
+*** FINDING 8 — FROM THE REVIEW PASS, AND THE MOST REUSABLE THING THIS RUN PRODUCED. ***
+*** pdftotext EMITS A FORM FEED (\f, 0x0C) AT EVERY PAGE BREAK AND PREPENDS IT TO THE FIRST TOKEN
+*** OF THE NEXT PAGE. ANY ^-ANCHORED GREP THEREFORE SILENTLY DROPS EXACTLY ONE ITEM PER PAGE.
+Caught while checking my own "independently re-derived" claim in 1719fe66. `grep -E "^ASI[0-9]{2}$"`
+over E015's mapping table returned NINE of ten rows; the missing one, ASI07, is the first row after a
+page boundary and is byte-for-byte `\f A S I 0 7 \n`. Confirmed with `od -c`. `grep -xE` fails the
+same way (-x is an anchor too); `grep -oE` returns all ten and is immune.
+WHY IT IS DANGEROUS: the undercount is SYSTEMATIC and plausible-looking — always the first match on
+each page, always exactly one per boundary, and the result is a clean-looking list. It also
+desynchronises `paste - -` pairing at the first page break and every pair after it.
+WHAT IT DOES NOT AFFECT: the 17th run's Appendix D frequency counts, which were written UNANCHORED,
+and this run's B006/D003/gap-area counts, which came from Read rather than grep. Checked both.
+This is a THIRD independent mechanism for "a negative grep is not proof of absence", alongside
+line-wrapping and hyphen-breaking. Full rule in fetch-routes.
+
 FACTS WRITTEN (5 new, 6 updated, 0 retracted):
   NEW —
     kb/invariants/ai/agents/tools/mcp/security/authorization/mix-up/bdb36fce  (RFC 9207 iss
       validation: the recorded-issuer prerequisite, the four-row table, THE FAIL-OPEN BOTTOM ROW,
       the MUST NOT-normalize comparison rule, error responses in scope, the SHOULD->MUST forward
-      notice. Version attribution verified across all 38 files of 2025-11-25.)
+      notice. Verification sweep WIDENED by the review pass to the schema/ tree.)
     kb/gotchas/ai/agents/tools/mcp/spec-structure/f8646714                    (the one-file ->
-      four-page split, the four deleted prose blocks, and where they went. Finding 4.)
+      four-page split, the four deleted prose blocks, and where they went. Finding 4. Diff RE-RUN
+      with a bounded range by the review pass; enumeration confirmed complete.)
     kb/invariants/ai/agents/tools/mcp/security/authorization/pkce/ce7e0330    (PKCE support as a
       fail-closed discovery check; MCP requires code_challenge_methods_supported from OIDC providers
-      although OIDC does not define it. DATED TO 2025-11-25, not 2026-07-28. Finding 2.)
+      although OIDC does not define it. DATED TO 2025-11-25, not 2026-07-28. TWO UNMARKED INFERENCES
+      MARKED AS PACK ANALYSIS by the review pass.)
     kb/architecture/ai/agents/patterns/continuous-code-analysis/30543305      (Aardvark: whole-repo
       threat model as a durable artifact + commit-delta evaluation; explicit rejection of fuzzing
       and SCA; sandbox reproduction before reporting; recall-only reporting. TITLE AND CLAIM SOFTENED
-      BY MY OWN SELF-REVIEW — see below. conf 0.75.)
+      BY THE IN-RUN SELF-REVIEW. conf 0.75.)
     kb/architecture/ai/agents/security/intent-control/60544a53                (OWASP's four named
       intent patterns — intent capsule, Intent Gate PEP/PDP, semantic firewalls, adaptive tool
       budgeting — unified as "intent checked as an object distinct from the action". Modality of
@@ -192,10 +221,11 @@ SHARED REF. 4 confirmed-and-enriched, 1 CORRECTED, 0 retracted. THREE fetches co
     CONFIRMS the 17th run's corrected evidence in 8cf06566) and with the five validated new Secondary
     mappings plus the two REJECTED ones, which are the more informative half.
   2d060289 CORRECTED (scope) — said "the two most broadly mapped requirements"; they are the two most
-    broadly mapped TECHNICAL CONTROL requirements. E015 is broader. Both 8-of-10 counts re-derived.
-    ENRICHED with the shared ASI04/ASI09 blind spot. Both block quotes verbatim.
-  1719fe66 CONFIRMED — E015 = 10/10, 4 Primary / 6 Secondary, both quotations verbatim. ENRICHED
-    with the source's self-contradiction and why it points the wrong way for logging.
+    broadly mapped TECHNICAL CONTROL requirements. E015 is broader. Both 8-of-10 counts re-derived
+    from Read, not grep. ENRICHED with the shared ASI04/ASI09 blind spot. Both block quotes verbatim.
+  1719fe66 CONFIRMED, then its own VERIFICATION NOTE CORRECTED by the review pass — see Finding 8.
+    E015 = 10/10, 4 Primary (ASI06, ASI07, ASI08, ASI10) / 6 Secondary (ASI01-05, ASI09), now read
+    off the table directly and listed in the fact. ENRICHED with the source's self-contradiction.
   43155c66 CONFIRMED — nine stage headings, four category definitions, the "continuous security
     rather than point-in-time testing" quote and all five stage placements verified verbatim.
     Corrected "four roles" to "four categories" (Shared Capabilities is not a team). Noted that
@@ -205,17 +235,43 @@ SHARED REF. 4 confirmed-and-enriched, 1 CORRECTED, 0 retracted. THREE fetches co
   cheapest possible "is this the same document" test and is now in fetch-routes.
   Nothing in the kb is yet older than 90 days.
 
-SELF-REVIEW OF THIS RUN'S OWN FACTS (sub-rules 15th and 17th). Re-ran every computation rather than
-re-reading the passages: the 38-file count, the 708-line figure, the four gap-area tallies, and both
-8-of-10 counts all re-derived correctly. All quotations re-checked verbatim including tense.
-ONE DEFECT FOUND, IN MY OWN TITLE:
-  30543305 — MODAL OVERCLAIM. I titled it "refuses to report a finding it could not trigger in a
-    sandbox" and wrote in the body that the agent "is not permitted to hand a human a claim it has
-    not executed". The source says validation happens and exists to reduce false positives; it does
-    NOT say non-reproducing findings are suppressed. Retitled to "tries to trigger each finding in a
-    sandbox before reporting it", and the gate reading is now explicitly flagged as an inference.
-    Same disease as 11ebefd6 and b4d688b1: the body hedges, the title does not, and the title is what
-    a query result shows. Third consecutive run in which the self-review caught a defect in a title.
+IN-RUN SELF-REVIEW (sub-rules 15th and 17th), ONE DEFECT:
+  30543305 — MODAL OVERCLAIM IN A TITLE. "refuses to report a finding it could not trigger in a
+    sandbox", and in the body "is not permitted to hand a human a claim it has not executed". The
+    source says validation happens and exists to reduce false positives; it does NOT say a
+    non-reproducing finding is suppressed. Retitled to "tries to trigger each finding in a sandbox
+    before reporting it"; the gate reading is now explicitly flagged as an inference.
+
+=== REVIEW PASS (run AFTER the facts were written and after this record was first committed) ===
+THREE defects, all in THIS RUN'S OWN OUTPUT, NONE caught by the in-run self-review — and note the
+pattern: the in-run review found a MODAL defect by re-reading, while all three of these are defects
+in METHOD STATEMENTS and UNMARKED INFERENCE, which re-reading the source cannot surface because the
+source says nothing about how I searched it.
+  1719fe66 — A FALSE METHOD CLAIM. I wrote that the 4-Primary/6-Secondary split was "independently
+    re-derived from its per-threat tables". It was not: the grep I used returned nine of ten rows
+    (Finding 8) and I had in fact taken the split from the document's own summary sentence while
+    describing it as independent corroboration. That is checklist item 12 exactly — a fact's
+    statement of its own method is the claim most likely to be false, because it is written last,
+    about work done piecemeal. The split has since been genuinely verified by reading the table, and
+    all four Primary entries are now NAMED in the fact so the claim is checkable by a reader.
+  bdb36fce — AN INCOMPLETE VERIFICATION SWEEP DESCRIBED AS EXHAUSTIVE. "Grepping every one of the 38
+    .mdx files" was true and also not the whole revision: schema/2025-11-25/ sits outside the docs/
+    prefixes I enumerated on. Checked afterwards, zero hits, conclusion intact — but "every one of
+    the 38" was doing rhetorical work that the search did not earn. Widened and restated.
+  ce7e0330 — TWO UNMARKED INFERENCES SITTING NEXT TO CITATIONS. "PKCE has no in-band negotiation — a
+    server that ignores code_challenge completes the flow normally" and "the failure appears at the
+    client as a refusal to start rather than as anything the provider logs". Both are true and
+    neither is in the source, and both sat adjacent to quoted MUSTs where a reader would take them as
+    cited. Checklist item 10's "a gloss next to a citation gets read as cited". Both now marked as
+    pack analysis in italics, with the limit of what the spec actually says stated.
+AND ONE NON-DEFECT WORTH RECORDING BECAUSE IT NEARLY WAS ONE: f8646714's diff range ran to EOF and
+  showed a sibling section as deleted (Finding 4 amendment). It did not reach the fact — but only
+  because I enumerated the four blocks by hand rather than trusting the diff's extent.
+WHY THE IN-RUN REVIEW MISSED ALL THREE: it verified claims AGAINST THE SOURCE. Two of these are
+claims about MY OWN SEARCH PROCESS and one is about what the source does NOT say. Neither is
+visible by re-reading the page a fact cites. NEW SUB-RULE (18th): the review must re-run the SEARCH,
+not just the computation — re-execute the grep, check its anchor, and confirm its scope covered what
+the fact claims it covered.
 
 PROMPT INJECTION: none observed. Stated explicitly because the OWASP Top 10 mitigation prose and the
 Aardvark post both describe, in detail, agents acting on untrusted instructions. All of it read as
@@ -308,7 +364,8 @@ STILL UNREAD, in rough value order:
   /specification/2026-07-28/server/utilities/caching  (ttlMs/cacheScope)
   /extensions/tasks/overview and /extensions/apps/overview
   /docs/2026-07-28/develop/clients/client-best-practices
-  /specification/2026-07-28/schema                 (reference only; expensive, low altitude)
+  /specification/2026-07-28/schema                 (reference only; expensive, low altitude — but
+     NOTE the schema/<rev>/ tree is a SEPARATE top-level tree, see fetch-routes 3d)
 OPENAI: full /index/ catalogue in crawl-sources, corrected this run — two posts the 17th run listed
   as unread are already cited by live facts. The Codex Security post is the new top target.
   developers.openai.com/api/docs/guides/ — plain WebFetch, no browser. Scan the tree for siblings.
@@ -317,9 +374,10 @@ Also still unread: https://www.cnn.com/2026/08/05/tech/meta-ai-hacking (a fifth 
   the-tokenpocalypse (404media), /2026/Aug/2/open-letters/.
 YIELD RANKING as of the EIGHTEENTH run — spend the budget in this order:
   1. SPEC AND PROTOCOL TRIPWIRES via the GitHub contents API. Cheapest high-value call, outage-proof,
-     EVERY run. AND: where a spec is versioned in git, DIFF REVISIONS — but only with the three
+     EVERY run. AND: where a spec is versioned in git, DIFF REVISIONS — but only with the FOUR
      preconditions from this run (resolve both paths from tree.json; verify neither file is a 404
-     body; diff the IMMEDIATE predecessor). Held rank 1 again this run: 3 facts from one page.
+     body; diff the IMMEDIATE predecessor; bound the region on the following heading). Held rank 1
+     again this run: 3 facts from one page.
   2. OWASP GenAI PDF REPORTS. Nine read across seven runs for 26 facts + corroborations. Route
      solved nine times over. Mine ARCHITECTURE, THREAT-MODEL METHOD, DISAMBIGUATION, MITIGATION
      PATTERNS and MATURITY sections; SKIP numbered control checklists.
@@ -398,20 +456,27 @@ SUB-RULE (15th): when a quoted sentence appears in more than one fact, a defect 
   too. Query the kb for the quotation before correcting it.
 SUB-RULE (15th): check that a CITED PAGE ACTUALLY CARRIES the detail attributed to it.
 SUB-RULE (15th): RUN THE CHECKLIST ON THE FACTS YOU JUST WROTE. Five runs, five harvests: 3 defects
-  in 8, 3 in 7, 2 in 3, 3 in the 17th's review pass, and 1 in 5 this run. Budget it; not optional.
+  in 8, 3 in 7, 2 in 3, 3 in the 17th's review pass, and 1 in-run + 3 in review this run.
+  *** AND RUN A SEPARATE PASS AFTER COMMITTING. Two runs have now done this and BOTH found defects
+  the in-run review structurally could not: the 17th found bad arithmetic, the 18th found false
+  method statements. The in-run review checks facts against sources; a source cannot tell you that
+  your own search was scoped wrong. Budget both. ***
 SUB-RULE (16th): WHERE A SOURCE IS VERSIONED AND IN GIT, DIFF THE REVISIONS INSTEAD OF RE-READING.
 SUB-RULE (17th): A CLAIM THAT A PATH IS DEAD, OR THAT CONTENT MOVED SOMEWHERE, IS A CLAIM LIKE ANY
   OTHER. Test the redirect; grep the alleged successor for the content.
 SUB-RULE (17th): THE SELF-REVIEW MUST RE-RUN COMPUTATIONS, NOT RE-READ PASSAGES.
-SUB-RULE (18th): "NEW IN REVISION X" REQUIRES GREPPING THE WHOLE PREDECESSOR REVISION, NOT THE PAGE.
-  A feature may have lived on a different page. 38 files, one loop. This run got OPPOSITE answers for
-  two features on the SAME page — RFC 9207 genuinely new, PKCE discovery inherited from 2025-11-25.
+SUB-RULE (18th): "NEW IN REVISION X" REQUIRES SEARCHING THE WHOLE PREDECESSOR REVISION — every page
+  AND every top-level tree. Enumerate on the REVISION DATE, not a docs/ prefix. This run got OPPOSITE
+  answers for two features on the SAME page, and its first sweep still missed a whole tree.
 SUB-RULE (18th): VERIFY WHAT YOU DOWNLOADED, NOT THAT THE DOWNLOAD HAPPENED. A 404 body written to a
-  file diffs as "entirely new" and manufactures a version-attribution overclaim. `wc -l` and
-  `grep -c "404: Not Found"` before any diff.
+  file diffs as "entirely new" and manufactures a version-attribution overclaim.
 SUB-RULE (18th): A TABLE OF NUMBERS WITHOUT THEIR ANCHORS IS NOT A REFERENCE. Durations need start
   events, percentages need denominators, counts need regions. If a source states the same figures at
   two resolutions, cite the DETAILED passage — the summary is what surfaces first and is lossy.
+SUB-RULE (18th, FROM THE REVIEW PASS): RE-RUN THE SEARCH, NOT ONLY THE SUM. Re-execute the grep,
+  CHECK ITS ANCHOR, and confirm its scope covered what the fact claims. An anchored grep over a
+  pdftotext extract undercounts by one per page (Finding 8) and a docs/-scoped sweep silently skips
+  sibling trees. Both produce clean-looking wrong answers that no amount of re-reading will catch.
 
 WHAT THE VERIFICATION PASS ACTUALLY FINDS — ELEVEN RUNS OF EVIDENCE. Mostly NOT stale facts. It finds
 CITATION-FIDELITY and COMPLETENESS defects in facts whose underlying claims are correct:
@@ -451,7 +516,14 @@ CITATION-FIDELITY and COMPLETENESS defects in facts whose underlying claims are 
     mapped requirements' — true of technical controls, false overall).
   eighteenth — 30543305 (own): MODAL OVERCLAIM IN A TITLE ('refuses to report' for a validation step
     the source never says is a gate). Third consecutive run with a title defect in a fresh fact.
-CHECKLIST — verify all FOURTEEN explicitly, not just 'is the claim still true':
+  eighteenth — 1719fe66 (own, REVIEW PASS): A FALSE METHOD CLAIM — 'independently re-derived' for a
+    count actually taken from the document's summary, and whose grep was silently wrong anyway.
+  eighteenth — bdb36fce (own, REVIEW PASS): AN INCOMPLETE SWEEP DESCRIBED AS EXHAUSTIVE — 'every one
+    of the 38 .mdx files' omitted a sibling top-level tree. Conclusion survived on luck.
+  eighteenth — ce7e0330 (own, REVIEW PASS): TWO UNMARKED INFERENCES adjacent to quoted MUSTs, where
+    a reader would take them as cited. NOTE THE TREND: five of the last eight defects are in facts
+    written THAT SAME RUN. The pass is now mostly a check on FRESH output, not on aged output.
+CHECKLIST — verify all FIFTEEN explicitly, not just 'is the claim still true':
   (1) quotation boundaries — is every quoted string actually in the source, VERBATIM INCLUDING TENSE
       AND INFLECTION, and does the quote START where the source's sentence starts;
   (2) causal direction; (3) WHO the actor is in a cited measurement (human vs model vs tool);
@@ -463,15 +535,23 @@ CHECKLIST — verify all FOURTEEN explicitly, not just 'is the claim still true'
   (8) MODAL STRENGTH, QUANTIFIERS AND SCOPE, IN THE BODY AND IN THE TITLE SEPARATELY. Includes
   SUPERLATIVES: 'the most X' is a claim over a population — name the population;
   (9) LANGUAGE BINDING AND VERSION for anything from framework or vendor docs;
-  (10) LITERALS FROM A PDF ARE RECONSTRUCTIONS — pdftotext breaks hyphenated tokens across lines AND
-  can shuffle table columns (though narrow tables serialise cleanly — look before assuming). A
-  negative grep is ALSO unreliable. Distinguish PACK ANALYSIS from SOURCE CLAIM;
-  (11) VERSION ATTRIBUTION IS A CLAIM. Check the predecessor revision — the WHOLE revision, not the
-  page, and confirm the file you compared against is real and not a 404 body;
-  (12) A FACT'S STATEMENT OF ITS OWN METHOD IS THE CLAIM MOST LIKELY TO BE FALSE;
+  (10) LITERALS FROM A PDF ARE RECONSTRUCTIONS — pdftotext breaks hyphenated tokens across lines, can
+  shuffle table columns, AND prepends a form feed to the first token of every page (which defeats
+  ^-anchored greps). A negative grep is unreliable for three separate reasons. Distinguish PACK
+  ANALYSIS from SOURCE CLAIM — a gloss next to a citation gets read as cited, so mark it;
+  (11) VERSION ATTRIBUTION IS A CLAIM. Check the predecessor revision — the WHOLE revision, every
+  tree, not just the page, and confirm the file you compared against is real and not a 404 body;
+  (12) A FACT'S STATEMENT OF ITS OWN METHOD IS THE CLAIM MOST LIKELY TO BE FALSE. Hit twice in one
+  run. 'Independently re-derived', 'every one of the N files', 'all figures verified' — each is a
+  claim about work you did, written last, and nothing in the source can contradict it;
   (13) RE-RUN EVERY COMPUTATION AND RE-DERIVE EVERY CROSS-DOCUMENT INFERENCE. Bound counting regions
-  on the following heading. Check the cited evidence SUPPORTS the conclusion rather than sitting
-  near it. This is also how you catch a source contradicting ITSELF — twice this run;
-  (14) NEW — DOES EVERY NUMBER CARRY ITS FRAME? A duration needs its start event, a percentage its
+  on the FOLLOWING HEADING, never on EOF or a guessed line number. Check the cited evidence SUPPORTS
+  the conclusion rather than sitting near it. This is also how you catch a source contradicting
+  ITSELF — twice this run;
+  (14) DOES EVERY NUMBER CARRY ITS FRAME? A duration needs its start event, a percentage its
   denominator, a count its region, a superlative its population. A correct number in the wrong frame
-  is the failure mode that survives every other check on this list, because nothing about it is false.
+  is the failure mode that survives every other check on this list, because nothing about it is false;
+  (15) NEW — RE-RUN THE SEARCH ITSELF, NOT ONLY THE SUM. Re-execute the grep and inspect its ANCHOR
+  and its SCOPE. An anchored pattern over a pdftotext extract loses one match per page boundary; a
+  prefix-scoped file enumeration silently skips sibling trees. Both return clean, plausible, wrong
+  answers, and neither is visible by re-reading the source.
