@@ -109,49 +109,64 @@ Ids captured so far:
          pdfinfo: 15 pages, CreationDate 2026-04-09. Read 11th run (1 fact, 43155c66); RE-VERIFIED
          18th run, unchanged. Vendor-sponsored market map — low remaining yield, do not re-mine.
 
-*** OPENAI /index/ POST CATALOGUE — enumerated by WebSearch, 17th run ***
+*** OPENAI /index/ POST CATALOGUE — enumerated by WebSearch, 17th run; corrected 18th and 19th ***
 openai.com/index 403s to WebFetch; all of these need the browser (fetch-routes route 1). Slugs are
 EXACT, taken from search results and from "Keep reading" footers — do not re-derive them.
+NOTE (19th run): the "Keep reading" footer appears to be recency WITHIN THE POST'S CATEGORY, so any
+Security-tagged post's footer is a free listing of the three newest Security posts. See fetch-routes 1b.
   READ: /index/hugging-face-model-evaluation-security-incident/   (17th run re-read; the PRIMARY
         account of the HF incident, incl. the Jul 28 and Jul 29 updates. Already cited by bcbf13c2.)
   READ: /index/the-next-evolution-of-the-agents-sdk/              (17th run; Apr 15 2026. Framework
         post — one design decision harvested into c436422a, rest is product copy. Do not re-mine.)
-  READ: /index/introducing-aardvark/                              *** 18th run. Oct 30 2025. ***
-        The agentic security researcher. 1 fact (30543305): whole-repo threat model as a durable
-        artifact + commit-delta evaluation, explicit rejection of fuzzing/SCA, sandbox reproduction
-        stage, Codex-generated/Aardvark-scanned patches, 92% recall (recall only, no precision).
-        *** CARRIES A 2026-03-06 BANNER: Aardvark is now CODEX SECURITY, research preview. ***
-        Follow-up target: the Codex Security post that banner links to — NOT yet fetched.
+  READ: /index/introducing-aardvark/                              (18th run. Oct 30 2025.)
+        The agentic security researcher. 1 fact (30543305). Carries a 2026-03-06 successor banner.
+        *** SUCCESSOR RESOLVED AND READ 19th run — see next entry. This post is now DONE. ***
+  READ: /index/codex-security-now-in-research-preview/            *** 19th run. Mar 6 2026. ***
+        The Aardvark successor. Slug resolved in ONE WebSearch (the 18th run could not name it).
+        Folded into 30543305 (sources 1->2): editable + feedback-trained threat model, TIERED and
+        explicitly CONDITIONAL validation ("where possible"; deeper tier needs a project-tailored
+        environment and is what enables working PoCs), 14 CVEs incl. OpenSSH/GnuTLS/GOGS/libssh/
+        PHP/Chromium, 1.2M commits / 792 critical / 10,561 high over 30 days, and precision-DELTA-
+        only reporting (84% noise cut in one case, >90% fewer over-reported severities, >50% fewer
+        false positives) against Aardvark's recall-only 92%. NEITHER post gives an absolute
+        precision/recall pair. DO NOT RE-MINE — fully harvested.
+  READ: /index/designing-agents-to-resist-prompt-injection/       (Mar 11 2026; Shadwell & Spânu.
+        RE-VERIFIED 19th run for f4bba0ae and eae23eac. Live, unchanged, no update notice.)
+  READ: /index/prompt-injections/                                 (Nov 7 2025. RE-VERIFIED 19th run
+        for 6c0c742e and eae23eac. Live, unchanged. NOTE: it promised a forthcoming report on
+        detecting conversation-data transmission — that promise was KEPT and is the ai-agent-link-
+        safety post already cited by b4d688b1. Do not re-watch for it.)
   UNREAD, ranked:
     /index/unlocking-self-improvement-gpt-red/   <- NOW TOP. "GPT-Red: Unlocking Self-Improvement for
                                              Robustness". A METHOD post — prefer over framework posts.
-    the CODEX SECURITY post (slug unknown)  <- linked from the Aardvark banner; resolve with
-                                             WebSearch allowed_domains=[openai.com] before fetching.
-    /index/responding-next-frontier-critical-cyber-capabilities/  <- CORRECT SLUG, resolved 17th run.
-                                             ALREADY CITED by bcbf13c2 and ee458c93 — so it HAS been
-                                             read; treat as done unless re-verifying.
     /index/putting-frontier-cyber-models-in-more-trusted-hands/   (Aug 10 2026)
-    /index/expanding-daybreak-cyber-defense-window-narrows/       <- SLUG INFERRED and PROBABLY WRONG:
-                                             facts 2d7219c8, 8193c07b and ee458c93 all cite
-                                             /index/expanding-daybreak-as-the-cyber-defense-window-narrows/
-                                             (note "as-the"), which means that post is already READ.
     /index/patch-the-planet/              (Daybreak initiative for OSS maintainers; program/policy)
     /index/safety-alignment-long-horizon-models/
     /index/introducing-openai-presence/   (product)
     /index/trusted-access-for-cyber/, /index/scaling-trusted-access-for-cyber-defense/,
     /index/updating-our-preparedness-framework/   (governance; lower altitude)
-  ALSO SPOTTED, product announcements, almost certainly below the bar — listed only so nobody spends
-  a fetch discovering that: "Previewing Ultrafast mode: GPT-5.6 Sol at up to 14X the speed" (Aug 13),
-  "Testing ads in ChatGPT" (Aug 11), "Daybreak models are now available on AWS" (Aug 11).
-  CONFIRMED 18th run: those same three are what the "Keep reading" footer returns from a 2025 post,
-  so the footer is a RECENCY feed, not a related-posts feed. Do not expect siblings from it.
+  ALREADY CITED BY LIVE FACTS — treat as READ, do not re-fetch (corrected 18th run):
+    /index/responding-next-frontier-critical-cyber-capabilities/  (bcbf13c2, ee458c93)
+    /index/expanding-daybreak-as-the-cyber-defense-window-narrows/ (2d7219c8, 8193c07b, ee458c93)
+       ^ note "as-the"; the shorter slug guessed by an earlier run is WRONG.
+    /index/ai-agent-link-safety/          (b4d688b1, eae23eac)
+    /index/third-party-cyber-evaluations-involving-openai-models/  (13th run)
+  BELOW THE BAR, listed only so nobody spends a fetch discovering it: "Previewing Ultrafast mode:
+  GPT-5.6 Sol at up to 14X the speed" (Aug 13), "Testing ads in ChatGPT" (Aug 11), "Daybreak models
+  are now available on AWS" (Aug 11).
 
-*** COUNTER-POSITION TARGET — READ 16th RUN, keep for provenance ***
+*** COUNTER-POSITION TARGET — READ 16th RUN, RE-VERIFIED 19th, keep for provenance ***
 https://arxiv.org/abs/2508.09815 (PDF: https://arxiv.org/pdf/2508.09815) — Krawiecka & Schroeder de Witt,
   "Extending the OWASP Multi-Agentic System Threat Modeling Guide". 8pp, downloads with plain curl -A.
   READ 16th run: 3 facts + 1 update to c02ac546. Sixteen proposed threat classes tabulated against
   OWASP coverage. NOTE ITS MODALITY — anticipatory, no measurements, no incidents; every fact written
-  from it says so. Its reference list is a small unmined catalogue of multi-agent eval work:
+  from it says so.
+  *** 19th run: STILL v1, 13 Aug 2025, 8 pages (pdfinfo). Unchanged. All quotes in 74996815 and
+  24e4552d re-verified verbatim, including its BRITISH spellings (sanitisation/sanitises; the paper
+  uses no -iz- form). Beware: it names one class TWO ways — "heterogeneous multi-agent exploits" in
+  the abstract, "Heterogeneous Attackers" in the table. Its wide tables need SEMANTIC pairing, not
+  positional. ***
+  Its reference list is a small unmined catalogue of multi-agent eval work:
   NetSafe (arXiv 2410.15686, topological safety of agent networks), TrustAgent (EMNLP Findings 2024),
   chaos engineering for LLM MAS (arXiv 2505.03096), The Traitors (arXiv 2505.12923, deception/trust
   in MAS simulations), Open Challenges in Multi-Agent Security (arXiv 2505.02077). NetSafe and the
@@ -229,16 +244,20 @@ PAGE MOVES — CORRECTED 17th run, the 16th run's version was wrong. Full detail
     run recorded (that page contains none of the tool-contract material; grepped and confirmed empty).
     Facts ee3bc7d3, ca3382bd and 46eeb374 all cite the old URL and were never actually broken; all
     three were re-verified against 2026-07-28 on the 17th run and now carry the canonical URL too.
-*** AUTHORIZATION WAS ONE FILE AND IS NOW FOUR PAGES — ADDED 18th run. ***
+*** AUTHORIZATION WAS ONE FILE AND IS NOW FOUR PAGES — ADDED 18th run. ALL FOUR NOW READ (19th). ***
   through 2025-11-25:  docs/specification/<rev>/basic/authorization.mdx        (single file, 708 lines)
-  2026-07-28 + draft:  docs/specification/<rev>/basic/authorization/index.mdx
-                       .../authorization/security-considerations.mdx
-                       .../authorization/client-registration.mdx
-                       .../authorization/authorization-server-discovery.mdx
+  2026-07-28 + draft:  docs/specification/<rev>/basic/authorization/index.mdx                  (424 lines)
+                       .../authorization/security-considerations.mdx           (131 lines)
+                       .../authorization/client-registration.mdx               (202 lines)
+                       .../authorization/authorization-server-discovery.mdx    (144 lines)
   So a predecessor path built by substituting the revision date 404s. Resolve from tree.json.
   See fetch-routes 3b and 3c — the 404 body diffs as "entirely new" and will fabricate a version claim.
+  AND SEE fetch-routes (e): the split RESTATES some rules at a weaker modality on the topic page
+  (the `scope` SHOULD lives on index.mdx and reads as "can" on the discovery page). Cite the strongest.
 RELEASED REVISION DIRECTORIES as of 2026-08-15: 2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25,
-  2026-07-28, plus draft. Unchanged since the 11th run — EIGHT consecutive runs.
+  2026-07-28, plus draft. Unchanged since the 11th run — NINE consecutive runs.
+REVISION 2025-11-25 = EXACTLY 41 FILES across docs/docs, docs/specification and schema/2025-11-25
+  (19th run; enumerate on the revision date per fetch-routes 3d, never on a docs/ prefix).
 
 CLAUDE PLATFORM DOCS — the prompting page routes to PER-MODEL sub-pages (found 12th run):
   .../prompt-engineering/prompting-claude-opus-5    <- has a 'Controlling subagent spawning' section
