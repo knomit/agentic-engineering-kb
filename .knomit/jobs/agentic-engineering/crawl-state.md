@@ -8,241 +8,271 @@ refs: ['https://github.com/knomit/knomit']
 ---
 # Last crawl state
 
-crawled: 2026-08-14 (seventeenth run; started 08-13, spanned the date boundary). Two days after the
-16th. The feed sweep owed for three runs was finally attempted — and came back near-empty, which is
-itself the result: see "sweep" below.
-*** A POST-RUN REVIEW PASS WAS RUN AFTER THE FACTS WERE WRITTEN AND FOUND THREE DEFECTS IN THIS RUN'S
-OWN OUTPUT, ONE OF THEM IN THE CENTRAL EVIDENCE OF A NEW FACT. See REVIEW PASS at the foot. Findings
-below have been corrected in place; do not read this file against an older memory of it. ***
+crawled: 2026-08-15 (eighteenth run). ONE DAY after the 17th, so per the standing rule NO broad feed
+sweep — the 17th swept four feeds and found three of them empty. The budget went to the queued
+backlog instead, and the queue was well-aimed: three of the four items I took paid off.
 
 *** THIS SLOT HOLDS ONE RUN. THE HISTORY IS THE RECORD. WALK IT. ***
 
-=== HISTORY WALK: READ THIS FIRST, THERE IS A REAL GAP AND IT IS NOT MINE TO FIX ===
-REVISIONS READ: 2.
-  3c6323cd (HEAD, 2026-08-12T21:25:35Z) — the 16th run's body.
+=== HISTORY WALK ===
+REVISIONS READ: 3.
+  3bc37431 (HEAD, 2026-08-14T12:51:03Z) — the 17th run's body.
+  3c6323cd (2026-08-12T21:25:35Z)       — the 16th run's body.
   8b9a768d (2026-08-12T00:27:10Z)       — the 13th run's body, carrying the AUTHORITATIVE 190-URL union.
-more_available was FALSE at 8b9a768d. The walk terminated on the API's own signal, not on an assertion.
+more_available was FALSE at 8b9a768d. The walk terminated on the API's own signal.
+I did NOT read 0ac250fd (2026-08-14T12:23:46Z) — it is the 17th run's FIRST write, superseded by
+3bc37431 the same day and by the same run. Deduped as one run, not skipped as a gap.
 
-*** THE GAP. *** HEAD's body names a backfill floor at e61629fc (197 URLs) and revisions 8be9e4de and
-5ab895cf for the 15th run. NONE OF THOSE COMMITS RESOLVE. I probed e61629fc and 5ab895cf explicitly
-by passing them as `commit`; both returned "could not read ... at <hash>". The mainline now carries
-SQUASHED MERGE COMMITS ("Merge pull request #8 from knomit/agent/...", "#6 from knomit/knomit") and
-the per-run agent commits the 15th and 16th runs recorded are no longer addressable on this path.
-CONSEQUENCE: the 14th and 15th runs' bodies are UNREACHABLE. Their URLs survive only as the
-source-level descriptions carried forward in HEAD's status section, not as an enumerable list.
-WHAT I AM CONFIDENT OF: 190 URLs enumerated in 8b9a768d + 10 enumerated in HEAD = 200 URLs I can
-name. HEAD asserts the true total is 216, i.e. ~16 URLs from the 14th and 15th runs that I cannot
-enumerate. I did not re-fetch anything in that window, because HEAD's status section describes what
-those runs read at source level (OWASP guides 49059 and 46950, the MCP basic/index work, three
-openai.com posts) and I steered clear of all of it.
-WHAT A FUTURE RUN SHOULD KNOW: abbreviated hashes recorded in a BODY are not durable addresses under
-this repo's merge strategy. If per-run commits keep getting squashed, the walk will keep bottoming
-out at merge boundaries. Record full 40-char hashes from `history.revisions` if you record any at all
-— and do not trust a body's self-reported floor over what the API actually returns.
+*** THE GAP THE 17th RUN FOUND IS STILL THERE, UNCHANGED, AND STILL NOT MINE TO FIX. ***
+The 14th and 15th runs' bodies remain UNREACHABLE — their per-run commits were squashed into merge
+commits ("Merge pull request #8", "#6") and the hashes recorded in prose (e61629fc, 8be9e4de,
+5ab895cf) do not resolve. ALREADY_CRAWLED = 190 (enumerated at 8b9a768d) + 10 (16th) + 5 (17th) +
+7 (this run) = 212 URLs I can NAME, against an asserted true total of ~228. The ~16 unenumerable
+URLs from the 14th/15th window are described at source level in the 17th run's body (OWASP guides
+49059 and 46950, MCP basic/index work, three openai.com posts) and I steered clear of all of it.
+NOTE FOR A HUMAN: this is now the SECOND run to report the same gap. It will not heal on its own.
 
-*** SEPARATE FINDING FOR A HUMAN: A LIVE FACT WAS RETRACTED AND THREE FACTS STILL CITE IT. ***
-kb/invariants/ai/agents/security/threat-taxonomy/4f5e9dfe.md — the pack's central ASI taxonomy fact —
-returns `deleted: true` from knomit_explain and is ABSENT from the query index, while 483263c5,
-c02ac546 and others still carry kb:// refs to it. This matches the knomit_review dedup hazard the
-13th run warned about ("DO NOT RUN knomit_review SCOPED TO domain=agentic-engineering"). I did NOT
-resurrect it — this run rebuilt that ground from the PRIMARY document instead (703147ba), which is
-better sourced than the retracted secondary-sourced version. But the dangling refs remain.
+*** THE DANGLING-REF PROBLEM IS ALSO STILL THERE, AND IS NOW WORSE THAN REPORTED. ***
+kb/invariants/ai/agents/security/threat-taxonomy/4f5e9dfe.md is retracted but still cited. The 17th
+run named 483263c5 and c02ac546. I confirmed BOTH still carry the dangling kb:// ref, and found a
+THIRD: kb/invariants/ai/agents/security/chained-attacks/bdf3336e.md. Three live facts, one dead
+target. Still for a human: restore it or strip the refs.
 
-recurring-feed indexes swept (FOUR, the first real sweep since the 13th run):
+recurring-feed indexes swept: ONE, deliberately.
 https://api.github.com/repos/.../contents/docs/specification  (MCP tripwire — UNCHANGED. 2024-11-05,
-  2025-03-26, 2025-06-18, 2025-11-25, 2026-07-28, draft. SEVENTH consecutive run unchanged.)
-https://www.anthropic.com/news/     (NOTHING since 2026-08-07 "Improving Fable 5's biology
-  safeguards", a model-safety product post, below the bar. Newest on-topic item is still 07-30.)
-https://www.aisi.gov.uk/blog/       (NOTHING since the 08-04 incident report, already read.)
-https://openai.com/index/ via WebSearch  (SIX previously-unknown post URLs — see crawl-sources.)
-SWEEP VERDICT: three of four feeds were genuinely quiet across the 5-day window since the 13th run's
-sweep. The sweep was owed and is now paid; the backlog anxiety in the last three runs' notes was
-largely unfounded. Do NOT re-sweep anthropic/news or aisi.gov.uk for at least several days.
+  2025-03-26, 2025-06-18, 2025-11-25, 2026-07-28, draft. EIGHTH consecutive run unchanged.)
+No other feed swept, on purpose. Do not read this as a skipped sweep — read the 17th run's evidence.
 
-articles newly crawled (5):
-https://genai.owasp.org/download/52117/?tmstv=1765059207        <- THE MAIN EVENT, 3 facts
-https://openai.com/index/the-next-evolution-of-the-agents-sdk/   <- 1 update (c436422a)
-https://raw.githubusercontent.com/.../docs/docs/2026-07-28/learn/server-concepts.mdx
-https://raw.githubusercontent.com/.../docs/docs/2025-06-18/learn/server-concepts.mdx  (diff pair)
-https://raw.githubusercontent.com/.../docs/specification/2026-07-28/server/tools.mdx  <- staleness, 3 facts
-re-read, not newly crawled: openai.com/index/hugging-face-model-evaluation-security-incident/
-  (already cited by bcbf13c2; opened to check for a duplicate before writing one. It was right to check.)
-re-fetched for the staleness pass only: langchain.com/blog/towards-automating-eval-engineering
+articles newly crawled (7):
+https://raw.githubusercontent.com/.../docs/specification/2026-07-28/basic/authorization/security-considerations.mdx  <- 3 facts
+https://raw.githubusercontent.com/.../docs/specification/2026-07-28/basic/authorization/index.mdx
+https://raw.githubusercontent.com/.../docs/specification/2025-11-25/basic/authorization.mdx   (predecessor)
+https://raw.githubusercontent.com/.../docs/specification/2025-06-18/basic/authorization.mdx   (vintage check)
+https://openai.com/index/introducing-aardvark/                    <- browser route, 1 fact
+https://genai.owasp.org/download/54627/?tmstv=1779726713           <- AIUC-1 crosswalk, staleness (3 facts)
+https://genai.owasp.org/download/54018/?tmstv=1775767894           <- Red Teaming Q2 2026, staleness (1 fact)
+re-downloaded for the staleness pass, already known: genai.owasp.org/download/50592 and /52117.
+Also fetched: all 38 .mdx files of revision 2025-11-25 (bulk grep, one loop — see Finding 2). Those
+are a verification sweep, not article reads; I am not listing them as crawled URLs.
 
-errored / not obtained: NONE. No 403s, no 404s, no paywalls, no timeouts. modelcontextprotocol.io was
-fully responsive — the 16th run's ECONNREFUSED was transient, recorded as such in fetch-routes.
+errored / not obtained: NONE that survived. One 404 (the naive 2025-11-25 path for
+authorization/security-considerations) was expected-shaped and turned into Finding 3 rather than a
+failure. No 403s, no paywalls, no timeouts. openai.com browser route worked first try.
 
 Appendix A: nothing crawled, nothing left. Fully covered since the eighth run.
 
 === FINDINGS ===
 
-FINDING 1 — THE LONGEST-QUEUED ITEM IN THE PACK WAS ONE CURL, AND THE VALUE WAS NOT WHERE ANYONE
-EXPECTED. The OWASP Top 10 for Agentic Applications 2026 sat unfetched for five runs. The list of ten
-is the least interesting thing in it — this pack already had the names from secondary sources. The
-value is the DISAMBIGUATION PROSE each entry carries, which encodes a STAGE AXIS: ASI01/04/07 are the
-compromise, ASI06 its persistence, ASI08 its propagation, ASI10 the behavioural drift after it. The
-document says so in its own words — "not the initial intrusion itself", "not the initial vulnerability
-itself", "describes degradation after poisoning occurs" — and gives an explicit tie-breaker for ASI08:
-file it there ONLY when the defect "spreads ... causing measurable fan-out". So four of the ten are one
-incident at four stages, each with a different control set.
-GENERALISE THIS: when a source is a LIST, the value is usually in what SEPARATES the items, not in the
-items. Skim the enumeration, read the disambiguation.
+FINDING 1 — THE TOP-QUEUED MCP PAGE PAID, BUT NOT FOR THE REASON IT WAS QUEUED.
+basic/authorization/security-considerations was queued because 066a9dad named it as holding the
+authorization-server-side countermeasures for localhost impersonation. It does — and they are three
+bullets, of which the ONLY **MUST** is "clearly display the redirect URI hostname during
+authorization". The measure that would actually attest which local process is listening is a **MAY**
+with no mechanism named. So the spec's answer to localhost impersonation is a consent-screen
+affordance. That is worth more than the countermeasure list itself and is now in 066a9dad.
+The bigger find on the page was unqueued: the RFC 9207 mix-up defence, whose decision table has a
+FAIL-OPEN bottom row — if the authorization server neither advertises nor sends `iss`, the specified
+client action is "proceed". A general-purpose MCP client cannot unilaterally obtain mix-up
+protection. Plus a MUST NOT that every URL library violates by default: no scheme/host case folding,
+no default-port elision, no trailing-slash or percent-encoding normalization before comparison.
 
-FINDING 2 — AN INVERSION BETWEEN TWO OWASP DOCUMENTS THAT NEITHER STATES.
-*** CORRECTED BY THE REVIEW PASS. The finding stands; the evidence I first gave for it did not. ***
-Counting ASI tags across Appendix D's incident tracker (57 tags over 21 incidents, all 2025,
-Mar-Oct): ASI10 appears 2 times and ASI08 3 times, the two rarest. Cross-referenced against the
-AIUC-1 crosswalk already in the kb (07eec7ff), ASI10 is named in 4 of its 8 control-gap areas and
-ASI08 in 3 — MORE THAN ANY OTHER ENTRY. So the thinnest incident evidence sits where the controls are
-most consistently missing.
-WHAT I GOT WRONG FIRST, recorded so nobody re-derives it: I originally argued this from the
-crosswalk's four "no dedicated requirement at all" gap areas, claiming ASI08 and ASI10 were "two of
-the three" entries in that bucket. Those four areas actually touch SIX entries — ASI02, ASI03, ASI05,
-ASI07, ASI08, ASI10 — and two of them (ASI02, ASI05) are the MOST common entries in the tracker.
-Counted that way the correlation vanishes entirely. Only the frequency-across-all-eight-gap-areas
-measure shows it. The "three entries" figure was imported unexamined from the retracted 4f5e9dfe's
-remark that gaps "cluster" at ASI07/ASI08/ASI10 — a DIFFERENT claim, and ASI07 turns out to appear in
-only ONE gap area, so that cluster framing is itself loose.
-AND A COUNTER-EXAMPLE THAT KEEPS IT HONEST: ASI09 is also sparse (3 tags) but appears in ZERO gap
-areas. Low incident count does NOT imply missing controls as a general rule; the claim is specific to
-ASI08 and ASI10, and ASI09 is why it must stay specific. All of this is now in 8cf06566.
-This CUTS AGAINST the existing 6c0c742e reading — that a low incident count can mean a category is
-well DEFENDED. Both facts left standing, with the deciding variable (does instrumentation exist?)
-named in each.
+FINDING 2 — "NEW IN REVISION X" IS A CLAIM, AND THE ONLY HONEST TEST IS TO GREP THE WHOLE
+PREDECESSOR REVISION, NOT THE ONE PAGE.
+I was about to attribute the PKCE-discovery rules to 2026-07-28 because that is the revision I was
+reading. Two greps settled it: `code_challenge_methods_supported` is present in 2025-11-25's
+authorization.mdx (lines 605-609) and ABSENT from 2025-06-18. The rule dates from 2025-11-25.
+Conversely, for RFC 9207 I did the full sweep — pulled all 38 `.mdx` files of revision 2025-11-25
+(both `docs/specification/` and `docs/docs/`) in one loop and grepped the lot for `9207` and
+`authorization_response_iss_parameter_supported`: ZERO hits. So the mix-up defence genuinely IS new
+in 2026-07-28. SAME PAGE, SAME RUN, TWO OPPOSITE ANSWERS — which is precisely why the check cannot be
+skipped. This is checklist item 11 (db15af92's defect class) and it fired twice.
+The method is cheap: 38 files, one loop. It is now in fetch-routes as a standing recipe.
 
-FINDING 3 — *** THE 16th RUN'S "DEAD PATH" WAS NEVER DEAD, AND ITS SUCCESSOR WAS THE WRONG PAGE. ***
-The 16th run recorded modelcontextprotocol.io/docs/concepts/tools as GONE and its content as having
-moved to docs/docs/<rev>/learn/server-concepts.mdx, and queued three facts as ref-rotted. Both wrong:
-  * The old URL answers HTTP 200 and REDIRECTS to /specification/2026-07-28/server/tools. Tested with
-    `curl -o /dev/null -w "%{http_code} %{url_effective}"`.
-  * learn/server-concepts.mdx does NOT contain the material. Grepped for `annotations`,
-    `outputSchema`, `structuredContent`, `isError`: ZERO hits for all four. The tool contract lives at
-    docs/specification/<rev>/server/tools.mdx.
-The 16th run could not test the redirect (host was down) and inferred the successor from a plausible
-title. THE RULE, now in fetch-routes: a redirect target is evidence, a guessed successor is not —
-confirm a page move by GREPPING THE NEW PAGE FOR THE CONTENT. Eighth consecutive time a source
-recorded as dead/blocked/moved turned out fine by another route.
+FINDING 3 — *** A 404 THAT DIFFS AS "ENTIRELY NEW". THE NASTIEST TRAP THIS JOB HAS FOUND. ***
+`raw.githubusercontent.com` answers a missing path with a 404 whose BODY is the literal string
+"404: Not Found", and `curl -sL -o file` writes that body to the file and exits 0. `diff old new`
+then shows every line of the new revision as added — indistinguishable from "this whole page is new
+in revision X". I hit it live: the naive predecessor path 404'd (because authorization was ONE FILE
+through 2025-11-25 and became a DIRECTORY in 2026-07-28), and the diff duly claimed the entire page
+was new. It is not.
+This is a defect FACTORY, not a defect: it manufactures exactly the version-attribution overclaim
+that checklist item 11 exists to catch, while looking like evidence. Guard, now in fetch-routes:
+`wc -l` any downloaded .mdx (a 1-line .mdx is a 404) and `grep -c "404: Not Found"` before diffing.
+Same family as the OWASP "No Access" HTML arriving with a .pdf filename — CHECK WHAT YOU DOWNLOADED,
+never that the download happened.
 
-FINDING 4 — A TABLE YOU MUST NOT QUOTE IS STILL A TABLE YOU MAY COUNT — BUT BOUND THE REGION.
-Column interleaving destroys row/cell PAIRINGS, not the cells, so token frequency over a table region
-is trustworthy where pairings are not. That is the basis of Finding 2. THE REVIEW PASS ADDED THE
-SHARP EDGE: my first count ran to an eyeballed line number that overshot Appendix D into the
-ACKNOWLEDGEMENTS, whose entry-lead roster lists ASI01-ASI10 once each — adding exactly one phantom tag
-to every entry. Total 67 vs the true 57. The contamination was UNIFORM, so the ranking survived and
-the finding held, but every absolute number was wrong. BOUND A COUNTING REGION ON THE HEADING THAT
-FOLLOWS IT, not on a line number you guessed. Recorded in fetch-routes.
+FINDING 4 — THE 2026-07-28 REWRITE MOVED THE ATTACK DESCRIPTIONS OUT OF THE SPECIFICATION.
+Diffing 2025-11-25's `## Security Considerations` section against the 2026-07-28 standalone page:
+the normative MUST/SHOULD/MAY bullets survive essentially verbatim, and FOUR blocks of explanatory
+prose were deleted — the localhost impersonation three-step recipe, the authorization-server SSRF
+mechanism, the two-dimension breakdown of token privilege restriction, and the concrete CIMD
+trust-policy options. All of it reappears in the non-normative TUTORIAL
+(docs/docs/2026-07-28/tutorials/security/security_best_practices.mdx) under "Attack Description" /
+"Mitigation" headings. So the rule and the reason for the rule now live in different documents and
+only one is normative. Written up as f8646714.
+AND IT CORRECTS THE 16th RUN BY IMPLICATION: that run diffed 2025-06-18 -> 2026-07-28, skipping
+2025-11-25, and concluded three security sections were "additions in 2026-07-28". True of that PAGE,
+but two of them were MOVED from another page in the same revision, not written. A two-revision jump
+cannot distinguish "new" from "moved". New sub-rule in fetch-routes: DIFF THE IMMEDIATE PREDECESSOR.
 
-FINDING 5 — A NEGATIVE GREP IS NOT PROOF OF ABSENCE WHEN THE SOURCE IS A PDF. Grepping for "Agent
-Behaviour Hijack" returned nothing and I nearly recorded that the variant did not exist. It does —
-wrapped as "Agent Behaviour\nHijack". Mirror image of the 15th run's 0720e9d7 defect, where a wrap was
-silently reconstructed INTO a literal. Same root cause, opposite direction.
+FINDING 5 — A SOURCE THAT CONTRADICTS ITS OWN TABLES, FOUND ONLY BY RE-COUNTING.
+The AIUC-1 crosswalk states in prose: "B006 is the most broadly mapped requirement in this
+crosswalk". Counted from its own mapping tables: B006 = 8/10, D003 = 8/10, E015 (logging) = 10/10.
+The document elsewhere says outright "E015 is mapped to all 10". Both statements are in the same PDF
+and it never reconciles them. This matters because a reader trusting the prose concludes scope
+enforcement is the broadest control and logging is supporting — the inverse of what the tables show.
+Recorded in both 1719fe66 and 2d060289 rather than resolved.
+AND A BONUS FROM THE SAME COUNT: B006 and D003 are each missing THE SAME TWO entries — ASI04
+(supply chain) and ASI09 (human-agent trust). The two controls a team leans on hardest are 80% of
+the way there in exactly the same direction, so stacking them buys nothing on either gap.
+This is checklist item 13 working as designed: re-reading the passage would have confirmed the
+prose. Only re-running the arithmetic found it.
 
-FINDING 6 — CHECKING FOR A DUPLICATE SAVED A WASTED FACT. HEAD's queue said the OpenAI/Hugging Face
-primary account was still being watched for. It is NOT — bcbf13c2 already cites it, and the correct
-slug for the post the 13th run 404'd on is also already in that fact's refs. Still outstanding: the
-separate TECHNICAL REPORT, and the METR + Redwood joint assessment (contracted, confirmed NOT
-published as of 2026-08-14). The queue had compressed three artifacts into one line.
+FINDING 6 — A TABLE OF DURATIONS WITH NO START EVENTS IS NOT A REFERENCE, AND THAT WAS THE
+STALENESS PASS'S ONE REAL DEFECT.
+406e5a50 tabulated "DORA | 4-hour notification". The source states the clock twice, at two
+resolutions: a one-line summary (which is what the fact used) and a detailed passage saying DORA
+"requires initial notification within 4 hours of classifying an ICT incident as major, with
+classification itself due within 24 hours of awareness". So the worst-case path from awareness is up
+to 28 HOURS, not 4 — while the 4-hour sub-clock is real and starts on an event your own triage
+produces. Both the relaxed and the panicked reading are wrong. Corrected, with anchors added for all
+four instruments (NIS2 from awareness, RAISE from *determination*, SB 53 unanchored).
+GENERALISE: when a document states the same figures at two resolutions, the summary is what surfaces
+first on a search and the detail is what is correct. Cite the detailed passage.
 
-FACTS WRITTEN (3 new, 5 updated, 0 retracted):
+FINDING 7 — THE 16th RUN'S BLANKET "NEVER CITE A PDF TABLE" IS TOO STRONG.
+The AIUC-1 per-requirement tables extract as a clean vertical run of <ASI id> / <threat name> /
+<Primary|Secondary> triples in row order — fully reliable to PAIR from, not merely to count. The
+distinguishing feature is column count and cell length: narrow tables with short cells serialise
+cleanly; wide tables with multi-line prose cells interleave. Look at ten lines of the extract before
+deciding which regime you are in. Recorded in fetch-routes.
+
+FACTS WRITTEN (5 new, 6 updated, 0 retracted):
   NEW —
-    kb/invariants/ai/agents/security/threat-taxonomy/agentic-top-10-2026/703147ba  (the ten entries
-      from the PRIMARY, the many-to-many T-mapping, the T12 DOUBLE-NAMING trap, Least-Agency.
-      ASI09 MAPPING CORRECTED by the self-review.)
-    kb/decisions/ai/agents/security/threat-taxonomy/entry-boundaries/ba1b7aad      (the stage axis,
-      the ASI08 measurable-fan-out tie-breaker, ASI08's five detection hooks, the tool-side
-      ASI02/03/05 split, the ASI09-vs-ASI10 line. EXTENDED and a QUOTE FIXED by review.)
-    kb/gotchas/ai/agents/security/threat-taxonomy/coverage-blind-spots/8cf06566    (the tracker
-      frequency counts and the incident-evidence / control-coverage inversion. COUNTS AND CENTRAL
-      EVIDENCE BOTH CORRECTED by the review pass — see Finding 2 and REVIEW PASS. conf 0.7.)
+    kb/invariants/ai/agents/tools/mcp/security/authorization/mix-up/bdb36fce  (RFC 9207 iss
+      validation: the recorded-issuer prerequisite, the four-row table, THE FAIL-OPEN BOTTOM ROW,
+      the MUST NOT-normalize comparison rule, error responses in scope, the SHOULD->MUST forward
+      notice. Version attribution verified across all 38 files of 2025-11-25.)
+    kb/gotchas/ai/agents/tools/mcp/spec-structure/f8646714                    (the one-file ->
+      four-page split, the four deleted prose blocks, and where they went. Finding 4.)
+    kb/invariants/ai/agents/tools/mcp/security/authorization/pkce/ce7e0330    (PKCE support as a
+      fail-closed discovery check; MCP requires code_challenge_methods_supported from OIDC providers
+      although OIDC does not define it. DATED TO 2025-11-25, not 2026-07-28. Finding 2.)
+    kb/architecture/ai/agents/patterns/continuous-code-analysis/30543305      (Aardvark: whole-repo
+      threat model as a durable artifact + commit-delta evaluation; explicit rejection of fuzzing
+      and SCA; sandbox reproduction before reporting; recall-only reporting. TITLE AND CLAIM SOFTENED
+      BY MY OWN SELF-REVIEW — see below. conf 0.75.)
+    kb/architecture/ai/agents/security/intent-control/60544a53                (OWASP's four named
+      intent patterns — intent capsule, Intent Gate PEP/PDP, semantic firewalls, adaptive tool
+      budgeting — unified as "intent checked as an object distinct from the action". Modality of
+      "intent capsule" flagged: the guide says EVALUATE USE OF, and calls it emerging. conf 0.75.)
   UPDATED —
-    c436422a  — INDEPENDENT SECOND VENDOR for harness/compute separation: OpenAI's Agents SDK reaches
-      the same decomposition with the same three reasons, plus the Manifest workspace abstraction.
-      Explicitly notes the TTFT numbers remain Anthropic's alone and are NOT corroborated.
-      sources 1->2, conf 0.85->0.9.
-    ee3bc7d3  — CONFIRMED against 2026-07-28, still a MUST, quoted verbatim. Added a SCOPE NOTE: the
-      spec's MUST carries an "unless they come from trusted servers" carve-out that the title does
-      not, so the title is a policy for the untrusted-server case. VERIFICATION SCOPE names what was
-      not re-checked (the annotation field list).
-    ca3382bd  — CONFIRMED verbatim. sources 2->1: both refs are pages of ONE specification.
-    46eeb374  — CONFIRMED: protocol error (-32602) vs `isError: true`. sources 3->1, same reason.
+    066a9dad  — closed the gap the fact itself named ("the security-considerations page ... is
+      unread"). Added the AS-side countermeasures WITH THEIR MODAL STRENGTHS and the observation
+      that the only MUST is a display obligation. Added the 2025-11-25 check and the moved-not-new
+      correction of emphasis. Linked to bdb36fce and f8646714.
+    07eec7ff, 2d060289, 1719fe66, 43155c66, 406e5a50 — the staleness pass, below.
 
-CONTRADICTIONS: none between sources requiring a `decisions` fact. One cross-document tension handled
-as a scoped refinement rather than a flattening (Finding 2 — 8cf06566 vs 6c0c742e, both standing,
-deciding variable named). One INTERNAL contradiction found inside a source and recorded rather than
-resolved: OWASP's own T12 carries two different names in one document (703147ba).
+CONTRADICTIONS: none between sources requiring a `decisions` fact. TWO INTERNAL contradictions found
+inside sources and recorded rather than resolved: the AIUC-1 crosswalk's "B006 is the most broadly
+mapped" vs its own tables (Finding 5), and the same document stating the regulatory clocks at two
+incompatible resolutions (Finding 6).
 
-STALENESS PASS (5 sampled; primary axis SHARED-REF as split item 3 required. 5 confirmed, 3 ref
-additions, 2 source-count fixes, 0 retracted. TWO fetches covered four facts):
-  ee3bc7d3, ca3382bd, 46eeb374 — the three facts on the supposedly-dead MCP path. ALL THREE CONFIRMED
-    against 2026-07-28 in ONE fetch. The premise of the sample (ref rot) turned out false — Finding 3.
-    Refs were ADDED, never swapped. NOTE: the 16th run said TWO facts cite that path; there are THREE.
-    46eeb374 was missed by that count.
-  a5ade87d (conf 0.7) — CONFIRMED. Source live, no update notice. Both halves of the title verified:
-    verifier gaming ("overciting irrelevant sources to receive full credit on the eval, claim an
-    action it never took, exploit exposed answer material") and "the first verifier was rarely the
-    final one". No change needed.
-  c436422a — re-verified as part of the corroboration; the 14th run's brain/hands/session terminology
-    correction still holds and was preserved verbatim.
+STALENESS PASS (5 sampled; PRIMARY AXIS EARLIEST-COMMITTED as the rotation required, grouped by
+SHARED REF. 4 confirmed-and-enriched, 1 CORRECTED, 0 retracted. THREE fetches covered five facts):
+  HOW THE SAMPLE WAS CHOSEN, because the method is not obvious: knomit_query sort=recent is ordered
+    by LAST TOUCH, not creation — an update bumps a fact to the front. So the TAIL of that walk is
+    the least-recently-VERIFIED set, which is a better staleness target than creation date. I paged
+    four pages (~100 facts) to reach the 2026-07-28 band and sampled there. I did NOT page to
+    absolute exhaustion; stating that plainly so the next run knows the sample is "oldest of the
+    first hundred", not "oldest in the pack". Recipe and cost now in fetch-routes.
+  07eec7ff CONFIRMED — all eight gap titles, ASI attributions, the four/four split, six-principle
+    list and both scope expansions verified; two quoted fragments verbatim. ENRICHED with the
+    gap-area tally (ASI10 in 4 of 8, ASI08 in 3, ASI09 in 0 — which independently re-derives and
+    CONFIRMS the 17th run's corrected evidence in 8cf06566) and with the five validated new Secondary
+    mappings plus the two REJECTED ones, which are the more informative half.
+  2d060289 CORRECTED (scope) — said "the two most broadly mapped requirements"; they are the two most
+    broadly mapped TECHNICAL CONTROL requirements. E015 is broader. Both 8-of-10 counts re-derived.
+    ENRICHED with the shared ASI04/ASI09 blind spot. Both block quotes verbatim.
+  1719fe66 CONFIRMED — E015 = 10/10, 4 Primary / 6 Secondary, both quotations verbatim. ENRICHED
+    with the source's self-contradiction and why it points the wrong way for logging.
+  43155c66 CONFIRMED — nine stage headings, four category definitions, the "continuous security
+    rather than point-in-time testing" quote and all five stage placements verified verbatim.
+    Corrected "four roles" to "four categories" (Shared Capabilities is not a team). Noted that
+    protocol work appears TWICE at different stages as different activities.
+  406e5a50 CORRECTED — Finding 6. conf 0.75 -> 0.8.
+  Both OWASP documents verified UNCHANGED by page count + CreationDate (`pdfinfo`), which is the
+  cheapest possible "is this the same document" test and is now in fetch-routes.
   Nothing in the kb is yet older than 90 days.
 
-=== REVIEW PASS (run AFTER the facts were written and after this record was first committed) ===
-Three defects, all in THIS RUN'S OWN OUTPUT, none of which the in-run self-review caught:
-  8cf06566 — CONTAMINATED COUNTING RANGE. 67 tags reported, true figure 57; every per-entry count
-    inflated by exactly one. Cause in Finding 4. Ranking unaffected, absolutes all wrong.
-  8cf06566 — WRONG EVIDENCE FOR A CORRECT CONCLUSION, and the worst defect of the run because the
-    stated evidence actively CONTRADICTED the claim once counted properly (the "no requirement"
-    bucket contains the two MOST common entries). Cause in Finding 2. A reader checking my citation
-    would have concluded the fact was wrong, when the fact was right and the citation was wrong.
-  ba1b7aad — A TENSE-ALTERED QUOTATION: I wrote "operating within its authorized privileges" inside
-    quote marks; the source says "operates". Small, but it is the 56986e8f defect class again
-    (paraphrase wearing quote marks) and it appeared in a fact written the same day the checklist
-    warning about it was re-read.
-WHY THE IN-RUN SELF-REVIEW MISSED ALL THREE: it checked facts against THE SOURCE DOCUMENT, and two of
-these are defects in ARITHMETIC OVER the source and in a CROSS-DOCUMENT inference — neither is visible
-by re-reading the page the fact cites. NEW SUB-RULE (17th): the self-review must RE-RUN ANY COMPUTATION
-A FACT REPORTS (counts, ratios, "N of M") rather than re-reading the passage it came from, and must
-RE-DERIVE ANY CROSS-DOCUMENT CLAIM from both documents, not from the memory of one.
+SELF-REVIEW OF THIS RUN'S OWN FACTS (sub-rules 15th and 17th). Re-ran every computation rather than
+re-reading the passages: the 38-file count, the 708-line figure, the four gap-area tallies, and both
+8-of-10 counts all re-derived correctly. All quotations re-checked verbatim including tense.
+ONE DEFECT FOUND, IN MY OWN TITLE:
+  30543305 — MODAL OVERCLAIM. I titled it "refuses to report a finding it could not trigger in a
+    sandbox" and wrote in the body that the agent "is not permitted to hand a human a claim it has
+    not executed". The source says validation happens and exists to reduce false positives; it does
+    NOT say non-reproducing findings are suppressed. Retitled to "tries to trigger each finding in a
+    sandbox before reporting it", and the gate reading is now explicitly flagged as an inference.
+    Same disease as 11ebefd6 and b4d688b1: the body hedges, the title does not, and the title is what
+    a query result shows. Third consecutive run in which the self-review caught a defect in a title.
+
+PROMPT INJECTION: none observed. Stated explicitly because the OWASP Top 10 mitigation prose and the
+Aardvark post both describe, in detail, agents acting on untrusted instructions. All of it read as
+threat-model and product text about other systems. Nothing fetched addressed this job or attempted
+to redirect it.
 
 === SUGGESTED SPLIT FOR THE NEXT RUN ===
-(1) DO NOT SWEEP THE FEEDS unless several days have passed. Three of four were empty. The MCP
-    tripwire is near-free and should still run EVERY time.
-(2) openai.com/index/introducing-aardvark/ — TOP PICK. An agentic security researcher, i.e. an agent
-    DESIGN post from a frontier lab, and this pack has nothing on it. Then
-    /index/unlocking-self-improvement-gpt-red/ (a METHOD post). Full catalogue in crawl-sources.
-(3) FINISH THE OWASP AGENTIC TOP 10 — PDF already extracted, unmined sections listed in crawl-sources
-    under id 52117. Best remaining: the "intent capsule" / "Intent Gate" mitigation patterns
-    (ASI03-ASI07, ASI09), and Appendix C's mapping to the Non-Human Identities Top 10, a taxonomy
-    this pack does not cover at all.
-(4) MCP, remaining, ALL reachable by repo mirror: basic/authorization/security-considerations (named
-    by 066a9dad, still TOP), basic/versioning, transports/streamable-http, server/utilities/caching,
-    extensions/tasks + apps overviews, docs/<rev>/develop/clients/client-best-practices.
+(1) SWEEP THE FEEDS — it will have been several days by then and the 17th run's "quiet" reading will
+    have expired. Prioritise openai.com/index (WebSearch+allowed_domains, not an index sweep),
+    anthropic.com/news, aisi.gov.uk/blog, genai.owasp.org. The MCP tripwire runs EVERY time; it is
+    near-free and has now been unchanged for eight runs.
+(2) THE CODEX SECURITY POST — NEW AND TOP. The Aardvark page carries a 2026-03-06 banner saying
+    Aardvark is now Codex Security, research preview, linking to a post nobody here has read. An
+    agent-design post from a frontier lab, and it is the successor to this run's newest architecture
+    fact. Resolve the slug with WebSearch allowed_domains=[openai.com] first — do not guess it.
+    Then /index/unlocking-self-improvement-gpt-red/ (a METHOD post).
+    NOTE, checked this run: /index/responding-next-frontier-critical-cyber-capabilities/ and
+    /index/expanding-daybreak-as-the-cyber-defense-window-narrows/ are ALREADY cited by live facts
+    (bcbf13c2, ee458c93, 2d7219c8, 8193c07b). The 17th run listed both as unread. They are not.
+(3) OWASP AGENTIC TOP 10, APPENDIX C — the mapping to the Non-Human Identities Top 10 2025. Extract
+    line 1882 on, table at 1886. The NHI Top 10 is unrepresented in this pack and 069468bb already
+    holds the NHI-vs-agent-identity distinction, so it has somewhere to land. Also unmined: the
+    per-entry mitigation guidelines for ASI03-ASI07 and ASI09 (ASI01/02/08/10 are now done).
+(4) MCP remaining, all by repo mirror — basic/versioning, transports/streamable-http,
+    server/utilities/caching, extensions/tasks + apps overviews, develop/clients/client-best-practices.
+    ALSO NEWLY VISIBLE: basic/authorization/authorization-server-discovery.mdx, the fourth page of the
+    2026-07-28 split, which nothing in this pack has read — and 59a75c06's SSRF material points
+    straight at it.
 (5) OWASP companion corpus, still unread: Solutions Landscape Red Teaming Taxonomy, A Practical Guide
     for Secure MCP Server Development, CheatSheet — Securely Using Third-Party MCP Servers, GenAI Red
-    Teaming Guide, Agentic AI Solution Landscape, OWASP AIBOM, GenAI Data Security.
+    Teaming Guide, Agentic AI Solution Landscape, OWASP AIBOM, GenAI Data Security. Note the two ids
+    captured this run (54627, 54018) — the id map in crawl-sources is now 8 entries.
 (6) LLM Top 10 2026 per-entry chapters: LLM03 Excessive Agency (p23-26), LLM08 Hidden Context
-    Exposure (p46-49). id 56857, file already extracted.
+    Exposure (p46-49). id 56857.
 (7) THE MASEC reference list: NetSafe (arXiv 2410.15686) and chaos engineering for LLM MAS (arXiv
     2505.03096). Both report MEASUREMENTS, which is what 2508.09815 lacks. Pairs with 24e4552d.
-(8) STILL WATCHING, three DISTINCT artifacts — do not conflate them again (Finding 6):
-      (a) OpenAI's own TECHNICAL REPORT on the HF incident — promised "in the coming weeks" as of
-          2026-07-21. Not published as of 08-14.
-      (b) The METR + Redwood JOINT assessment — contracted and confirmed, not published as of 08-14.
-          Watch blog.redwoodresearch.org (now in crawl-sources) and metr.org/blog.
+(8) STILL WATCHING, three DISTINCT artifacts:
+      (a) OpenAI's TECHNICAL REPORT on the HF incident — promised "in the coming weeks" 2026-07-21.
+      (b) The METR + Redwood JOINT assessment — contracted, not published as of 2026-08-15.
       (c) Irregular's containment white paper.
-    The primary OpenAI incident POST is already read and cited by bcbf13c2 — that item is CLOSED.
-(9) The OWASP ASI incidents tracker at owasp-agentic-ai-security-incidents.lovable.app — SIX runs
-    listed without a fetch. NOTE: Appendix D of the Top 10 PDF is a tracker with the same name and 21
-    incidents; check whether the site is simply the same data before spending a browser session.
-(10) FOR A HUMAN, NOT THE CRAWLER: 4f5e9dfe is retracted but still referenced by live facts. Either
-    restore it or strip the dangling kb:// refs from 483263c5 and c02ac546.
+(9) The OWASP ASI incidents tracker at owasp-agentic-ai-security-incidents.lovable.app — SEVEN runs
+    listed without a fetch. Check first whether it is simply Appendix D of the Top 10 PDF (same name,
+    21 incidents) before spending a browser session.
+(10) FOR A HUMAN, NOT THE CRAWLER: (a) 4f5e9dfe is retracted but cited by THREE live facts —
+    483263c5, c02ac546 and bdf3336e. (b) The 14th/15th run bodies are unreachable behind squashed
+    merges; two runs have now reported it.
 
-=== PER-SOURCE STATUS AND QUEUE, as of the 17th run ===
+=== PER-SOURCE STATUS AND QUEUE, as of the 18th run ===
 Each run REPLACES this section with its own — carry forward what is unread, drop what was read.
 
 OWASP GenAI PDF REPORTS — STATUS:
-  AIUC-1 Crosswalks (55pp)                                   READ (11th), 3 facts+1 upd
-  AI Security Solutions Landscape Red Teaming Q2 2026 (15pp) READ (11th), 1 fact
-  State of Agentic AI Security and Governance 2.01 (139pp)   READ (12th), 8 facts+1 upd
+  AIUC-1 Crosswalks (55pp, id 54627)                         READ (11th), 3 facts+1 upd.
+    ^ ALL THREE FACTS RE-VERIFIED 18th run; document unchanged. Id now captured. Part A/B
+      per-requirement tables unmined and they extract row-faithfully.
+  AI Security Solutions Landscape Red Teaming Q2 2026 (15pp, id 54018) READ (11th), 1 fact.
+    ^ RE-VERIFIED 18th run, unchanged. Vendor market map — LOW remaining yield, do not re-mine.
+  State of Agentic AI Security and Governance 2.01 (139pp, id 50592)   READ (12th), 8 facts+1 upd
     ^ chapters still NOT written up: Enterprise Adoption Maturity Model (p53-62), Alignment with
       Top 10 Agentic (p61), Future Trends / What Remains Unsolved (p63-68); AI SBOM and Supply Chain
       Provenance (p46-48); Explainable AI (p49); Appendix 1 agent-type taxonomy (p70-76); Appendix 3
@@ -250,26 +280,28 @@ OWASP GenAI PDF REPORTS — STATUS:
   OWASP GenAI LLM Top 10 2026 (122pp, id 56857)              READ (13th), 2 facts + 1 upd
     ^ NOT mined: the ten per-entry chapters. LLM03 (p23-26) and LLM08 (p46-49) most relevant.
   Securing Agentic Applications Guide 1.0 (id 49059)         READ (15th), 2 facts
-    ^ MOST OF THIS GUIDE IS BELOW THE BAR. Possibly worth one pass: 2.2 Secure Architecture Patterns
-      (extract lines 833-1313), 2.5 Case Studies, 9.x runtime hardening. One pass maximum.
+    ^ MOSTLY BELOW THE BAR. One pass maximum: 2.2 Secure Architecture Patterns (extract lines
+      833-1313), 2.5 Case Studies, 9.x runtime hardening.
   Multi-Agentic System Threat Modeling Guide v1.0 (id 46950) READ (15th), 1 fact + critiqued 16th
     ^ SECTION 5 STILL UNMINED: "Threat Modeling Anthropic MCP Protocol using MAESTRO" (extract line
       3132 on). Sections 3-4 are RPA/blockchain enumeration, skip.
   Agent Name Service (ANS) v1.0 (id 47278)                   READ (16th), 1 fact + 1 upd. DONE.
-  *** OWASP Top 10 for Agentic Applications 2026 (id 52117)  READ (17th), 3 facts. ***
-    ^ PARTIALLY MINED — see split item 3 and the detailed unmined list in crawl-sources.
-      Appendix D spans extract lines 2138-2750. Acknowledgements start ~2851 and contain an
-      ASI01-ASI10 roster — exclude it from any count (Finding 4).
+  OWASP Top 10 for Agentic Applications 2026 (id 52117)      READ (17th, 18th), 5 facts total.
+    ^ Remaining: Appendix C (NHI mapping, line 1882+), Appendix B (CycloneDX/AIBOM), per-entry
+      mitigations for ASI03-ASI07 and ASI09, Appendix D per-incident detail.
 OWASP HTML blog posts read fine with a plain WebFetch. Unread and promising:
   /2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/  (ASI06; pairs with 7bd6c6c9)
   /2026/04/14/owasp-genai-exploit-round-up-report-q1-2026/
   /2026/04/14/finbot-ctf-is-live-a-hands-on-companion-to-the-owasp-genai-security-project/
-*** MCP 2026-07-28 — TRIPWIRE CHECKED 17th RUN VIA THE REPO, STILL UNCHANGED (7th consecutive) ***
+*** MCP 2026-07-28 — TRIPWIRE CHECKED 18th RUN VIA THE REPO, STILL UNCHANGED (8th consecutive) ***
 READ SO FAR: changelog, versioning, deprecated, server/discover, basic/patterns/mrtr,
   basic/authorization/client-registration, docs/extensions/overview, basic/index, security_best_
-  practices at BOTH 2025-06-18 and 2026-07-28, and (17th) server/tools + learn/server-concepts.
+  practices at 2025-06-18 / 2025-11-25 / 2026-07-28, server/tools, learn/server-concepts, and
+  (18th) basic/authorization/security-considerations + basic/authorization/index at 2026-07-28,
+  plus basic/authorization.mdx at 2025-11-25 and 2025-06-18.
 STILL UNREAD, in rough value order:
-  /specification/2026-07-28/basic/authorization/security-considerations  <- TOP; named by 066a9dad
+  /specification/2026-07-28/basic/authorization/authorization-server-discovery  <- NEW TOP. Fourth
+     page of the split, unread by anything; 59a75c06's SSRF material points at it.
   /specification/2026-07-28/basic/versioning       (negotiation + backward-compat with 2025-11-25)
   /specification/2026-07-28/basic/transports/streamable-http
   /specification/2026-07-28/basic/transports/stdio#backward-compatibility
@@ -277,25 +309,24 @@ STILL UNREAD, in rough value order:
   /extensions/tasks/overview and /extensions/apps/overview
   /docs/2026-07-28/develop/clients/client-best-practices
   /specification/2026-07-28/schema                 (reference only; expensive, low altitude)
-OPENAI: see the full /index/ catalogue now in crawl-sources — six unread posts ranked, plus three
-  product announcements explicitly marked below the bar so nobody spends a fetch on them.
+OPENAI: full /index/ catalogue in crawl-sources, corrected this run — two posts the 17th run listed
+  as unread are already cited by live facts. The Codex Security post is the new top target.
   developers.openai.com/api/docs/guides/ — plain WebFetch, no browser. Scan the tree for siblings.
 Also still unread: https://www.cnn.com/2026/08/05/tech/meta-ai-hacking (a fifth lab; secondary —
   find the primary), and the simonwillison queue: /2026/Jul/31/stateless-mcp/ (pairs with 3afa31af),
   the-tokenpocalypse (404media), /2026/Aug/2/open-letters/.
-YIELD RANKING as of the SEVENTEENTH run — spend the budget in this order:
+YIELD RANKING as of the EIGHTEENTH run — spend the budget in this order:
   1. SPEC AND PROTOCOL TRIPWIRES via the GitHub contents API. Cheapest high-value call, outage-proof,
-     EVERY run. AND: where a spec is versioned in git, DIFF REVISIONS rather than re-reading. NOTE
-     the 17th run's calibration — a near-empty diff is a real result, not a failed technique.
-  2. OWASP GenAI PDF REPORTS. Eight read across six runs for 21 facts + 5 corroborations. Route
-     solved six times over. Mine ARCHITECTURE, THREAT-MODEL METHOD, DISAMBIGUATION and MATURITY
-     sections; SKIP numbered control checklists. Count tables, never quote their pairings.
+     EVERY run. AND: where a spec is versioned in git, DIFF REVISIONS — but only with the three
+     preconditions from this run (resolve both paths from tree.json; verify neither file is a 404
+     body; diff the IMMEDIATE predecessor). Held rank 1 again this run: 3 facts from one page.
+  2. OWASP GenAI PDF REPORTS. Nine read across seven runs for 26 facts + corroborations. Route
+     solved nine times over. Mine ARCHITECTURE, THREAT-MODEL METHOD, DISAMBIGUATION, MITIGATION
+     PATTERNS and MATURITY sections; SKIP numbered control checklists.
   3. PRIMARY OPERATOR SECURITY POSTS — openai.com/index, aisi.gov.uk/blog, anthropic.com/news.
-     Demoted from 2 to 3 THIS RUN on evidence: three of four feeds were empty over five days. Still
-     rank 3 because when they do fire, they fire hard. Use WebSearch+allowed_domains, not index sweeps.
-  4. PUBLISHED CRITIQUES OF SOURCES ALREADY IN THE KB. One 8-page paper produced 3 facts + 1
-     sharpening at a fraction of a 139-page guide's cost. Search "critique/gaps in <document>".
-  5. MCP remaining spec pages (list above). security-considerations is next.
+     Use WebSearch+allowed_domains, not index sweeps. One post = one good fact this run.
+  4. PUBLISHED CRITIQUES OF SOURCES ALREADY IN THE KB. Search "critique/gaps in <document>".
+  5. MCP remaining spec pages (list above). authorization-server-discovery is next.
   6. anthropic.com/engineering — UNREAD: AI-resistant-technical-evaluations, building-c-compiler,
      contextual-retrieval, swe-bench-sonnet, desktop-extensions. Index quiet since Apr 2026.
   7. microsoft.com/en-us/research/blog — 1 fact of 3 last time. Prefer METHOD over FRAMEWORK posts.
@@ -317,21 +348,21 @@ YIELD RANKING as of the SEVENTEENTH run — spend the budget in this order:
      his summaries of TALKS are the weakest link here and produced two uncorroborated claims.
  16. latent.space/archive — unread: /p/aiewf26trends, /p/modal2026, /p/poolside, /p/chatgpt-work.
  17. langchain.com/blog — eval and benchmark posts clear the bar; customer stories do not.
- 18. blog.redwoodresearch.org — NEW, watch-only, for the METR+Redwood joint assessment.
+ 18. blog.redwoodresearch.org — watch-only, for the METR+Redwood joint assessment.
  19. metr.org/blog — demoted 13th run. RE-RATE when the joint assessment lands.
  20. embracethered.com/blog — low volume, high value, security only.
  21. trychroma.com/research — rare but substantial. Unread: evaluating-chunking.
  22. research.google/blog — checked twice, output is health/quantum/diffusion. Low yield.
      microsoft.com/en-us/security/blog — one good agent-identity post, otherwise threat intel.
 
-dead or unreadable — EMPTY, and now EIGHT FOR EIGHT on false dead ends. Read the warning in Appendix S.
+dead or unreadable — EMPTY, and now NINE FOR NINE on false dead ends. Read the warning in Appendix S.
   block.github.io/goose -> goose-docs.ai (old host serves a 'goose has moved' stub).
   https://strandsagents.com/latest/... -> 404. Use /docs/... instead.
-  modelcontextprotocol.io -> was ECONNREFUSED 2026-08-12; FULLY UP 2026-08-14. Transient.
+  modelcontextprotocol.io -> ECONNREFUSED 2026-08-12; FULLY UP 08-14 and 08-15. Transient.
   modelcontextprotocol.io/docs/concepts/tools -> recorded GONE by the 16th run; it REDIRECTS (200).
-  NOTE: builder.aws.com, the Vectara leaderboard, OWASP PDFs (three times, three stated reasons),
-    openai.com, modelcontextprotocol.io and now /docs/concepts/tools were ALL listed or headed here
-    and NONE was unreachable.
+  NEW THIS RUN: .../2025-11-25/basic/authorization/security-considerations.mdx 404s — NOT because the
+    page is missing but because authorization was ONE FILE at that revision. A 404 can mean the path
+    SHAPE changed. See fetch-routes 3b/3c.
 
 TIER 6 GITHUB READMEs — CLOSED OUT. A repo README is worth a fetch for LIFECYCLE STATUS and nothing
 else. If a repo matters, go to its DOCS site. AMENDMENT (16th run): a repo that HOSTS a documentation
@@ -339,37 +370,51 @@ site is a different animal — there the repo is the primary source and beats th
 Only remaining tier-6 item: the x1xhlol INDIVIDUAL prompt files. Frame anything from those as
 'this harness's published prompt does X', never as 'the correct approach is X'.
 
-VERIFICATION-POOL NOTE (updated 17th run). Checked so far — cb98732e, 27652a82, 111f8b2c, 2b74037b,
+VERIFICATION-POOL NOTE (updated 18th run). Checked so far — cb98732e, 27652a82, 111f8b2c, 2b74037b,
 5ad0fb45, 62312b79, 0fe91ac7, fc249ffc, a5ade87d, dee636a2, 77b3e628, f877f05d, d4e3b247, bcbf13c2,
 d468cbbe, 089c7cba, 15e7bf02, 46f3ea69, 56986e8f, d87795d4, 882100d9, 28ba65db, c93d93ee, c7290868,
 c1bbf73f, 48c4e555, c2f12069, 62c9a78b, e9b7eef3, 96ebc34e, c858a924, c99ec745, 30869b36, c436422a,
 c1e18090, 9920b5d6, 773a89ee, 48c9de1b, afce1dae, 4b0261d0, 052c2b66, f78a326a, 38c06627, d18637a2,
 1beb89e6, f1cbb540, 89df351e, 4e923405, 714a540c, f7dee43a, 9aaea0dc, 9e29d93a, 1531a0d1, b4d688b1,
 99aa74e6, 0720e9d7, 59a75c06, b471f9ef, ba5db3ec, f4005c98, c28c7f7b, 11ebefd6, db15af92, 8f2fdde8,
-and (17th run) ee3bc7d3, ca3382bd, 46eeb374, plus this run's own 703147ba, ba1b7aad and 8cf06566.
+ee3bc7d3, ca3382bd, 46eeb374, 703147ba, ba1b7aad, 8cf06566, and (18th run) 07eec7ff, 2d060289,
+1719fe66, 43155c66, 406e5a50, plus this run's own bdb36fce, f8646714, ce7e0330, 30543305, 60544a53.
 THREE AXES, ROTATE THEM: confidence (lowest first), earliest-committed, shared-ref grouping.
 13th earliest-committed (2 defects in 5); 14th confidence (1 + 1 partial); 15th shared-ref (3 in 5);
-16th earliest-committed AND shared-ref together (2 in 5, two fetches); 17th SHARED-REF as primary
-(0 claim defects in 5, but 3 ref additions + 2 source-count fixes, two fetches for four facts).
-READ THE 17th RESULT CAREFULLY: zero CLAIM defects is not zero yield — the pass invalidated the
-PREMISE it was given (the refs were never rotted) and fixed two source-count errors nobody had
-queried. NEXT RUN: rotate the primary axis to EARLIEST-COMMITTED, still grouping by shared ref.
+16th earliest-committed AND shared-ref (2 in 5); 17th SHARED-REF primary (0 claim defects, 3 ref
+additions, 2 source-count fixes); 18th EARLIEST-COMMITTED primary + shared-ref (1 correction, 1 scope
+correction, 4 enrichments, 2 internal source contradictions surfaced — three fetches for five facts).
+READ THE 18th RESULT CAREFULLY: the two most valuable outputs were NOT staleness. They were (a) an
+omission — a duration table with no start events — and (b) two contradictions INSIDE sources that
+only re-counting could expose. The pass keeps finding fidelity and completeness defects, not decay.
+NEXT RUN: rotate the primary axis to CONFIDENCE (lowest first), still grouping by shared ref. Good
+candidates sitting at conf 0.65-0.7 and never checked: 74996815 (0.65), 24e4552d (0.7), af3acf92
+(0.75), 805bc132 (0.7), 12966de6 (0.7), 2d7219c8 (0.75), f4bba0ae (0.75) and eae23eac (0.8) — note
+f4bba0ae and eae23eac SHARE a ref (openai.com/index/designing-agents-to-resist-prompt-injection/) and
+805bc132 shares another (openai.com/index/prompt-injections/), so two browser fetches cover four.
 AVOID SAMPLING kb/principles/** — write-blocked, you cannot record the result.
 SUB-RULE (14th): a PARTIAL confirmation must be written down as partial, in the fact.
 SUB-RULE (15th): when a quoted sentence appears in more than one fact, a defect in it is duplicated
   too. Query the kb for the quotation before correcting it.
 SUB-RULE (15th): check that a CITED PAGE ACTUALLY CARRIES the detail attributed to it.
-SUB-RULE (15th): RUN THE CHECKLIST ON THE FACTS YOU JUST WROTE. Four runs, four harvests: 3 defects
-  in 8, 3 in 7, 2 in 3, and 3 more in this run's REVIEW pass. Budget it; it is not optional.
+SUB-RULE (15th): RUN THE CHECKLIST ON THE FACTS YOU JUST WROTE. Five runs, five harvests: 3 defects
+  in 8, 3 in 7, 2 in 3, 3 in the 17th's review pass, and 1 in 5 this run. Budget it; not optional.
 SUB-RULE (16th): WHERE A SOURCE IS VERSIONED AND IN GIT, DIFF THE REVISIONS INSTEAD OF RE-READING.
 SUB-RULE (17th): A CLAIM THAT A PATH IS DEAD, OR THAT CONTENT MOVED SOMEWHERE, IS A CLAIM LIKE ANY
   OTHER. Test the redirect; grep the alleged successor for the content.
-SUB-RULE (17th): THE SELF-REVIEW MUST RE-RUN COMPUTATIONS, NOT RE-READ PASSAGES. Re-reading the
-  source cannot catch a bad count or a bad cross-document inference. Re-run every "N of M" a fact
-  reports, and re-derive every cross-document claim from BOTH documents.
+SUB-RULE (17th): THE SELF-REVIEW MUST RE-RUN COMPUTATIONS, NOT RE-READ PASSAGES.
+SUB-RULE (18th): "NEW IN REVISION X" REQUIRES GREPPING THE WHOLE PREDECESSOR REVISION, NOT THE PAGE.
+  A feature may have lived on a different page. 38 files, one loop. This run got OPPOSITE answers for
+  two features on the SAME page — RFC 9207 genuinely new, PKCE discovery inherited from 2025-11-25.
+SUB-RULE (18th): VERIFY WHAT YOU DOWNLOADED, NOT THAT THE DOWNLOAD HAPPENED. A 404 body written to a
+  file diffs as "entirely new" and manufactures a version-attribution overclaim. `wc -l` and
+  `grep -c "404: Not Found"` before any diff.
+SUB-RULE (18th): A TABLE OF NUMBERS WITHOUT THEIR ANCHORS IS NOT A REFERENCE. Durations need start
+  events, percentages need denominators, counts need regions. If a source states the same figures at
+  two resolutions, cite the DETAILED passage — the summary is what surfaces first and is lossy.
 
-WHAT THE VERIFICATION PASS ACTUALLY FINDS — TEN RUNS OF EVIDENCE. Mostly NOT stale facts. It finds
-CITATION-FIDELITY defects in facts whose underlying claims are correct:
+WHAT THE VERIFICATION PASS ACTUALLY FINDS — ELEVEN RUNS OF EVIDENCE. Mostly NOT stale facts. It finds
+CITATION-FIDELITY and COMPLETENESS defects in facts whose underlying claims are correct:
   ninth      — 56986e8f: a paraphrase wearing quote marks.
   tenth      — c93d93ee: an overclaiming gloss attributed to the source.
   tenth      — c7290868: INVERTED CAUSATION pointing at the wrong remedy.
@@ -384,22 +429,29 @@ CITATION-FIDELITY defects in facts whose underlying claims are correct:
   fifteenth  — 714a540c: ATTRIBUTION TO AN UNLISTED REF + a language-binding error.
   fifteenth  — b4d688b1: MODAL STRENGTHENING IN A TITLE, in a fact written that same run.
   fifteenth  — 0720e9d7: A PDF LINE-WRAP SILENTLY RECONSTRUCTED and printed as a literal.
-  sixteenth  — 59a75c06: A TITLE THE SUCCESSOR REVISION EXPLICITLY CONTRADICTS. First instance of
-    genuine STALENESS rather than citation infidelity — the fact was right when written.
+  sixteenth  — 59a75c06: A TITLE THE SUCCESSOR REVISION EXPLICITLY CONTRADICTS. First genuine
+    STALENESS rather than citation infidelity — the fact was right when written.
   sixteenth  — b471f9ef: AN OVERCLAIMED ABSENCE concealing a MUST silently downgraded to SHOULD.
   sixteenth  — 11ebefd6 (own): A QUANTIFIER INFLATED IN A TITLE — 'most' for seven of sixteen.
   sixteenth  — db15af92 (own): AN UNCHECKED VERSION ATTRIBUTION.
   sixteenth  — 8f2fdde8 (own): A TITLE CLAUSE THE FACT'S OWN BODY UNDERCUT.
   seventeenth— ca3382bd AND 46eeb374: SOURCE-COUNT INFLATION — N pages of ONE spec counted as N
-    sources. Neither claim was wrong; the corroboration signal was. First time the pass found the
-    same defect in two facts by reading FRONTMATTER rather than prose.
+    sources. First time the pass found the same defect in two facts by reading FRONTMATTER.
   seventeenth— 703147ba (own): AN INCOMPLETE MAPPING, plus a METHOD SENTENCE that vouched for it.
-  seventeenth— 8cf06566 (own): A CONTAMINATED COUNTING RANGE (uniform +1 to every bucket — ranking
-    survived, absolutes did not), AND, separately, WRONG EVIDENCE FOR A CORRECT CONCLUSION where the
-    cited evidence actually contradicted the claim. NEW AND THE MOST DANGEROUS CLASS YET: a reader
-    checking the citation would have rejected a fact that was right.
+  seventeenth— 8cf06566 (own): A CONTAMINATED COUNTING RANGE, AND WRONG EVIDENCE FOR A CORRECT
+    CONCLUSION where the cited evidence actually contradicted the claim.
+    *** RE-DERIVED INDEPENDENTLY THE 18th RUN FROM THE PRIMARY: the corrected version is RIGHT.
+    ASI10 appears in 4 of the 8 gap areas, ASI08 in 3, ASI09 in 0. The 17th run's self-correction
+    holds. First time this pack has re-verified one of its own corrections. ***
   seventeenth— ba1b7aad (own): A TENSE-ALTERED QUOTATION ('operating' for 'operates').
-CHECKLIST — verify all THIRTEEN explicitly, not just 'is the claim still true':
+  eighteenth — 406e5a50: A TABLE OF DURATIONS WITH NO START EVENTS. Every number correct; the fact
+    still misled, because DORA's 4 hours runs from CLASSIFICATION and classification has its own
+    24-hour clock. NEW CLASS: not infidelity but OMISSION OF THE FRAME a number is measured in.
+  eighteenth — 2d060289: A SUPERLATIVE THAT WAS TRUE ONLY WITHIN A SUBSET ('the two most broadly
+    mapped requirements' — true of technical controls, false overall).
+  eighteenth — 30543305 (own): MODAL OVERCLAIM IN A TITLE ('refuses to report' for a validation step
+    the source never says is a gate). Third consecutive run with a title defect in a fresh fact.
+CHECKLIST — verify all FOURTEEN explicitly, not just 'is the claim still true':
   (1) quotation boundaries — is every quoted string actually in the source, VERBATIM INCLUDING TENSE
       AND INFLECTION, and does the quote START where the source's sentence starts;
   (2) causal direction; (3) WHO the actor is in a cited measurement (human vs model vs tool);
@@ -408,15 +460,18 @@ CHECKLIST — verify all THIRTEEN explicitly, not just 'is the claim still true'
   N pages of ONE specification is ONE source, not N;
   (7) FOR MULTI-REF FACTS, which specific ref supports each specific number — is a single reported
   instance presented as a general rule — and does ANY listed ref support it at all;
-  (8) MODAL STRENGTH, QUANTIFIERS AND SCOPE, IN THE BODY AND IN THE TITLE SEPARATELY;
+  (8) MODAL STRENGTH, QUANTIFIERS AND SCOPE, IN THE BODY AND IN THE TITLE SEPARATELY. Includes
+  SUPERLATIVES: 'the most X' is a claim over a population — name the population;
   (9) LANGUAGE BINDING AND VERSION for anything from framework or vendor docs;
   (10) LITERALS FROM A PDF ARE RECONSTRUCTIONS — pdftotext breaks hyphenated tokens across lines AND
-  SHUFFLES TABLE COLUMNS. A negative grep is ALSO unreliable for the same reason. Distinguish PACK
-  ANALYSIS from SOURCE CLAIM — a gloss next to a citation gets read as cited;
-  (11) VERSION ATTRIBUTION IS A CLAIM. Check the predecessor revision;
-  (12) A FACT'S STATEMENT OF ITS OWN METHOD ('all from prose', 'every figure re-verified') IS THE
-  CLAIM MOST LIKELY TO BE FALSE, because it is written once, at the end, about piecemeal work;
-  (13) NEW — RE-RUN EVERY COMPUTATION AND RE-DERIVE EVERY CROSS-DOCUMENT INFERENCE. Bound counting
-  regions on the following heading, not a guessed line number. And check that the cited evidence
-  actually SUPPORTS the conclusion rather than merely sitting near it — the worst defect found so far
-  was a correct claim whose stated evidence, counted properly, argued against it.
+  can shuffle table columns (though narrow tables serialise cleanly — look before assuming). A
+  negative grep is ALSO unreliable. Distinguish PACK ANALYSIS from SOURCE CLAIM;
+  (11) VERSION ATTRIBUTION IS A CLAIM. Check the predecessor revision — the WHOLE revision, not the
+  page, and confirm the file you compared against is real and not a 404 body;
+  (12) A FACT'S STATEMENT OF ITS OWN METHOD IS THE CLAIM MOST LIKELY TO BE FALSE;
+  (13) RE-RUN EVERY COMPUTATION AND RE-DERIVE EVERY CROSS-DOCUMENT INFERENCE. Bound counting regions
+  on the following heading. Check the cited evidence SUPPORTS the conclusion rather than sitting
+  near it. This is also how you catch a source contradicting ITSELF — twice this run;
+  (14) NEW — DOES EVERY NUMBER CARRY ITS FRAME? A duration needs its start event, a percentage its
+  denominator, a count its region, a superlative its population. A correct number in the wrong frame
+  is the failure mode that survives every other check on this list, because nothing about it is false.
