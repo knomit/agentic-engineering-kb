@@ -55,7 +55,7 @@ https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/
 https://blog.redwoodresearch.org/                                        <- ADDED 17th run, LOW VOLUME, WATCH ONLY.
     Redwood Research published a podcast episode on the OpenAI/Hugging Face incident, and Redwood +
     METR are contracted to publish the JOINT independent assessment of that incident (not landed as
-    of 2026-08-14). This feed is where half of that lands. Caveat: podcast/talk write-ups are the
+    of 2026-08-15). This feed is where half of that lands. Caveat: podcast/talk write-ups are the
     weakest source form this pack uses — see the simonwillison talk-summary caveat. Prefer the joint
     blog when it appears; do not mine podcast summaries for quotable claims.
 https://github.com/vectara/hallucination-leaderboard
@@ -66,34 +66,48 @@ https://huggingface.co/blog
 *** OWASP GenAI — RESOURCE SLUG + DOWNLOAD ID MAP ***
 The PDF lives at https://genai.owasp.org/download/<id>/?tmstv=<epoch>, and the id is NOT guessable.
 Get it by WebFetching the /resource/<slug>/ page and asking for the download URL, then curl it with -A
-(see fetch-routes). The tmstv token does not expire — the same value has worked days later.
-IDs captured so far:
+(see fetch-routes). The tmstv token does not expire — 1754459367 was recorded 2026-08-05 and still
+worked 2026-08-15, ten days later.
+Ids captured so far:
   50592  State of Agentic AI Security and Governance 2.01   (139pp, read 12th run) tmstv=1754459367
+         ^ RE-DOWNLOADED 18th run for the staleness pass. pdfinfo: 139 pages, CreationDate 2026-06-01.
   56857  OWASP GenAI LLM Top 10 2026                        (122pp, read 13th run) tmstv=1785822482
   49059  Securing Agentic Applications Guide 1.0            (July 2025, read 15th run) tmstv=1753666640
   46950  Multi-Agentic System Threat Modeling Guide v1.0    (April 2025, read 15th run) tmstv=1745459605
   47278  Agent Name Service (ANS) v1.0                      (14 May 2025, read 16th run) tmstv=1747275418
          Resource slug CONTAINS A TYPO and is unguessable — note "al" for "AI":
          /resource/agent-name-service-ans-for-secure-al-agent-discovery-v1-0/
-  52117  OWASP Top 10 for Agentic Applications 2026         *** READ 17th run (2026-08-14). ***
+  52117  OWASP Top 10 for Agentic Applications 2026         READ 17th + 18th run. 3137 lines, 1.2MB.
          https://genai.owasp.org/download/52117/?tmstv=1765059207   (labelled "Version 2026", Dec 2025)
-         3137 lines extracted, 1.2MB. 3 facts written. Resource slug:
-         /resource/owasp-top-10-for-agentic-applications-for-2026/
-         WHAT WAS MINED: the ten entries and their T-taxonomy mappings, the per-entry disambiguation
-         prose (the highest-value part — see the entry-boundaries fact), "Least-Agency", and
-         Appendix D's incident tracker counted by frequency.
-         *** STILL UNMINED IN THIS PDF, and worth one more pass: ***
-           - the per-entry "Prevention and Mitigation Guidelines" for ASI03..ASI07 and ASI09. ASI01,
-             ASI02, ASI08 and ASI10 were read. Named emerging patterns spotted but NOT written up:
-             "intent capsule" (bind declared goal + constraints + context to each execution cycle in
-             a SIGNED envelope), "Intent Gate" PEP/PDP pre-execution policy enforcement, adaptive
-             tool budgeting, semantic firewalls / fully-qualified tool names, digital-twin replay.
+         Resource slug: /resource/owasp-top-10-for-agentic-applications-for-2026/
+         MINED SO FAR: the ten entries + T-taxonomy mappings, the per-entry disambiguation prose,
+         "Least-Agency", Appendix D's incident tracker counted by frequency, and (18th run) the
+         named mitigation PATTERNS — intent capsule (ASI01 mit. 5), Intent Gate PEP/PDP (ASI02
+         mit. 4), adaptive tool budgeting (ASI02 mit. 5), semantic firewalls (ASI02 mit. 7),
+         dry-run diff preview (ASI02 mit. 2). Entry line ranges in the extract: ASI01 476-578,
+         ASI02 579 onward; Appendix D 2138-2750; Acknowledgements ~2851 (EXCLUDE from any count —
+         it carries an ASI01-ASI10 roster that adds a phantom tag to every entry).
+         *** STILL UNMINED IN THIS PDF: ***
+           - per-entry "Prevention and Mitigation Guidelines" for ASI03..ASI07 and ASI09. ASI01,
+             ASI02, ASI08 and ASI10 are now done.
            - Appendix B (relationship to OWASP CycloneDX and AIBOM) — unread.
-           - Appendix C (mapping to the Non-Human Identities Top 10 2025) — unread, and the NHI Top
-             10 is not otherwise represented in this pack.
-           - Appendix D's per-incident detail. Counted, not read. ~21 incidents Mar-Oct 2025 with
-             source attributions; the individual rows are a ready-made incident catalogue. Extract
-             with the table caveat in mind — count freely, quote pairings never.
+           - Appendix C (mapping to the Non-Human Identities Top 10 2025) — unread; extract line
+             1882 onward, table at 1886. The NHI Top 10 is not otherwise represented in this pack,
+             and 069468bb already covers the NHI-vs-agent-identity distinction, so this pairs well.
+           - Appendix D's per-incident detail. Counted, not read. ~21 incidents Mar-Oct 2025.
+  54627  AIUC-1 Crosswalks (OWASP Top 10 for Agentic Applications)  *** ID CAPTURED 18th run. ***
+         https://genai.owasp.org/download/54627/?tmstv=1779726713
+         /resource/aiuc-1-crosswalks-owasp-top-10-for-agentic-applications/
+         pdfinfo: 55 pages, CreationDate 2026-05-25. Read 11th run (3 facts + 1 upd); ALL THREE
+         RE-VERIFIED 18th run against this PDF — 07eec7ff, 2d060289, 1719fe66. Document unchanged.
+         The 11th run never recorded the id, so the 18th had to re-resolve it. It is here now.
+         UNMINED: Part A / Part B per-requirement tables in full (they extract row-faithfully — see
+         fetch-routes), and Appendix A/B.
+  54018  AI Security Solutions Landscape for AI and Agentic Red Teaming Q2 2026  *** ID CAPTURED 18th. ***
+         https://genai.owasp.org/download/54018/?tmstv=1775767894
+         /resource/ai-security-solutions-landscape-for-ai-and-agentic-red-teaming-q2-2026/
+         pdfinfo: 15 pages, CreationDate 2026-04-09. Read 11th run (1 fact, 43155c66); RE-VERIFIED
+         18th run, unchanged. Vendor-sponsored market map — low remaining yield, do not re-mine.
 
 *** OPENAI /index/ POST CATALOGUE — enumerated by WebSearch, 17th run ***
 openai.com/index 403s to WebFetch; all of these need the browser (fetch-routes route 1). Slugs are
@@ -102,17 +116,25 @@ EXACT, taken from search results and from "Keep reading" footers — do not re-d
         account of the HF incident, incl. the Jul 28 and Jul 29 updates. Already cited by bcbf13c2.)
   READ: /index/the-next-evolution-of-the-agents-sdk/              (17th run; Apr 15 2026. Framework
         post — one design decision harvested into c436422a, rest is product copy. Do not re-mine.)
+  READ: /index/introducing-aardvark/                              *** 18th run. Oct 30 2025. ***
+        The agentic security researcher. 1 fact (30543305): whole-repo threat model as a durable
+        artifact + commit-delta evaluation, explicit rejection of fuzzing/SCA, sandbox reproduction
+        stage, Codex-generated/Aardvark-scanned patches, 92% recall (recall only, no precision).
+        *** CARRIES A 2026-03-06 BANNER: Aardvark is now CODEX SECURITY, research preview. ***
+        Follow-up target: the Codex Security post that banner links to — NOT yet fetched.
   UNREAD, ranked:
-    /index/introducing-aardvark/          <- OpenAI's agentic security researcher. Likely the single
-                                             highest-value unread OpenAI post for this pack: an agent
-                                             DESIGN, not a policy statement.
-    /index/unlocking-self-improvement-gpt-red/   <- "GPT-Red: Unlocking Self-Improvement for
+    /index/unlocking-self-improvement-gpt-red/   <- NOW TOP. "GPT-Red: Unlocking Self-Improvement for
                                              Robustness". A METHOD post — prefer over framework posts.
+    the CODEX SECURITY post (slug unknown)  <- linked from the Aardvark banner; resolve with
+                                             WebSearch allowed_domains=[openai.com] before fetching.
     /index/responding-next-frontier-critical-cyber-capabilities/  <- CORRECT SLUG, resolved 17th run.
-                                             The 13th run 404'd guessing this one. Aug 7 2026.
+                                             ALREADY CITED by bcbf13c2 and ee458c93 — so it HAS been
+                                             read; treat as done unless re-verifying.
     /index/putting-frontier-cyber-models-in-more-trusted-hands/   (Aug 10 2026)
-    /index/expanding-daybreak-cyber-defense-window-narrows/       <- title from a "Keep reading"
-                                             footer, Aug 10 2026; SLUG IS INFERRED, search it first.
+    /index/expanding-daybreak-cyber-defense-window-narrows/       <- SLUG INFERRED and PROBABLY WRONG:
+                                             facts 2d7219c8, 8193c07b and ee458c93 all cite
+                                             /index/expanding-daybreak-as-the-cyber-defense-window-narrows/
+                                             (note "as-the"), which means that post is already READ.
     /index/patch-the-planet/              (Daybreak initiative for OSS maintainers; program/policy)
     /index/safety-alignment-long-horizon-models/
     /index/introducing-openai-presence/   (product)
@@ -121,6 +143,8 @@ EXACT, taken from search results and from "Keep reading" footers — do not re-d
   ALSO SPOTTED, product announcements, almost certainly below the bar — listed only so nobody spends
   a fetch discovering that: "Previewing Ultrafast mode: GPT-5.6 Sol at up to 14X the speed" (Aug 13),
   "Testing ads in ChatGPT" (Aug 11), "Daybreak models are now available on AWS" (Aug 11).
+  CONFIRMED 18th run: those same three are what the "Keep reading" footer returns from a 2025 post,
+  so the footer is a RECENCY feed, not a related-posts feed. Do not expect siblings from it.
 
 *** COUNTER-POSITION TARGET — READ 16th RUN, keep for provenance ***
 https://arxiv.org/abs/2508.09815 (PDF: https://arxiv.org/pdf/2508.09815) — Krawiecka & Schroeder de Witt,
@@ -205,8 +229,16 @@ PAGE MOVES — CORRECTED 17th run, the 16th run's version was wrong. Full detail
     run recorded (that page contains none of the tool-contract material; grepped and confirmed empty).
     Facts ee3bc7d3, ca3382bd and 46eeb374 all cite the old URL and were never actually broken; all
     three were re-verified against 2026-07-28 on the 17th run and now carry the canonical URL too.
-RELEASED REVISION DIRECTORIES as of 2026-08-14: 2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25,
-  2026-07-28, plus draft. Unchanged since the 11th run — SEVEN consecutive runs.
+*** AUTHORIZATION WAS ONE FILE AND IS NOW FOUR PAGES — ADDED 18th run. ***
+  through 2025-11-25:  docs/specification/<rev>/basic/authorization.mdx        (single file, 708 lines)
+  2026-07-28 + draft:  docs/specification/<rev>/basic/authorization/index.mdx
+                       .../authorization/security-considerations.mdx
+                       .../authorization/client-registration.mdx
+                       .../authorization/authorization-server-discovery.mdx
+  So a predecessor path built by substituting the revision date 404s. Resolve from tree.json.
+  See fetch-routes 3b and 3c — the 404 body diffs as "entirely new" and will fabricate a version claim.
+RELEASED REVISION DIRECTORIES as of 2026-08-15: 2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25,
+  2026-07-28, plus draft. Unchanged since the 11th run — EIGHT consecutive runs.
 
 CLAUDE PLATFORM DOCS — the prompting page routes to PER-MODEL sub-pages (found 12th run):
   .../prompt-engineering/prompting-claude-opus-5    <- has a 'Controlling subagent spawning' section
