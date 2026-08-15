@@ -35,10 +35,11 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    REAL Chrome, not headless Chromium — headless Chromium gets a Cloudflare "Just a moment..."
    interstitial. Plain curl also 403s. Do NOT record openai.com as paywalled or dead — it is
    WebFetch-403, browser-readable. VERIFIED 2026-08-11 on four separate openai.com/index/ posts,
-   AGAIN 2026-08-12 (15th run) on three more, and AGAIN 2026-08-14 (17th run) on two more with
-   mcp__claude-in-chrome__*, first try, no retries. Seven-plus posts across four runs; this route is settled.
-   NOTE ON navigate ERGONOMICS (17th run): calling `navigate` STANDALONE with no tabId auto-creates
-   the tab group and returns the tabId in the same result, so the documented
+   AGAIN 2026-08-12 (15th run) on three more, AGAIN 2026-08-14 (17th run) on two more, and AGAIN
+   2026-08-15 (18th run) on /index/introducing-aardvark/ with mcp__claude-in-chrome__*, first try,
+   no retries. Nine-plus posts across five runs; this route is settled.
+   NOTE ON navigate ERGONOMICS (17th run, RE-CONFIRMED 18th): calling `navigate` STANDALONE with no
+   tabId auto-creates the tab group and returns the tabId in the same result, so the documented
    tabs_context_mcp-then-create dance is not needed for a simple read. Navigate, then get_page_text.
    NOTE THE HOST BOUNDARY: this is openai.com ONLY. developers.openai.com and cdn.openai.com are NOT
    403 — the API guides read fine with plain WebFetch, and cdn.openai.com PDFs download with plain
@@ -70,15 +71,18 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    "of"). A 404 from a guessed slug is worth exactly one search, never a second guess.
    *** ALSO USE THE ARTICLE FOOTER. *** openai.com posts carry a "Keep reading" block listing three
    sibling posts with titles and dates. get_page_text returns it. Reading one post therefore yields
-   three more candidate URLs for free — no index sweep, no extra call.
+   three more candidate URLs for free — no index sweep, no extra call. CALIBRATION (18th run): the
+   footer is a RECENCY feed, not a related-posts feed. Reading a 2025 post returned the same three
+   Aug-2026 product announcements already dismissed as below the bar in crawl-sources. Useful for
+   spotting what is NEW, useless for finding siblings of an OLD post.
 
 *** 3. modelcontextprotocol.io UNREACHABLE -> READ THE SPEC REPO ON GITHUB. NEW, 16th run. ***
    On 2026-08-12 the host refused connections outright: WebFetch returned
    `connect ECONNREFUSED 76.76.21.21:443` on three separate paths, and `curl` timed out (exit 28,
    HTTP 000). Not a 403, not a block — the origin was down. Every other host that run was fine, so
    isolate before blaming the tool. THE HOST WAS BACK UP AND FULLY RESPONSIVE ON 2026-08-14 (17th
-   run) — that outage was transient, not a policy change. The repo route below remains preferred
-   anyway, because it is cheaper and enables diffing.
+   run) and again on 2026-08-15 (18th) — that outage was transient, not a policy change. The repo
+   route below remains preferred anyway, because it is cheaper and enables diffing.
    THE MIRROR IS THE SPEC ITSELF, not a copy: the site renders .mdx files straight out of
    github.com/modelcontextprotocol/modelcontextprotocol. This route is authoritative and it worked
    first try for six documents.
@@ -125,6 +129,33 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    BONUS THIS ROUTE UNLOCKS FOR FREE: diffing two revisions of the same page is one `diff` command —
    see the note at the foot of this file.
 
+   *** 3b. A PAGE CAN BE A FILE IN ONE REVISION AND A DIRECTORY IN ANOTHER. NEW, 18th run. ***
+   Do NOT build a predecessor path by substituting the revision date into a current path. MCP
+   authorization is the worked example:
+     2025-03-26 / 2025-06-18 / 2025-11-25 -> docs/specification/<rev>/basic/authorization.mdx  (ONE FILE)
+     2026-07-28 / draft                   -> docs/specification/<rev>/basic/authorization/       (A DIRECTORY of
+                                             index.mdx, security-considerations.mdx,
+                                             client-registration.mdx, authorization-server-discovery.mdx)
+   So .../2025-11-25/basic/authorization/security-considerations.mdx does not exist. ALWAYS resolve
+   the predecessor path out of tree.json rather than by string substitution.
+
+   *** 3c. THE 404 THAT SILENTLY BECOMES A FALSE "ENTIRELY NEW IN THIS REVISION" FINDING. NEW, 18th. ***
+   THIS IS THE SHARPEST TRAP IN THIS FILE AND IT MANUFACTURES VERSION-ATTRIBUTION DEFECTS.
+   `raw.githubusercontent.com` answers a missing path with **HTTP 404 whose BODY is the literal text
+   `404: Not Found`** — and `curl -sL -o file` WRITES THAT BODY TO THE FILE and exits 0. The file
+   exists, `ls` looks fine, and `diff old new` then reports that every line of the new revision was
+   added. Read naively that is exactly the shape of "this entire section is new in revision X" —
+   a fabricated novelty claim, and the very defect class checklist item 11 exists to catch.
+   THE GUARD, cheap and mandatory before any revision diff:
+     wc -l *.mdx                      # a 0- or 1-line .mdx is a 404, not a short page
+     grep -c "404: Not Found" out.mdx  # must be 0
+   Hit live on the 18th run: the naive predecessor path for authorization/security-considerations
+   404'd (see 3b), and the resulting diff claimed the whole page was new. It is not — the PKCE
+   discovery rules in it date from 2025-11-25, which is what the corrected walk established.
+   GENERALISES: any `curl -o` against a host that serves a BODY with its error status has this
+   failure. Same family as the OWASP "No Access" HTML arriving with a .pdf filename (route 2) —
+   check what you downloaded, never that the download happened.
+
 2. OWASP PDF DOWNLOADS ARE GATED ON THE USER-AGENT. NOTHING ELSE. `-A` IS THE WHOLE FIX.
      curl -sL -A "Mozilla/5.0" -o out.pdf "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
      file out.pdf     # MUST say "PDF document". "HTML document" = the default curl UA went out.
@@ -148,11 +179,12 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    RE-CONFIRMED 2026-08-12 (15th run) on two NEW ids (49059, 46950), both first try, `-A` alone, no
    Referer and no cookie jar. To be explicit about what this run did and did not establish: it USED
    the recorded recipe, it did not re-run the A/B. RE-CONFIRMED AGAIN 16th run on id 47278 (ANS v1.0),
-   and AGAIN 17th run on id 52117 (Agentic Top 10 2026, 1.2MB), first try, `-A` alone.
-   Six-for-six across five runs. The tmstv token 1765059207 was recorded 2026-08-12 and still
-   worked 2026-08-14 — further evidence it does not expire.
+   AGAIN 17th run on id 52117, and AGAIN 18th run on THREE ids in one go (54627, 54018, 50592),
+   first try, `-A` alone. Nine-for-nine across six runs.
+   The tmstv token 1765059207 was recorded 2026-08-12 and still worked 2026-08-14; 1754459367 was
+   recorded 2026-08-05 and still worked 2026-08-15, TEN DAYS LATER. It does not expire.
 
-2b. GETTING THE OWASP DOWNLOAD ID — THE TWO-STEP, CONFIRMED 15th RUN AND AGAIN 16th.
+2b. GETTING THE OWASP DOWNLOAD ID — THE TWO-STEP, CONFIRMED 15th RUN, AGAIN 16th, AGAIN 18th.
    The id in /download/<id>/ is not derivable from the slug and is not in the ALREADY_CRAWLED list.
    Reliable two-step, both halves cheap:
      (i)  WebFetch https://genai.owasp.org/resource/<slug>/ asking for "the direct PDF download URL
@@ -161,6 +193,11 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
      (ii) curl that URL with -A per route 2.
    Only the DOWNLOAD endpoint is gated, not the resource page. Do not reach for curl on step (i).
    Ids captured so far live in crawl-sources.md, not here — they are catalogue, not route.
+   18th-RUN BONUS: step (i) also returns the PUBLICATION DATE, which is the cheapest possible
+   staleness check on a PDF you have already read — compare it against the date recorded in the fact
+   before spending the download. Pair it with `pdfinfo <file> | grep -i 'pages\|creationdate'` after
+   download: page count + creation date together settle "is this the same document I read before"
+   in one call, with no re-reading.
 
 The 12th run's WebFetch route still works and needs no headers — keep it as the fallback:
   1. WebFetch the RESOURCE PAGE asking for "the direct PDF download URL if present in the page HTML".
@@ -188,6 +225,14 @@ between a row and its cells; it does NOT destroy the cells themselves. So `grep 
 | uniq -c` over a table region gives a trustworthy FREQUENCY even when no individual row can be
 quoted. That is how the OWASP incident tracker's per-threat-class counts were obtained. State in the
 fact which of the two you relied on — frequency is publishable, pairing is not.
+*** AND SOME PDF TABLES DO EXTRACT ROW-FAITHFULLY — CHECK BEFORE GIVING UP (NEW, 18th run). ***
+The AIUC-1 crosswalk's per-requirement mapping tables extract as a clean vertical run of
+  <ASI id> / <blank> / <threat name> / <blank> / <Primary|Secondary>
+triples, one field per line, in row order. That is fully reliable to PAIR from, not merely to count,
+and it is how B006=8/10, D003=8/10 and E015=10/10 were re-derived. The distinguishing feature is
+COLUMN COUNT and cell length: narrow tables with short cells serialise cleanly; wide tables with
+multi-line prose cells are the ones that interleave. Look at ten lines of the extract before
+deciding which regime you are in — the 16th run's blanket "never cite a table" is too strong.
 *** PDF LINE WRAPS DEFEAT grep IN BOTH DIRECTIONS (reinforced, 17th run). *** A grep for a label that
 IS present can return NOTHING because the label is wrapped across two lines ("Agent Behaviour\nHijack").
 A negative grep is therefore NOT proof of absence for any multi-word string. Grep the first word
@@ -204,6 +249,12 @@ answer inline instead. Likewise a broad knomit_query can exceed the tool-result 
 AGAIN 14th run: sort=recent with limit=60 blew the limit at 69k chars. Use limit<=25.
 AND knomit_explain ON crawl-state.md NOW EXCEEDS IT TOO (15th run: 51.5KB, persisted to a file).
 That is expected, not an error — the tool result names the path; just Read it. Do not retry the call.
+*** knomit_query sort=recent IS ORDERED BY LAST TOUCH, NOT BY CREATION (NEW, 18th run). ***
+An update bumps a fact to the front. That makes the TAIL of a sort=recent walk the set of facts
+LEAST RECENTLY VERIFIED — which is exactly the staleness-pass target, and a better one than original
+creation date. But reaching the tail is expensive: at limit=25 the pack takes many pages and each
+page costs ~15k tokens. Budget 4-6 pages to get into genuinely old territory (the 18th run reached
+the 2026-07-28 band in four) and pick the sample from there rather than paging to exhaustion.
 *** BUILDERS' LIBRARY — SOME ARTICLES ARE VIDEO-ONLY ***
 Confirmed video-only, no prose body, DO NOT RE-FETCH:
   amazons-approach-to-failing-successfully   | 3F05J4fjklUZCE7kjuIp6LaTacl
@@ -224,3 +275,20 @@ CALIBRATION NOTE (17th run): the same technique on docs/docs/<rev>/learn/server-
 2025-06-18 -> 2026-07-28 produced a THREE-LINE diff (one method rename, resources/subscribe ->
 subscriptions/listen). A near-empty diff is a REAL and useful result — it says the page is stable and
 costs two curls to establish. Do not read a small diff as a failed technique.
+*** THREE HARD PRECONDITIONS ON THIS TECHNIQUE, ALL LEARNED THE HARD WAY (18th run). ***
+  (a) RESOLVE BOTH PATHS FROM tree.json. Never substitute a revision date into a path — see 3b.
+  (b) VERIFY BOTH FILES ARE REAL BEFORE DIFFING. A 404 body diffs as "all new" — see 3c.
+  (c) DIFF THE IMMEDIATE PREDECESSOR, NOT A CONVENIENT OLDER ONE. The 16th run diffed
+      2025-06-18 -> 2026-07-28, skipping 2025-11-25 entirely, and concluded three security sections
+      were "additions in 2026-07-28". True of that page — but the CONTENT of two of them had been
+      sitting in 2025-11-25's authorization.mdx all along and was MOVED, not written. A two-revision
+      jump cannot distinguish "new" from "moved", and "new in revision X" is a claim a reader will
+      act on. If you must skip a revision, say in the fact which revisions you actually compared.
+*** AND WHEN A CLAIM SPANS DOCUMENTS, GREP THE WHOLE REVISION, NOT THE ONE PAGE (18th run). ***
+"Feature F is new in revision X" is only established by searching EVERY file of revision X-1, because
+the feature may have lived on a different page. Cheap to do properly:
+  grep -oE '"path":"docs/(specification|docs)/<prev-rev>/[^"]*\.mdx"' tree.json | sed ... > files.txt
+  # curl each, then grep the lot for the distinguishing token
+Thirty-eight files, one loop, and it turned "RFC 9207 is new in 2026-07-28" from an assumption into a
+verified fact — while the same method showed the PKCE-discovery rules were NOT new and date from
+2025-11-25.
