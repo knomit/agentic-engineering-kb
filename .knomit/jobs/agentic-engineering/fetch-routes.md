@@ -156,6 +156,20 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    failure. Same family as the OWASP "No Access" HTML arriving with a .pdf filename (route 2) —
    check what you downloaded, never that the download happened.
 
+   *** 3d. THE MCP REPO HAS A SEPARATE TOP-LEVEL schema/ TREE. A docs/-SCOPED SWEEP MISSES IT. ***
+   NEW, 18th-run review pass. Revision content does NOT all live under docs/. Each released revision
+   also has:
+     schema/<rev>/schema.json   (the normative JSON Schema, ~4000 lines)
+     schema/<rev>/schema.ts     (the TypeScript source of truth, ~2600 lines)
+     schema/<rev>/schema.mdx
+   A sweep written as `docs/(specification|docs)/<rev>/**.mdx` silently excludes all three. That is
+   fine for prose questions and NOT fine for "does field X exist in revision R", which is exactly the
+   kind of question a version-attribution check asks. When establishing that something is ABSENT from
+   a revision, enumerate on the REVISION DATE, not on a docs/ prefix:
+     grep -oE '"path":"[^"]*<rev>[^"]*\.(mdx|json|ts)"' tree.json | sed 's/"path":"//;s/"$//'
+   Caught while re-checking an "absent from 2025-11-25" claim that had swept 38 docs/ files and none
+   of the three schema/ files. The claim survived — but it was luck, not method.
+
 2. OWASP PDF DOWNLOADS ARE GATED ON THE USER-AGENT. NOTHING ELSE. `-A` IS THE WHOLE FIX.
      curl -sL -A "Mozilla/5.0" -o out.pdf "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
      file out.pdf     # MUST say "PDF document". "HTML document" = the default curl UA went out.
@@ -213,7 +227,27 @@ the useful material was four slices totalling ~600 lines. Reading linearly waste
 licence boilerplate and bullet-list control checklists that are below this pack's altitude bar.
 SECOND PDF TIP (16th run): `grep -c` for a distinctive token is a ZERO-COST NEGATIVE TEST. Grepping
 the ANS extract for "well-known" returned nothing, which settled in one call that ANS does not
-document the key path another fact had reconstructed. Negative results are cheap and publishable.
+document the key path another fact had reconstructed. Negative results are cheap and publishable —
+BUT SEE THE FORM-FEED RULE BELOW BEFORE TRUSTING ANY ANCHORED NEGATIVE.
+
+*** THE FORM-FEED RULE. NEW AND IMPORTANT, 18th-run review pass. ***
+*** pdftotext EMITS \f (0x0C) AT EVERY PAGE BREAK AND PREPENDS IT TO THE FIRST TOKEN OF THE NEXT
+*** PAGE. SO ANY ^-ANCHORED PATTERN SILENTLY MISSES EXACTLY ONE ITEM PER PAGE BOUNDARY.
+The line looks like `ASI07` in a Read and is byte-for-byte `\f A S I 0 7 \n`. Confirmed with
+`od -c`. Consequences, and they are not hypothetical — this produced a wrong count that was nearly
+published as an "independently re-derived" verification:
+  grep -E "^ASI[0-9]{2}$"   -> 9 of 10 rows. Wrong, and plausible-looking.
+  grep -xE "ASI[0-9]{2}"    -> 9 of 10. Same failure; -x is an anchor too.
+  grep -oE "ASI[0-9]{2}"    -> 10 of 10. UNANCHORED IS IMMUNE.
+RULES:
+  * For COUNTING over an extract, always use unanchored `grep -o`. The frequency technique already
+    recorded below is unaffected precisely because it was written unanchored.
+  * For a NEGATIVE test, an anchored miss is not absence — this is a THIRD mechanism for that,
+    alongside line-wrapping and hyphen-breaking. Prefer `grep -o` or add `[[:space:]\f]*` to the anchor.
+  * The undercount is SYSTEMATIC, not random: always the first match on each page, always exactly
+    one per boundary. So a long table spanning N pages loses N-1 rows and still looks like a table.
+  * `paste - -` pairing over an anchored grep desynchronises at the first page break and every
+    subsequent pairing is off by one. If pairs stop lining up, suspect \f before suspecting the PDF.
 *** PDF TABLES EXTRACT WITH THEIR COLUMNS SHUFFLED — DO NOT CITE ONE (16th run). ***
 Beyond the known hyphen-wrapping problem, pdftotext on a multi-column table interleaves cells so
 that rows pair with descriptions belonging to other rows. In the ANS v1.0 "Summary of ANS Functional
@@ -233,6 +267,9 @@ and it is how B006=8/10, D003=8/10 and E015=10/10 were re-derived. The distingui
 COLUMN COUNT and cell length: narrow tables with short cells serialise cleanly; wide tables with
 multi-line prose cells are the ones that interleave. Look at ten lines of the extract before
 deciding which regime you are in — the 16th run's blanket "never cite a table" is too strong.
+CAVEAT ADDED BY THE REVIEW PASS: a row-faithful table is still cut by page-break form feeds and by
+repeated `genai.owasp.org / Page N` footers landing MID-TABLE. Read such a region with Read, not with
+an anchored grep, and expect a footer between any two rows.
 *** PDF LINE WRAPS DEFEAT grep IN BOTH DIRECTIONS (reinforced, 17th run). *** A grep for a label that
 IS present can return NOTHING because the label is wrapped across two lines ("Agent Behaviour\nHijack").
 A negative grep is therefore NOT proof of absence for any multi-word string. Grep the first word
@@ -255,6 +292,12 @@ LEAST RECENTLY VERIFIED — which is exactly the staleness-pass target, and a be
 creation date. But reaching the tail is expensive: at limit=25 the pack takes many pages and each
 page costs ~15k tokens. Budget 4-6 pages to get into genuinely old territory (the 18th run reached
 the 2026-07-28 band in four) and pick the sample from there rather than paging to exhaustion.
+*** THE `grep` ON THIS MACHINE IS ugrep 7.5.0, NOT GNU grep (observed 18th run). ***
+It is largely compatible, but it is not the tool most recipes are written against, and its warnings
+differ ("ugrep: warning: <file>: No such file or directory"). If a grep behaves unexpectedly, check
+`grep --version` before concluding anything about the DATA. Note also that the Bash tool's working
+directory PERSISTS between calls — a `cd` in one call changes where the next one runs, which produced
+a spurious "No such file or directory" this run. Prefer absolute paths or re-`cd` each call.
 *** BUILDERS' LIBRARY — SOME ARTICLES ARE VIDEO-ONLY ***
 Confirmed video-only, no prose body, DO NOT RE-FETCH:
   amazons-approach-to-failing-successfully   | 3F05J4fjklUZCE7kjuIp6LaTacl
@@ -275,7 +318,7 @@ CALIBRATION NOTE (17th run): the same technique on docs/docs/<rev>/learn/server-
 2025-06-18 -> 2026-07-28 produced a THREE-LINE diff (one method rename, resources/subscribe ->
 subscriptions/listen). A near-empty diff is a REAL and useful result — it says the page is stable and
 costs two curls to establish. Do not read a small diff as a failed technique.
-*** THREE HARD PRECONDITIONS ON THIS TECHNIQUE, ALL LEARNED THE HARD WAY (18th run). ***
+*** FOUR HARD PRECONDITIONS ON THIS TECHNIQUE, ALL LEARNED THE HARD WAY (18th run). ***
   (a) RESOLVE BOTH PATHS FROM tree.json. Never substitute a revision date into a path — see 3b.
   (b) VERIFY BOTH FILES ARE REAL BEFORE DIFFING. A 404 body diffs as "all new" — see 3c.
   (c) DIFF THE IMMEDIATE PREDECESSOR, NOT A CONVENIENT OLDER ONE. The 16th run diffed
@@ -284,11 +327,19 @@ costs two curls to establish. Do not read a small diff as a failed technique.
       sitting in 2025-11-25's authorization.mdx all along and was MOVED, not written. A two-revision
       jump cannot distinguish "new" from "moved", and "new in revision X" is a claim a reader will
       act on. If you must skip a revision, say in the fact which revisions you actually compared.
+  (d) BOUND THE REGION ON THE FOLLOWING HEADING, NOT ON EOF. Extracting a section with
+      `sed -n '/^## Target/,$p'` runs to end of file and sweeps in every SIBLING section after it,
+      which then show up as deletions. On the 18th run this made `## MCP Authorization Extensions`
+      look deleted when it had merely moved to another page of the same split. Use
+      `awk '/^## Target/{f=1} /^## NextHeading/{f=0} f'`. An over-wide range ADDS phantom findings
+      rather than hiding real ones — so it will not cost you a true finding, but it will hand you a
+      false one, and the 17th run published exactly this mistake as a contaminated count.
 *** AND WHEN A CLAIM SPANS DOCUMENTS, GREP THE WHOLE REVISION, NOT THE ONE PAGE (18th run). ***
 "Feature F is new in revision X" is only established by searching EVERY file of revision X-1, because
-the feature may have lived on a different page. Cheap to do properly:
-  grep -oE '"path":"docs/(specification|docs)/<prev-rev>/[^"]*\.mdx"' tree.json | sed ... > files.txt
-  # curl each, then grep the lot for the distinguishing token
-Thirty-eight files, one loop, and it turned "RFC 9207 is new in 2026-07-28" from an assumption into a
+the feature may have lived on a different page — AND, per 3d, in a different top-level tree. Enumerate
+on the revision date, not on a docs/ prefix:
+  grep -oE '"path":"[^"]*<prev-rev>[^"]*\.(mdx|json|ts)"' tree.json | sed 's/"path":"//;s/"$//' > files.txt
+  # curl each, then grep the lot (UNANCHORED) for the distinguishing token
+Forty-one files, one loop, and it turned "RFC 9207 is new in 2026-07-28" from an assumption into a
 verified fact — while the same method showed the PKCE-discovery rules were NOT new and date from
-2025-11-25.
+2025-11-25. Two features, one page, opposite answers: that is why the sweep cannot be skipped.
