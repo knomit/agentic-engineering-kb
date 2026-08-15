@@ -35,12 +35,16 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    REAL Chrome, not headless Chromium — headless Chromium gets a Cloudflare "Just a moment..."
    interstitial. Plain curl also 403s. Do NOT record openai.com as paywalled or dead — it is
    WebFetch-403, browser-readable. VERIFIED 2026-08-11 on four separate openai.com/index/ posts,
-   AGAIN 2026-08-12 (15th run) on three more, AGAIN 2026-08-14 (17th run) on two more, and AGAIN
-   2026-08-15 (18th run) on /index/introducing-aardvark/ with mcp__claude-in-chrome__*, first try,
-   no retries. Nine-plus posts across five runs; this route is settled.
-   NOTE ON navigate ERGONOMICS (17th run, RE-CONFIRMED 18th): calling `navigate` STANDALONE with no
-   tabId auto-creates the tab group and returns the tabId in the same result, so the documented
-   tabs_context_mcp-then-create dance is not needed for a simple read. Navigate, then get_page_text.
+   AGAIN 2026-08-12 (15th run) on three more, AGAIN 2026-08-14 (17th run) on two more, AGAIN
+   2026-08-15 (18th run) on /index/introducing-aardvark/, and AGAIN 2026-08-15 (19th run) on THREE
+   posts back to back (codex-security-now-in-research-preview, designing-agents-to-resist-prompt-
+   injection, prompt-injections), all first try, no retries. Twelve-plus posts across six runs;
+   this route is settled and needs no further re-confirmation.
+   NOTE ON navigate ERGONOMICS (17th run, RE-CONFIRMED 18th and 19th): calling `navigate` STANDALONE
+   with no tabId auto-creates the tab group and returns the tabId in the same result, so the
+   documented tabs_context_mcp-then-create dance is not needed for a simple read. Navigate, then
+   get_page_text. To read several posts in one run, PASS THE SAME tabId to each subsequent navigate —
+   one tab, N navigations, no cleanup.
    NOTE THE HOST BOUNDARY: this is openai.com ONLY. developers.openai.com and cdn.openai.com are NOT
    403 — the API guides read fine with plain WebFetch, and cdn.openai.com PDFs download with plain
    curl -A. Do not spend a browser navigation on either.
@@ -69,12 +73,31 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    the 13th run 404'd on by guessing — the real slug is
    /index/responding-next-frontier-critical-cyber-capabilities/ (the guess had inserted "to-the" and
    "of"). A 404 from a guessed slug is worth exactly one search, never a second guess.
-   *** ALSO USE THE ARTICLE FOOTER. *** openai.com posts carry a "Keep reading" block listing three
-   sibling posts with titles and dates. get_page_text returns it. Reading one post therefore yields
-   three more candidate URLs for free — no index sweep, no extra call. CALIBRATION (18th run): the
-   footer is a RECENCY feed, not a related-posts feed. Reading a 2025 post returned the same three
-   Aug-2026 product announcements already dismissed as below the bar in crawl-sources. Useful for
-   spotting what is NEW, useless for finding siblings of an OLD post.
+   VALIDATED A FIFTH TIME, 19th run: the Codex Security post, whose slug was UNKNOWN (the 18th run
+   could only record "linked from the Aardvark banner"), resolved in ONE search to
+   /index/codex-security-now-in-research-preview/ — and the search result SNIPPETS alone already
+   carried the three-stage architecture and the research-preview rollout scope, i.e. enough to
+   confirm the post was worth the browser call before spending it.
+   *** ALSO USE THE ARTICLE FOOTER — AND SEE THE CORRECTED CALIBRATION BELOW. *** openai.com posts
+   carry a "Keep reading" block listing three sibling posts with titles and dates. get_page_text
+   returns it, so reading one post yields three more candidate URLs for free.
+   CALIBRATION, CORRECTED 19th run. The 18th run concluded the footer is a pure RECENCY feed, from a
+   single observation (a 2025 post returning three Aug-2026 product announcements). Three more
+   observations this run say it is narrower than that — it appears to be **recency WITHIN THE POST'S
+   PRIMARY CATEGORY**:
+     /index/codex-security-now-in-research-preview/ (tagged Product, Security) -> Ultrafast mode
+        (Product, Aug 13), Testing ads (Company, Aug 11), Daybreak on AWS (Product, Aug 11)
+     /index/designing-agents-to-resist-prompt-injection/ (tagged Security)     -> Expanding Daybreak
+        (Security, Aug 10), Putting frontier cyber models (Security, Aug 10), Responding to the next
+        frontier (Security, Aug 7)
+     /index/prompt-injections/ (tagged Security)                                -> the SAME three
+        Security posts
+   So a SECURITY-tagged post's footer is a free, current listing of the three newest security posts —
+   which is exactly the sweep this pack wants — while a Product-tagged post's footer is noise for our
+   purposes. STATED AS A HYPOTHESIS CONSISTENT WITH FOUR OBSERVATIONS, NOT AS A SETTLED RULE: the
+   category tag is visible at the top of each post, so it is cheap to check the prediction next time.
+   Practical use: to sweep openai.com security posts without an index fetch, open any known
+   Security-tagged post and read its footer.
 
 *** 3. modelcontextprotocol.io UNREACHABLE -> READ THE SPEC REPO ON GITHUB. NEW, 16th run. ***
    On 2026-08-12 the host refused connections outright: WebFetch returned
@@ -155,6 +178,9 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    GENERALISES: any `curl -o` against a host that serves a BODY with its error status has this
    failure. Same family as the OWASP "No Access" HTML arriving with a .pdf filename (route 2) —
    check what you downloaded, never that the download happened.
+   19th-RUN NOTE: the guard was run on all 45 files fetched this run (4 split pages, 3 predecessor
+   revisions, 41 whole-revision files, overlapping) and returned 0 every time. It costs one command
+   and it is the difference between a verified version claim and a fabricated one.
 
    *** 3d. THE MCP REPO HAS A SEPARATE TOP-LEVEL schema/ TREE. A docs/-SCOPED SWEEP MISSES IT. ***
    NEW, 18th-run review pass. Revision content does NOT all live under docs/. Each released revision
@@ -169,6 +195,28 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
      grep -oE '"path":"[^"]*<rev>[^"]*\.(mdx|json|ts)"' tree.json | sed 's/"path":"//;s/"$//'
    Caught while re-checking an "absent from 2025-11-25" claim that had swept 38 docs/ files and none
    of the three schema/ files. The claim survived — but it was luck, not method.
+   CONFIRMED AND COSTED, 19th run: that enumeration on `2025-11-25` returns exactly **41 files**
+   across three trees (docs/docs, docs/specification, schema/2025-11-25). Fetching all 41 is one
+   shell loop and a few seconds — there is no reason to ever run the narrower sweep again.
+
+   *** 3e. IN .mdx, NORMATIVE KEYWORDS ARE BOLDED — SO GREPPING A NORMATIVE SENTENCE FINDS NOTHING.
+   *** NEW AND IMPORTANT, 19th run. A FOURTH INDEPENDENT MECHANISM FOR "A NEGATIVE GREP IS NOT PROOF
+   *** OF ABSENCE", AND THE ONE MOST LIKELY TO BITE THIS JOB, BECAUSE THIS JOB GREPS MUSTs ALL DAY.
+   The MCP spec writes every RFC 2119 keyword as markdown emphasis: `**MUST**`, `**MUST NOT**`,
+   `**SHOULD**`. So the sentence a reader would quote does not exist as a literal string in the file.
+   ISOLATED CLEANLY, same file, same run:
+     grep -c "MUST NOT assume that credentials"        asd-2026.mdx  -> 0   (looks like absence)
+     grep -c "assume that credentials"                 asd-2026.mdx  -> 1   (it is there)
+     grep -n  "assume that credentials"                asd-2026.mdx
+       32:**MUST NOT** assume that credentials valid for one authorization server will be accepted by
+   RULES:
+     * NEVER let a search term span a normative keyword. Grep the clause on ONE SIDE of the MUST.
+     * The failure is silent and total — zero hits, no warning, and the phrase you searched for is
+       the exact phrase the spec means. It reads as a confident negative.
+     * Same family as the pdftotext form-feed and line-wrap traps below, but a DIFFERENT cause
+       (source markup, not extraction), so it survives even when the file is clean UTF-8 text you
+       downloaded yourself. Applies to any docs-as-markdown source, not just MCP.
+     * It also breaks `diff`-based reasoning if you pre-filter lines by a normative phrase.
 
 2. OWASP PDF DOWNLOADS ARE GATED ON THE USER-AGENT. NOTHING ELSE. `-A` IS THE WHOLE FIX.
      curl -sL -A "Mozilla/5.0" -o out.pdf "https://genai.owasp.org/download/<id>/?tmstv=<epoch>"
@@ -213,6 +261,19 @@ Do not put run status, queues or rankings here — those go in crawl-state.md.
    download: page count + creation date together settle "is this the same document I read before"
    in one call, with no re-reading.
 
+*** 2c. `file` REPORTS A PDF PAGE COUNT AND IT CAN BE WRONG. USE `pdfinfo`. NEW, 19th run. ***
+The 18th run made page count the cheap "is this the same document" test. That test is only as good
+as the tool you read the count with, and the two available tools DISAGREE on the same bytes:
+  file masec.pdf     -> "PDF document, version 1.5, 3 pages"     WRONG
+  pdfinfo masec.pdf  -> "Pages: 8"                                CORRECT (paper is 8pp, still v1)
+Same file, same run, no re-download between them. `file` reads a hint near the front of the file and
+is not parsing the page tree; `pdfinfo` is. WHY THIS MATTERS MORE THAN IT LOOKS: a run doing a
+staleness check with `file` would have seen "3 pages" against a recorded 8 and manufactured a
+"THE SOURCE CHANGED" finding on a document that had not changed at all — the false-positive twin of
+the 3c trap. `file` is still the right tool for the ONE question route 2 asks it ("is this a PDF or
+is it the HTML error page"). It is not a source of page counts. Never compare a `file` count against
+a `pdfinfo` count recorded earlier, or vice versa.
+
 The 12th run's WebFetch route still works and needs no headers — keep it as the fallback:
   1. WebFetch the RESOURCE PAGE asking for "the direct PDF download URL if present in the page HTML".
   2. WebFetch that download URL. It REPLIES that the content is unreadable binary — ignore that;
@@ -248,6 +309,13 @@ RULES:
     one per boundary. So a long table spanning N pages loses N-1 rows and still looks like a table.
   * `paste - -` pairing over an anchored grep desynchronises at the first page break and every
     subsequent pairing is off by one. If pairs stop lining up, suspect \f before suspecting the PDF.
+*** FOUR MECHANISMS NOW, NOT THREE — A NEGATIVE GREP FAILS FOR FOUR INDEPENDENT REASONS (19th run):
+***   (i) pdftotext line-wrapping splits a multi-word phrase across lines;
+***  (ii) pdftotext hyphen-breaking splits a single token ("communica-\ntion");
+*** (iii) pdftotext form feeds defeat ^-anchors, one miss per page;
+***  (iv) MARKDOWN EMPHASIS in .mdx sources breaks any phrase spanning a **MUST** (route 3e).
+*** (i)-(iii) are extraction artifacts; (iv) is in the source bytes themselves. A file being clean
+*** text you downloaded yourself rules out the first three and NOT the fourth.
 *** PDF TABLES EXTRACT WITH THEIR COLUMNS SHUFFLED — DO NOT CITE ONE (16th run). ***
 Beyond the known hyphen-wrapping problem, pdftotext on a multi-column table interleaves cells so
 that rows pair with descriptions belonging to other rows. In the ANS v1.0 "Summary of ANS Functional
@@ -270,12 +338,28 @@ deciding which regime you are in — the 16th run's blanket "never cite a table"
 CAVEAT ADDED BY THE REVIEW PASS: a row-faithful table is still cut by page-break form feeds and by
 repeated `genai.owasp.org / Page N` footers landing MID-TABLE. Read such a region with Read, not with
 an anchored grep, and expect a footer between any two rows.
+*** AND WHEN THE TABLE IS THE WIDE KIND, PAIR ON CONTENT INSTEAD OF POSITION (NEW, 19th run). ***
+A wide table is not useless for pairing — it is useless for pairing BY POSITION. In the MASEC paper's
+vector/scenario table the extract runs three vector cells consecutively and then three scenario
+cells, so position implies nothing. But the vector cell about "active security monitoring ...
+sanitisation" and the scenario cell about "a dynamic firewall sanitises a natural language query"
+share a distinctive token no other row in the group carries, which identifies the pair with more
+confidence than adjacency ever would. USE A DISCRIMINATING TOKEN, AND SAY IN THE FACT THAT THE
+PAIRING IS SEMANTIC RATHER THAN POSITIONAL — a reader can then check it the same way.
+*** AND EXPECT A SOURCE TO NAME THE SAME THING TWICE (19th run). *** The MASEC paper calls one class
+"heterogeneous multi-agent exploits" in its abstract and "Heterogeneous Attackers" in its table;
+OWASP's Top 10 double-names T12 the same way. A grep for the abstract's phrase will not find the
+table row. Before recording that a document does not discuss X, grep the SHORTEST DISTINCTIVE STEM
+("Heterogeneous"), not the full phrase.
 *** PDF LINE WRAPS DEFEAT grep IN BOTH DIRECTIONS (reinforced, 17th run). *** A grep for a label that
 IS present can return NOTHING because the label is wrapped across two lines ("Agent Behaviour\nHijack").
 A negative grep is therefore NOT proof of absence for any multi-word string. Grep the first word
 alone, or grep with `-A1`, before recording "the document does not say X". This nearly produced a
 false absence claim this run and is the mirror image of the 15th run's 0720e9d7 defect, where a wrap
-was silently reconstructed into a literal.
+was silently reconstructed into a literal. HIT AGAIN 19th run: `grep "active monitoring"` returned
+nothing on a paper that says it, because the extract reads "active\nmonitoring"; `grep -B1 -A2
+"not cover"` recovered it immediately. When a phrase you expect is missing, re-grep on its RAREST
+SINGLE WORD with context flags before concluding anything.
 BROWSER CAVEATS: on builder.aws.com the FIRST get_page_text after a navigate SOMETIMES returns a stub
 ending in 'Loading article'; call it again. Never conclude 'blocked' from one empty call.
 To pull links/hrefs off an index use javascript_tool with a querySelectorAll expression — `find`
@@ -292,6 +376,13 @@ LEAST RECENTLY VERIFIED — which is exactly the staleness-pass target, and a be
 creation date. But reaching the tail is expensive: at limit=25 the pack takes many pages and each
 page costs ~15k tokens. Budget 4-6 pages to get into genuinely old territory (the 18th run reached
 the 2026-07-28 band in four) and pick the sample from there rather than paging to exhaustion.
+*** CHEAPER WAY TO FIND A FACT'S PATH WHEN YOU ONLY HAVE ITS SHORT ID (NEW, 19th run). ***
+The queue names facts by 8-hex id (74996815, eae23eac) and knomit_query CANNOT search by id. Paging
+sort=recent to find one is the expensive way. Instead run a TOPICAL knomit_query aimed at what the
+fact is about — the id is the filename stem, so it is visible in the `file` field of any result row
+that matches. Two topical queries this run resolved five queued ids at ~5k tokens total, against the
+~15k-per-page cost of walking sort=recent. Keep the queue's one-line descriptions specific enough to
+turn into a query; that is what makes this work.
 *** THE `grep` ON THIS MACHINE IS ugrep 7.5.0, NOT GNU grep (observed 18th run). ***
 It is largely compatible, but it is not the tool most recipes are written against, and its warnings
 differ ("ugrep: warning: <file>: No such file or directory"). If a grep behaves unexpectedly, check
@@ -334,6 +425,14 @@ costs two curls to establish. Do not read a small diff as a failed technique.
       `awk '/^## Target/{f=1} /^## NextHeading/{f=0} f'`. An over-wide range ADDS phantom findings
       rather than hiding real ones — so it will not cost you a true finding, but it will hand you a
       false one, and the 17th run published exactly this mistake as a contaminated count.
+  (e) NEW, 19th run — A SPLIT DUPLICATES RULES, AND THE COPIES CAN DIFFER IN MODAL STRENGTH. When one
+      page becomes four, a rule that straddles the seam is often RESTATED on the topic page at a
+      weaker modality, with the normative statement left on the index page. MCP 2026-07-28 states the
+      `scope`-in-WWW-Authenticate rule as "**SHOULD** include" on authorization/index.mdx and as
+      "Servers can also include" on authorization-server-discovery.mdx. Read only the topic page and
+      it looks like a SHOULD was downgraded between revisions. IT WAS NOT. Before recording any
+      weakening, grep EVERY page of the new revision for the rule and cite the strongest statement.
+      This is the mirror of (c)/(d): those find content that moved, this finds content that forked.
 *** AND WHEN A CLAIM SPANS DOCUMENTS, GREP THE WHOLE REVISION, NOT THE ONE PAGE (18th run). ***
 "Feature F is new in revision X" is only established by searching EVERY file of revision X-1, because
 the feature may have lived on a different page — AND, per 3d, in a different top-level tree. Enumerate
@@ -343,3 +442,10 @@ on the revision date, not on a docs/ prefix:
 Forty-one files, one loop, and it turned "RFC 9207 is new in 2026-07-28" from an assumption into a
 verified fact — while the same method showed the PKCE-discovery rules were NOT new and date from
 2025-11-25. Two features, one page, opposite answers: that is why the sweep cannot be skipped.
+*** AND THE SAME DISCIPLINE APPLIES TO A CITATION CHECK, NOT ONLY A CONTENT CHECK (19th run). ***
+The 19th run wrote "revision 2025-11-25 cites RFC 8414 §3.1 and §5 but never §3.3" from a grep over
+ONE page, then caught it in self-review and re-ran the grep over all 41 files. The claim survived
+(two further bare rfc8414 citations in the tutorial, no §3.3 anywhere) — but "the revision cites" is
+a claim about the REVISION and a one-page grep cannot support it. If a sentence's subject is the
+revision, the search's scope must be the revision. Cheapest possible check on your own method:
+read your claim's subject noun, then look at what you actually grepped.
