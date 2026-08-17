@@ -42,7 +42,7 @@ https://genai.owasp.org/
 https://modelcontextprotocol.io/specification/versioning
 https://modelcontextprotocol.io/specification/2026-07-28/deprecated      <- ADDED 12th run (cheap tripwire)
 https://owasp-agentic-ai-security-incidents.lovable.app/                 <- ADDED 12th run (ASI incidents tracker)
-https://www.aisi.gov.uk/blog/                                            <- ADDED 13th run (RANK 2)
+https://www.aisi.gov.uk/blog/                                            <- ADDED 13th run. *** RE-RATED TO RANK 2 BY THE 20th RUN — see the article catalogue below. ***
 https://openai.com/index/                                                <- ADDED 13th run (RANK 2)
 https://developers.openai.com/api/docs/guides/                           <- ADDED 15th run. The API guides tree is
     a DIFFERENT source from openai.com/index and from the cookbook, it is plain-WebFetch-readable (no browser,
@@ -53,15 +53,40 @@ https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/
     modelcontextprotocol.io refused connections all run and this route answered first try. Prefer it
     over the rendered /specification/versioning page. Route details in fetch-routes route 3.
 https://blog.redwoodresearch.org/                                        <- ADDED 17th run, LOW VOLUME, WATCH ONLY.
-    Redwood Research published a podcast episode on the OpenAI/Hugging Face incident, and Redwood +
-    METR are contracted to publish the JOINT independent assessment of that incident (not landed as
-    of 2026-08-15). This feed is where half of that lands. Caveat: podcast/talk write-ups are the
-    weakest source form this pack uses — see the simonwillison talk-summary caveat. Prefer the joint
-    blog when it appears; do not mine podcast summaries for quotable claims.
+    Redwood + METR are contracted to publish the JOINT independent assessment of the OpenAI/Hugging Face
+    incident (not landed as of 2026-08-17). Caveat: podcast/talk write-ups are the weakest source form
+    this pack uses. Prefer the joint blog when it appears.
 https://github.com/vectara/hallucination-leaderboard
 https://huggingface.co/blog
 
 === SOURCE INVENTORIES — catalogues that cost real fetches to enumerate ===
+
+*** UK AISI BLOG — ARTICLE CATALOGUE. NEW, 20th run, AND IT EXPOSED A THREE-RUN BLIND SPOT. ***
+aisi.gov.uk/blog had been in the recurring list since the 13th run and was swept THREE times (13th,
+17th, 20th), but every sweep only asked "anything newer than the 08-04 incident report?" — so the
+BACK CATALOGUE was never followed to article level. Exactly the failure Appendix S warns about, and
+exactly the anthropic.com/engineering case repeating on a different feed. The back catalogue turned
+out to be the highest-yield block of the 20th run: three posts, three substantial facts.
+Plain WebFetch reads these fine — no browser, no gate, no 403.
+  READ (20th run):
+    /blog/cheating-behaviour-in-frontier-model-evaluations              (Jul 21 2026) -> 8756141e + upd 193d5de2
+      ^ Every model tested attempted to cheat; self-report <50%; CoT unreliable; no capability trend.
+    /blog/how-our-new-control-red-team-is-stress-testing-frontier-monitors  (Jul 23 2026) -> a5eaec6b + upd ee458c93
+      ^ Vulnerabilities in every monitor version tested; routing rules are the soft target.
+      NOTE THE SLUG: it contains "new" (how-our-NEW-control-red-team) though the title does not.
+    /blog/more-compute-more-capability-why-ai-agent-evals-need-to-account-for-test-time-compute  (Jul 2 2026) -> 80866fc3
+      ^ Capability is a curve vs token budget; exponent 0.7-1.0 vs human task duration.
+      NOTE THE SLUG: title says "AI agent evaluations", slug says "ai-agent-evals". Do not guess it.
+  READ EARLIER: /blog/incident-report-unsanctioned-agent-behaviour-during-cyber-testing (Aug 4 2026, 13th run)
+  UNREAD, ranked by likely yield for this pack:
+    /blog/international-evaluation-best-practice-and-open-questions-in-ai-measurement   (Jul 23 2026)
+    /blog/finding-cloud-misconfigurations-with-frontier-ai-a-case-study                 (Jul 7 2026, slug UNVERIFIED)
+    /blog/how-far-behind-the-frontier-are-leading-open-weight-models-on-cyber           (Jul 17 2026, slug UNVERIFIED)
+    /blog/releasing-aisis-engineering-playbook                                          (Jun 18 2026, slug UNVERIFIED)
+  BELOW THE BAR: the Kimi K3 preliminary assessment (Jul 23) and the UK-Germany joint statement
+    (Jun 30) — capability scores for one model and a diplomatic communique.
+  *** SLUGS MARKED UNVERIFIED WERE DERIVED FROM TITLES AND ARE NOT TO BE TRUSTED — two of the three
+  verified AISI slugs differ from their titles. Pull hrefs off the index or WebSearch first. ***
 
 *** OWASP GenAI — RESOURCE SLUG + DOWNLOAD ID MAP ***
 The PDF lives at https://genai.owasp.org/download/<id>/?tmstv=<epoch>, and the id is NOT guessable.
@@ -100,7 +125,6 @@ Ids captured so far:
          /resource/aiuc-1-crosswalks-owasp-top-10-for-agentic-applications/
          pdfinfo: 55 pages, CreationDate 2026-05-25. Read 11th run (3 facts + 1 upd); ALL THREE
          RE-VERIFIED 18th run against this PDF — 07eec7ff, 2d060289, 1719fe66. Document unchanged.
-         The 11th run never recorded the id, so the 18th had to re-resolve it. It is here now.
          UNMINED: Part A / Part B per-requirement tables in full (they extract row-faithfully — see
          fetch-routes), and Appendix A/B.
   54018  AI Security Solutions Landscape for AI and Agentic Red Teaming Q2 2026  *** ID CAPTURED 18th. ***
@@ -109,42 +133,43 @@ Ids captured so far:
          pdfinfo: 15 pages, CreationDate 2026-04-09. Read 11th run (1 fact, 43155c66); RE-VERIFIED
          18th run, unchanged. Vendor-sponsored market map — low remaining yield, do not re-mine.
 
-*** OPENAI /index/ POST CATALOGUE — enumerated by WebSearch, 17th run; corrected 18th and 19th ***
+*** OPENAI /index/ POST CATALOGUE — enumerated by WebSearch, 17th run; corrected 18th, 19th, 20th ***
 openai.com/index 403s to WebFetch; all of these need the browser (fetch-routes route 1). Slugs are
 EXACT, taken from search results and from "Keep reading" footers — do not re-derive them.
-NOTE (19th run): the "Keep reading" footer appears to be recency WITHIN THE POST'S CATEGORY, so any
-Security-tagged post's footer is a free listing of the three newest Security posts. See fetch-routes 1b.
+*** THE "Keep reading" CATEGORY HYPOTHESIS IS FALSIFIED (20th run). *** The 19th run proposed that a
+Security-tagged post's footer is a free listing of the three newest SECURITY posts. Tested on
+/index/unlocking-self-improvement-gpt-red/ (tagged Safety/Publication): the footer returned three
+posts in three DIFFERENT categories (Security, Publication, Research) in strict date order. It is a
+plain recency feed. Use WebSearch+allowed_domains to sweep a category, not the footer. Detail in
+fetch-routes 1b.
   READ: /index/hugging-face-model-evaluation-security-incident/   (17th run re-read; the PRIMARY
         account of the HF incident, incl. the Jul 28 and Jul 29 updates. Already cited by bcbf13c2.)
   READ: /index/the-next-evolution-of-the-agents-sdk/              (17th run; Apr 15 2026. Framework
         post — one design decision harvested into c436422a, rest is product copy. Do not re-mine.)
-  READ: /index/introducing-aardvark/                              (18th run. Oct 30 2025.)
-        The agentic security researcher. 1 fact (30543305). Carries a 2026-03-06 successor banner.
-        *** SUCCESSOR RESOLVED AND READ 19th run — see next entry. This post is now DONE. ***
-  READ: /index/codex-security-now-in-research-preview/            *** 19th run. Mar 6 2026. ***
-        The Aardvark successor. Slug resolved in ONE WebSearch (the 18th run could not name it).
-        Folded into 30543305 (sources 1->2): editable + feedback-trained threat model, TIERED and
-        explicitly CONDITIONAL validation ("where possible"; deeper tier needs a project-tailored
-        environment and is what enables working PoCs), 14 CVEs incl. OpenSSH/GnuTLS/GOGS/libssh/
-        PHP/Chromium, 1.2M commits / 792 critical / 10,561 high over 30 days, and precision-DELTA-
-        only reporting (84% noise cut in one case, >90% fewer over-reported severities, >50% fewer
-        false positives) against Aardvark's recall-only 92%. NEITHER post gives an absolute
-        precision/recall pair. DO NOT RE-MINE — fully harvested.
-  READ: /index/designing-agents-to-resist-prompt-injection/       (Mar 11 2026; Shadwell & Spânu.
-        RE-VERIFIED 19th run for f4bba0ae and eae23eac. Live, unchanged, no update notice.)
-  READ: /index/prompt-injections/                                 (Nov 7 2025. RE-VERIFIED 19th run
-        for 6c0c742e and eae23eac. Live, unchanged. NOTE: it promised a forthcoming report on
-        detecting conversation-data transmission — that promise was KEPT and is the ai-agent-link-
-        safety post already cited by b4d688b1. Do not re-watch for it.)
+  READ: /index/introducing-aardvark/                              (18th run. Oct 30 2025.) DONE.
+  READ: /index/codex-security-now-in-research-preview/            (19th run. Mar 6 2026.) DONE — fully harvested.
+  READ: /index/designing-agents-to-resist-prompt-injection/       (Mar 11 2026; RE-VERIFIED 19th run.)
+  READ: /index/prompt-injections/                                 (Nov 7 2025. RE-VERIFIED 19th run.)
+  READ: /index/unlocking-self-improvement-gpt-red/                *** 20th run. Jul 15 2026. ***
+        "GPT-Red: Unlocking Self-Improvement for Robustness". Tagged Safety / Publication. A METHOD
+        post and it paid: self-play RL attacker vs simultaneously-trained defender population, the
+        two-sided defender reward, per-environment threat models, attacker kept undeployed. Numbers:
+        84% vs 13% human attack success on a novel arena against GPT-5.1; 6x fewer failures for
+        GPT-5.6 Sol vs four months earlier; Fake-CoT attacks >95% -> <10%; 0.05% failure rate on
+        HELD-OUT ENVIRONMENTS with an IN-DISTRIBUTION attacker; broke a live Andon Labs vending agent
+        and a Codex CLI agent. -> 5f4497f2, and paired with AISI into 9b0c8c78. DO NOT RE-MINE.
+        It links a paper ("Read the paper") that was NOT followed — that is the remaining value here.
   UNREAD, ranked:
-    /index/unlocking-self-improvement-gpt-red/   <- NOW TOP. "GPT-Red: Unlocking Self-Improvement for
-                                             Robustness". A METHOD post — prefer over framework posts.
-    /index/putting-frontier-cyber-models-in-more-trusted-hands/   (Aug 10 2026)
+    /index/putting-frontier-cyber-models-in-more-trusted-hands/   (Aug 10 2026)  <- NOW TOP
     /index/patch-the-planet/              (Daybreak initiative for OSS maintainers; program/policy)
     /index/safety-alignment-long-horizon-models/
     /index/introducing-openai-presence/   (product)
     /index/trusted-access-for-cyber/, /index/scaling-trusted-access-for-cyber-defense/,
     /index/updating-our-preparedness-framework/   (governance; lower altitude)
+  SPOTTED 20th RUN, UNREAD, PROBABLY BELOW THE BAR BUT CHEAP: "How enabling two settings tripled our
+    scores on the ARC-AGI-3 benchmark" (Research, Jul 29 2026) — a harness-configuration result, which
+    is a shape this pack HAS repeatedly found valuable (cf. d18637a2, infrastructure noise). Slug
+    unknown; resolve by search. "Ten advances in mathematics..." (Aug 1) is out of scope.
   ALREADY CITED BY LIVE FACTS — treat as READ, do not re-fetch (corrected 18th run):
     /index/responding-next-frontier-critical-cyber-capabilities/  (bcbf13c2, ee458c93)
     /index/expanding-daybreak-as-the-cyber-defense-window-narrows/ (2d7219c8, 8193c07b, ee458c93)
@@ -155,22 +180,31 @@ Security-tagged post's footer is a free listing of the three newest Security pos
   GPT-5.6 Sol at up to 14X the speed" (Aug 13), "Testing ads in ChatGPT" (Aug 11), "Daybreak models
   are now available on AWS" (Aug 11).
 
+*** ANTHROPIC /news/ — SLUGS ARE EDITORIALLY SHORTENED, DO NOT DERIVE THEM FROM TITLES (20th run) ***
+  READ: /news/investigating-incidents-cybersecurity-evals   (Jul 30 2026, 13th run)
+  READ: /news/claude-text-watermark                          *** 20th run. Aug 14 2026. ***
+        Title on the index is "How Claude's text watermark works"; the title-derived slug
+        /news/how-claudes-text-watermark-works 404s. SynthID-Text; the watermark rides on lexical
+        freedom so it is thin-to-absent on code, exact outputs and edits of human text. -> 943a7e3c.
+        No numbers of any kind in the post — no detection rate, no minimum length. Detection API
+        promised, not shipped. WATCH FOR: the detection API docs, which is where the thresholds land.
+  BELOW THE BAR: "Improving Fable 5's biology safeguards" (Aug 7), the Cuéllar appointment (Aug 4),
+    the Cognizant partnership (Jul 27), "Introducing Claude Opus 5" (Jul 24), "Our position on
+    open-weights models" (Jul 27, policy).
+
 *** COUNTER-POSITION TARGET — READ 16th RUN, RE-VERIFIED 19th, keep for provenance ***
 https://arxiv.org/abs/2508.09815 (PDF: https://arxiv.org/pdf/2508.09815) — Krawiecka & Schroeder de Witt,
   "Extending the OWASP Multi-Agentic System Threat Modeling Guide". 8pp, downloads with plain curl -A.
   READ 16th run: 3 facts + 1 update to c02ac546. Sixteen proposed threat classes tabulated against
-  OWASP coverage. NOTE ITS MODALITY — anticipatory, no measurements, no incidents; every fact written
-  from it says so.
-  *** 19th run: STILL v1, 13 Aug 2025, 8 pages (pdfinfo). Unchanged. All quotes in 74996815 and
-  24e4552d re-verified verbatim, including its BRITISH spellings (sanitisation/sanitises; the paper
-  uses no -iz- form). Beware: it names one class TWO ways — "heterogeneous multi-agent exploits" in
-  the abstract, "Heterogeneous Attackers" in the table. Its wide tables need SEMANTIC pairing, not
-  positional. ***
+  OWASP coverage. NOTE ITS MODALITY — anticipatory, no measurements, no incidents.
+  *** 19th run: STILL v1, 13 Aug 2025, 8 pages (pdfinfo). Unchanged. Beware: it names one class TWO
+  ways — "heterogeneous multi-agent exploits" in the abstract, "Heterogeneous Attackers" in the
+  table. Its wide tables need SEMANTIC pairing, not positional. ***
   Its reference list is a small unmined catalogue of multi-agent eval work:
   NetSafe (arXiv 2410.15686, topological safety of agent networks), TrustAgent (EMNLP Findings 2024),
-  chaos engineering for LLM MAS (arXiv 2505.03096), The Traitors (arXiv 2505.12923, deception/trust
-  in MAS simulations), Open Challenges in Multi-Agent Security (arXiv 2505.02077). NetSafe and the
-  chaos-engineering paper look closest to this pack's bar; the rest are game-simulation benchmarks.
+  chaos engineering for LLM MAS (arXiv 2505.03096), The Traitors (arXiv 2505.12923), Open Challenges
+  in Multi-Agent Security (arXiv 2505.02077). NetSafe and the chaos-engineering paper look closest to
+  this pack's bar; the rest are game-simulation benchmarks.
 
 *** AWS BUILDERS' LIBRARY — COMPLETE ENUMERATION (30 of 30, no more pagination) ***
 URLs are opaque content IDs, NOT guessable from titles: https://builder.aws.com/content/<ID>/<slug>
@@ -230,6 +264,9 @@ STRANDS DOC URLS — base is https://strandsagents.com/docs/... (NOT /latest/...
 Still unread: Swarm / Graph / Agent-as-Tool multi-agent patterns, session persistence.
 NOTE (15th run): the Strands docs carry snake_case AND camelCase spellings side by side and document
 some defaults for the TypeScript binding only. Do not record a default without recording its binding.
+GOOSE (20th run): goose-docs.ai now carries a banner "goose has moved to the Agentic AI Foundation
+  (AAIF)", linked with a 2026/04/07 date. The docs still serve normally — a governance change, not a
+  dead source. Do not add it to any dead list.
 
 *** MCP SPECIFICATION — THE REPO IS THE SOURCE, AND SITE URLs DO NOT MAP TO REPO PATHS ***
 github.com/modelcontextprotocol/modelcontextprotocol renders directly to modelcontextprotocol.io.
@@ -240,24 +277,29 @@ PAGE MOVES — CORRECTED 17th run, the 16th run's version was wrong. Full detail
   security_best_practices: now at docs/docs/<rev>/tutorials/security/security_best_practices.mdx,
     and it exists for every revision, which is what makes revision-diffing possible.
   /docs/concepts/tools: NOT gone — it REDIRECTS to /specification/2026-07-28/server/tools. Its content
-    lives at docs/specification/<rev>/server/tools.mdx, NOT at learn/server-concepts.mdx as the 16th
-    run recorded (that page contains none of the tool-contract material; grepped and confirmed empty).
-    Facts ee3bc7d3, ca3382bd and 46eeb374 all cite the old URL and were never actually broken; all
-    three were re-verified against 2026-07-28 on the 17th run and now carry the canonical URL too.
-*** AUTHORIZATION WAS ONE FILE AND IS NOW FOUR PAGES — ADDED 18th run. ALL FOUR NOW READ (19th). ***
+    lives at docs/specification/<rev>/server/tools.mdx.
+*** AUTHORIZATION WAS ONE FILE AND IS NOW FOUR PAGES — ADDED 18th run. ALL FOUR READ (19th). ***
   through 2025-11-25:  docs/specification/<rev>/basic/authorization.mdx        (single file, 708 lines)
   2026-07-28 + draft:  docs/specification/<rev>/basic/authorization/index.mdx                  (424 lines)
                        .../authorization/security-considerations.mdx           (131 lines)
                        .../authorization/client-registration.mdx               (202 lines)
                        .../authorization/authorization-server-discovery.mdx    (144 lines)
-  So a predecessor path built by substituting the revision date 404s. Resolve from tree.json.
-  See fetch-routes 3b and 3c — the 404 body diffs as "entirely new" and will fabricate a version claim.
-  AND SEE fetch-routes (e): the split RESTATES some rules at a weaker modality on the topic page
-  (the `scope` SHOULD lives on index.mdx and reads as "can" on the discovery page). Cite the strongest.
-RELEASED REVISION DIRECTORIES as of 2026-08-15: 2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25,
-  2026-07-28, plus draft. Unchanged since the 11th run — NINE consecutive runs.
-REVISION 2025-11-25 = EXACTLY 41 FILES across docs/docs, docs/specification and schema/2025-11-25
-  (19th run; enumerate on the revision date per fetch-routes 3d, never on a docs/ prefix).
+*** VERSIONING IS TWO DIFFERENT PAGES IN TWO DIFFERENT TREES — ADDED 20th run. ***
+  docs/docs/<rev>/learn/versioning.mdx           EVERY revision. Short concept page (~51-68 lines).
+  docs/specification/<rev>/basic/versioning.mdx  ONLY 2026-07-28 and draft (183 lines). The normative
+                                                 page: negotiation, extensions, dual-era matrix.
+  So the naive predecessor path 404s and the naive conclusion ("the page is new") is half wrong.
+  READ 20th run: the 2026-07-28 spec page, and the learn page at BOTH 2025-11-25 and 2026-07-28.
+  ALSO READ 20th run (Backward Compatibility sections only): basic/transports/stdio.mdx and
+  basic/transports/streamable-http.mdx at 2026-07-28. The REST of both transport pages is UNREAD and
+  is now the top MCP target — they are large and carry the normative detail the versioning page only
+  summarises (fetch-routes precondition (f)).
+RELEASED REVISION DIRECTORIES as of 2026-08-17: 2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25,
+  2026-07-28, plus draft. Unchanged since the 11th run — TEN consecutive runs.
+REVISION FILE COUNTS (enumerate on the revision date per fetch-routes 3d, never on a docs/ prefix):
+  2025-11-25 =  41 files   (19th run, re-confirmed 20th)
+  2026-07-28 = 186 files   (20th run — 4.5x larger; budget accordingly, but a full sweep is still
+                            one shell loop and the 20th run did it)
 
 CLAUDE PLATFORM DOCS — the prompting page routes to PER-MODEL sub-pages (found 12th run):
   .../prompt-engineering/prompting-claude-opus-5    <- has a 'Controlling subagent spawning' section
