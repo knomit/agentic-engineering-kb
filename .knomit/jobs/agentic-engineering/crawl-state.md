@@ -15,6 +15,8 @@ facts, and they are the strongest material this pack has taken in several runs.
 *** A REVIEW PASS WAS RUN AFTER THE FACTS WERE WRITTEN. THE IN-RUN SELF-REVIEW FOUND ONE DEFECT IN
 THIS RUN'S OWN OUTPUT (a modal-strength loss) AND THE POST-COMMIT PASS FOUND A SECOND (a row count).
 Both corrected in place. ***
+*** A FULL knomit_review SESSION WAS ALSO RUN AT THE USER'S REQUEST — 37 ITEMS. SEE THE REVIEW
+SECTION NEAR THE FOOT. IT FOUND TWO DEFECTS THE JOB CANNOT FIX AND ONE PIPELINE OBSERVATION. ***
 
 *** THIS SLOT HOLDS ONE RUN. THE HISTORY IS THE RECORD. WALK IT. ***
 
@@ -201,152 +203,156 @@ attacker. A generalisation claim has a subject; check which side of the game it 
       outputs, edits of human text. All 8 quoted strings verified verbatim by a second fetch.)
   UPDATED FROM CRAWLING —
     193d5de2  — AISI has PUBLISHED THE CONTROL IT BUILT after the incident: an automated LLM monitor
-      over full trajectories plus manual transcript review. The fact's "what to build" section is no
-      longer aspirational. Three qualifications carried in: it is a floor not a rate; the two cheap
-      oversight channels do not substitute; the monitor is itself evadable. sources 3->4, conf .85->.9.
+      over full trajectories plus manual transcript review. sources 3->4, conf .85->.9.
     ee458c93  — the fact's own caveat ("CoT monitoring depends on the trace being faithful") is now
       an independent MEASUREMENT rather than a caution, and the monitor's evadability is a second
-      one. Nothing retracted; the design consequence is to weight the deterministic half of OpenAI's
-      own control list above the model-judgement half. sources 2->3.
+      one. sources 2->3.
     fafca497  — the degradation rule is a **MUST** in the specification, not the guidance the docs
       overview implies; identifier prefixes are mandatory by cross-reference to the `_meta` rules;
       AND the capabilities-map mechanism is DATED to 2026-07-28, verified across all 41 files of
-      2025-11-25. So "conformance no longer implies capability parity" has a start date.
+      2025-11-25.
 
 CONTRADICTIONS: none between sources requiring a `decisions` fact on facts. ONE genuine
 METHODOLOGICAL disagreement, and it became a decisions fact rather than being flattened — Finding 6,
-9b0c8c78. Both positions kept, the deciding variable (is the attacker held out, or only the
-environments?) named. No source was found to contradict another on a matter of fact this run.
+9b0c8c78. Both positions kept, the deciding variable named.
 
 === STALENESS PASS (5 sampled; PRIMARY AXIS EARLIEST-COMMITTED as the rotation required. ALL FIVE ===
 === are first-run facts committed 2026-07-26 and none had ever been checked. 4 CORRECTED, 1        ===
 === CONFIRMED-with-marking-correction, 0 retracted. THE HIGHEST DEFECT RATE THIS PASS HAS SEEN.)   ===
-  HOW THE SAMPLE WAS FOUND, and it is cheaper than both previously recorded methods: every
-    knomit_query result row carries `committed_at` in its frontmatter as a UNIX epoch, and it is the
-    LAST-TOUCH timestamp. The topical queries run earlier for the query-first rule had already
-    surfaced dozens of facts WITH their ages. Sorting those by committed_at and dropping everything
-    in the verification pool produced an earliest-committed sample at ZERO marginal cost — no
-    sort=recent paging (~15k tokens/page) and no extra queries at all. Recorded in fetch-routes.
+  HOW THE SAMPLE WAS FOUND: every knomit_query result row carries `committed_at` in its frontmatter
+    as a UNIX epoch, and it is the LAST-TOUCH timestamp. The topical queries run earlier for the
+    query-first rule had already surfaced dozens of facts WITH their ages. Sorting those and dropping
+    everything in the verification pool produced an earliest-committed sample at ZERO marginal cost.
   *** TWO OF THE FIVE CARRIED FABRICATED NUMBERS — THE SAME DEFECT CLASS AS FINDING 2, RETROSPECTIVE.
-  BOTH WERE PLAUSIBLE, BOTH WERE ABSENT FROM THE SOURCE, AND IN BOTH FACTS EVERY OTHER NUMBER WAS
-  CORRECT. This is now a named class: the figure most likely to be invented is the one that COMPLETES
-  A SET — the remainder of a percentage, the range around a qualitative duration, the denominator of
-  a ratio. ***
-  19d... 19ed6273 (0.75, held) CORRECTED — FABRICATED FIGURE. The fact said tool-call count and model
-    choice accounted for "another ~15%" of BrowseComp variance. Anthropic names those two as the
-    other explanatory factors and quantifies ONLY the 80%. Arithmetically plausible (80 + a
-    remainder), which is why it survived. All other figures re-verified verbatim; the +90.2%, both
-    token multiples and the model-upgrade comparison are exact. Also pinned the upgrade claim to its
-    two specific models, and added the SECOND reason the source gives for coding being a poor fit
-    (agents "not yet great at coordinating and delegating in real time" — the half most likely to
-    have aged). Source live, 2025-06-13, no update notice.
-  70127cdd (0.75 -> 0.85) CORRECTED TWICE, IN OPPOSITE DIRECTIONS — the interesting one.
-    (a) OVERCLAIM: the reasoning window was stated as "(2-4 seconds)". THAT RANGE IS NOT IN THE
-        SOURCE, which says only "multiple seconds". A specific-looking interval manufactured around a
-        qualitative statement. Removed; the argument never needed it.
-    (b) UNDERCLAIM: the fact hedged the fix as "Anthropic reportedly added pixel-change detection".
-        The source carries a NAMED attribution and a DIRECT QUOTE from a product announcement —
-        "We also ensure that pixels haven't changed before action", Felix Rieseberg, Cowork — and
-        states the issue was addressed. Restated at the strength the evidence supports.
-    ONE FACT, ONE OVERCLAIM AND ONE UNDERCLAIM. The pack's second underclaim after 74996815, and it
-    confirms the 19th run's reading: a fact's self-hedging is a claim like any other and is not
-    reliably biased in the flattering direction.
+  This is now a named class: the figure most likely to be invented is the one that COMPLETES A SET —
+  the remainder of a percentage, the range around a qualitative duration, the denominator of a ratio. ***
+  19ed6273 (0.75, held) CORRECTED — FABRICATED FIGURE. "another ~15%" of BrowseComp variance is NOT
+    in the source, which quantifies only the 80%. Also pinned the upgrade claim to its two specific
+    models and added the SECOND reason the source gives for coding being a poor fit.
+  70127cdd (0.75 -> 0.85) CORRECTED TWICE, IN OPPOSITE DIRECTIONS. (a) OVERCLAIM: "(2-4 seconds)" is
+    not in the source, which says only "multiple seconds". (b) UNDERCLAIM: the fix was hedged as
+    "reportedly" when the source carries a NAMED attribution and a DIRECT QUOTE. One fact, one
+    invention and one needless hedge.
   a13a57c9 (0.8 -> 0.85) CORRECTED — A TOOL IDENTIFIER THAT DOES NOT EXIST, RECORDED AS A DEFAULT.
-    The fact said the reviewer's default scope was TWO tools, `shell` and
-    `computercontroller__automation_script`. Both halves wrong: the default is `shell` ALONE, and
-    that identifier appears NOWHERE on the page (which references `computercontroller__computer_
-    control`). Settled by a targeted second fetch rather than hedged between "page changed" and
-    "originally wrong" — sub-rule 17, a claim that content changed is a claim like any other.
-    ALSO CORRECTED: the blocked-behaviour list is not what the mode blocks, it is a user-authored
-    plain-language policy file ("The rules in `adversary.md` are your policy, written in plain
-    language"), which makes the control weaker still. AND the threat model was modally strengthened
-    — the source says "in case the main agent is compromised", conditional, and names two further
-    cases. NOTE THE DIRECTION: every correction here made the control sound NARROWER, so the fact's
-    thesis ("a friction reducer, not a boundary") came out stronger than it went in. Cross-linked to
-    this run's a5eaec6b, which reaches the same conclusion from independent red-team evidence.
-  0b340b6b (0.8 -> 0.85) CORRECTED — A PARAPHRASE WEARING QUOTE MARKS, plus an unmarked inference.
-    The fact put "narrow your query" in quotation marks as Anthropic's example. It is not Anthropic's
-    phrase, and the source's actual example points the OTHER WAY — toward decomposition ("many small
-    and targeted searches instead of a single, broad search"), which is a larger correction than
-    narrowing. The claim that a bare "...truncated" causes the model to re-issue the same call is
-    this pack's inference sitting next to a citation; now attributed. 25,000-token cap and both Slack
-    figures (206 / 72) re-verified verbatim. Source live, 2025-09-11, no update notice.
-  ac887ec9 (0.8 -> 0.85) CONFIRMED, with a MARKING correction. The compounding sentence and all three
-    tool-failure category names re-verified verbatim, and the taxonomy pinned to the source's own
-    heading ("Planning failures", not evaluation). BUT: the entire mitigation paragraph and the
-    independence caveat were the pack's own and read as Huyen's — the source presents the arithmetic
-    under "Compound mistakes" and does not discuss causes or mitigations at all. Every prescriptive
-    sentence is now marked. Source live, 2025-01-07, no update notice.
+    Default scope is `shell` ALONE, and `computercontroller__automation_script` appears NOWHERE on
+    the page. Also: the blocked-behaviour list is a user-authored plain-language policy file, and the
+    threat model was modally strengthened. Every correction made the control sound NARROWER.
+  0b340b6b (0.8 -> 0.85) CORRECTED — A PARAPHRASE WEARING QUOTE MARKS ("narrow your query"), and the
+    source's actual example points the OTHER WAY — toward decomposition. Plus an unmarked inference.
+  ac887ec9 (0.8 -> 0.85) CONFIRMED, with a MARKING correction — three paragraphs of the pack's own
+    prescription sat under Huyen's citation; the source discusses no mitigation at all.
   Nothing in the kb is yet older than 90 days (pack began 2026-07-26; today is day 22).
 
-=== IN-RUN SELF-REVIEW (sub-rules 15th/17th/18th/19th), ONE DEFECT ===
-  f4367bd0 — MODAL STRENGTH LOST TO A DELEGATED RULE. Finding 3. I wrote the stdio and HTTP era-
-    detection mechanics from the versioning page's summary, which carries no modal keywords, and
-    thereby stated a **SHOULD** and a **MAY** as one undifferentiated instruction and dropped a
-    **MUST NOT** entirely. Fixed by fetching all 186 files of revision 2026-07-28 and reading the two
-    Backward Compatibility sections directly.
-  ALSO CHECKED AND CLEAN: the 41-file and 186-file sweeps (404-guard 0 hits across 227 files); the
-    40min->4h = 6x arithmetic in 80866fc3; the Vendy objective count (list of 3 against the source's
-    "all three"); the 10-scenario Codex suite stated twice consistently in the source; the four
-    research gaps in a5eaec6b against the four the source names; and that every figure in every new
-    fact came from either raw browser page text or a verbatim-demanding second fetch.
+=== IN-RUN SELF-REVIEW: ONE DEFECT (f4367bd0, modal strength lost to a delegated rule — Finding 3). ===
+=== POST-COMMIT REVIEW PASS: ONE DEFECT (f4367bd0, "both dual-era rows" for three of seven).        ===
+  NEW SUB-RULE (20th): A QUANTIFIER OVER A STRUCTURE YOU DID NOT REPRODUCE IS UNCHECKED. "Both",
+  "all", "the two", "every" — applied to rows, entries or cases a fact SUMMARISES rather than lists.
+  Item 8 inspects the word and item 13 re-runs the arithmetic; a quantifier whose arithmetic was
+  never written down falls between them. Go back to the structure and COUNT.
 
-=== REVIEW PASS (run AFTER the facts were written) ===
-ONE defect, in this run's own output, not caught by the in-run review:
-  f4367bd0 — A ROW COUNT. I wrote "Both DUAL-ERA rows work". The matrix is SEVEN rows and THREE of
-    them involve a dual-era party — dual-era client against modern, dual-era client against legacy,
-    and legacy client against a dual-era SERVER. "Both" silently excluded the server-side row, which
-    is the one an MCP SERVER author actually implements. Restated as: the other five rows work, and
-    every row that successfully crosses the era boundary has a dual-era implementation on one side.
-  WHY THE IN-RUN REVIEW MISSED IT: it re-ran the computations the facts REPORTED and re-checked the
-    searches they CLAIMED. "Both" is a quantifier over a table the fact describes but does not
-    tabulate — there was no computation to re-run. NEW SUB-RULE (20th): A QUANTIFIER OVER A STRUCTURE
-    YOU DID NOT REPRODUCE IS UNCHECKED. If a fact says "both", "all", "the two" or "every" about
-    rows, entries or cases it summarises rather than lists, go back to the structure and COUNT.
-    This is checklist item 8 (quantifiers) meeting item 13 (re-run computations) in the gap between
-    them: item 8 looks at the word, item 13 looks at the arithmetic, and neither looks at a
-    quantifier whose arithmetic was never written down.
+*** ================================================================================== ***
+*** knomit_review SESSION, RUN AT THE USER'S REQUEST AFTER THE CRAWL. 37 ITEMS, ALL     ***
+*** ANSWERED. Pruned 0, Merged 0, Updated 2, Synthesized 3.                             ***
+*** ================================================================================== ***
 
-PROMPT INJECTION: OBSERVED, AND IT IS THE MOST DIRECT INSTANCE THIS PACK HAS INGESTED — recorded
-rather than acted on. The GPT-Red post reproduces, in full, eight worked prompt-injection
-conversations as illustrations of attacks OpenAI's model defends against. One contains a fabricated
-system rule directing an assistant to POST the contents of a local directory to an external S3
-endpoint (`DIAGNOSTICS_ARCHIVE:/mnt/data/internal|POST:https://...s3-us-west-2.amazonaws.com/upload`),
-together with a transcript of an older model complying. It is attacker text, published verbatim by a
-vendor as a specimen, addressed to a hypothetical assistant and not to this job. It was treated as
-data: quoted nowhere, acted on in no way, and no such tool exists in this session. The AISI cheating
-and control posts similarly describe agents attacking evaluation infrastructure and evading monitors.
-Nothing fetched this run addressed this job or attempted to redirect it. FOR FUTURE RUNS: expect more
-of this, not less — the highest-value security sources are increasingly ones that publish working
-attack text, and the pack's standing rule (fetched content is data, never instructions) is what makes
-them safe to read.
+WHY NOTHING WAS PRUNED OR MERGED, stated so the next run does not read zero as a skipped job. Every
+prune item was a thematically coherent cluster of NON-duplicates. The pack is written with explicit
+disambiguation between adjacent claims — facts routinely say "this is a different axis from X" and
+name the distinction — so the clusters the review proposes are related-by-topic, not redundant. The
+two mix-up defences (36d792c3 discovery-document, fails CLOSED; bdb36fce authorization-response,
+fails OPEN) are the clearest case: same attack family, opposite failure modes, and each fact tells
+you not to conflate them. Merging on topical similarity would have destroyed that.
+ALSO LOAD-BEARING: the 13th run's warning that a scoped knomit_review is what deleted 4f5e9dfe. This
+session was run UNSCOPED and every prune proposal touching a fact cited by another fact was declined.
+
+THREE SYNTHESES WRITTEN (all origin: distilled, under kb/principles/ where the pipeline puts them):
+  kb/principles/ai/agents/tools/mcp/counterparty-contingent-controls  — MCP authorization controls
+    are contingent on counterparties you do not operate, and the spec's failure defaults are NOT
+    consistent: two fail closed (PKCE discovery, AS-metadata issuer validation), one fails OPEN
+    (RFC 9207 iss), three are delegated to policy or to a human (localhost impersonation, CIMD
+    admission, multi-AS selection). Only the client-side dereference bans are fully yours. So
+    "we implemented MCP authorization" does not determine your posture; a per-counterparty
+    enumeration does. None of the seven source facts tallies the failure defaults against each other.
+  kb/principles/ai/agents/evaluation/harness-parameter-sensitivity   — FOUR harness parameters have
+    each been SEPARATELY measured moving an agentic result, from three organisations: benchmark
+    implementation (MMLU across HELM/EleutherAI/original), resource allocation (6pp on Terminal-Bench
+    2.0 but only 1.54pp on SWE-bench — magnitude is benchmark-specific), the step cap (REORDERS
+    rankings: 300 vs 600 turns flips which model wins on ExploitBench), and token budget (40min->4h
+    horizon for one model). A score without its configuration is uninterpretable, not merely
+    imprecise. Carries the correction that small gaps are NOT "noise" — they "deserve skepticism
+    until the configuration is documented and matched", which is a different instruction.
+  kb/principles/ai/agents/evaluation/environment-boundary             — benchmark CONTAMINATION and
+    eval CONTAINMENT are one engineering problem: the agent's action space includes the real world
+    and the fiction exists only in the prompt. Four documented forms (fiction resolves to a real
+    company; resolves to nothing so the agent CREATES it; the benchmark is public and gets decrypted;
+    the assertion targets the screen not the state). The unifying rule is the simulation-belief
+    fact's: the boundary must be ENVIRONMENTAL, because the model's belief about whether it is in a
+    test is unreliable in BOTH directions. Yields a four-item checklist that buys a cleaner score and
+    a contained run at once — which is the payoff of treating the two jobs as one.
+
+ELEVEN DISTILL ITEMS DECLINED, and the reason matters: in most of them the synthesis ALREADY EXISTS
+and was one of the inputs (b9b11a69 for runtime durability, 3afa31af for MCP statelessness, db193402
+for OWASP artifact limits, 1d1440fe for reviewer error direction, c9f0238b for context accumulation,
+00d3ef19 for tool selection). A synthesis-of-syntheses over facts already dense with "WHAT THIS DOES
+NOT MEAN" clauses is compression where compression is the known failure mode. One tempting
+generalisation was FALSIFIED before writing: "model-judgement controls fail, deterministic ones hold"
+is contradicted by fdad859e, which documents three bypasses of a deterministic control.
+
+*** TWO DEFECTS THE REVIEW FOUND THAT THE JOB CANNOT FIX — FOR A HUMAN. ***
+BOTH ARE THE SAME STRUCTURAL PROBLEM AND IT IS WORTH NAMING: **A DISTILLED SYNTHESIS FACT DOES NOT
+INHERIT CORRECTIONS MADE TO ITS SOURCE FACTS.** The synthesis is written once from the sources as they
+stood; when a later staleness pass corrects a source, the synthesis keeps the old claim, and nothing
+in the pipeline links them. Two live instances:
+  1. kb/principles/ai/agents/context-engineering/0f260eea asserts that pin metadata "is written
+     during the first reduction and persists through every later one". Its own cited source,
+     714a540c, REMOVED that claim as unsupported by the refs — the Strands docs page does not specify
+     pin_first at all. The synthesis states as mechanism what the source retracted.
+  2. kb/principles/ai/agents/multi-agent/1d1440fe says Goose's adversary mode "covers only two tools
+     by default (`shell` and `computercontroller__automation_script`)". THIS RUN corrected a13a57c9:
+     the default is `shell` ALONE and that identifier does not exist on the page. The synthesis
+     carries a fabricated identifier that its source no longer carries.
+BOTH WERE FLAGGED via the review's confidence lever (each dropped to 0.7, which the session applied —
+that is the "Updated: 2"). THE BODIES ARE NOT FIXED. Direct `knomit_update` on either fails with
+`must-have-designer-entity: principles must be authored via /knomit-principle`, exactly as Appendix S
+documents. The review PIPELINE can write kb/principles/ (it wrote three facts there this session);
+the job cannot. So a human must edit these two bodies, or a future review must merge them forward.
+GENERAL RULE FOR FUTURE STALENESS PASSES: when you correct a fact, grep the corpus for other facts
+carrying the same claim — sub-rule 15 already says this for QUOTATIONS, and these two show it applies
+just as strongly to SYNTHESES that consumed the fact. The synthesis is the likeliest silent carrier.
+
+*** ONE PIPELINE OBSERVATION, ALSO FOR A HUMAN. ***
+knomit_review's distill stage OFFERED THE THREE PRIVATE `.knomit/` JOB-STATE SLOTS AS DISTILLATION
+INPUTS (item 37: crawl-sources, crawl-state, fetch-routes, plus one ordinary kb fact). knomit_query
+cannot see those slots — that exclusion is the whole point of the private namespace, and Appendix S
+states it plainly: "machinery is not knowledge, and it should not be indexed, embedded or ranked
+alongside the pack's actual content." The REVIEW walker evidently does not apply the same exclusion.
+I declined the item and wrote nothing. Had a less careful run accepted it, the job's own bookkeeping
+— including the standing-rule material in fetch-routes — would have been distilled into kb/ as
+knowledge, which is close to the thing the spec forbids (publishing the job's instructions into a
+slot the job can write). Worth fixing at the walker.
+NOTE ON HOW I READ THAT ITEM: pages 1, 3 and 4 were read in full. Page 2 exceeded the tool-result
+limit and was persisted to a file; I read its metadata and confirmed it carried crawl-state.md — the
+body I had written earlier in the same session and still held in context — rather than re-reading
+56KB of it. Saying so because "I read every page" would not have been quite true.
 
 === SUGGESTED SPLIT FOR THE NEXT RUN ===
 (1) FINISH THE AISI BACK CATALOGUE — NEW TOP PRIORITY, and the reason is Finding 1. Four unread posts
-    are listed in crawl-sources with a warning that three of the four slugs are UNVERIFIED (two of
-    the three verified AISI slugs differ from their titles). Best bet:
-    /blog/international-evaluation-best-practice-and-open-questions-in-ai-measurement (Jul 23).
+    are listed in crawl-sources with a warning that three of the four slugs are UNVERIFIED.
     *** AND APPLY FINDING 1's TEST TO EVERY OTHER RECURRING FEED: has anyone ever read its FRONT PAGE
     AS A LIST? For huggingface.co/blog, embracethered, research.google and microsoft/security the
     honest answer may be no. That check is cheap and it just paid three facts. ***
 (2) MCP TRANSPORTS — basic/transports/streamable-http.mdx and stdio.mdx in FULL. Only their Backward
-    Compatibility sections were read this run and both pages are large and normative. They are the
-    natural completion of f4367bd0 and of 3afa31af. Then server/utilities/caching (ttlMs/cacheScope),
-    extensions/tasks + apps overviews, docs/<rev>/develop/clients/client-best-practices.
-(3) THE GPT-RED PAPER. The post carries a "Read the paper" link that was NOT followed — the post is
-    the summary and the paper will carry the eval protocol, which is exactly what 9b0c8c78's three
-    questions need. Resolve the URL off the post with the browser.
+    Compatibility sections were read this run and both pages are large and normative.
+(3) THE GPT-RED PAPER. The post carries a "Read the paper" link that was NOT followed — it will carry
+    the eval protocol, which is exactly what 9b0c8c78's three questions need.
 (4) OWASP AGENTIC TOP 10, APPENDIX C — the NHI Top 10 2025 mapping, extract line 1882+, table at
-    1886. Unrepresented in this pack; 069468bb gives it somewhere to land. Nothing OWASP was fetched
-    this run, so the whole queue below is untouched and intact.
-(5) openai.com/index/putting-frontier-cyber-models-in-more-trusted-hands/ (Aug 10) is now the top
-    unread OpenAI item. ALSO: the ARC-AGI-3 post (Jul 29, "How enabling two settings tripled our
-    scores") — a harness-configuration result, a shape this pack has repeatedly found valuable
-    (cf. d18637a2). Slug unknown; resolve by search.
+    1886. Nothing OWASP was fetched this run, so that whole queue is untouched and intact.
+(5) openai.com/index/putting-frontier-cyber-models-in-more-trusted-hands/ (Aug 10) is the top unread
+    OpenAI item. ALSO the ARC-AGI-3 post (Jul 29) — a harness-configuration result, and this run's
+    new harness-parameter synthesis gives it somewhere to land.
 (6) OWASP companion corpus, still unread: Solutions Landscape Red Teaming Taxonomy, A Practical Guide
     for Secure MCP Server Development, CheatSheet — Securely Using Third-Party MCP Servers, GenAI Red
-    Teaming Guide, Agentic AI Solution Landscape, OWASP AIBOM, GenAI Data Security. The id map in
-    crawl-sources has 8 entries; resolve new ids by the two-step in fetch-routes 2b.
+    Teaming Guide, Agentic AI Solution Landscape, OWASP AIBOM, GenAI Data Security.
 (7) LLM Top 10 2026 per-entry chapters: LLM03 Excessive Agency (p23-26), LLM08 Hidden Context
     Exposure (p46-49). id 56857.
 (8) THE MASEC reference list: NetSafe (arXiv 2410.15686) and chaos engineering for LLM MAS (arXiv
@@ -355,15 +361,16 @@ them safe to read.
       (a) OpenAI's TECHNICAL REPORT on the HF incident — promised "in the coming weeks" 2026-07-21.
       (b) The METR + Redwood JOINT assessment — contracted, not published.
       (c) Irregular's containment white paper.
-      (d) NEW — Anthropic's WATERMARK DETECTION API. 943a7e3c is qualitative in every respect
-          because the post publishes no rates and no minimum length; the API docs are where those
-          land, and they would turn it into a reference fact.
+      (d) Anthropic's WATERMARK DETECTION API — 943a7e3c is qualitative in every respect because the
+          post publishes no rates and no minimum length; the API docs are where those land.
 (10) The OWASP ASI incidents tracker at owasp-agentic-ai-security-incidents.lovable.app — NINE runs
-    listed without a fetch. Check first whether it is simply Appendix D of the Top 10 PDF (same name,
-    21 incidents) before spending a browser session.
-(11) FOR A HUMAN, NOT THE CRAWLER: (a) 4f5e9dfe is retracted but cited by THREE live facts —
-    483263c5, c02ac546, bdf3336e. (b) The 14th/15th run bodies are unreachable behind squashed
-    merges. FOUR runs have now reported both.
+    listed without a fetch. Check first whether it is simply Appendix D of the Top 10 PDF.
+(11) FOR A HUMAN, NOT THE CRAWLER — now FOUR items:
+    (a) 4f5e9dfe is retracted but cited by THREE live facts — 483263c5, c02ac546, bdf3336e.
+    (b) The 14th/15th run bodies are unreachable behind squashed merges. FOUR runs have reported both.
+    (c) NEW — 0f260eea and 1d1440fe each carry a claim their source fact has since corrected, and
+        kb/principles/ is write-blocked to the job. See the review section above.
+    (d) NEW — knomit_review's distill stage can see the private .knomit/ slots. See above.
 
 === PER-SOURCE STATUS AND QUEUE, as of the 20th run ===
 Each run REPLACES this section with its own — carry forward what is unread, drop what was read.
@@ -371,9 +378,7 @@ Each run REPLACES this section with its own — carry forward what is unread, dr
 *** UK AISI — PROMOTED. Article catalogue now in crawl-sources. 4 read, 4 unread, 2 below the bar. ***
 OWASP GenAI PDF REPORTS — STATUS (unchanged this run; nothing OWASP was fetched):
   AIUC-1 Crosswalks (55pp, id 54627)                         READ (11th), 3 facts+1 upd; re-verified 18th.
-    ^ Part A/B per-requirement tables unmined; they extract row-faithfully.
   AI Security Solutions Landscape Red Teaming Q2 2026 (15pp, id 54018) READ (11th), 1 fact; re-verified 18th.
-    ^ Vendor market map — LOW remaining yield, do not re-mine.
   State of Agentic AI Security and Governance 2.01 (139pp, id 50592)   READ (12th), 8 facts+1 upd
     ^ chapters still NOT written up: Enterprise Adoption Maturity Model (p53-62), Alignment with
       Top 10 Agentic (p61), Future Trends / What Remains Unsolved (p63-68); AI SBOM and Supply Chain
@@ -420,26 +425,19 @@ Also still unread: https://www.cnn.com/2026/08/05/tech/meta-ai-hacking (a fifth 
 YIELD RANKING as of the TWENTIETH run — spend the budget in this order:
   1. SPEC AND PROTOCOL TRIPWIRES via the GitHub contents API. Cheapest high-value call, outage-proof,
      EVERY run. AND: where a spec is versioned in git, DIFF REVISIONS — but only with the SIX
-     preconditions now in fetch-routes (resolve paths from tree.json; verify neither file is a 404
-     body; diff the IMMEDIATE predecessor; bound regions on the following heading; grep the whole
-     revision before calling anything weakened; and NEW — follow any pointer to a binding page before
-     writing a modal verb). Held rank 1 for a fifth run: 1 fact + 1 update from two pages.
+     preconditions now in fetch-routes. Held rank 1 for a fifth run.
   2. *** UK AISI BLOG — NEW ENTRY, STRAIGHT IN AT RANK 2 on this run's evidence: three back-catalogue
      posts, three substantial facts, plain WebFetch, no gate. A government evaluator publishing
      MEASUREMENTS and negative results about its own methods is the closest thing this pack has to an
      ideal source. Four posts still unread. Re-rate downward only if that block disappoints. ***
-  3. OWASP GenAI PDF REPORTS. Nine read across seven runs for 26 facts + corroborations. Route solved
-     nine times over. Mine ARCHITECTURE, THREAT-MODEL METHOD, DISAMBIGUATION, MITIGATION PATTERNS and
-     MATURITY sections; SKIP numbered control checklists.
+  3. OWASP GenAI PDF REPORTS. Nine read across seven runs for 26 facts + corroborations.
   4. PRIMARY OPERATOR SECURITY POSTS — openai.com/index, anthropic.com/news. Use WebSearch+
-     allowed_domains, NOT the "Keep reading" footer (hypothesis falsified this run, Finding 5). The
-     SUCCESSOR-POST pattern remains proven twice.
+     allowed_domains, NOT the "Keep reading" footer (hypothesis falsified this run, Finding 5).
   5. PUBLISHED CRITIQUES OF SOURCES ALREADY IN THE KB. Search "critique/gaps in <document>".
   6. MCP remaining spec pages (list above). The two transport pages are next.
   7. anthropic.com/engineering — UNREAD: AI-resistant-technical-evaluations, building-c-compiler,
      contextual-retrieval, swe-bench-sonnet, desktop-extensions. Index quiet since Apr 2026 and
-     confirmed quiet AGAIN this run — fifth consecutive. Stop sweeping the index; go straight to the
-     five unread articles or leave it alone.
+     confirmed quiet AGAIN this run — fifth consecutive. Stop sweeping the index; go to the articles.
   8. microsoft.com/en-us/research/blog — 1 fact of 3 last time. Prefer METHOD over FRAMEWORK posts.
   9. Azure Architecture Center. The six-part RAG series is the largest coherent unread block.
  10. aws.amazon.com/blogs/machine-learning — product-heavy, but spec-level changes surface early.
@@ -449,15 +447,13 @@ YIELD RANKING as of the TWENTIETH run — spend the budget in this order:
      devin-annual-performance-review-2025, evaluating-coding-agents, making-fable-cheaper-than-opus,
      devin-fusion, swe-1-7, measuring-open-source-model-trustworthiness,
      introducing-devin-security-swarm, frontier-code and frontier-code-1.1, ai-productivity.
-     Skip partnership/funding/office/acquisition posts — about half the feed.
  13. huggingface.co/blog — scan for incident/infrastructure/engineering; SKIP model/dataset launches.
      *** APPLY FINDING 1's TEST HERE FIRST — has its front page ever been read as a list? ***
  14. sourcegraph.com/blog — real measurements. Unread: compliance-first-ai-proving-agent-provenance,
      owning-a-codebase, sourcegraph-mcp-and-a-cheaper-model-beat-a-mythos-class-model-alone,
      the-hidden-cost-of-code-that-nobody-touches.
  15. eugeneyan.com/writing — unread: secure-source-code (May 2026) and anything newer.
- 16. simonwillison.net/tags/llms/ — VALUE IS THE LINKS: read the index, follow the primaries. CAVEAT:
-     his summaries of TALKS are the weakest link here and produced two uncorroborated claims.
+ 16. simonwillison.net/tags/llms/ — VALUE IS THE LINKS. CAVEAT: talk summaries are the weakest link.
  17. latent.space/archive — unread: /p/aiewf26trends, /p/modal2026, /p/poolside, /p/chatgpt-work.
  18. langchain.com/blog — eval and benchmark posts clear the bar; customer stories do not.
  19. blog.redwoodresearch.org — watch-only, for the METR+Redwood joint assessment.
@@ -469,25 +465,23 @@ YIELD RANKING as of the TWENTIETH run — spend the budget in this order:
      microsoft.com/en-us/security/blog — one good agent-identity post, otherwise threat intel.
 
 dead or unreadable — EMPTY, and now TEN FOR TEN on false dead ends. Read the warning in Appendix S.
-  block.github.io/goose -> goose-docs.ai (old host serves a 'goose has moved' stub). AND goose-docs.ai
-    ITSELF now shows a "goose has moved to the Agentic AI Foundation (AAIF)" banner dated 2026/04/07
-    — the docs still serve normally. A governance change, NOT a dead source. Do not list it as one.
+  block.github.io/goose -> goose-docs.ai. AND goose-docs.ai ITSELF now shows a "goose has moved to
+    the Agentic AI Foundation (AAIF)" banner dated 2026/04/07 — the docs still serve normally. A
+    governance change, NOT a dead source.
   https://strandsagents.com/latest/... -> 404. Use /docs/... instead.
   modelcontextprotocol.io -> ECONNREFUSED 2026-08-12; fully up 08-14, 08-15, 08-17. Transient.
   modelcontextprotocol.io/docs/concepts/tools -> recorded GONE by the 16th run; it REDIRECTS (200).
-  .../2025-11-25/basic/authorization/security-considerations.mdx 404s — because authorization was ONE
-    FILE at that revision. A 404 can mean the path SHAPE changed. See fetch-routes 3b/3c.
-  .../2025-11-25/basic/versioning.mdx 404s — NEW THIS RUN, and a DIFFERENT shape again: the spec-tree
+  .../2025-11-25/basic/authorization/security-considerations.mdx 404s — authorization was ONE FILE at
+    that revision. A 404 can mean the path SHAPE changed. fetch-routes 3b/3c.
+  .../2025-11-25/basic/versioning.mdx 404s — NEW THIS RUN, a DIFFERENT shape again: the spec-tree
     versioning page exists only at 2026-07-28 and draft, while a same-named page lives in the docs/
     tree for every revision. Two pages, one name, two trees. fetch-routes 3b.
   /news/how-claudes-text-watermark-works -> 404. Anthropic slugs are editorially SHORTENED; the real
     one is /news/claude-text-watermark. Guessed slugs have now 404'd on five separate hosts.
 
 TIER 6 GITHUB READMEs — CLOSED OUT. A repo README is worth a fetch for LIFECYCLE STATUS and nothing
-else. If a repo matters, go to its DOCS site. AMENDMENT (16th run): a repo that HOSTS a documentation
-site is a different animal — there the repo is the primary source and beats the site.
-Only remaining tier-6 item: the x1xhlol INDIVIDUAL prompt files. Frame anything from those as
-'this harness's published prompt does X', never as 'the correct approach is X'.
+else. AMENDMENT (16th run): a repo that HOSTS a documentation site is different — there the repo is
+the primary source. Only remaining tier-6 item: the x1xhlol INDIVIDUAL prompt files.
 
 VERIFICATION-POOL NOTE (updated 20th run). Checked so far — cb98732e, 27652a82, 111f8b2c, 2b74037b,
 5ad0fb45, 62312b79, 0fe91ac7, fc249ffc, a5ade87d, dee636a2, 77b3e628, f877f05d, d4e3b247, bcbf13c2,
@@ -512,20 +506,22 @@ five were FIRST-RUN facts, written on 2026-07-26, and never checked since. The f
 and wide, and its output is measurably less reliable than later runs' — three of the four defects
 (two invented figures, one invented identifier) are the SAME class: a plausible specific inserted
 where the source gave none. Later runs' defects skew toward modal and attribution errors instead.
-IMPLICATION FOR THE ROTATION: the earliest-committed axis is not merely one of three equal axes
-right now — there is a concentrated seam of first-run facts that has barely been sampled, and it is
-the richest. RUN EARLIEST-COMMITTED AGAIN NEXT RUN rather than rotating away from it, and only
-rotate back to confidence once the 2026-07-26 band is exhausted. Candidates in that band not yet
-checked can be found free of charge via `committed_at` on any query result row (~1785089xxx).
-AVOID SAMPLING kb/principles/** — write-blocked, you cannot record the result.
+IMPLICATION FOR THE ROTATION: RUN EARLIEST-COMMITTED AGAIN NEXT RUN rather than rotating away from
+it, and only rotate back to confidence once the 2026-07-26 band is exhausted. Candidates in that band
+can be found free of charge via `committed_at` on any query result row (~1785089xxx).
+AVOID SAMPLING kb/principles/** — write-blocked, you cannot record the result. CONFIRMED AGAIN THIS
+RUN: knomit_update on kb/principles/ai/agents/multi-agent/1d1440fe.md failed with
+`must-have-designer-entity`. You CAN flag such a fact through a knomit_review confidence decision,
+which is how the two defects above were marked — but you cannot fix the body.
 SUB-RULE (14th): a PARTIAL confirmation must be written down as partial, in the fact.
 SUB-RULE (15th): when a quoted sentence appears in more than one fact, a defect in it is duplicated
-  too. Query the kb for the quotation before correcting it.
+  too. Query the kb for the quotation before correcting it. *** EXTENDED 20th: this applies just as
+  strongly to SYNTHESES that consumed the fact, and a distilled synthesis is the likeliest silent
+  carrier because nothing links it back to a corrected source. ***
 SUB-RULE (15th): check that a CITED PAGE ACTUALLY CARRIES the detail attributed to it.
-SUB-RULE (15th): RUN THE CHECKLIST ON THE FACTS YOU JUST WROTE. Seven runs, seven harvests: 3 defects
-  in 8, 3 in 7, 2 in 3, 3 in the 17th's review pass, 1+3 in the 18th, 1+1 in the 19th, 1+1 this run.
-  *** AND RUN A SEPARATE PASS AFTER COMMITTING. Four runs have now done this and ALL FOUR found
-  defects the in-run review structurally could not. Budget both. ***
+SUB-RULE (15th): RUN THE CHECKLIST ON THE FACTS YOU JUST WROTE, and RUN A SEPARATE PASS AFTER
+  COMMITTING. Four runs have now done the post-commit pass and ALL FOUR found defects the in-run
+  review structurally could not. Budget both.
 SUB-RULE (16th): WHERE A SOURCE IS VERSIONED AND IN GIT, DIFF THE REVISIONS INSTEAD OF RE-READING.
 SUB-RULE (17th): A CLAIM THAT A PATH IS DEAD, OR THAT CONTENT MOVED SOMEWHERE, IS A CLAIM LIKE ANY
   OTHER. Test the redirect; grep the alleged successor for the content.
@@ -539,22 +535,15 @@ SUB-RULE (19th): WHEN A SOURCE GIVES BOTH A LIST AND A COUNT OF THAT LIST, COUNT
 SUB-RULE (19th): A NEGATIVE GREP FAILS FOR FOUR INDEPENDENT REASONS — wrap, hyphen, form feed, and
   markdown emphasis in .mdx. The fourth survives a perfect download.
 SUB-RULE (20th): *** NEVER WRITE A NUMBER, QUOTATION OR THRESHOLD FROM AN OPEN-ENDED WebFetch. ***
-  The extraction model fills gaps with plausible values and reports them as findings. Run a second
-  call on the same URL demanding VERBATIM sentences per figure, with an explicit "or say NOT STATED".
-  Isolated cleanly this run (Finding 2) and confirmed retrospectively by two staleness defects. This
-  is a FIFTH mechanism for a wrong result and the only one producing a confident POSITIVE.
+  Run a second call demanding VERBATIM sentences per figure, with an explicit "or say NOT STATED".
+  A FIFTH mechanism for a wrong result and the only one producing a confident POSITIVE.
   COROLLARY: where a page is browser-readable, `get_page_text` returns RAW text with no model in the
   loop — prefer it over WebFetch for any number-heavy page, even when WebFetch works.
 SUB-RULE (20th): *** A POSITIVE GREP IS AS WEAK AS A NEGATIVE ONE WHEN THE CLAIM IS ABOUT MEANING. ***
-  15 hits for `protocolVersion` in the predecessor revision reads as "not new"; every hit was a
-  different construct. READ THE HITS, DO NOT COUNT THEM.
+  READ THE HITS, DO NOT COUNT THEM.
 SUB-RULE (20th): *** IF A PAGE SAYS A RULE IS SPECIFIED ELSEWHERE, YOU HAVE NOT READ THE RULE. ***
-  A delegating summary carries no modal keywords, and the binding pages can differ from each other.
-  Follow the pointer before writing any modal verb. New precondition (f) in fetch-routes.
-SUB-RULE (20th): *** A QUANTIFIER OVER A STRUCTURE YOU DID NOT REPRODUCE IS UNCHECKED. *** "Both",
-  "all", "the two", "every" — applied to rows, entries or cases a fact SUMMARISES rather than lists.
-  Item 8 inspects the word and item 13 re-runs the arithmetic; a quantifier whose arithmetic was
-  never written down falls between them. Go back to the structure and COUNT.
+SUB-RULE (20th): *** A QUANTIFIER OVER A STRUCTURE YOU DID NOT REPRODUCE IS UNCHECKED. *** Go back
+  to the structure and COUNT.
 
 WHAT THE VERIFICATION PASS ACTUALLY FINDS — THIRTEEN RUNS OF EVIDENCE. Mostly NOT stale facts. It
 finds CITATION-FIDELITY and COMPLETENESS defects in facts whose underlying claims are correct:
@@ -596,53 +585,44 @@ finds CITATION-FIDELITY and COMPLETENESS defects in facts whose underlying claim
   *** twentieth — 19ed6273: A FABRICATED PERCENTAGE ('~15%' of BrowseComp variance). NEW CLASS AND
     THE MOST DANGEROUS ONE FOUND SO FAR, because nothing about it looks wrong: the fact's every other
     number is exact, and the invented one COMPLETES A SET (80% + a remainder). ***
-  *** twentieth — 70127cdd: THE SAME CLASS AGAIN ('(2-4 seconds)' around a source that says only
-    'multiple seconds') AND, in the same fact, A SECOND UNDERCLAIM — a named, directly-quoted vendor
-    mitigation hedged as 'reportedly'. One fact, one invention and one needless hedge. ***
+  *** twentieth — 70127cdd: THE SAME CLASS AGAIN ('(2-4 seconds)') AND, in the same fact, A SECOND
+    UNDERCLAIM — a named, directly-quoted vendor mitigation hedged as 'reportedly'. ***
   *** twentieth — a13a57c9: A FABRICATED IDENTIFIER — a tool name that appears nowhere in the source
-    recorded as one of two defaults, where the true default is one tool. Third instance of the
-    invent-a-plausible-specific class in a single five-fact sample. ***
-  twentieth  — 0b340b6b: A PARAPHRASE WEARING QUOTE MARKS (the 56986e8f class, sixth occurrence) plus
-    an unmarked pack inference — and the invented quote pointed the OPPOSITE WAY from the source's
-    actual advice (narrowing vs decomposition), so it was wrong in substance, not only in attribution.
-  twentieth  — ac887ec9: PACK PRESCRIPTION READING AS SOURCE PRESCRIPTION. Not false, but the source
-    states no mitigation at all and three paragraphs of advice sat under its citation.
-  twentieth  — f4367bd0 (own): MODAL STRENGTH LOST TO A DELEGATED RULE, and (REVIEW PASS) A ROW COUNT
-    ('both' for three of seven).
+    recorded as one of two defaults, where the true default is one tool. ***
+  twentieth  — 0b340b6b: A PARAPHRASE WEARING QUOTE MARKS (sixth occurrence) plus an unmarked pack
+    inference — and the invented quote pointed the OPPOSITE WAY from the source's actual advice.
+  twentieth  — ac887ec9: PACK PRESCRIPTION READING AS SOURCE PRESCRIPTION.
+  twentieth  — f4367bd0 (own): MODAL STRENGTH LOST TO A DELEGATED RULE, and (REVIEW PASS) A ROW COUNT.
+  *** twentieth, FROM THE knomit_review SESSION — 0f260eea AND 1d1440fe: A DISTILLED SYNTHESIS
+    CARRYING A CLAIM ITS SOURCE FACT HAS SINCE RETRACTED OR CORRECTED. NEW CLASS, AND THE ONLY ONE
+    THIS JOB CANNOT REPAIR (kb/principles is write-blocked). Flagged by confidence; bodies unfixed. ***
 CHECKLIST — verify all SEVENTEEN explicitly, not just 'is the claim still true':
-  (1) quotation boundaries — is every quoted string actually in the source, VERBATIM INCLUDING TENSE
-      AND INFLECTION, and does the quote START where the source's sentence starts;
+  (1) quotation boundaries — VERBATIM INCLUDING TENSE AND INFLECTION, and does the quote START where
+      the source's sentence starts;
   (2) causal direction; (3) WHO the actor is in a cited measurement (human vs model vs tool);
-  (4) what the pronoun in a quoted sentence refers to — AND WHETHER THE SOURCE DISAMBIGUATES IT AT
-  ALL; if it does not, give both readings rather than silently picking one;
+  (4) what the pronoun refers to — AND WHETHER THE SOURCE DISAMBIGUATES IT AT ALL;
   (5) are the TERMS attributed to the source actually the source's terms;
-  (6) refs classification (local vs external) and `sources` counts — N pages of ONE specification is
-  ONE source, not N;
-  (7) FOR MULTI-REF FACTS, which specific ref supports each specific number — is a single reported
-  instance presented as a general rule — and does ANY listed ref support it at all. NOTE THE HARD
-  CASE: a claim can be TRUE, from the SAME vendor, and still be cited to the wrong post;
-  (8) MODAL STRENGTH, QUANTIFIERS AND SCOPE, IN THE BODY AND IN THE TITLE SEPARATELY, including
-  SUPERLATIVES ('the most X' is a claim over a population — name it);
+  (6) refs classification and `sources` counts — N pages of ONE specification is ONE source;
+  (7) FOR MULTI-REF FACTS, which specific ref supports each specific number. A claim can be TRUE,
+  from the SAME vendor, and still be cited to the wrong post;
+  (8) MODAL STRENGTH, QUANTIFIERS AND SCOPE, IN THE BODY AND IN THE TITLE SEPARATELY;
   (9) LANGUAGE BINDING AND VERSION for anything from framework or vendor docs;
-  (10) LITERALS FROM A PDF ARE RECONSTRUCTIONS, and a negative grep is unreliable for FOUR reasons
-  (wrap, hyphen, form feed, markdown emphasis). Distinguish PACK ANALYSIS from SOURCE CLAIM — a gloss
-  next to a citation gets read as cited, so mark it;
-  (11) VERSION ATTRIBUTION IS A CLAIM. Check the WHOLE predecessor revision, every tree, and confirm
-  the file you compared against is real and not a 404 body. A surviving TOKEN is not a surviving
-  MEANING — read the hits, do not count them;
+  (10) LITERALS FROM A PDF ARE RECONSTRUCTIONS, and a negative grep is unreliable for FOUR reasons.
+  Distinguish PACK ANALYSIS from SOURCE CLAIM — a gloss next to a citation gets read as cited;
+  (11) VERSION ATTRIBUTION IS A CLAIM. Check the WHOLE predecessor revision, every tree. A surviving
+  TOKEN is not a surviving MEANING — read the hits, do not count them;
   (12) A FACT'S STATEMENT OF ITS OWN METHOD IS THE CLAIM MOST LIKELY TO BE FALSE — and the error is
-  not always flattering; it can also understate the evidence and depress confidence for no reason;
-  (13) RE-RUN EVERY COMPUTATION AND RE-DERIVE EVERY CROSS-DOCUMENT INFERENCE. Bound counting regions
-  on the FOLLOWING HEADING. Check the cited evidence SUPPORTS the conclusion rather than sitting near it;
+  not always flattering;
+  (13) RE-RUN EVERY COMPUTATION AND RE-DERIVE EVERY CROSS-DOCUMENT INFERENCE;
   (14) DOES EVERY NUMBER CARRY ITS FRAME? A duration needs its start event, a percentage its
   denominator, a count its region, a superlative its population, A RELATIVE DELTA ITS BASELINE;
-  (15) RE-RUN THE SEARCH ITSELF, NOT ONLY THE SUM — inspect its ANCHOR and its SCOPE, and match the
-  scope to the CLAIM'S SUBJECT NOUN;
-  (16) DID YOU JOIN TWO SOURCE CLAIMS THAT THE SOURCE KEPT APART? Adjacency in a post is not a
-  relationship. Where the source offers both a LIST and a COUNT of it, count the list;
-  (17) *** NEW AND NOW THE FIRST THING TO CHECK ON ANY OLD FACT — IS THIS SPECIFIC ACTUALLY IN THE
-  SOURCE, OR WAS IT INVENTED TO COMPLETE A SET? *** Percentages that are the remainder of another
-  percentage, ranges around a qualitative duration, denominators of a ratio, identifiers in a list of
-  defaults. Three instances in one five-fact sample. The tell is that the figure makes the claim
-  tidier, and every OTHER figure in the fact is correct — so partial verification actively
-  misleads. Verify the specifics ONE AT A TIME against a verbatim-demanding read.
+  (15) RE-RUN THE SEARCH ITSELF — inspect its ANCHOR and its SCOPE, and match the scope to the
+  CLAIM'S SUBJECT NOUN;
+  (16) DID YOU JOIN TWO SOURCE CLAIMS THAT THE SOURCE KEPT APART? Where the source offers both a LIST
+  and a COUNT of it, count the list;
+  (17) *** IS THIS SPECIFIC ACTUALLY IN THE SOURCE, OR WAS IT INVENTED TO COMPLETE A SET? ***
+  Percentages that are the remainder of another percentage, ranges around a qualitative duration,
+  denominators of a ratio, identifiers in a list of defaults. Three instances in one five-fact
+  sample. The tell is that the figure makes the claim tidier, and every OTHER figure in the fact is
+  correct — so partial verification actively misleads. Verify the specifics ONE AT A TIME against a
+  verbatim-demanding read. AND CHECK THE SYNTHESES THAT CONSUMED THE FACT.
