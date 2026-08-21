@@ -20,8 +20,9 @@ Scope: durable operational knowledge. It changes when a WEBSITE changes, not whe
 Do not put run status, queues or rankings here — those go in crawl-state.md.
 
 *** ====================================================================================== ***
-*** ROUTE 4. THE TOOL ITSELF CAN INVENT A NUMBER. NEW AND THE MOST IMPORTANT ENTRY IN THIS ***
-*** FILE FOR FACT QUALITY. 20th run. READ BEFORE WRITING ANY FIGURE INTO ANY FACT.        ***
+*** ROUTE 4. THE TOOL ITSELF CAN INVENT THINGS. THE MOST IMPORTANT ENTRY IN THIS FILE FOR  ***
+*** FACT QUALITY. 20th run; SCOPE WIDENED TWICE BY THE 21st. READ BEFORE WRITING ANY       ***
+*** FIGURE, QUOTATION OR IDENTIFIER INTO ANY FACT.                                        ***
 *** ====================================================================================== ***
 `WebFetch` answers a prompt against the page using a SMALL FAST MODEL. That model will FILL GAPS
 WITH PLAUSIBLE VALUES when the prompt invites a narrative summary. This is not a page problem, not a
@@ -41,30 +42,82 @@ queries each" — an entire baseline budget, invented, and it was the denominato
 comparison rested on; (iii) "queries" for the source's "steps". Call 1 also dropped "In one run",
 turning a single observation into a general result.
 
-NOTE THE BIAS, because it is what makes this dangerous: every invention made the comparison MORE
+*** THE 21st RUN WIDENED THE CLASS TWICE, AND NEITHER NEW CASE IS A NUMBER. ***
+Same two-call pattern, two different pages, same run:
+  (iv) A VERSION IDENTIFIER. On the AISI async-monitoring post the open-ended call reported the blue
+       team's monitor model as "Claude 3.5 Sonnet"; the verbatim call returned "The Blue team builds
+       monitoring systems using a weaker model (Claude 3.7 Sonnet)". A minor-version slip, entirely
+       plausible, and it would have mis-specified the capability gap the whole experiment turns on.
+       Checklist item 9 (LANGUAGE BINDING AND VERSION) now has a fetch-layer cause, not just an
+       author-layer one.
+  (v)  A PARAPHRASE ARRIVING INSIDE QUOTATION MARKS. On the LiteLLM post the open-ended call returned
+       LiteLLM described as "a popular AI gateway. It provides a unified interface to LLMs and
+       simplifies governance" — in quote marks. The page actually says "LiteLLM is an open-source
+       proxy presenting a unified API over OpenAI, Anthropic, Azure OpenAI, Bedrock, and others."
+       This is the 56986e8f defect class (a paraphrase wearing quote marks) being manufactured BY THE
+       TOOL rather than by the fact's author. It means the pack's oldest recurring defect can enter
+       a fact without anyone paraphrasing anything.
+SO THE RULE IS NOT "VERIFY NUMBERS". IT IS: ANY STRING YOU INTEND TO PUT IN QUOTATION MARKS, ANY
+FIGURE, ANY THRESHOLD, AND ANY VERSION OR PRODUCT IDENTIFIER GOES THROUGH THE SECOND CALL.
+
+NOTE THE BIAS, because it is what makes this dangerous: every invention made the account MORE
 COMPLETE AND MORE QUOTABLE. Fabrication here is not random noise, it is narrative gap-filling, so the
-invented figure is exactly the one that makes a fact worth writing. It will pass a plausibility check
+invented detail is exactly the one that makes a fact worth writing. It will pass a plausibility check
 because plausibility is what produced it.
 
 THE RULE, and it is cheap enough that there is no excuse:
-  * NEVER write a number, a quotation, or a named threshold into a fact from an OPEN-ENDED WebFetch.
+  * NEVER write a number, a quotation, a named threshold or a version identifier into a fact from an
+    OPEN-ENDED WebFetch.
   * Run a SECOND call on the same URL whose prompt says: "Quote VERBATIM the exact sentences that
-    state each of these, or say NOT STATED if absent", enumerating each figure you intend to use.
+    state each of these, or say NOT STATED if absent", enumerating each item you intend to use.
     The "or say NOT STATED" clause is load-bearing — it gives the model a licence to report absence
     instead of manufacturing presence.
   * Anything the second call marks NOT STATED does not go in the fact, and if the fact needs it, say
     in the fact that the source does not supply it. "The source does not state the baseline budget,
     so the comparison cannot be quantified" is a publishable sentence and a better one.
-  * CALIBRATION, so this is not read as "WebFetch is unreliable": the same two-call pattern was run
-    on two other pages the same run and confirmed 7 of 7 and 8 of 8 figures VERBATIM, and confirmed
-    8 of 8 quoted strings on a third. The tool is accurate when the page states the thing. It
+  * IF YOU DID NOT ASK THE SECOND CALL ABOUT IT, YOU DO NOT HAVE IT. The 21st run dropped two
+    figures on this basis (a geographic download breakdown, an attribution of AI-coauthored servers
+    to one coding agent) purely because they were not on the verbatim list. Omitting is cheaper than
+    hedging and leaves no half-sourced sentence for a later run to promote.
+  * CALIBRATION, so this is not read as "WebFetch is unreliable": the two-call pattern confirmed 7/7
+    and 8/8 figures on two pages and 8/8 quoted strings on a third in the 20th run, and 8/8, 6/6 and
+    8/8 across three pages in the 21st. The tool is accurate when the page states the thing. It
     invents when the page does NOT, and only the second call distinguishes those two cases.
-  * THIS IS ALSO RETROSPECTIVE. Two facts sampled in the same run's staleness pass carried invented
+  * THIS IS ALSO RETROSPECTIVE. Two facts sampled in the 20th run's staleness pass carried invented
     figures of exactly this shape — a "~15%" variance remainder and a "(2-4 seconds)" latency range,
-    both plausible, both absent from the source, both in facts whose every OTHER number was correct.
-    When verifying an old fact, the figures most likely to be fabricated are the ones that complete
-    a set: the remainder of a percentage, the range around a qualitative duration, the denominator
-    of a ratio.
+    both plausible, both absent from the source. The 21st run found a third variant in 7a4f9061: a
+    quoted technical SCHEME ("chunked+XOR+gzip") that the fact had extended with a fourth step
+    ("then base64") the source never names. When verifying an old fact, the detail most likely to be
+    fabricated is the one that COMPLETES A SET — the remainder of a percentage, the range around a
+    qualitative duration, the denominator of a ratio, the expected last step of a pipeline.
+
+*** ====================================================================================== ***
+*** ROUTE 5. READING AN INDEX AS A LIST IS ONE PLAIN WebFetch AND IT RETURNS THE WHOLE     ***
+*** ARCHIVE. NEW, 21st run, and it is the cheapest high-yield call this file has added     ***
+*** since the GitHub contents API.                                                         ***
+*** ====================================================================================== ***
+Appendix S and the 20th run's Finding 1 say a feed is UNREAD until someone has looked at its front
+page AS A LIST and made a per-item keep/skip decision. The 21st run ran that test and discovered the
+call is far more powerful than "the front page":
+  WebFetch {url: "<feed index>", prompt: "List EVERY post visible on this index as a list: exact
+    title, exact href/slug, and date, newest first. Do not summarise."}
+MEASURED RESULTS, one call each, plain WebFetch, no browser, no gate:
+  www.aisi.gov.uk/blog   -> 95 posts, complete archive back to 2023-09-07
+  cognition.com/blog     -> 82 posts, complete archive back to 2024-03-12
+  embracethered.com/blog -> 10 posts back to 2026-03-16
+  microsoft.com/en-us/security/blog -> 12 posts (paginated; front page only)
+These sites paginate for a human and serve the full list to this call. So "enumerate the back
+catalogue" is ONE fetch, not a pagination crawl, and there is no excuse for a feed in the recurring
+list to remain un-enumerated.
+TWO CAUTIONS:
+  * THE OUTPUT IS AN EXTRACTION, SO ROUTE 4 APPLIES. Treat the slugs as high-confidence but not
+    certain. The tell that you are getting real hrefs rather than derived ones is a
+    TITLE/SLUG MISMATCH: aisi.gov.uk returned `/blog/advancing-voice-ai-security-with-elevenlabs`
+    for a post titled "Advancing AI voice security with ElevenLabs" (word order differs) and
+    `/blog/ask-dont-tell-...-2` with a CMS dedup suffix. A list where every slug is a clean
+    slugification of its title is the one to distrust.
+  * A LIST IS NOT A READ. The point of the call is a per-item keep/skip decision, which you still
+    have to make. Record the decisions in crawl-sources so the next run inherits them.
 
 *** FETCH ROUTES. READ BEFORE CALLING ANYTHING BLOCKED. ***
 
@@ -133,6 +186,10 @@ THE RULE, and it is cheap enough that there is no excuse:
    not "text watermark works"). One WebSearch with allowed_domains resolved it. Anthropic slugs are
    editorially shortened, so a title-derived guess is if anything LESS reliable there than on hosts
    that slugify mechanically. Same rule: one 404 from a guess, then search, never a second guess.
+   *** 21st-RUN NOTE: ROUTE 5 IS NOW USUALLY CHEAPER THAN THIS FOR DISCOVERY. *** WebSearch remains
+   the right tool when you have ONE title and need ONE slug. When you want the whole feed, route 5's
+   index-as-list call returns every slug at once and returns them as hrefs rather than as search
+   hits. Use route 5 for sweeps, 1b for a specific unknown slug or a 404 recovery.
    *** ALSO USE THE ARTICLE FOOTER — AND SEE THE CORRECTED CALIBRATION BELOW. *** openai.com posts
    carry a "Keep reading" block listing three sibling posts with titles and dates. get_page_text
    returns it, so reading one post yields three more candidate URLs for free.
@@ -175,7 +232,7 @@ THE RULE, and it is cheap enough that there is no excuse:
    *** THE TRIPWIRE HAS A ZERO-FETCH FORM. *** That last call lists one directory per released
    revision (2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25, 2026-07-28, draft). A new revision
    appears as a new directory. That is the cheapest possible check of the versioning tripwire and it
-   does not depend on the website being up at all — prefer it.
+   does not depend on the website being up at all — prefer it. UNCHANGED THROUGH THE 21st RUN.
 
    *** PATH MAPPING — CORRECTED 2026-08-14 (17th run). THE 16th RUN'S VERSION WAS WRONG TWICE. ***
    The two tree prefixes are right:
@@ -275,7 +332,7 @@ THE RULE, and it is cheap enough that there is no excuse:
      14th pass  "needs a wp-dlm session cookie"    -> wrong; an EMPTY cookie jar downloads fine
    WHEN A FETCH FINALLY WORKS, DROP ONE FLAG AT A TIME BEFORE RECORDING THE RECIPE.
    The tmstv token is NOT an expiring nonce — 1754459367 was recorded 2026-08-05 and still worked
-   2026-08-15, TEN DAYS LATER. Nine-for-nine across six runs on `-A` alone.
+   2026-08-20, FIFTEEN DAYS LATER. Ten-for-ten across seven runs on `-A` alone.
 
 2b. GETTING THE OWASP DOWNLOAD ID — THE TWO-STEP, CONFIRMED 15th, 16th AND 18th RUNS.
      (i)  WebFetch https://genai.owasp.org/resource/<slug>/ asking for "the direct PDF download URL
@@ -293,6 +350,10 @@ Same file, same run, no re-download. A run doing a staleness check with `file` w
 manufactured a "THE SOURCE CHANGED" finding on an unchanged document. `file` is still the right tool
 for the ONE question route 2 asks it ("is this a PDF or the HTML error page"). It is not a source of
 page counts. Never compare a `file` count against a `pdfinfo` count recorded earlier, or vice versa.
+21st-RUN NOTE: the pdfinfo fingerprint (pages + CreationDate) settled the staleness question on
+id 50592 in one command — 139 pages, CreationDate 2026-06-01, matching what the 12th run recorded.
+That is three facts re-verified against a document PROVEN unchanged, which is a much stronger
+statement than "I re-read it and it looked the same". Record the fingerprint for every PDF you read.
 
 The 12th run's WebFetch route still works and needs no headers — keep it as the fallback:
   1. WebFetch the RESOURCE PAGE asking for "the direct PDF download URL if present in the page HTML".
@@ -308,6 +369,15 @@ bullet-list control checklists that are below this pack's altitude bar.
 SECOND PDF TIP (16th run): `grep -c` for a distinctive token is a ZERO-COST NEGATIVE TEST — BUT SEE
 THE FORM-FEED RULE BELOW BEFORE TRUSTING ANY ANCHORED NEGATIVE.
 
+*** 2d. ugrep REJECTS `.{0,N}` CONTEXT PATTERNS ON THIS MACHINE. USE -n PLUS sed. 21st run. ***
+The idiom `grep -o -i ".\{0,90\}<term>.\{0,90\}"` for keyword-in-context fails on the OWASP extracts
+with `ugrep: error: error at position N ... exceeds complexity limits`, because ugrep expands the
+bounded-repeat over multibyte character classes. It fails LOUDLY, which is the good news, but a run
+that mistakes the error for "no matches" manufactures a false absence. THE WORKING IDIOM:
+  grep -n -i -- "<term>" file.txt        # get line numbers
+  sed -n '<start>,<end>p' file.txt       # read the surrounding lines
+Also note `--` before the pattern: several useful search terms begin with a digit or a dash.
+
 *** THE FORM-FEED RULE. 18th-run review pass. ***
 *** pdftotext EMITS \f (0x0C) AT EVERY PAGE BREAK AND PREPENDS IT TO THE FIRST TOKEN OF THE NEXT
 *** PAGE. SO ANY ^-ANCHORED PATTERN SILENTLY MISSES EXACTLY ONE ITEM PER PAGE BOUNDARY.
@@ -320,14 +390,19 @@ RULES:
   * For a NEGATIVE test, an anchored miss is not absence.
   * The undercount is SYSTEMATIC: always the first match on each page, one per boundary.
   * `paste - -` pairing over an anchored grep desynchronises at the first page break.
-*** FIVE MECHANISMS NOW — A NEGATIVE OR WRONG RESULT ARRIVES FOR FIVE INDEPENDENT REASONS (20th run):
+*** SIX MECHANISMS NOW — A NEGATIVE OR WRONG RESULT ARRIVES FOR SIX INDEPENDENT REASONS (21st run):
 ***   (i) pdftotext line-wrapping splits a multi-word phrase across lines;
 ***  (ii) pdftotext hyphen-breaking splits a single token ("communica-\ntion");
 *** (iii) pdftotext form feeds defeat ^-anchors, one miss per page;
 ***  (iv) MARKDOWN EMPHASIS in .mdx sources breaks any phrase spanning a **MUST** (route 3e);
-***   (v) NEW — AN OPEN-ENDED WebFetch INVENTS THE FIGURE RATHER THAN REPORTING ITS ABSENCE (route 4).
-*** (i)-(iii) are extraction artifacts; (iv) is in the source bytes; (v) is in the TOOL, and it is
-*** the only one of the five that produces a confident POSITIVE rather than a false negative.
+***   (v) AN OPEN-ENDED WebFetch INVENTS THE DETAIL rather than reporting its absence (route 4);
+***  (vi) NEW — THE GREP ITSELF ERRORS OUT and the error is mistaken for zero matches (route 2d).
+*** (i)-(iii) are extraction artifacts; (iv) is in the source bytes; (v) is in the TOOL and is the
+*** only one producing a confident POSITIVE; (vi) is in the SEARCH PROGRAM and is loud if you look.
+*** MECHANISM (i) FIRED AGAIN IN THE 21st RUN AND IS WORTH THE WARNING: the quotation 92dc0441 is
+*** built on, "It streamlines it, by auto-approving...", is UNFINDABLE by grepping for itself — the
+*** wrap falls between "streamlines" and "it". A fact's own central quotation can be unsearchable in
+*** the very document it came from. ALWAYS grep the rarest SINGLE word, then read the lines.
 *** PDF TABLES EXTRACT WITH THEIR COLUMNS SHUFFLED — DO NOT CITE ONE (16th run). ***
 Column interleaving pairs rows with descriptions belonging to other rows. If a claim rests only on a
 table cell, either confirm it against the document's prose or say in the fact that you did not.
@@ -343,17 +418,29 @@ CAVEAT: a row-faithful table is still cut by page-break form feeds and by repeat
 USE A DISCRIMINATING TOKEN, AND SAY IN THE FACT THAT THE PAIRING IS SEMANTIC RATHER THAN POSITIONAL.
 *** AND EXPECT A SOURCE TO NAME THE SAME THING TWICE (19th run). *** Before recording that a document
 does not discuss X, grep the SHORTEST DISTINCTIVE STEM, not the full phrase.
+*** AND A DOCUMENT'S PROSE AND ITS NUMBERS CAN SIT 2,300 LINES APART (NEW, 21st run). *** 7bd6c6c9
+was written from OWASP 50592's narrative section on skill poisoning (extract line ~1160) and missed
+the prevalence figure for the same campaign, which lives in the personal-agents appendix (line 3473).
+A fact built from a document's NARRATIVE is systematically missing that document's QUANTITIES. After
+writing from a long PDF, grep the whole extract for the campaign/product name again and read every
+other hit — the appendix tables are where the numbers are.
 *** PDF LINE WRAPS DEFEAT grep IN BOTH DIRECTIONS (17th run). *** When a phrase you expect is
 missing, re-grep on its RAREST SINGLE WORD with context flags before concluding anything.
 BROWSER CAVEATS: on builder.aws.com the FIRST get_page_text after a navigate SOMETIMES returns a stub
 ending in 'Loading article'; call it again. Never conclude 'blocked' from one empty call.
 To pull links/hrefs off an index use javascript_tool with a querySelectorAll expression — `find`
-returns element refs but NOT hrefs.
+returns element refs but NOT hrefs. (BUT TRY ROUTE 5 FIRST: a plain WebFetch asking for the index as
+a list returned complete archives on three separate hosts in the 21st run, no browser needed.)
 NOTE: large learn.microsoft.com and platform.claude.com pages exceed WebFetch's inline limit and are
 persisted to a file on disk; just Read the path returned, or grep it. Likewise a broad knomit_query
 can exceed the tool-result limit — use limit<=25.
-AND knomit_explain ON crawl-state.md NOW EXCEEDS IT TOO (15th run: 51.5KB, persisted to a file).
-That is expected, not an error — the tool result names the path; just Read it. Do not retry the call.
+AND knomit_explain ON crawl-state.md NOW EXCEEDS IT TOO (15th run: 51.5KB, persisted to a file;
+54.2KB by the 21st). That is expected, not an error — the tool result names the path; just Read it.
+Do not retry the call. 21st-RUN TIP: the persisted file is ONE LINE of JSON, so `Read` truncates and
+paginating it is useless. Pipe it through `python3 -c "import json,sys; ..."` to print `body` and
+`history` separately, then read the resulting text file with sed slices. That turns a 54KB blob into
+four cheap reads. (python3 IS available in this job's Bash despite an older note in Appendix S; the
+Write and Edit tools are the ones that are denied.)
 *** knomit_query sort=recent IS ORDERED BY LAST TOUCH, NOT BY CREATION (18th run). ***
 An update bumps a fact to the front, so the TAIL of a sort=recent walk is the set of facts LEAST
 RECENTLY VERIFIED — the right staleness target. Reaching it costs ~15k tokens per page at limit=25.
@@ -366,9 +453,17 @@ LAST-TOUCH timestamp. So a handful of ordinary topical queries — run for other
 you the age of every fact they return, for free. Sort the ids you have seen by `committed_at`, drop
 the ones already in the verification pool, and you have an earliest-committed sample WITHOUT paging
 sort=recent at all. The 20th run picked all five staleness targets this way at zero marginal cost.
-Reference points: 1785089xxx ≈ 2026-07-26 (first run), 1786817xxx ≈ 2026-08-15 (19th run).
+Reference points: 1785089xxx ≈ 2026-07-26 (first run), 1786817xxx ≈ 2026-08-15 (19th run),
+1787275xxx ≈ 2026-08-20 (21st run).
+*** AND THE SAME ROWS GIVE YOU A SHARED-REF SAMPLE FOR FREE TOO (NEW, 21st run). *** The `refs`
+array is in the same frontmatter. So one topical query yields BOTH axes at once: sort its rows by
+`committed_at` for the age axis, and group them by identical `refs` entries for the shared-ref axis.
+The 21st run picked five facts across exactly TWO source documents this way, which meant two fetches
+covered the whole sample — and because one of those was a PDF with a stable fingerprint, three of the
+five were verified against a document proven byte-stable rather than merely re-read.
 *** THE `grep` ON THIS MACHINE IS ugrep 7.5.0, NOT GNU grep (18th run). ***
 If a grep behaves unexpectedly, check `grep --version` before concluding anything about the DATA.
+See route 2d for the specific incompatibility that has actually bitten.
 The Bash tool's working directory PERSISTS between calls — prefer absolute paths or re-`cd` each call.
 *** BUILDERS' LIBRARY — SOME ARTICLES ARE VIDEO-ONLY ***
 Confirmed video-only, no prose body, DO NOT RE-FETCH:
@@ -400,7 +495,7 @@ revision) TO LOCATE THE CHANGE, then READ THE NORMATIVE PAGE for its force.
   (e) A SPLIT DUPLICATES RULES, AND THE COPIES CAN DIFFER IN MODAL STRENGTH. When one page becomes
       four, a rule that straddles the seam is often RESTATED on the topic page at a weaker modality.
       Before recording any weakening, grep EVERY page of the new revision and cite the strongest.
-  (f) *** NEW, 20th run — THE MIRROR OF (e): A PAGE THAT DELEGATES A RULE LOSES ITS FORCE IN THE
+  (f) *** 20th run — THE MIRROR OF (e): A PAGE THAT DELEGATES A RULE LOSES ITS FORCE IN THE
       SUMMARY. *** Where (e) is about a rule RESTATED more weakly, (f) is about a rule NOT RESTATED
       AT ALL. MCP's basic/versioning.mdx gives a compatibility matrix and then says the detection
       mechanics are "specified in the binding pages". Its prose summary carries NO modal keyword,
@@ -418,7 +513,7 @@ the feature may have lived on a different page — AND, per 3d, in a different t
 *** AND THE SAME DISCIPLINE APPLIES TO A CITATION CHECK, NOT ONLY A CONTENT CHECK (19th run). ***
 If a sentence's subject is the revision, the search's scope must be the revision. Cheapest possible
 check on your own method: read your claim's subject noun, then look at what you actually grepped.
-*** AND A TOKEN CAN SURVIVE A REVISION WHILE ITS MEANING DOES NOT (NEW, 20th run). *** Grepping
+*** AND A TOKEN CAN SURVIVE A REVISION WHILE ITS MEANING DOES NOT (20th run). *** Grepping
 `protocolVersion` across all 41 files of 2025-11-25 returns 15 hits in 5 files — which reads as "not
 new, nothing changed". Every one of them is the `initialize` handshake field on
 `InitializeRequestParams`/`InitializeResult`; none is the per-request `_meta` key of 2026-07-28. A
