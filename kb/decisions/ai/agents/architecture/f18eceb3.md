@@ -2,10 +2,11 @@
 type: synthesis
 domain: [agentic-engineering, architecture, context-engineering, cost, multi-agent, tools]
 confidence: 0.8
-sources: 1
+sources: 2
 evidence_weight: 0.7101449275362319
-entities: [orchestrator-worker, programmatic tool calling, BrowseComp, allowed_callers, context window]
-refs: [kb/architecture/ai/agents/multi-agent/19ed6273.md, kb/architecture/ai/agents/tools/code-execution/fc911d9c.md]
+origin: distilled
+entities: [orchestrator-worker, programmatic tool calling, BrowseComp, allowed_callers, context window, Anthropic, Claude Opus 4, Claude Sonnet 4]
+refs: ['kb://bc6eac5f37df/kb/architecture/ai/agents/multi-agent/19ed6273.md', 'kb://bc6eac5f37df/kb/architecture/ai/agents/tools/code-execution/fc911d9c.md', 'https://www.anthropic.com/engineering/multi-agent-research-system']
 ---
 # Two shipped answers to 'this does not fit in one context window' — spend 15x on parallel windows, or spend 37% less by never letting intermediates in — and knowable control flow decides which
 
