@@ -4,6 +4,7 @@ domain: [agentic-engineering, mcp, architecture, state-management, distributed-s
 confidence: 0.9
 sources: 2
 entities: [MCP, "2026-07-28", SEP-2575, SEP-2567, initialize, Mcp-Session-Id, server/discover, subscriptions/listen]
+motifs: [guarantee-narrower-than-assumed]
 refs: ['https://modelcontextprotocol.io/specification/2026-07-28/changelog', 'https://modelcontextprotocol.io/specification/versioning', 'https://modelcontextprotocol.io/specification/2026-07-28/basic/index', 'https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/specification/2026-07-28/basic/index.mdx', 'https://aws.amazon.com/blogs/machine-learning/how-agentcore-gateway-supports-the-mcp-2026-07-28-spec/', 'kb://bc6eac5f37df/kb/invariants/ai/agents/tools/mcp/metadata/fa61c895.md']
 ---
 # MCP 2026-07-28 deleted the connection as a unit of state — no handshake, no session, no resumable stream
