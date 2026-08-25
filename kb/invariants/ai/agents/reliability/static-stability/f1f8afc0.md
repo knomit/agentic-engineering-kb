@@ -4,6 +4,7 @@ domain: [agentic-engineering, reliability, architecture, distributed-systems, op
 confidence: 0.85
 sources: 1
 entities: [Amazon, AWS Builders' Library, static stability, control plane, data plane, Amazon S3, AWS Hyperplane]
+motifs: [startup-dependency-blocks-recovery]
 refs: ['https://builder.aws.com/content/3EukISjbJAGNdrxjKaN6RG0wlHG/avoiding-overload-in-distributed-systems-by-putting-the-smaller-service-in-control']
 ---
 # An agent must keep running on its last known good configuration when the control plane is down — including agents that start DURING the outage
