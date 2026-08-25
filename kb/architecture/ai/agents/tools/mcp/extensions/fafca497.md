@@ -4,6 +4,7 @@ domain: [agentic-engineering, mcp, interop, architecture, tools]
 confidence: 0.9
 sources: 1
 entities: [MCP, extensions, SEP-2133, MCP Apps, MCP Tasks, server/discover, clientCapabilities, ext-auth]
+motifs: [guarantee-narrower-than-assumed]
 refs: ['https://modelcontextprotocol.io/docs/extensions/overview', 'https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning', 'https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/specification/2026-07-28/basic/versioning.mdx', 'kb://bc6eac5f37df/kb/invariants/ai/agents/tools/mcp/interop/versioning/f4367bd0.md']
 ---
 # MCP conformance no longer implies capability parity — extensions are off by default, SDK-optional, and evolve without core review
