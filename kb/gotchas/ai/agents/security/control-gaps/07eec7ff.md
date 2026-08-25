@@ -4,6 +4,7 @@ domain: [agentic-engineering, security, governance, threat-modeling, architectur
 confidence: 0.85
 sources: 1
 entities: [OWASP, AIUC-1, Agentic Security Initiative, ASI07, ASI08, ASI10, AIVSS, Agent Name Service]
+motifs: [enumeration-caps-discovery]
 refs: ['https://genai.owasp.org/resource/aiuc-1-crosswalks-owasp-top-10-for-agentic-applications/', 'https://genai.owasp.org/download/54627/?tmstv=1779726713', 'kb://bc6eac5f37df/kb/gotchas/ai/agents/security/threat-taxonomy/coverage-blind-spots/8cf06566.md']
 ---
 # Eight agentic control surfaces that a current AI security standard does not require at all — certifying against it does not mean you cover the agentic threat model
