@@ -4,6 +4,7 @@ domain: [agentic-engineering, multi-agent, architecture]
 confidence: 0.85
 sources: 2
 entities: [Cognition, Devin, single-threaded linear agent]
+motifs: [context-assumed-not-transferred]
 refs: ['https://cognition.com/blog/dont-build-multi-agents', 'https://cognition.com/blog/multi-agents-working']
 ---
 # Cognition's case against multi-agent: dispersed context produces incompatible work products
