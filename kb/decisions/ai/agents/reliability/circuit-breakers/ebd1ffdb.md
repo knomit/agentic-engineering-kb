@@ -5,6 +5,7 @@ domain: [agentic-engineering, reliability, architecture, distributed-systems]
 confidence: 0.8
 sources: 0
 entities: [Amazon, AWS Builders' Library, circuit breaker, token bucket, bulkhead, Resilience4j, AWS Lambda]
+motifs: [disagreement-dissolves-on-distinction]
 refs: ['https://builder.aws.com/content/3EuxuD6bWtQ6gEp9FaKQfd3Z2AM/using-dependency-isolation-to-contain-concurrency-overload', 'https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter']
 ---
 # Amazon both warns against circuit breakers and builds them everywhere — the split is retry control vs concurrency isolation
