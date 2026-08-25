@@ -5,6 +5,7 @@ domain: [agentic-engineering, mcp, security, tools]
 confidence: 0.9
 sources: 1
 entities: [MCP, tool annotations, readOnlyHint]
+motifs: [mandatory-but-unverified]
 refs: ['https://modelcontextprotocol.io/docs/concepts/tools', 'https://modelcontextprotocol.io/specification/2026-07-28/server/tools', 'https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/specification/2026-07-28/server/tools.mdx']
 ---
 # MCP tool annotations are untrusted input — never gate auto-approval on them
