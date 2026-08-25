@@ -5,6 +5,7 @@ domain: [agentic-engineering, multi-agent, architecture]
 confidence: 0.85
 sources: 3
 entities: [Anthropic, Cognition, orchestrator-worker, map-reduce-and-manage, Smart Friend, SWE-1.5]
+motifs: [wrong-deciding-variable]
 refs: ['https://www.anthropic.com/engineering/multi-agent-research-system', 'https://cognition.com/blog/dont-build-multi-agents', 'https://cognition.com/blog/multi-agents-working']
 ---
 # Multi-agent vs single-threaded: the deciding condition is whether subtask outputs must be mutually consistent
