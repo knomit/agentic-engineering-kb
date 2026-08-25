@@ -4,6 +4,7 @@ domain: [agentic-engineering, reliability, distributed-systems, architecture, to
 confidence: 0.85
 sources: 1
 entities: [Amazon, AWS Builders' Library, load shedding, brownout, pagination, goodput, admission control]
+motifs: [in-flight-work-starved]
 refs: ['https://builder.aws.com/content/3Eun1EEyX6p2e3VYNyRLSJzLuMV/using-load-shedding-to-avoid-overload']
 ---
 # When shedding, prioritise requests that FINISH work over requests that START it — the ordering is counter-intuitive and it is what protects goodput
