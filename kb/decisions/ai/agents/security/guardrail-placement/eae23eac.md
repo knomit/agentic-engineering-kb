@@ -4,6 +4,7 @@ domain: [agentic-engineering, security, prompt-injection, guardrails, architectu
 confidence: 0.8
 sources: 3
 entities: [OpenAI, Anthropic, ChatGPT, Claude Code, AI firewall, source-sink analysis, Safe Url, prompt injection]
+motifs: [unobservable-property-cannot-gate]
 refs: ['https://openai.com/index/designing-agents-to-resist-prompt-injection/', 'https://openai.com/index/prompt-injections/', 'https://www.anthropic.com/engineering/claude-code-auto-mode', 'https://openai.com/index/ai-agent-link-safety/', 'kb://bc6eac5f37df/kb/invariants/ai/agents/security/prompt-injection/f1cbb540.md', 'kb://bc6eac5f37df/kb/architecture/ai/agents/security/permission-systems/89df351e.md']
 ---
 # Put the classifier on the outbound action, not the inbound content — an operator reports that content filters miss social-engineering-grade injections because detecting one becomes lie detection
