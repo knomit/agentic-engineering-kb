@@ -4,6 +4,7 @@ domain: [agentic-engineering, mcp, security, authorization]
 confidence: 0.9
 sources: 1
 entities: [MCP, "2026-07-28", RFC 9207, iss, mix-up attack, authorization_response_iss_parameter_supported, PKCE, RFC 3986]
+motifs: [missing-advertisement-fails-open]
 refs: ['https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization', 'https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/specification/2026-07-28/basic/authorization/index.mdx', 'https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/specification/2026-07-28/basic/authorization/security-considerations.mdx', 'https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/schema/2025-11-25/schema.json', 'kb://bc6eac5f37df/kb/gotchas/ai/agents/tools/mcp/security/client-identity/066a9dad.md']
 ---
 # MCP's new mix-up defence fails open: if the authorization server neither advertises nor sends `iss`, the client is required to proceed unprotected
