@@ -5,6 +5,7 @@ domain: [agentic-engineering, reliability, operations, distributed-systems]
 confidence: 0.85
 sources: 0
 entities: [Amazon, AWS Builders' Library, AWS Fault Injection Simulator, circuit breaker, instrumentation]
+motifs: [rare-path-untested]
 refs: ['https://builder.aws.com/content/3EuxuD6bWtQ6gEp9FaKQfd3Z2AM/using-dependency-isolation-to-contain-concurrency-overload', 'https://builder.aws.com/content/3Eupj3d2bo4fEvlzYbICMZNhQ3B/fairness-in-multi-tenant-systems']
 ---
 # Ship concurrency limiters and quota rules in instrumentation-only mode first — and assume an untested limiter does not work
