@@ -4,6 +4,7 @@ domain: [agentic-engineering, reliability, tools, error-handling, distributed-sy
 confidence: 0.85
 sources: 1
 entities: [Amazon, AWS Builders' Library, idempotency, UNKNOWN, request/reply, Jacob Gabrielson]
+motifs: [ignored-outcome-corrupts-state]
 refs: ['https://builder.aws.com/content/3F08f7GPFiZMCgXD8gny6OjxR0Z/challenges-with-distributed-systems']
 ---
 # A tool call has five outcomes, not two — and UNKNOWN (timeout) is the one that corrupts state
