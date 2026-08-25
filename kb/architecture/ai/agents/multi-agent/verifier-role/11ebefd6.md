@@ -4,6 +4,7 @@ domain: [agentic-engineering, multi-agent, security, threat-modeling, architectu
 confidence: 0.7
 sources: 1
 entities: [OWASP, MAESTRO, MASEC, Krawiecka, Schroeder de Witt, verifier, refiner, planner, executor, Goodhart's law]
+motifs: [defeated-without-compromise]
 refs: ['https://arxiv.org/abs/2508.09815', 'https://genai.owasp.org/resource/multi-agentic-system-threat-modeling-guide-v1-0/', 'kb://bc6eac5f37df/kb/conventions/ai/agents/security/threat-modeling/c02ac546.md', 'kb://bc6eac5f37df/kb/gotchas/ai/agents/evaluation/verifier-design/a5ade87d.md']
 ---
 # Seven of the sixteen threats a published critique says OWASP's multi-agent guide misses are the same thing — a verifier agent defeated without anyone being compromised
