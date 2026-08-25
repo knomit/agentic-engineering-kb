@@ -4,6 +4,7 @@ domain: [agentic-engineering, rag, context-engineering, evaluation]
 confidence: 0.75
 sources: 1
 entities: [Databricks, Claude 3.5 Sonnet, GPT-4o, Mixtral, DBRX]
+motifs: [scalar-hides-failure-mode]
 refs: ['https://www.databricks.com/blog/long-context-rag-performance-llms']
 ---
 # Long-context RAG failures are model-specific and qualitatively different, not just lower accuracy
