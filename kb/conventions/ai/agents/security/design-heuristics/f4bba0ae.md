@@ -5,6 +5,7 @@ domain: [agentic-engineering, security, prompt-injection, architecture, guardrai
 confidence: 0.8
 sources: 1
 entities: [OpenAI, social engineering, three-actor system, customer support agent, deterministic limits, prompt injection]
+motifs: [bound-consequence-not-occurrence]
 refs: ['https://openai.com/index/designing-agents-to-resist-prompt-injection/', 'kb://bc6eac5f37df/kb/invariants/ai/agents/security/prompt-injection/48c9de1b.md']
 ---
 # Derive an agent's controls by asking what limits a human in the same seat would have — the frame assumes deception succeeds and bounds the blast radius instead
