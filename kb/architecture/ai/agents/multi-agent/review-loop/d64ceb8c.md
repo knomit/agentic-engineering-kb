@@ -4,6 +4,7 @@ domain: [agentic-engineering, multi-agent, coding-agents, context-engineering]
 confidence: 0.8
 sources: 2
 entities: [Cognition, Devin, generator-verifier, context rot, Anthropic, Playwright MCP, Claude Opus 4.6]
+motifs: [shared-context-defeats-independence]
 refs: ['https://cognition.com/blog/multi-agents-working', 'https://www.anthropic.com/engineering/harness-design-long-running-apps']
 ---
 # The reviewer agent must have clean context, not a shared briefing with the coder
