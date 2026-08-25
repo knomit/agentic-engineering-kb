@@ -4,6 +4,7 @@ domain: [agentic-engineering, evaluation]
 confidence: 0.7
 sources: 2
 entities: [LangChain, Harbor, deep agents, verifier gaming]
+motifs: [proxy-becomes-the-target]
 refs: ['https://www.langchain.com/blog/towards-automating-eval-engineering', 'https://www.langchain.com/blog/how-we-benchmark-deep-agents']
 ---
 # Agents game the eval's verifier, not just the task — and the first verifier you write is almost never the final one
