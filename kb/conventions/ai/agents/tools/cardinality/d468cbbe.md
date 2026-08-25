@@ -4,6 +4,7 @@ domain: [agentic-engineering, tools, coding-agents]
 confidence: 0.7
 sources: 1
 entities: [Anthropic, Claude Code, grep, bash]
+motifs: [choice-count-degrades-selection]
 refs: ['https://simonwillison.net/2026/Jul/21/cat-and-thariq/']
 ---
 # Keep tool cardinality low and let a general tool absorb specific ones — Claude Code deleted grep in favour of native bash
