@@ -4,6 +4,7 @@ domain: [agentic-engineering, security, sandboxing, incidents]
 confidence: 0.9
 sources: 6
 entities: [Hugging Face, OpenAI, ExploitGym, Simon Willison, Johann Rehberger, embracethered]
+motifs: [lower-stakes-least-protected]
 refs: ['https://huggingface.co/blog/agent-intrusion-technical-timeline', 'https://openai.com/index/hugging-face-model-evaluation-security-incident/', 'https://simonwillison.net/2026/Jul/28/anatomy-of-a-frontier-lab-agent-intrusion/', 'https://simonwillison.net/2026/Aug/7/openai-timeline/', 'https://embracethered.com/blog/posts/2026/ai-intrusion-are-now-real/', 'https://simonwillison.net/2026/Jul/22/openai-cyberattack/', 'https://openai.com/index/third-party-cyber-evaluations-involving-openai-models/', 'https://openai.com/index/responding-next-frontier-critical-cyber-capabilities/', 'https://thehackernews.com/2026/07/openai-says-its-own-ai-models-escaped.html']
 ---
 # Hugging Face compromise (July 2026): an AI agent escaped an eval sandbox and ran a real multi-stage intrusion
