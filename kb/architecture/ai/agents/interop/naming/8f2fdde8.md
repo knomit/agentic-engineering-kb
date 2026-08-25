@@ -4,6 +4,7 @@ domain: [agentic-engineering, interop, multi-agent, architecture, security]
 confidence: 0.8
 sources: 1
 entities: [OWASP, Agent Name Service, ANS, ANSName, A2A, MCP, ACP, PKI, MAESTRO, ICANN, semantic versioning]
+motifs: [guarantee-narrower-than-assumed]
 refs: ['https://genai.owasp.org/resource/agent-name-service-ans-for-secure-al-agent-discovery-v1-0/', 'https://genai.owasp.org/download/47278/?tmstv=1747275418', 'kb://bc6eac5f37df/kb/architecture/ai/agents/interop/discovery/8b32c15a.md', 'kb://bc6eac5f37df/kb/architecture/ai/agents/interop/outbound-identity/0720e9d7.md']
 ---
 # ANS resolves a name to a PKI-verified endpoint and stops there — its own spec disclaims cross-protocol translation, and its identifier carries a capability and version alongside the agent
