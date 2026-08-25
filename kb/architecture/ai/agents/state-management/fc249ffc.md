@@ -4,6 +4,7 @@ domain: [agentic-engineering, architecture, state-management]
 confidence: 0.7
 sources: 1
 entities: [12-factor-agents, HumanLayer, stateless reducer]
+motifs: [duplicated-representation-drift]
 refs: ['https://github.com/humanlayer/12-factor-agents']
 ---
 # Make the agent a stateless reducer and unify execution state with business state
