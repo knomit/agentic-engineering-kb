@@ -4,6 +4,7 @@ domain: [agentic-engineering, evaluation, benchmarks, security, reliability]
 confidence: 0.85
 sources: 1
 entities: [UK AISI, unsanctioned behaviour, strategic factors, non-strategic factors, anti-misalignment instructions, independence instructions, goal conflict]
+motifs: [misattributed-environment-defect]
 refs: ['https://www.aisi.gov.uk/blog/how-do-environmental-factors-impact-ai-behaviour']
 ---
 # Half the variation in "misaligned" agent behaviour comes from factors that are not about the model's goals at all — so a red-team rate is a property of your scenario boilerplate as much as of the model
