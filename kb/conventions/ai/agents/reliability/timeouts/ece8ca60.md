@@ -5,6 +5,7 @@ domain: [agentic-engineering, reliability, distributed-systems, operations]
 confidence: 0.85
 sources: 1
 entities: [Amazon, AWS Builders' Library, SO_RCVTIMEO, TLS handshake, p99.9]
+motifs: [threshold-encodes-unmeasured-distribution]
 refs: ['https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter']
 ---
 # Pick a timeout by choosing an acceptable false-timeout rate and reading that latency percentile off the downstream service

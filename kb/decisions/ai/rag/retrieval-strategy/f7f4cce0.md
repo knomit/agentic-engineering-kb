@@ -5,6 +5,7 @@ domain: [agentic-engineering, rag, architecture]
 confidence: 0.75
 sources: 3
 entities: [GraphRAG, Microsoft Research, Databricks, RAG]
+motifs: [wrong-deciding-variable]
 refs: ['https://arxiv.org/abs/2404.16130', 'https://arxiv.org/abs/2005.11401', 'https://www.databricks.com/blog/long-context-rag-performance-llms']
 ---
 # Baseline RAG vs GraphRAG vs long-context stuffing: choose by question shape, not corpus size

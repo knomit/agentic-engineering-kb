@@ -5,6 +5,7 @@ domain: [agentic-engineering, architecture, evaluation, security]
 confidence: 0.75
 sources: 1
 entities: [Incalmo, MHBench, Claude Sonnet 4, Eugene Yan, attack graph]
+motifs: [wrong-deciding-variable]
 refs: ['https://eugeneyan.com/writing/cybersecurity-evals/']
 ---
 # Harness architecture dominates model choice: the same model went from 3/40 to 37/40 networks with a better scaffold

@@ -4,6 +4,7 @@ domain: [agentic-engineering, context-engineering, rag, architecture, state-mana
 confidence: 0.65
 sources: 1
 entities: [Microsoft Research, Memora, LoCoMo, LongMemEval, Mem0, cue anchors, primary abstraction]
+motifs: [one-representation-two-purposes]
 refs: ['https://www.microsoft.com/en-us/research/blog/memora-a-harmonic-memory-representation-balancing-abstraction-and-specificity/']
 ---
 # Agent memory fails at both extremes — Memora's fix is to embed a short abstraction for retrieval while storing the rich value separately

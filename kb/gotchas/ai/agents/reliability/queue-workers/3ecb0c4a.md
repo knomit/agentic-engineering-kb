@@ -4,6 +4,7 @@ domain: [agentic-engineering, reliability, architecture, operations, distributed
 confidence: 0.85
 sources: 1
 entities: [Amazon, AWS Builders' Library, Amazon SQS, Amazon Kinesis, visibility timeout, black hole, queue poller]
+motifs: [failure-faster-than-success]
 refs: ['https://builder.aws.com/content/3Ev53O39izHCtWLzp4XU6t8PC1O/implementing-health-checks']
 ---
 # A queue-polling agent worker has nothing removing it from service, so a broken one becomes a message black hole

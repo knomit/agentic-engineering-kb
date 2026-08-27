@@ -4,6 +4,7 @@ domain: [agentic-engineering, context-engineering, prompting, evaluation, coding
 confidence: 0.75
 sources: 1
 entities: [Microsoft Research, SkillOpt, SKILL.md, SpreadsheetBench, OfficeQA, GPT-5.5, Claude Code, Codex, textual learning rate]
+motifs: [conditioning-substitutes-for-capacity]
 refs: ['https://www.microsoft.com/en-us/research/blog/skillopt-agent-skills-as-trainable-parameters/']
 ---
 # Agent skill files can be optimized like parameters instead of hand-edited — and a trained skill on a smaller model beat an untrained larger one

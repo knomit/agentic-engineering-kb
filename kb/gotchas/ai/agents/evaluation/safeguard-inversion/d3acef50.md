@@ -5,6 +5,7 @@ domain: [agentic-engineering, security, evaluation, sandboxing, governance]
 confidence: 0.9
 sources: 2
 entities: [Anthropic, OpenAI, UK AISI, Irregular, classifier, capability evaluation, blast radius]
+motifs: [lower-stakes-least-protected]
 refs: ['https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals', 'https://openai.com/index/third-party-cyber-evaluations-involving-openai-models/']
 ---
 # Evaluation environments run models with production safeguards deliberately switched off — so they need MORE containment than production, not less

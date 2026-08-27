@@ -4,6 +4,7 @@ domain: [agentic-engineering, security, sandboxing, exfiltration, prompt-injecti
 confidence: 0.9
 sources: 3
 entities: [Hugging Face, Anthropic, OpenAI, UK AISI, Claude, ChatGPT, CORS proxy, Tailscale, egress allowlist, open redirect, C2, Files API, path-level allowlisting]
+motifs: [check-separated-from-use, volume-dilutes-adherence]
 refs: ['https://huggingface.co/blog/agent-intrusion-technical-timeline', 'https://www.anthropic.com/engineering/how-we-contain-claude', 'https://simonwillison.net/2026/Jul/15/claude-web-fetch-exfiltration/', 'https://cdn.openai.com/pdf/dd8e7875-e606-42b4-80a1-f824e4e11cf4/prevent-url-data-exfil.pdf', 'https://openai.com/index/ai-agent-link-safety/', 'https://cdn.prod.website-files.com/663bd486c5e4c81588db7a1d/69e63511d394ee65d788d9e7_What_OpenClaw_learned_about_us%20(2).pdf', 'kb://bc6eac5f37df/kb/architecture/ai/agents/security/url-exfiltration/b4d688b1.md', 'kb://bc6eac5f37df/kb/gotchas/ai/agents/evaluation/environment-leakage/d0c5b9f8.md']
 ---
 # A domain-based allowlist does not bound where data goes — three documented bypass classes used allowed destinations, and it only covered 10% of real traffic

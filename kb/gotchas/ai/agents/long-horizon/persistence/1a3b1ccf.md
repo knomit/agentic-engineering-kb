@@ -4,6 +4,7 @@ domain: [agentic-engineering, cost, reliability, prompting, evaluation]
 confidence: 0.6
 sources: 1
 entities: [Anthropic, Claude Mythos, CryptanalysisBench, HAWK, AES-128, Simon Willison, long-horizon agents]
+motifs: [effort-ends-before-exhaustion]
 refs: ['https://simonwillison.net/2026/Jul/28/discovering-cryptographic-weaknesses-with-claude/']
 ---
 # On genuinely hard open-ended problems the binding constraint was the model concluding it was impossible, not capability — 60 hours and ~$100k of prompting to two findings

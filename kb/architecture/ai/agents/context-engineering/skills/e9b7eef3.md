@@ -4,6 +4,7 @@ domain: [agentic-engineering, context-engineering, architecture, security, tools
 confidence: 0.85
 sources: 1
 entities: [Anthropic, Agent Skills, SKILL.md, progressive disclosure, MCP, supply chain, open standard]
+motifs: [description-decides-selection]
 refs: ['https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills']
 ---
 # Agent Skills invert context economics — but the description is the entire selection surface, and the bundle is executable supply chain

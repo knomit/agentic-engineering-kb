@@ -5,6 +5,7 @@ domain: [agentic-engineering, reliability, architecture, multi-agent, distribute
 confidence: 0.85
 sources: 1
 entities: [Amazon, AWS Builders' Library, leader election, idempotency, sharding, DynamoDB, Step Functions, TLA+]
+motifs: [impossible-guarantee-pushed-downstream]
 refs: ['https://builder.aws.com/content/3Ev0vH0hfkcUizISUWYTvHibtcp/leader-election-in-distributed-systems']
 ---
 # You cannot guarantee exactly one orchestrator — decide whether the work is idempotent enough to tolerate two

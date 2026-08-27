@@ -4,6 +4,7 @@ domain: [agentic-engineering, security, guardrails, architecture, evaluation]
 confidence: 0.85
 sources: 2
 entities: [UK AISI, Control Red Team, Google DeepMind, Anthropic, asynchronous monitor, synchronous monitor, Best-of-N, evolutionary search, trusted monitor, Claude 4.1 Opus, Claude 3.7 Sonnet]
+motifs: [measured-scope-excludes-cost]
 refs: ['https://www.aisi.gov.uk/blog/how-our-new-control-red-team-is-stress-testing-frontier-monitors', 'https://www.aisi.gov.uk/blog/stress-testing-asynchronous-monitoring-of-ai-coding-agents', 'kb://bc6eac5f37df/kb/decisions/ai/agents/security/monitor-placement/42e1218f.md']
 ---
 # A structured search beat Best-of-N against a production agent monitor by a wide margin, and the routing rule that skips review is a bigger hole than the monitor's prompt

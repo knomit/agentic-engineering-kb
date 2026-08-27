@@ -4,6 +4,7 @@ domain: [agentic-engineering, tools, reliability, error-handling, distributed-sy
 confidence: 0.8
 sources: 1
 entities: [Amazon, AWS Builders' Library, idempotency, semantic equivalence, principle of least astonishment, Amazon EC2]
+motifs: [implementation-shaped-interface]
 refs: ['https://builder.aws.com/content/3Ev0BENTyBr0XxzRk5FDZzgNYos/making-retries-safe-with-idempotent-apis']
 ---
 # Returning AlreadyExists to a retried tool call is a side effect from the caller's point of view — return a semantically equivalent response instead

@@ -4,6 +4,7 @@ domain: [agentic-engineering, architecture, reliability, distributed-systems, op
 confidence: 0.85
 sources: 1
 entities: [Amazon, AWS Builders' Library, control plane, data plane, Amazon S3, AWS Hyperplane, Amazon EC2, Nitro, consistent hashing, Joe Magerramov]
+motifs: [many-pollers-overwhelm-one]
 refs: ['https://builder.aws.com/content/3EukISjbJAGNdrxjKaN6RG0wlHG/avoiding-overload-in-distributed-systems-by-putting-the-smaller-service-in-control']
 ---
 # Once agent workers outnumber the service they poll by 100:1, invert the direction — let the small fleet set the pace, or put a hyperscale store between them

@@ -4,6 +4,7 @@ domain: [agentic-engineering, multi-agent, architecture, security, guardrails]
 confidence: 0.75
 sources: 1
 entities: [OWASP, swarm architecture, central orchestrator, decentralized identity, verifiable credentials, agent reputation]
+motifs: [reference-must-be-exogenous]
 refs: ['https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/', 'https://genai.owasp.org/download/49059/?tmstv=1753666640', 'kb://bc6eac5f37df/kb/decisions/ai/agents/multi-agent/f7dee43a.md', 'kb://bc6eac5f37df/kb/decisions/ai/agents/multi-agent/delegation-style/c1bbf73f.md']
 ---
 # A swarm has no in-band guidepost for "correct action" or "trusted collaborator" — both must be assigned from outside the agentic flow, and self-expansion gated on a human

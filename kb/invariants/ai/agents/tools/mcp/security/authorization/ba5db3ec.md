@@ -5,6 +5,7 @@ domain: [agentic-engineering, mcp, security, authorization]
 confidence: 0.9
 sources: 1
 entities: [MCP, token passthrough, OAuth, audience, RFC 9068, confused deputy]
+motifs: [conflation-hides-second-defect]
 refs: ['https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices', 'https://modelcontextprotocol.io/specification/2025-06-18', 'https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices', 'https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/docs/2026-07-28/tutorials/security/security_best_practices.mdx']
 ---
 # MCP servers MUST NOT accept tokens that were not issued to them — audience-validation failure and token passthrough are two separate defects, and only the second is the one people name

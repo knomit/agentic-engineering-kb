@@ -4,6 +4,7 @@ domain: [agentic-engineering, reliability, architecture, distributed-systems, pe
 confidence: 0.85
 sources: 1
 entities: [Amazon, AWS Builders' Library, Colm MacCarthaigh, cache, anti-fragility, modal behaviour, cascading failure]
+motifs: [mitigation-becomes-steady-state, common-cause-synchronises-demand]
 refs: ['https://builder.aws.com/content/3F05oqNtNUWxHJ5r6L6I2HrH4rI/reliability-constant-work-and-a-good-cup-of-coffee']
 ---
 # A cache looks anti-fragile and is actually a mode — it gets better under load right up until it collapses and takes its backing service with it

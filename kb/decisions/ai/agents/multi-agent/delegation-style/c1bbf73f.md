@@ -5,6 +5,7 @@ domain: [agentic-engineering, multi-agent, architecture]
 confidence: 0.8
 sources: 2
 entities: [OpenAI, Microsoft, handoff, manager pattern]
+motifs: [wrong-deciding-variable]
 refs: ['https://developers.openai.com/api/docs/guides/agents', 'https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns']
 ---
 # Manager (agents-as-tools) vs decentralized handoff: does control return to the caller?
