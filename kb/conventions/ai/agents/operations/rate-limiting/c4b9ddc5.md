@@ -2,7 +2,7 @@
 type: pattern
 domain: [agentic-engineering, operations, reliability, cost]
 confidence: 0.8
-sources: 0
+sources: 1
 entities: [Amazon, AWS Builders' Library, token bucket, burst capacity, rate limiting]
 motifs: [burst-and-sustained-conflated]
 refs: ['https://builder.aws.com/content/3Eupj3d2bo4fEvlzYbICMZNhQ3B/fairness-in-multi-tenant-systems']
