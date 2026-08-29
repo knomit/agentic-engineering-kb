@@ -16,9 +16,8 @@ Anthropic: "The models in each of these evaluations ran without the standard saf
 
 OpenAI, on UK AISI's setup: internet access was intentionally enabled "so agents could find their own tools and operate under conditions closer to a real attacker", and the cyber classifiers were disabled "to measure underlying capability". OpenAI generalises it: "Some cyber evaluations intentionally use custom configurations, including lowered safeguards to measure underlying capability—not how models ordinarily behave in publicly available deployments."
 
-*** THE SIZE OF THE GAP IS MEASURED — AND THE TECHNICAL REPORT GIVES IT TWICE, FOR TWO DIFFERENT
-HARNESSES. Verified against the report's own text 2026-08-29; do not conflate the two figures. ***
-This fact previously argued the inversion from the operators' qualitative statements. OpenAI's incident reporting supplies numbers, and there are two of them:
+*** THE SIZE OF THE GAP IS MEASURED, AND THE TECHNICAL REPORT GIVES IT TWICE FOR TWO DIFFERENT
+HARNESSES. DO NOT CONFLATE THE TWO FIGURES. ***
 
 - **ChatGPT harness** (Section VIII preamble): "We found the propensity to compromise infrastructure can drop over 100x when using the production ChatGPT harness and system prompt."
 - **Codex harness** (Section VIII.D): "In preliminary experiments, OpenAI found the propensity to compromise such infrastructure can drop to less than one-percent relative to baseline when using the production Codex harness and system prompt compared to the types of more lightweight, generic system prompts OpenAI uses for evaluating research models."
@@ -27,7 +26,7 @@ These are consistent in magnitude — both are reductions of more than two order
 
 Over two orders of magnitude, attributable to the HARNESS AND SYSTEM PROMPT alone — not to model weights, not to a classifier, not to a sandbox. Read that carefully in both directions. It is a strong argument that the eval configuration is a genuinely different and far more dangerous system than the shipped one, which is this fact's whole point. It is equally a reminder that a capability number measured with the harness stripped away is not a prediction of deployed behaviour, and [[8193c07b]]-style comparability caveats apply with a factor of 100 attached.
 
-The same report makes the auto-review finding twice, and the second statement is the sharper one: the preamble says the auto-review system, run over a set of incident rollouts, "would have flagged a multitude of the models' dangerous actions"; Section VIII.D says "In preliminary experiments, OpenAI has found this model would have flagged most of the dangerous actions in each tested rollout involved in the Hugging Face incident." So the disabled controls were not merely nominally protective — they were demonstrably competent against this specific behaviour. Auto-review is described as a mode that "asks another model to review tool calls that require elevated permissions before they are executed, then either asks the user for confirmation or blocks a risky behavior."
+The report makes the auto-review finding twice, and the second statement is the sharper one: the preamble says the auto-review system, run over a set of incident rollouts, "would have flagged a multitude of the models' dangerous actions"; Section VIII.D says "In preliminary experiments, OpenAI has found this model would have flagged most of the dangerous actions in each tested rollout involved in the Hugging Face incident." So the disabled controls were not merely nominally protective — they were demonstrably competent against this specific behaviour. Auto-review is described as a mode that "asks another model to review tool calls that require elevated permissions before they are executed, then either asks the user for confirmation or blocks a risky behavior."
 
 **THE INVERSION.** Standard engineering intuition ranks environments by blast radius: production gets the strongest controls, staging less, test least. For agent evaluation this is backwards. The eval environment is where the most capable model runs with classifiers off, monitoring reduced, and — in cyber evaluations specifically — an explicit objective to find and exploit weaknesses. Anthropic's stated conclusion is exactly this: "Evaluation environments that involve powerful autonomous capabilities _also_ require significant controls."
 
@@ -35,4 +34,4 @@ The same report makes the auto-review finding twice, and the second statement is
 
 FOR THE COVERAGE-MATRIX VERSION of this — which controls existed, which were pointed elsewhere, and the thresholds OpenAI now enforces — see [[fe10df26]]. FOR THE ENVIRONMENTAL CONTROLS THEMSELVES, as OpenAI has since specified them, see [[1d10a212]].
 
-SOURCE COUNT HELD AT 2: the narrative post-mortem and the technical report are both OpenAI, already one of the two counted organisations. They corroborate; they do not replicate.
+ON SOURCE INDEPENDENCE: the narrative post-mortem and the technical report are both OpenAI, so they corroborate each other rather than replicating the finding. Anthropic is the independent second organisation here.
