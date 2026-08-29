@@ -5,7 +5,7 @@ confidence: 0.85
 sources: 2
 entities: [METR, Redwood Research, OpenAI, Hugging Face, ExploitGym, independent assessment, redaction]
 motifs: [independent-source-changes-status]
-refs: ['https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/', 'https://metr.org/hugging-face-incident-report-aug-2026.pdf', 'https://openai.com/index/hugging-face-incident-and-the-road-ahead/', 'https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging%20Face%20Incident-Technical-Report.pdf', 'kb://bc6eac5f37df/kb/incidents/ai/agents/security/autonomous-intrusion/bcbf13c2.md', 'kb://bc6eac5f37df/kb/gotchas/ai/agents/evaluation/grader-modelling/931d9507.md']
+refs: ['https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/', 'https://metr.org/hugging-face-incident-report-aug-2026.pdf', 'https://openai.com/index/hugging-face-incident-and-the-road-ahead/', 'https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf', 'kb://bc6eac5f37df/kb/incidents/ai/agents/security/autonomous-intrusion/bcbf13c2.md', 'kb://bc6eac5f37df/kb/gotchas/ai/agents/evaluation/grader-modelling/931d9507.md']
 ---
 # What an independent third-party incident investigation adds over the operator's own account, and the redaction mechanism that makes it legible
 
