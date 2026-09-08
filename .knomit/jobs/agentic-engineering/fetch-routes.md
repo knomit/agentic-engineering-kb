@@ -113,51 +113,69 @@ is in the body. innerText DOES capture footnotes, at the very end of the page, w
 like the end of the article. READ TO THE ACTUAL END OF THE innerText, not to the last heading.
 
 *** ====================================================================================== ***
-*** ROUTE 7. THE REVISION HISTORY GETS SQUASHED. A WALK CAN BE COMPLETE BY THE API'S OWN   ***
-*** SIGNAL AND STILL BE MISSING FIVE ENTIRE RUNS. 23rd RUN, HIT LIVE. RE-CONFIRMED 24th,   ***
-*** 25th AND 26th — THE SAME SEVEN RUNS (14-15, 17-21) REMAIN UNREACHABLE.                ***
+*** ROUTE 7. THE RUN-NUMBER SEQUENCE IS THE INTEGRITY CHECK ON THE HISTORY WALK. RUN IT     ***
+*** EVERY TIME. THE ONE GAP ON RECORD HAS A KNOWN CAUSE AND IS NOT AN ONGOING MECHANISM.    ***
+*** CORRECTED 26th RUN — READ THIS WHOLE ENTRY BEFORE REPEATING ANYTHING ABOUT "SQUASHING". ***
 *** ====================================================================================== ***
-This is a STRICTLY WORSE failure than route 6 and it defeats route 6's fix. Route 6 says accumulate
-every commit any listing names. Route 7 says: the listing may not name them at all.
+*** THE CORRECTION FIRST, because runs 23-26 all wrote the wrong version of this and a future run
+*** will otherwise inherit it again. ***
+Runs 23, 24, 25 and 26 each recorded that "the revision history is being squashed", that per-run
+writes survive "only until the next PR merge", and that seven runs were permanently lost. THAT
+DIAGNOSIS WAS WRONG, and it was an inference presented as a measurement.
 
-MEASURED, 23rd run. The 22nd run recorded reading SEVEN revision bodies and named their commits:
-  4cce7781, a5466f42, 4feee885, a21ad1c0, 3bc37431, 3c6323cd, 8b9a768d
-On the 23rd run, `knomit_explain` at HEAD returned a history of THREE, with more_available FALSE.
-The per-run commits for runs 17-21 are GONE, folded into merge #9. Their bodies are unreachable.
-Note the shape: every surviving OLD commit is a MERGE COMMIT. Per-run writes are squashed into the
-merge for their pull request, so a run's individual revision survives only until the next PR merge.
-*** 26th-RUN DATA POINT, AND IT SHARPENS THE MECHANISM: the walk returned run numbers 26, 25, 24,
-*** 23, 22, 16, 13 — FOUR consecutive recent runs survived as non-merge commits, because no PR merge
-*** has landed on this path since 2026-08-27. On the 25th run it was two. The count of surviving
-*** recent runs is therefore just "however many have been written since the last merge", and it grows
-*** until a merge collapses all of them at once. The squash is a merge-time event. ***
+WHAT IS ACTUALLY TRUE, per the repo owner (2026-09-08): **the repository was rebuilt between the
+22nd and 23rd runs, and some run revisions were lost in that rebuild.** It is a ONE-OFF HISTORICAL
+EVENT, not a mechanism that operates every merge. From the 22nd run onwards the history has behaved
+correctly: runs 22, 23, 24 and 25 were all individually addressable on the 26th run, across several
+intervening merges. `knomit_update` retains the revision it writes.
 
-WHY THE WALK STILL LOOKS CLEAN: more_available was FALSE. The API said the history was complete, and
-by its own reckoning it was — those commits no longer exist on this path. A run that trusts
-more_available and does not cross-check will report "COMPLETE, NO GAPS" while missing runs.
+WHY FOUR RUNS IN A ROW GOT IT WRONG, because the failure mode is instructive:
+  * The observation was real — the 22nd run read seven bodies including runs 17-21; the 23rd run
+    could not enumerate them.
+  * The surviving OLDER commits on this path all happened to be merge commits ("Merge #6", "#8",
+    "#9"), which is what the post-rebuild state looks like. Every run since read that pattern as a
+    causal mechanism and predicted it would recur. It did not recur — and each run then explained the
+    non-recurrence away ("no merge has landed yet") instead of treating it as disconfirmation.
+  * NOBODY EVER TESTED WHETHER THE REVISIONS EXISTED. The only test attempted was passing 8-char
+    prefixes to `knomit_explain`, which 7b below shows is uninformative in both directions. The full
+    40-hex hashes were never recorded for those runs, so the claim was untestable as written.
+  * THE DEFECT CLASS IS THE PACK'S OWN: an overclaimed absence, inherited from job state and
+    re-asserted without verification. Appendix S's rules about not declaring a source dead apply to
+    the bookkeeping too. "Not enumerated by the listing" is an observation; "lost" is a claim.
 
-*** THE ONLY RELIABLE TELL IS THE RUN-NUMBER SEQUENCE IN THE BODIES. *** Every body opens
-"crawled: <date> (Nth run)". Read the numbers you actually got. more_available is not evidence.
-The run numbers are.
+*** AND ONE APPARENT GAP IS NOT A GAP AT ALL. *** `more_available: false` at
+8b9a768debcfa982f4ec2a8155c1bc9195c0bb0f is CORRECT and expected: that commit is REVISION 1 OF THIS
+PATH. Its own body says so — "It has no history before this revision ... never expect RevisionsBefore
+to reach past this point — it keys on an exact path and does not follow renames." The state used to
+live at other paths, and that history is NOT lost, merely elsewhere:
+  kb/meta/jobs/agentic-engineering/crawl-state/037911b0.md    14 revisions
+  kb/meta/jobs/agentic-engineering/crawl-state/d57d2b90.md     2 revisions
+  kb/meta/jobs/agentic-engineering/crawl-sources/fa385bda.md  18 revisions
+If a future run ever genuinely needs pre-13th-run URL detail, explain THOSE paths. It should not need
+to: the 13th run wrote the full 190-URL union into its body precisely so nobody has to.
+
+*** WHAT TO ACTUALLY DO, and it costs nothing: READ THE RUN NUMBERS AND REPORT THEM. *** Every body
+opens "crawled: <date> (Nth run)". Report the sequence you got and any gap in it. `more_available` is
+a statement about the listing, not about the data, so it is not by itself evidence of completeness.
+A gap is a prompt to investigate, NOT a finding of loss — and if you find one, say which revisions
+were not enumerated, and say plainly that you did not test whether they exist.
+KNOWN GAP, cause established, do not re-litigate: runs 14-15 and 17-21 are not enumerated on this
+path. Runs 22 onwards are fine and have stayed fine.
 
 *** 7b. SHORT COMMIT HASHES DO NOT RESOLVE. `knomit_explain` NEEDS THE FULL 40-HEX. ***
-AND THIS IS WHY THE SQUASH IS UNRECOVERABLE: crawl-state bodies record commits in PROSE as 8-char
-prefixes. Those cannot be passed back to the tool.
   knomit_explain(commit="4cce7781") -> "could not read ... at 4cce7781"
-ISOLATED BEFORE BLAMING THE SQUASH, per Appendix S: the same call with a KNOWN-GOOD commit's short
-prefix fails identically — knomit_explain(commit="3c6323cd") errors, while the full
+ISOLATED PROPERLY, per Appendix S: the same call with a KNOWN-GOOD commit's short prefix fails
+identically — knomit_explain(commit="3c6323cd") errors, while the full
 3c6323cd52188f057c16d15b2c7b72ad9d9e91e9 succeeds. So a short-hash failure tells you NOTHING about
-whether the commit exists. Do not read it as evidence of a squash, and do not read it as evidence of
-a live commit either.
+whether the commit exists. Do not read it as evidence of absence, and do not read it as evidence of
+presence. This is exactly the test that was mistaken for proof of loss above.
 *** ACTION FOR EVERY FUTURE RUN, one line, costs nothing: when recording commits in a crawl-state
-body, WRITE THE FULL 40-HEX HASH. *** (Adopted 23rd run; held on the 24th, 25th and 26th.)
-What is NOT lost when a squash happens: the URL union is anchored on 8b9a768d's enumerated 190 plus
-per-run counts that surviving bodies quote, and the QUEUE is carried forward in each body's
-per-source section. So a squash costs the URL-level detail of the lost runs, not the work list.
+body, WRITE THE FULL 40-HEX HASH. *** (Adopted 23rd run; held 24th-26th.) The reason is now sharper
+than when it was adopted: it is what makes any future claim about a revision TESTABLE.
 
 *** ====================================================================================== ***
 *** ROUTE 6. THE HISTORY WALK SKIPS ONE BODY PER HOP IF YOU ANCHOR ON THE OLDEST REVISION. ***
-*** 22nd run. STILL TRUE, BUT READ ROUTE 7 FIRST — IT IS THE LARGER FAILURE.               ***
+*** 22nd run. THIS ONE IS REAL, MEASURED, AND STILL BITES.                                 ***
 *** ====================================================================================== ***
 Appendix S says: take the OLDEST commit in `history.revisions` and call knomit_explain again with it.
 That advances the window correctly, but it does NOT read every revision, and the shortfall is invisible.
@@ -174,10 +192,10 @@ THE RULE: **the revision LIST is the work list, not the anchor chain.** After ea
 returned commits to a to-read set; then read every one whose body you have not already seen.
 25th-RUN CONFIRMATION: HEAD returned [91f7d08, 7462e9f2, 65e9612b]. Anchoring on 65e9612b would have
 skipped 7462e9f2 — the entire 23rd run. Reading the LIST caught it.
-*** 26th-RUN CONFIRMATION, AND THE MISS WOULD HAVE BEEN TWO RUNS THIS TIME: HEAD returned
-*** [c6cab798, 91f7d085, 7462e9f2]; anchoring on 7462e9f2 would have skipped 91f7d085 (the 24th run)
-*** outright, and its listing [7462e9f2, 65e9612b, 3c6323cd] would then have skipped 65e9612b (the
-*** 22nd). The longer the unsquashed recent tail, the more the anchor-chain method loses. ***
+26th-RUN CONFIRMATION, and the miss would have been two runs: HEAD returned [c6cab798, 91f7d085,
+7462e9f2]; anchoring on 7462e9f2 would have skipped 91f7d085 (the 24th run), and that call's listing
+[7462e9f2, 65e9612b, 3c6323cd] would then have skipped 65e9612b (the 22nd). The more consecutive
+per-run revisions exist, the more the anchor-chain method loses.
 
 *** ====================================================================================== ***
 *** ROUTE 4. THE TOOL ITSELF CAN INVENT THINGS. THE MOST IMPORTANT ENTRY IN THIS FILE FOR  ***
@@ -213,7 +231,7 @@ FIGURE, ANY THRESHOLD, AND ANY VERSION OR PRODUCT IDENTIFIER GOES THROUGH THE SE
 On the Echoverse post an open-ended read left the impression that live-web transfer was described
 qualitatively; a targeted call returned the figures and, asked directly whether the post says
 transfer was unmeasured, answered NOT STATED. So the second call is an ABSENCE filter as well as a
-fabrication filter, and ASKING THE NEGATIVE QUESTION EXPLICITLY ("does the post state anywhere that
+fabrication filter, and ASKING THE NEGATIVE QUESTION EXPLICITLY ("does the source state anywhere that
 X was NOT measured?") is what separates "the page does not say it" from "I did not see it".
 *** 26th-RUN CONFIRMATION OF THE ABSENCE FILTER, ON A STALENESS CHECK: asked whether the latent.space
 *** bad-envs post marks its 5% threshold as a rule of thumb rather than a measurement, the verbatim
@@ -249,6 +267,10 @@ NOTE THE BIAS, because it is what makes this dangerous: every invention made the
 COMPLETE AND MORE QUOTABLE. Fabrication here is not random noise, it is narrative gap-filling, so the
 invented detail is exactly the one that makes a fact worth writing. It will pass a plausibility check
 because plausibility is what produced it.
+*** AND THE SAME BIAS OPERATES ON THIS FILE, NOT ONLY ON FETCHED PAGES — SEE THE ROUTE 7
+*** CORRECTION. A tidy causal mechanism ("merges squash the history") is more quotable than an
+*** untidy observation ("these revisions were not enumerated and I did not test why"), and four
+*** consecutive runs preferred the quotable one. Apply route 4's discipline to the bookkeeping. ***
 
 THE RULE, and it is cheap enough that there is no excuse:
   * NEVER write a number, a quotation, a named threshold or a version identifier into a fact from an
@@ -548,6 +570,11 @@ TIP, needs no interpreter:
 (python3 IS available in this job's Bash despite an older note in Appendix S; Write and Edit are what
 is denied. Note that whether the explain result comes back inline or persisted VARIES between runs
 and between anchors — do not assume either path will trigger.)
+*** AND THE TOOLSET IS knomit PLUS THE FETCH ROUTES, NOTHING ELSE (26th run). *** The knowledge base
+is addressed ONLY through knomit_explain / knomit_query / knomit_learn / knomit_update. Do not go
+looking for an underlying store, a git clone or a database file to inspect directly, even to settle a
+question about the history — that is out of scope for this job. If a question cannot be answered with
+the knomit tools, the answer is "not established", and you say so.
 *** knomit_query sort=recent IS ORDERED BY LAST TOUCH, NOT BY CREATION (18th run). ***
 An update bumps a fact to the front, so the TAIL of a sort=recent walk is the set of facts LEAST
 RECENTLY VERIFIED. Reaching it costs ~15k tokens per page at limit=25.
