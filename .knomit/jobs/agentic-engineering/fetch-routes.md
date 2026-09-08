@@ -20,8 +20,42 @@ Scope: durable operational knowledge. It changes when a WEBSITE changes, not whe
 Do not put run status, queues or rankings here — those go in crawl-state.md.
 
 *** ====================================================================================== ***
+*** ROUTE 9. THE BROWSER IS NOT A 403 WORKAROUND. IT IS THE DEFAULT ROUTE FOR ANY PAGE YOU ***
+*** WILL TAKE A NUMBER OR A QUOTATION FROM. 26th RUN, MEASURED ACROSS THREE HOSTS.        ***
+*** ====================================================================================== ***
+Route 1 introduced `mcp__browser__` because openai.com 403s to WebFetch. The 26th run used it on
+THREE hosts, only one of which is gated:
+  openai.com        — gated (route 1). Browser required.
+  www.anthropic.com — NOT gated. WebFetch works fine. Browser used anyway.
+  metr.org          — NOT gated. WebFetch works fine. Browser used anyway.
+All three returned full article text first try with a single navigate + innerText evaluate.
+
+*** WHY DO THIS ON A HOST THAT IS NOT GATED: ROUTE 4. *** `WebFetch` answers a prompt with a small
+fast model, so everything it returns is an EXTRACTION and can be fabricated. `browser_evaluate`
+returning `innerText` is a TRANSCRIPTION — no model in the loop — so every figure and quoted string
+taken from it is safe by construction, and the two-call verbatim discipline is unnecessary.
+MEASURED THIS RUN: roughly forty quoted strings and twenty-five figures were written into facts from
+browser innerText with ZERO route-4 exposure. The only WebFetch calls were index sweeps (where the
+output is a list of hrefs, not a claim) and ONE deliberate verbatim verification call.
+COST COMPARISON, which is the reason this is now the default and not merely permitted:
+  WebFetch on a claim-bearing page = 1 open-ended call + 1 verbatim call = 2 calls, still an extraction.
+  Browser                          = 1 navigate + 1 evaluate       = 2 calls, and it is a transcription.
+Same call count, strictly stronger evidence. THE RULE: if you intend to QUOTE it or take a NUMBER
+from it, load it in the browser. Use WebFetch for index sweeps and for "is there anything new here".
+CAVEAT: the browser is not free — it needs a live browser MCP server, and route 1 records that WHICH
+server is live varies between runs. Check, do not hardcode. And innerText loses table structure the
+same way pdftotext does; the form-feed rule does not apply but the pairing caution does.
+
+*** 9b. openai.com/index/ NOW REDIRECTS TO openai.com/news/. 26th run. *** Navigating to
+`https://openai.com/index/` lands on `https://openai.com/news/` (the returned Page URL says so).
+THIS IS A LANDING-PAGE CHANGE ONLY — individual post URLs are STILL `/index/<slug>` and resolve
+normally; nothing needs re-slugging. /news/ is now where the newest-first listing lives, and the 5c
+querySelectorAll href harvest works on it unchanged (it returned nine posts spanning Sep 1-6 in one
+call). Do not read the redirect as posts having moved.
+
+*** ====================================================================================== ***
 *** ROUTE 8. A CDN ASSET URL THAT WORKED YESTERDAY CAN 404 TODAY. THE DOCUMENT IS NOT GONE  ***
-*** — THE FILENAME CHANGED. NEW, 25th RUN, HIT LIVE ON THE PACK'S MOST-CITED PDF.          ***
+*** — THE FILENAME CHANGED. 25th RUN, HIT LIVE ON THE PACK'S MOST-CITED PDF.               ***
 *** ====================================================================================== ***
 MEASURED, 25th run. The 24th run fetched OpenAI's Hugging Face technical report successfully and
 recorded its URL into TEN facts. One day later the identical URL returned **HTTP 404 with an Azure
@@ -51,13 +85,15 @@ THREE ACTIONS THIS IMPLIES, all cheap:
     read-modify-write of the FULL refs list (knomit_update REPLACES refs), so budget one call each.
 GENERALISE THE HABIT: whenever you re-fetch a previously recorded asset and it fails, assume URL rot
 before assuming source death, and assume the corpus inherited the bad URL.
+*** 26th-RUN STATUS: the hyphenated URL was NOT re-tested this run (no PDF was fetched). It remains
+*** the recorded-good form; treat it as unverified since 2026-08-29 rather than as re-confirmed. ***
 
 *** 8b. METR/REDWOOD REPORTS MARK PARAPHRASED CHAIN-OF-THOUGHT. QUOTING A PARAPHRASE AS VERBATIM IS
 *** THE ROUTE-4 DEFECT CLASS ARRIVING FROM A TRANSCRIPTION RATHER THAN AN EXTRACTION. 25th run. ***
 The METR + Redwood Hugging Face report states its own convention explicitly, and it is easy to miss
 because the document is otherwise a clean pdftotext transcription:
-  "We indicate paraphrasing with {curly braces}. In some cases, we are unsure what a part of the
-   underlying CoT snippet meant, which we indicate with <angle brackets> within the paraphrase."
+  "We indicate paraphrasing with {curly braces} ... <angle brackets> within the paraphrase"
+   for parts METR could not interpret.
 It also says it "limited raw CoT to thirty snippets, so some snippets are paraphrased."
 SO, READING THE REPORT:
   "double quotes"  = raw, verbatim agent text. SAFE to quote.
@@ -66,14 +102,20 @@ SO, READING THE REPORT:
   '‘single quotes’' also appear and are ambiguous — prefer a double-quoted instance if one exists.
 THE WIDER RULE: route 4 says a transcription (pdftotext, browser innerText) is safe from FABRICATION
 because no model is in the loop. That remains true — but a transcription faithfully reproduces the
-SOURCE'S OWN hedging markers, and dropping those is a defect you commit, not one the tool commits.
+SOURCE'S OWN hedging markers, and dropping those is a defect YOU commit, not one the tool commits.
 Before quoting from any report that analyses transcripts, grep it for "paraphras" and find out what
 its marking convention is. The report will tell you; the 25th run found it in one grep.
+*** 26th-RUN EXTENSION, SAME FAMILY, DIFFERENT MARKER: A VENDOR POST'S FOOTNOTES CARRY THE
+*** RETRACTIONS. *** Anthropic's 2026-08-31 alignment/security post states in a footnote that its
+technical mitigations against accidentally training on chain-of-thought "have not been wholly
+sufficient", and in another that its new classifier was verified against the July incidents. Neither
+is in the body. innerText DOES capture footnotes, at the very end of the page, well after what looks
+like the end of the article. READ TO THE ACTUAL END OF THE innerText, not to the last heading.
 
 *** ====================================================================================== ***
 *** ROUTE 7. THE REVISION HISTORY GETS SQUASHED. A WALK CAN BE COMPLETE BY THE API'S OWN   ***
-*** SIGNAL AND STILL BE MISSING FIVE ENTIRE RUNS. 23rd RUN, HIT LIVE. RE-CONFIRMED 24th    ***
-*** AND 25th — THE SAME FIVE RUNS PLUS 14-15 REMAIN UNREACHABLE.                          ***
+*** SIGNAL AND STILL BE MISSING FIVE ENTIRE RUNS. 23rd RUN, HIT LIVE. RE-CONFIRMED 24th,   ***
+*** 25th AND 26th — THE SAME SEVEN RUNS (14-15, 17-21) REMAIN UNREACHABLE.                ***
 *** ====================================================================================== ***
 This is a STRICTLY WORSE failure than route 6 and it defeats route 6's fix. Route 6 says accumulate
 every commit any listing names. Route 7 says: the listing may not name them at all.
@@ -82,11 +124,13 @@ MEASURED, 23rd run. The 22nd run recorded reading SEVEN revision bodies and name
   4cce7781, a5466f42, 4feee885, a21ad1c0, 3bc37431, 3c6323cd, 8b9a768d
 On the 23rd run, `knomit_explain` at HEAD returned a history of THREE, with more_available FALSE.
 The per-run commits for runs 17-21 are GONE, folded into merge #9. Their bodies are unreachable.
-Note the shape: every surviving commit is a MERGE COMMIT. Per-run writes are squashed into the merge
-for their pull request, so a run's individual revision survives only until the next PR merge.
-25th-RUN DATA POINT: the walk returned run numbers 24, 23, 22, 16, 13 — five bodies, and the 24th and
-23rd runs' own revisions had survived as non-merge commits because no PR merge had happened since.
-So the loss is not instant; a run's own revision is readable until the next merge lands.
+Note the shape: every surviving OLD commit is a MERGE COMMIT. Per-run writes are squashed into the
+merge for their pull request, so a run's individual revision survives only until the next PR merge.
+*** 26th-RUN DATA POINT, AND IT SHARPENS THE MECHANISM: the walk returned run numbers 26, 25, 24,
+*** 23, 22, 16, 13 — FOUR consecutive recent runs survived as non-merge commits, because no PR merge
+*** has landed on this path since 2026-08-27. On the 25th run it was two. The count of surviving
+*** recent runs is therefore just "however many have been written since the last merge", and it grows
+*** until a merge collapses all of them at once. The squash is a merge-time event. ***
 
 WHY THE WALK STILL LOOKS CLEAN: more_available was FALSE. The API said the history was complete, and
 by its own reckoning it was — those commits no longer exist on this path. A run that trusts
@@ -106,7 +150,7 @@ prefix fails identically — knomit_explain(commit="3c6323cd") errors, while the
 whether the commit exists. Do not read it as evidence of a squash, and do not read it as evidence of
 a live commit either.
 *** ACTION FOR EVERY FUTURE RUN, one line, costs nothing: when recording commits in a crawl-state
-body, WRITE THE FULL 40-HEX HASH. *** (Adopted 23rd run; held on the 24th and 25th.)
+body, WRITE THE FULL 40-HEX HASH. *** (Adopted 23rd run; held on the 24th, 25th and 26th.)
 What is NOT lost when a squash happens: the URL union is anchored on 8b9a768d's enumerated 190 plus
 per-run counts that surviving bodies quote, and the QUEUE is carried forward in each body's
 per-source section. So a squash costs the URL-level detail of the lost runs, not the work list.
@@ -128,13 +172,18 @@ the MIDDLE entry of every listing is NAMED but its BODY IS NEVER FETCHED. Skippe
 intervention that run: 22649951, 4feee885, 7a9ec830, 0ac250fd — and 4feee885 WAS THE ENTIRE 19th RUN.
 THE RULE: **the revision LIST is the work list, not the anchor chain.** After each call, add all
 returned commits to a to-read set; then read every one whose body you have not already seen.
-25th-RUN CONFIRMATION THAT THIS STILL MATTERS: HEAD returned [91f7d08, 7462e9f2, 65e9612b]. Anchoring
-on 65e9612b would have skipped 7462e9f2 — the entire 23rd run. Reading the LIST caught it.
+25th-RUN CONFIRMATION: HEAD returned [91f7d08, 7462e9f2, 65e9612b]. Anchoring on 65e9612b would have
+skipped 7462e9f2 — the entire 23rd run. Reading the LIST caught it.
+*** 26th-RUN CONFIRMATION, AND THE MISS WOULD HAVE BEEN TWO RUNS THIS TIME: HEAD returned
+*** [c6cab798, 91f7d085, 7462e9f2]; anchoring on 7462e9f2 would have skipped 91f7d085 (the 24th run)
+*** outright, and its listing [7462e9f2, 65e9612b, 3c6323cd] would then have skipped 65e9612b (the
+*** 22nd). The longer the unsquashed recent tail, the more the anchor-chain method loses. ***
 
 *** ====================================================================================== ***
 *** ROUTE 4. THE TOOL ITSELF CAN INVENT THINGS. THE MOST IMPORTANT ENTRY IN THIS FILE FOR  ***
 *** FACT QUALITY. 20th run; SCOPE WIDENED BY THE 21st, 22nd AND 23rd. READ BEFORE WRITING  ***
 *** ANY FIGURE, QUOTATION OR IDENTIFIER INTO ANY FACT.                                     ***
+*** SEE ROUTE 9: THE CHEAPEST WAY TO AVOID ALL OF THIS IS TO USE THE BROWSER INSTEAD.      ***
 *** ====================================================================================== ***
 `WebFetch` answers a prompt against the page using a SMALL FAST MODEL. That model will FILL GAPS
 WITH PLAUSIBLE VALUES when the prompt invites a narrative summary. This is not a page problem, not a
@@ -166,6 +215,11 @@ qualitatively; a targeted call returned the figures and, asked directly whether 
 transfer was unmeasured, answered NOT STATED. So the second call is an ABSENCE filter as well as a
 fabrication filter, and ASKING THE NEGATIVE QUESTION EXPLICITLY ("does the post state anywhere that
 X was NOT measured?") is what separates "the page does not say it" from "I did not see it".
+*** 26th-RUN CONFIRMATION OF THE ABSENCE FILTER, ON A STALENESS CHECK: asked whether the latent.space
+*** bad-envs post marks its 5% threshold as a rule of thumb rather than a measurement, the verbatim
+*** call answered that it does NOT caveat it either way. That negative is what turned 0fe91ac7's flat
+*** "the threshold, stated directly" into "stated with no derivation" — a scope fix that no positive
+*** question would have produced. ASK THE NEGATIVE QUESTION DURING STALENESS PASSES TOO. ***
 
 *** 23rd-RUN ADDITION (vi): THE OPEN-ENDED CALL DROPS QUALIFYING CLAUSES AND INVERTS AGENCY, AND
 *** BOTH SURVIVE A PLAUSIBILITY CHECK BECAUSE THE RESULT READS AS A CLEANER FINDING. ***
@@ -208,8 +262,9 @@ THE RULE, and it is cheap enough that there is no excuse:
   * CALIBRATION, so this is not read as "WebFetch is unreliable": the two-call pattern confirmed 7/7
     and 8/8 figures on two pages and 8/8 quoted strings on a third in the 20th run, 8/8, 6/6 and 8/8
     across three pages in the 21st, 10/10 and 8/9 on one arXiv paper plus 5/5 on Echoverse in the
-    22nd, and in the 23rd 8/8 on the AISI optstop post and 7/7 on the embracethered post. The tool is
-    accurate when the page states the thing. It invents when the page does NOT.
+    22nd, in the 23rd 8/8 on the AISI optstop post and 7/7 on the embracethered post, and in the 26th
+    4/4 on the latent.space bad-envs post. The tool is accurate when the page states the thing. It
+    invents when the page does NOT.
   * THIS IS ALSO RETROSPECTIVE. When verifying an old fact, the detail most likely to be fabricated
     is the one that COMPLETES A SET.
 
@@ -221,11 +276,16 @@ THE RULE, and it is cheap enough that there is no excuse:
     title, exact href/slug, and date, newest first. Do not summarise."}
 MEASURED RESULTS, one call each, plain WebFetch, no browser, no gate:
   www.aisi.gov.uk/blog   -> 95 posts (21st run); the 23rd run's call returned the newest 10 and then
-                            summarised the rest as "[Continued with remaining 90+ posts...]".
-  cognition.com/blog     -> 82 posts, complete archive back to 2024-03-12
+                            summarised the rest as "[Continued with remaining 90+ posts...]";
+                            the 26th run, asking for "everything published since <date>", returned
+                            exactly the two posts in that window and nothing else.
+  cognition.com/blog     -> 82 posts, complete archive back to 2024-03-12 (21st run); the 26th run
+                            got the complete 82-post archive again.
   embracethered.com/blog -> 21st run: 10 posts back to 2026-03-16. 23rd run: THE COMPLETE ARCHIVE,
-                            ~180 posts back to 2018-12-16. 25th run: ~19 posts (2026 in full plus the
-                            first 10 of 2025).
+                            ~180 posts back to 2018-12-16. 25th run: ~19 posts. 26th run: the
+                            complete 2026 run, 14 posts back to 2026-01-14.
+  www.anthropic.com/news -> 26th run: 6 posts back to 2026-08-25 when asked for a dated window.
+  metr.org/blog          -> 26th run: the posts in the requested window plus the next one older.
   microsoft.com/en-us/security/blog -> 12 posts (paginated; front page only)
 *** THE SAME URL RETURNS DIFFERENT DEPTHS ON DIFFERENT RUNS. *** The depth is a property of the CALL,
 not of the site. So:
@@ -234,6 +294,12 @@ not of the site. So:
     want ("list every post from 2025"), rather than concluding the archive is short.
   * A catalogue in crawl-sources can be INCOMPLETE without being wrong. Treat a new deeper listing as
     an extension, not a contradiction.
+*** 26th-RUN REFINEMENT, AND IT MAKES THE SWEEP CHEAPER: NAME THE DATE WINDOW IN THE PROMPT. ***
+"...I especially need everything published since <YYYY-MM-DD>" got a precise, short, complete answer
+from four feeds in four calls, with no ellipsis and no truncation games. For the "is anything new"
+question — which is what a sweep actually asks — this is strictly better than asking for the archive
+and hoping the head of the list is complete. Ask for the ARCHIVE only when you are back-catalogue
+mining.
 *** AND A SHALLOW LISTING IS STILL A VALID SWEEP. *** For the "is there anything NEW" question, the
 newest-first head of the list is all you need; depth only matters for back-catalogue mining.
 TWO STANDING CAUTIONS:
@@ -255,13 +321,19 @@ HOSTING NOTE: cdn.prod.website-files.com serves PDFs to a plain `curl -sL -A "Mo
 gate, no Referer, no cookie. Percent-encoding in the filename (%20) passes through fine.
 
 *** 5c. ON A BROWSER-ONLY HOST, THE HREF-HARVEST IS A querySelectorAll. 23rd run, AND IT FOUND
-*** A POST NO CATALOGUE KNEW ABOUT. RE-USED 24th AND 25th; IT IS NOW THE PACK'S HIGHEST-YIELD TRICK. ***
+*** A POST NO CATALOGUE KNEW ABOUT. RE-USED 24th, 25th AND 26th; IT IS THE PACK'S HIGHEST-YIELD TRICK. ***
 openai.com cannot be read by WebFetch (route 1), so 5b does not apply there. The equivalent:
-  mcp__browser__browser_evaluate {function: "() => Array.from(document.querySelectorAll('a[href]')).map(a => a.textContent.trim().slice(0,60) + ' -> ' + a.getAttribute('href')).filter(v => /pdf|cdn\\.openai|metr|report/i.test(v)).filter((v,i,s) => s.indexOf(v)===i).join('\\n')"}
+  mcp__browser__browser_evaluate {function: "() => Array.from(document.querySelectorAll('a[href]')).map(a => a.textContent.trim().replace(/\\s+/g,' ').slice(0,110) + ' -> ' + a.getAttribute('href')).filter(v => /\\/index\\/|pdf|cdn\\.openai/i.test(v)).filter((v,i,s) => s.indexOf(v)===i).join('\\n')"}
 Note the shape: harvest ALL `a[href]` and filter in JS, rather than selecting on `a[href*="/index/"]`.
 The 25th run needed off-site and CDN links, which an /index/-scoped selector would have missed.
+*** 26th-RUN TWEAK, WORTH KEEPING: add `.replace(/\\s+/g,' ')` to the textContent and widen the slice
+*** to ~110 chars. openai.com's listing cards render as "TitleCategoryDate" with newlines between
+*** them, so the collapse turns each row into "Path to Astra: critical capabilities and frontier
+*** safeguardsSafetySep 1, 2026 -> /index/path-to-astra/" — which gives you the TITLE, the SECTION
+*** and the DATE alongside the slug, from one call, with no extra fetch to date a post. ***
 On the 23rd run this returned the Aug 26 post-mortem, in no catalogue, published the day before. On
-the 25th it returned the corrected technical-report filename (route 8).
+the 25th it returned the corrected technical-report filename (route 8). On the 26th, run against
+/news/ (see 9b), it returned nine posts spanning Sep 1-6 with their sections and dates.
 THE STANDING PRACTICE: on any browser-only host, harvest hrefs from EVERY page you visit, not just
 from the index. The footer of a post you were reading anyway is a free discovery sweep.
 
@@ -273,7 +345,9 @@ from the index. The footer of a post you were reading anyway is a free discovery
    23rd-RUN EVIDENCE: `mcp__claude-in-chrome__*` FAILED — navigate timed out and tabs_context_mcp
    returned "Browser extension is not connected." `mcp__browser__*` worked first try on the same URL.
    25th-RUN: `mcp__browser__*` again worked first try (navigate + evaluate, no tab management).
-   Neither server is the reliable one; the fallback IS the recipe.
+   26th-RUN: `mcp__browser__*` worked first try again, on openai.com AND on two ungated hosts
+   (anthropic.com, metr.org) — five navigations, five successes, no retries. `mcp__claude-in-chrome__`
+   not tested. Neither server is the reliable one; the fallback IS the recipe.
      mcp__claude-in-chrome__navigate {url} -> tabId ; then get_page_text {tabId}
      mcp__browser__browser_navigate {url}  -> then browser_evaluate (NOT browser_snapshot)
    *** FOR mcp__browser__, PREFER browser_evaluate OVER browser_snapshot FOR ARTICLE TEXT: ***
@@ -282,17 +356,20 @@ from the index. The footer of a post you were reading anyway is a free discovery
    returns the article text inline, which is what you want.
    The server must run REAL Chrome, not headless Chromium — headless gets a Cloudflare interstitial.
    Plain curl also 403s. Do NOT record openai.com as paywalled or dead.
-   *** THE BROWSER ROUTE'S QUALITY ADVANTAGE, WHICH ROUTE 4 MAKES DECISIVE: *** both get_page_text
-   and the innerText evaluate return RAW ARTICLE TEXT with no model in the loop, so figures taken
-   from them are TRANSCRIPTIONS, not extractions, and cannot be fabricated.
+   *** SEE ROUTE 9: the browser's quality advantage means you should now prefer it on UNGATED hosts
+   *** too, whenever you intend to quote or take numbers. Both get_page_text and the innerText
+   *** evaluate return RAW ARTICLE TEXT with no model in the loop, so figures taken from them are
+   *** TRANSCRIPTIONS, not extractions, and cannot be fabricated. ***
    NOTE ON claude-in-chrome navigate ERGONOMICS: calling `navigate` STANDALONE with no tabId
    auto-creates the tab group and returns the tabId. To read several posts, PASS THE SAME tabId to
-   each subsequent navigate, then tabs_close_mcp once. mcp__browser__ needs no tab management.
+   each subsequent navigate, then tabs_close_mcp once. mcp__browser__ needs no tab management —
+   consecutive browser_navigate calls reuse the same page (confirmed over five hosts, 26th run).
    NOTE THE HOST BOUNDARY: this is openai.com ONLY. developers.openai.com and cdn.openai.com are NOT
    403 — the API guides read fine with plain WebFetch, and cdn.openai.com PDFs download with curl -A
-   (but see ROUTE 8: their filenames rot).
+   (but see ROUTE 8: their filenames rot). www.anthropic.com and metr.org are not 403 either.
    *** THE "Keep reading" FOOTER IS A CHEAP DATE ORACLE AND A DISCOVERY FEED. *** It is a plain
    RECENCY feed of the three newest posts, NOT category-scoped. See 5c for harvesting it properly.
+   *** AND SEE 9b: the bare /index/ landing path now REDIRECTS to /news/. Post URLs are unchanged. ***
 
 1b. *** CHEAPEST WAY TO RESOLVE AN UNKNOWN SLUG: WebSearch WITH allowed_domains. 14th run. ***
    Guessed slugs have now 404'd on cognition, strands, adk, openai AND anthropic.
@@ -327,7 +404,7 @@ from the index. The footer of a post you were reading anyway is a free discovery
        | grep -oE '"name":"[^"]*"' | sort -u
    Lists one directory per released revision (2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25,
    2026-07-28, draft). A new revision is a new directory. Cheapest possible check, works when the
-   website does not. UNCHANGED THROUGH THE 25th RUN (fifteen consecutive). The grep is essential —
+   website does not. UNCHANGED THROUGH THE 26th RUN (sixteen consecutive). The grep is essential —
    the raw JSON is large and the directory names are the entire signal.
 
    *** PATH MAPPING — CORRECTED 2026-08-14 (17th run). ***
@@ -456,12 +533,18 @@ NOTE: large learn.microsoft.com and platform.claude.com pages exceed WebFetch's 
 persisted to a file on disk; just Read the path returned, or grep it. Likewise a broad knomit_query
 can exceed the tool-result limit — use limit<=25.
 AND knomit_explain ON crawl-state.md NOW EXCEEDS IT TOO (51.5KB at the 15th run, 56.8KB at the 22nd,
-54.1KB at the 25th when anchored on the 23rd run's commit). That is expected, not an error — the tool
-result names the path; just Read it. Do not retry the call.
+54.1KB at the 25th AND at the 26th when anchored on the 23rd run's commit). That is expected, not an
+error — the tool result names the path; just Read it. Do not retry the call.
+*** 26th-RUN NOTE ON WHICH REVISIONS OVERFLOW: it is not the newest. Anchored at HEAD, at the 24th,
+*** 22nd, 16th and 13th runs' commits, all four came back INLINE; only the 23rd run's commit
+*** overflowed, both runs that read it. The 23rd run's body is simply the longest one written. So
+*** expect ONE persisted file per walk, not a threshold you cross and stay past. ***
 THE PERSISTED FILE IS ONE LINE OF JSON, so `Read` truncates and paginating it is useless. 22nd-RUN
 TIP, needs no interpreter:
   cut -c1-6000 <file>        # head of the body
   cut -c54000-57000 <file>   # the tail, where `history.revisions` lives
+26th-RUN VARIANT that gets both ends in one call:
+  cut -c1-9000 "$F" | tail -c 7000; echo "=====TAIL====="; tail -c 3000 "$F"
 (python3 IS available in this job's Bash despite an older note in Appendix S; Write and Edit are what
 is denied. Note that whether the explain result comes back inline or persisted VARIES between runs
 and between anchors — do not assume either path will trigger.)
@@ -478,6 +561,13 @@ URL-rot repair, and lean on the pool list rather than the timestamps for a while
 knomit_query CANNOT search by id. Run a TOPICAL query aimed at what the fact is about — the id is the
 filename stem, so it is visible in the `file` field of any matching row. Budget two or three queries,
 then substitute another fact at the same confidence.
+*** 26th-RUN ADDITION, AND IT MAKES THE ABOVE MOSTLY UNNECESSARY: THE QUERY ROWS YOU RUN FOR THE
+*** QUERY-FIRST RULE ALREADY CARRY EVERY PATH YOU WILL NEED. *** Four topical queries at limit=8-12,
+run before writing, returned full `file` paths for about twenty facts — enough to write local refs
+into a twelve-fact batch without a single id lookup. THIS MATTERS BECAUSE A LOCAL REF TO A
+NON-EXISTENT PATH REJECTS THE WHOLE knomit_learn CALL. Harvest paths from the query rows as you go,
+and when you do not have a confirmed path for a fact you want to link, use a [[shortid]] in the BODY
+and omit it from refs rather than guessing the path.
 *** AND THE QUERY ROWS CARRY `refs` IN FRONTMATTER, WHICH IS HOW YOU FIND URL ROT IN BULK (25th run):
 *** one topical query at limit=25 listed every fact carrying the dead technical-report URL. ***
 *** 23rd-RUN NOTE ON PICKING A SAMPLE: *** three queued never-checked ids (0f260eea, 1d1440fe,
@@ -495,6 +585,10 @@ The Bash tool's working directory PERSISTS between calls — prefer absolute pat
 whole multi-fact call fails with the offending motif named. "missing-primitive-gets-reinvented-badly"
 failed; "missing-primitive-reinvented-badly" passed. Count the words before submitting a batch — one
 bad motif costs a full resend of every fact in the call.
+*** 26th-RUN CONFIRMATION THAT A LARGE BATCH IS SAFE ONCE THOSE TWO RULES HOLD: twelve facts, each
+*** with 2-3 motifs and several local refs, went in as ONE knomit_learn call and committed together.
+*** Batching is strictly better than twelve calls — one commit, one moment_name, and the facts may
+*** cite each other. Verify motif word counts and local ref paths BEFORE sending. ***
 *** BUILDERS' LIBRARY — SOME ARTICLES ARE VIDEO-ONLY ***
 Confirmed video-only, no prose body, DO NOT RE-FETCH:
   amazons-approach-to-failing-successfully   | 3F05J4fjklUZCE7kjuIp6LaTacl
@@ -530,7 +624,7 @@ CALIBRATION (20th run): where a concept page and a normative page both exist, DI
 *** AND A TOKEN CAN SURVIVE A REVISION WHILE ITS MEANING DOES NOT (20th run). *** A POSITIVE grep is
 as weak a form of evidence as a negative one when the claim is about SEMANTICS: read the hits.
 *** 25th-RUN ADDITION: A LONG REPORT CAN STATE THE SAME MEASUREMENT TWICE WITH DIFFERENT SCOPES. ***
-OpenAI's technical report gives the safeguard-gap figure as ">100x ... production ChatGPT harness"
+OpenAI's technical report gives the safeguard-gap figure as "100x ... production ChatGPT harness"
 (Section VIII preamble) and as "less than one-percent relative to baseline ... production Codex
 harness" (Section VIII.D), with "In preliminary experiments" attached only to the second. A run that
 greps for one figure and stops will write a fact that silently generalises across two harnesses.
