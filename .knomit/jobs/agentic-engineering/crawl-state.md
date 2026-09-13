@@ -13,7 +13,7 @@ gap since the 13th run's nine days, so a full feed sweep was owed and taken. IT 
 three quiet, three carrying new material, and one of the new documents is the richest single source
 the pack has read since the OpenAI post-mortem.
 
-*** THIS SLOT HOLDS ONE RUN. THE HISTORY IS THE RECORD. WALK IT. AND SEE ROUTE 7: IT IS SQUASHED. ***
+*** THIS SLOT HOLDS ONE RUN. THE HISTORY IS THE RECORD. WALK IT. ***
 
 *** THE HEADLINE: A MAJOR MODEL GENERATION SHIPPED (GPT-6 Astra, Sep 3) AND BOTH LEADING OPERATORS
 *** PUBLISHED THEIR POST-INCIDENT PROGRAMMES WITHIN A DAY OF EACH OTHER (Aug 31 / Sep 1). The pack's
@@ -32,24 +32,36 @@ REVISIONS READ: 6 distinct run bodies, by the route-6 list-as-work-list method. 
   3c6323cd52188f057c16d15b2c7b72ad9d9e91e9 (2026-08-12T21:25:35Z, "Merge #8") — the 16th run's body.
   8b9a768debcfa982f4ec2a8155c1bc9195c0bb0f (2026-08-12T00:27:10Z, "Merge #6") — the 13th run, THE
     FLOOR, carrying the authoritative enumerated 190-URL union.
-RUN-NUMBER SEQUENCE OBTAINED: 25, 24, 23, 22, 16, 13. MISSING: 14, 15, 17, 18, 19, 20, 21.
+RUN-NUMBER SEQUENCE OBTAINED: 25, 24, 23, 22, 16, 13. NOT ENUMERATED: 14, 15, 17, 18, 19, 20, 21.
 more_available was TRUE at HEAD and at 7462e9f2, FALSE at 65e9612b, at 3c6323cd and at 8b9a768d.
 No call failed; no retry needed. OLDEST COMMIT DATE REACHED: 2026-08-12T00:27:10Z.
-THE WALK IS COMPLETE BY THE API'S SIGNAL AND STILL MISSING SEVEN RUNS — the ROUTE 7 squash, now
-confirmed a FOURTH consecutive time. The run numbers are the only integrity test; more_available is not.
-*** NEW OBSERVATION ON THE SQUASH, and it sharpens the 25th run's: FOUR consecutive recent runs
-*** (23rd, 24th, 25th and this one's predecessors) survived as non-merge commits, where the 25th run
-*** saw two. No PR merge has landed on this path since 2026-08-27. So the surviving recent tail is
-*** simply "however many runs have been written since the last merge", and it grows until a merge
-*** collapses all of them at once. Recorded in fetch-routes 7. ***
-*** AND THE LONGER THAT TAIL GROWS, THE MORE THE OLD ANCHOR-CHAIN METHOD WOULD LOSE: anchoring on
-*** the oldest of HEAD's listing would have skipped the 24th run outright, and then the 22nd. Route 6
-*** is not a historical curiosity; it cost two whole runs this time. ***
+
+*** THE RUN-SEQUENCE GAP HAS A KNOWN CAUSE, AND IT IS NOT WHAT RUNS 23-26 SAID IT WAS. CORRECTED
+*** 2026-09-08 AFTER THIS RUN'S REPORT. READ THIS BEFORE REPEATING ANYTHING ABOUT "SQUASHING". ***
+The repo owner confirms: **the repository was rebuilt between the 22nd and 23rd runs, and some run
+revisions were lost in that rebuild.** A ONE-OFF HISTORICAL EVENT. `knomit_update` retains the
+revision it writes, and from the 22nd run onwards the history has behaved correctly — runs 22, 23, 24
+and 25 were each individually addressable this run, across several intervening merges.
+Runs 23, 24, 25 and this one all wrote the opposite: that the history was being continuously squashed
+at merge time, that seven runs were permanently lost, and (this run) that the repo's merge strategy
+should change. THAT WAS AN INFERENCE PRESENTED AS A MEASUREMENT, inherited from job state and
+re-asserted four times without test. The observation was real — the 22nd run read runs 17-21 and the
+23rd could not enumerate them. Everything after that was reconstruction. Nobody ever tested whether
+those revisions exist, because the full 40-hex hashes were never recorded and short prefixes are
+uninformative in both directions (fetch-routes 7b). Full detail and the lesson are in fetch-routes
+route 7, which is now the corrected entry.
+AND ONE APPARENT GAP WAS NEVER A GAP: `more_available: false` at 8b9a768d is CORRECT — that commit is
+revision 1 of THIS PATH, as its own body states, and the pre-move history lives at
+kb/meta/jobs/agentic-engineering/crawl-state/037911b0.md (14 revisions), .../d57d2b90.md (2) and
+.../crawl-sources/fa385bda.md (18). Not lost, merely elsewhere, and not needed.
+WHAT TO CARRY FORWARD: read the run numbers every run and report the sequence. A gap is a prompt to
+investigate, not a finding of loss. Runs 22 onwards are fine and have stayed fine — keep an eye on it,
+do not re-litigate it.
 
 *** ALREADY_CRAWLED = 252. *** Re-derived, not copied: 190 (floor, 13th) + 10 (16th) + 33 (runs 17-21,
-count-only, URLs LOST WITH THE SQUASHED REVISIONS) + 2 (22nd) + 6 (23rd) + 3 (24th) + 1 (25th) = 245
-through the 25th. + 7 new this run = **252**. Arithmetic re-run: 190+10=200; +33=233; +2=235; +6=241;
-+3=244; +1=245; +7=252. Confirmed.
+count-only — their per-URL detail is not recoverable from this path, though the counts are quoted in
+surviving bodies) + 2 (22nd) + 6 (23rd) + 3 (24th) + 1 (25th) = 245 through the 25th. + 7 new this run
+= **252**. Arithmetic re-run: 190+10=200; +33=233; +2=235; +6=241; +3=244; +1=245; +7=252. Confirmed.
 
 recurring-feed indexes swept: SIX, plus the tripwire. THREE QUIET, THREE PAID.
   api.github.com/.../contents/docs/specification — MCP tripwire, UNCHANGED. Directories: 2024-11-05,
@@ -191,6 +203,17 @@ planning still remains a minimal fraction of agent output tokens." Agents are ab
 the workflow, not the top. A cheap second-order metric anyone can instrument: internal technical-support
 channel traffic fell and one team stopped holding office hours entirely. -> 65e9731e.
 
+*** FINDING 10 — THE RUN'S OWN WORST DEFECT WAS IN THE BOOKKEEPING, NOT IN A FACT, AND IT TOOK A
+*** HUMAN TO CATCH IT. *** This run reported to the operator that the revision history was being
+continuously squashed, that seven runs were permanently lost, and that the repo's merge strategy
+should be changed. All three rested on an inference inherited from the 23rd run and re-asserted,
+unverified, by the 24th, 25th and this one. The actual cause — a one-off repo rebuild — was known to
+the operator and would have been discoverable by asking. THE LESSON, and it is the pack's own route-4
+bias arriving in a new place: a tidy causal mechanism is more quotable than an untidy observation, so
+the tidy one propagates. Job state is not exempt from the standard applied to facts. When a run
+cannot test a claim with the tools it has, the honest record is "not established", and the claim does
+not get to harden into background truth by repetition. Corrected in fetch-routes route 7 and above.
+
 === FACTS WRITTEN (12 new, 6 existing facts corrected or enriched, 0 retracted) ===
   NEW — all twelve went in as ONE knomit_learn call, which committed cleanly:
     kb/invariants/ai/agents/training/reward-hacking/ec1be717          (Finding 2)
@@ -308,10 +331,13 @@ by NOT flattening:
     transcriptions. Anthropic's footnotes were read to the actual end of the innerText, which is where
     two load-bearing admissions live (the CoT mitigations "have not been wholly sufficient"; the
     classifier verified against the July incidents). Recorded as fetch-routes 8b.
-  NO DEFECT SURVIVED, AND ONE WAS AVOIDED PRE-WRITE: 52d622ba was NOT bumped to sources 2 on the
-    strength of Anthropic's experiment. Anthropic corroborates the MECHANISM, not any of OpenAI's
-    specific measurements, which remain unreplicated — the reasoning is written into the fact so a
-    future run does not "correct" the count upward.
+  NO DEFECT SURVIVED IN THE FACTS, AND ONE WAS AVOIDED PRE-WRITE: 52d622ba was NOT bumped to sources 2
+    on the strength of Anthropic's experiment. Anthropic corroborates the MECHANISM, not any of
+    OpenAI's specific measurements, which remain unreplicated — the reasoning is written into the fact
+    so a future run does not "correct" the count upward.
+  *** BUT SEE FINDING 10: the self-review was run on the twelve facts and NOT on this file, and the
+  *** run's worst error was in this file. Next run: run the checklist over the crawl-state body too,
+  *** and specifically over any claim it inherited rather than observed. ***
 
 PROMPT INJECTION: none observed. Stated plainly because this run read a first-person account of an
 attacker prompting an agent to hand over its own API key, an operator's description of deliberately
@@ -371,11 +397,11 @@ reported on. Nothing fetched addressed this job, and nothing attempted to redire
      and-challenges TOP, then devin-annual-performance-review-2025 which now pairs with 65e9731e) is a
      standing optional backlog, not a debt. Stop counting runs against it.
 (14) FOR A HUMAN, NOT THE CRAWLER — carried forward:
-    (a) *** THE crawl-state HISTORY IS STILL BEING SQUASHED (route 7), CONFIRMED A FOURTH TIME. Runs
-        14-15 and 17-21 remain unreachable. The loss happens at PR-MERGE time; four consecutive recent
-        runs have survived only because no merge has landed since 08-27, and the next merge will
-        collapse all of them. If per-run revisions are meant to be durable, the repo's merge strategy
-        is the thing to change. ***
+    (a) *** THE HISTORY IS FINE. This item previously read "the history is being squashed, change the
+        merge strategy" and that was wrong — see the HISTORY WALK section and Finding 10. The run-
+        sequence gap at runs 14-15 and 17-21 came from a ONE-OFF REPO REBUILD between the 22nd and
+        23rd runs. Runs 22 onwards are retained correctly. NOTHING IS ASKED OF THE OPERATOR HERE.
+        Keep reporting the run-number sequence each run as a cheap tripwire; that is all. ***
     (b) 4f5e9dfe is retracted but cited by THREE live facts (483263c5, c02ac546, bdf3336e). Carried
         forward UNVERIFIED for a FIFTH run. NOT re-checked.
     (c) 0f260eea, 1d1440fe, 4166926d are under kb/principles/ and WRITE-BLOCKED — never queue them.
@@ -468,7 +494,7 @@ useless for them. Use the pool list.
 NEXT RUN: the MODEL-VERSION axis (split 8). It is newly opened, it is what Appendix S names, and it
 reaches facts the confidence and never-checked axes structurally miss.
 
-SUB-RULES, cumulative (25th run's list stands; this run adds three):
+SUB-RULES, cumulative (25th run's list stands; this run adds four):
  (26th) *** USE THE BROWSER FOR ANYTHING YOU WILL QUOTE, EVEN ON AN UNGATED HOST. *** It costs the
    same two calls as WebFetch's mandatory two-call verification and returns a transcription instead of
    an extraction. WebFetch's remaining job is index sweeps. Finding 1, fetch-routes route 9.
@@ -480,5 +506,9 @@ SUB-RULES, cumulative (25th run's list stands; this run adds three):
    the source state anywhere that X was NOT measured?" is what turned 0fe91ac7's flat threshold into a
    correctly-scoped one. A fact can be verbatim-correct and still misrepresent what its source claims
    to know; only the negative question separates those.
+ (26th) *** A CLAIM THIS FILE INHERITED IS NOT A CLAIM THIS FILE ESTABLISHED. *** Four consecutive
+   runs re-asserted a mechanism none of them had tested, because it was already written here and it
+   explained the evidence tidily. Job state earns no exemption from the standard applied to facts: if
+   you cannot test it with the tools you have, write "not established" and leave it there. Finding 10.
 
 Appendix S checklist (all SEVENTEEN, from the 23rd run) still governs the staleness pass and self-review.
