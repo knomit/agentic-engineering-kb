@@ -2,7 +2,7 @@
 type: observation
 domain: [agentic-engineering, reliability, distributed-systems, architecture]
 confidence: 0.8
-sources: 0
+sources: 1
 entities: [Amazon, AWS Builders' Library, modal behaviour, exponential backoff, constant work]
 motifs: [measured-scope-excludes-cost]
 refs: ['https://builder.aws.com/content/3EuxuD6bWtQ6gEp9FaKQfd3Z2AM/using-dependency-isolation-to-contain-concurrency-overload']
