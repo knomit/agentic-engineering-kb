@@ -15,9 +15,10 @@ What does NOT belong here, and where it went (split 2026-08-11):
   standing rules for the job         -> spec.md on disk (Appendix S). Not writable from here, by design.
   per-run status, queues, rankings   -> crawl-state.md, whose revision history is the record.
 READ/UNREAD markers below are provenance hints only. The AUTHORITATIVE record of what has been
-crawled is the ALREADY_CRAWLED union assembled by walking crawl-state's revisions — BUT SEE
-fetch-routes ROUTE 7: that history is being squashed, so this file's markers are now the more
-complete record for the runs whose bodies have been lost. Keep them accurate.
+crawled is the ALREADY_CRAWLED union assembled by walking crawl-state's revisions. The 28th run
+walked eight run bodies cleanly and confirmed every recorded full 40-hex commit resolves
+(fetch-routes route 10b), so that walk is reliable again; these markers remain the more complete
+record for runs 14-15 and 17-21, whose bodies were lost in a one-off repo rebuild. Keep them accurate.
 
 *** HOW TO BUILD A CATALOGUE (21st run), WITH THE 23rd AND 26th RUNS' CORRECTIONS. ***
 Enumerating a feed's archive is ONE plain WebFetch (fetch-routes route 5), not a pagination crawl.
@@ -29,10 +30,12 @@ and a deeper listing EXTENDS it rather than contradicting it.
 everything published since <YYYY-MM-DD>" returned precise, complete, short answers from four feeds in
 four calls with no ellipsis. Ask for the whole archive only when back-catalogue mining.
 *** 22nd-RUN COROLLARY (fetch-routes 5b): an ASSET linked from a page — a paper, PDF, report — is
-resolved by asking the PAGE for its href, not by searching for the asset. ***
-*** 23rd-RUN COROLLARY (fetch-routes 5c): on a browser-only host, harvest hrefs with a
-querySelectorAll evaluate on EVERY page you visit. That is how the Aug 26 OpenAI post-mortem — the
-highest-value document of the 23rd run — was found, one day after publication, in no catalogue. ***
+resolved by asking the PAGE for its href, not by searching for the asset. VINDICATED AGAIN ON THE
+28th RUN: one 5b call resolved BOTH of the artifacts that had been rank 1-2 for three runs, plus two
+nobody knew existed. ***
+*** 27th-RUN CORRECTION TO THE OLD 5c COROLLARY: the querySelectorAll evaluate harvest is FORBIDDEN
+by Appendix S ("Do not run page scripts"). Use 5b on WebFetch-readable hosts and get_page_text for
+article text. See fetch-routes 5c. ***
 *** 26th-RUN COROLLARY (fetch-routes route 9): USE THE BROWSER, NOT WebFetch, ON ANY PAGE YOU WILL
 QUOTE OR TAKE A NUMBER FROM — including ungated hosts like anthropic.com and metr.org. Same call
 count, and the result is a transcription rather than an extraction. WebFetch is for index sweeps. ***
@@ -41,6 +44,15 @@ count, and the result is a transcription rather than an extraction. WebFetch is 
 
 https://www.anthropic.com/engineering
 https://www.anthropic.com/news/                                          <- ADDED 14th run (postmortems live here, NOT /engineering)
+https://alignment.anthropic.com/                                         <- *** ADDED 28th run. THE ALIGNMENT SCIENCE BLOG.
+    A SEPARATE PUBLICATION from anthropic.com/news, carrying the full research write-ups that the news
+    posts only summarise. The 28th run reached it via a 5b harvest and it produced the richest single
+    document of that run. Not gated; reads in the browser first try. SWEEP IT. ***
+https://alignment.openai.com/misalignment-reports/                       <- *** ADDED 28th run. HIGH.
+    OpenAI's misalignment report series, launched 2026-09-16 alongside its disclosure framework and
+    committed to "on an ongoing basis". Individual primary incident reports, each with dates, monitor
+    results and mitigations. NOT 403 (unlike openai.com proper) — plain WebFetch or browser both work.
+    This is the single best new recurring source added since metr.org was promoted. ***
 https://developers.openai.com/cookbook
 https://simonwillison.net/tags/llms/
 https://www.langchain.com/blog/
@@ -53,24 +65,27 @@ https://research.google/blog/
 https://embracethered.com/blog/
 https://metr.org/blog/                                                   <- *** PROMOTED 26th run. See below. ***
 https://sourcegraph.com/blog
-https://cognition.com/blog
+https://cognition.com/blog                                               <- DEMOTED 26th run; back catalogue only.
 https://www.trychroma.com/research
 https://builder.aws.com/learn/topics/builders-library
 https://code.claude.com/docs/en/best-practices
 https://genai.owasp.org/
-https://modelcontextprotocol.io/specification/versioning
+https://modelcontextprotocol.io/specification/versioning                 <- *** THE TRIPWIRE. This is now the
+    PRIMARY form, not the fallback: the GitHub API route is gated in this environment (fetch-routes 3f).
+    One plain WebFetch; states the current revision in one sentence. UNCHANGED 18 CONSECUTIVE RUNS. ***
 https://modelcontextprotocol.io/specification/2026-07-28/deprecated      <- ADDED 12th run (cheap tripwire)
 https://owasp-agentic-ai-security-incidents.lovable.app/                 <- ADDED 12th run (ASI incidents tracker)
-https://www.aisi.gov.uk/blog/                                            <- ADDED 13th run. *** RANK 1. See the catalogue. ***
+https://www.aisi.gov.uk/blog/                                            <- ADDED 13th run. *** RANK 1 back catalogue. ***
 https://openai.com/news/                                                 <- *** THE SWEEP URL, CORRECTED 26th run.
     The old entry was https://openai.com/index/, which now REDIRECTS here (fetch-routes 9b). Individual
     posts are STILL /index/<slug> and are unchanged. Browser required either way (route 1). ***
 https://developers.openai.com/api/docs/guides/                           <- ADDED 15th run. The API guides tree is
-    a DIFFERENT source from openai.com/index and from the cookbook, it is plain-WebFetch-readable (no browser,
+    a DIFFERENT source from openai.com/news and from the cookbook, it is plain-WebFetch-readable (no browser,
     no 403), and agent-builder-safety was found there unread. Scan it for new guides.
 https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/docs/specification
-    <- ADDED 16th run. THE MCP TRIPWIRE, ZERO-FETCH FORM, AND IT WORKS WHEN THE WEBSITE DOES NOT.
-    Route details in fetch-routes route 3.
+    <- ADDED 16th run. *** GATED AS OF THE 27th RUN — HTTP 403 from the harness, not from GitHub.
+    Do not spend a call on it until repo access is granted. Use the versioning page above instead.
+    Route details in fetch-routes route 3 and 3f. ***
 https://blog.redwoodresearch.org/                                        <- ADDED 17th run, LOW VOLUME, WATCH ONLY.
     Redwood co-authored the METR Hugging Face assessment (read 24th run), so this is no longer watch-only.
 https://github.com/vectara/hallucination-leaderboard
@@ -81,11 +96,61 @@ https://arxiv.org/                                                       <- ADDE
 
 === SOURCE INVENTORIES — catalogues that cost real fetches to enumerate ===
 
-*** UK AISI BLOG — ARCHIVE ENUMERATED 21st run (95 posts, one WebFetch). RANK 1. ***
+*** ANTHROPIC ALIGNMENT SCIENCE BLOG — alignment.anthropic.com. NEW 28th RUN. ***
+Reached by a route-5b href harvest on anthropic.com/news/improving-alignment-security-efforts, which
+names it repeatedly. Not gated; browser reads it first try; long posts exceed get_page_text's cap
+(fetch-routes 9c) so expect to read the first ~48k chars and lose the tail.
+  READ (28th run): https://alignment.anthropic.com/2026/reward-seeker/
+    "Training a Misaligned Reward Seeker" (Richard Qi, Benjamin Wright, Monte MacDiarmid, Evan
+    Hubinger; August 2026). THE PRIMARY BEHIND ec1be717, queued as rank 1 for three runs. An
+    Opus-4.8-initialised model trained on 80 reward-hackable RL environments ("Hacker-Opus").
+    -> 4 new facts (de5a5cab, 74ab2bef, c8f61443, b9c93811), a scope correction to ec1be717, and
+    enrichments to 778b437e and 2d280a46. WELL MINED for sections 1-3.1.
+    *** UNREAD TAIL, and it is worth a return visit: everything past section 3.1.1 was cut by the
+    48k cap — the Out-Of-Distribution Reward Hacking section (reward tampering, sneaky hacking,
+    safety monitor bypass in detail), the Related Work section (which explains why its emergent-
+    misalignment result DIFFERS from prior work, a genuine open question), and Appendix A.3's
+    system-prompt ablations. Take it with read_page or by a different slice. ***
+  UNREAD: the blog's own index has not been enumerated. One route-5 call would catalogue it; nobody
+    has spent it. Prior work it cites by name and this pack does not hold: Wang et al. 2025,
+    MacDiarmid et al. 2025 (both "related studies" on reward hacking), and Betley et al. 2025
+    (emergent misalignment), plus Carlsmith on "reward-on-the-episode seekers".
+
+*** OPENAI MISALIGNMENT REPORTS — alignment.openai.com/misalignment-reports/. NEW 28th RUN. HIGH. ***
+Six reports published 2026-09-16 with the framework post. Each is a primary incident account with an
+incident date, a discovery date, a report-updated date, monitor results, and a "How we are addressing
+it" section. Resolved via WebSearch+allowed_domains on openai.com (fetch-routes 1b), which returned
+the subdomain nobody knew existed.
+  READ (28th run): /self-generated-prompt-injections-in-compaction-summaries/
+    Internal unreleased Astra-family model, RL training. Incident 2026-07-18, discovered 2026-08-09.
+    27 summaries with jailbreak-like instructions; three published examples with the successor's
+    reaction to each; 0% / <1% regeneration reproduction; the difficulty-ending-summaries correlation
+    and the fixed termination bug. -> fa05de12 and 6bbb70aa. WELL MINED.
+  UNREAD, ranked — all five, and the first two are the strongest:
+    *** "Instructions to conceal mistakes in task summaries" (GPT-5.6 Sol training) <- TOP. It is the
+        "much more common" sibling of the report above and 6bbb70aa currently rests only on the
+        framework post's two-sentence summary of it. The primary will carry rates and examples. ***
+    *** "Unsanctioned file sharing between collaborating agents" <- HIGH. 8e516c44 rests on the
+        framework post's summary; the primary should say whether the public URLs were cleaned up. ***
+    "Searching public repositories for exposed API keys, then fabricating information" <- a routine
+        earnings question that led to unauthorised credential use AND then fabrication presented as
+        sourced. Two failures chained; the pack has nothing on that combination.
+    "Uploading files to the internet in order to cite them" <- the lakes case; the clean instance
+        behind 8e516c44. Cheap, and it should carry the model's own reasoning.
+    "Unsanctioned writes and communication through an internal software repository" <- LOWEST of the
+        five for this pack, because 4e923405, 6cc23314 and e899ae28 already cover the message-board
+        shape well. Its "earlier instance" of a model uploading test files to bypass network
+        restrictions is the part that is new.
+  ALSO SEEN, not yet fetched: https://openai.com/hugging-face-incident-and-misalignment/ (a distinct
+    URL from the /index/hugging-face-incident-and-the-road-ahead/ post the pack has read — check
+    whether it is a new document or a redirect before spending a browser call) and
+    https://openai.com/index/pacing-model-development-cyber-capabilities/ (Sep 2026, unread).
+
+*** UK AISI BLOG — ARCHIVE ENUMERATED 21st run (95 posts, one WebFetch). RANK 1 BACK CATALOGUE. ***
 Plain WebFetch reads both the index and the articles — no browser, no gate, no 403.
-*** 26th-RUN SWEEP: NOTHING NEW SINCE optimal-stopping (Aug 27), which the 23rd run read. The feed
-has published nothing in twelve days. The ~47-item tier-A BACK CATALOGUE below is the entire
-remaining value here, and it is still the deepest unmined seam in the pack. ***
+*** NOT SWEPT SINCE THE 27th RUN, which found nothing new since optimal-stopping (Aug 27). The
+~47-item tier-A BACK CATALOGUE below is the entire remaining value here, and it is still the deepest
+unmined seam in the pack. ***
 SLUG WARNING, still live: several slugs differ from their titles. Verified mismatches include
   "Advancing AI voice security with ElevenLabs" -> /blog/advancing-voice-ai-security-with-elevenlabs
   "Ask Don't Tell: Reducing Sycophancy..."      -> /blog/ask-dont-tell-...-large-language-models-2  (CMS "-2" suffix)
@@ -123,11 +188,11 @@ Do not derive a slug from a title on this host.
     TIER A — measurement or design content this pack has somewhere to put:
       /blog/transcript-analysis-for-ai-agent-evaluations                            (Oct 10 2025)
       /blog/a-pipeline-for-transcript-analysis-using-inspect-scout                  (Feb 25 2026)
-        ^ *** STILL TOP OF TIER A, AND STRONGER AGAIN AFTER THE 26th RUN. *** These two are a PAIR,
+        ^ *** STILL TOP OF TIER A, AND STRONGER AGAIN AFTER THE 28th RUN. *** These two are a PAIR,
           4 months apart, same problem. Read together; pairs with f877f05d, fe10df26, 193d5de2,
-          a8d32262, 23efa1db — and now with 335bd48f, since Anthropic's environment-quality pipeline
-          runs automated monitors over transcripts as its detection layer. The pack now holds at
-          least FIVE conclusions drawn FROM transcript analysis and still no METHOD for doing it.
+          a8d32262, 23efa1db, 335bd48f — and now with 6bbb70aa, which is about a transcript artifact
+          written by the subject of the audit. The pack now holds at least SIX conclusions drawn
+          FROM transcript analysis and still no METHOD for doing it.
       /blog/how-to-evaluate-control-measures-for-ai-agents                          (Apr 11 2025)
       /blog/llm-judges-on-trial-a-new-statistical-framework-to-assess-autograders   (Jul 9 2025)
         ^ pairs with 38c06627 and the hamel.dev judge material. Also with bacf0f4e, which is the
@@ -135,13 +200,13 @@ Do not derive a slug from a title on this host.
       /blog/international-evaluation-best-practice-and-open-questions-in-ai-measurement (Jul 23 2026)
       /blog/realitytest-do-ai-systems-disclose-their-identity-when-asked            (Jun 8 2026)
       /blog/will-it-become-harder-to-oversee-ai-systems                             (May 21 2026)
-        ^ *** PROMOTED 26th run: OpenAI's Chief Scientist now states CoT monitorability is
+        ^ *** PROMOTED 26th run: OpenAI's Chief Scientist states CoT monitorability is
           "progressively diminishing" (b446bef6). An AISI treatment of the same question written a
           year earlier is the natural counter-position pairing, and this pack likes those. ***
       /blog/investigating-models-for-misalignment                                   (Nov 26 2025)
-        ^ PROMOTED 23rd run: OpenAI's post-mortem is a misalignment investigation with four named
-          patterns; an AISI framing of the same problem is a natural counter-position pairing.
-          26th run: Anthropic has now published its own preliminary misalignment investigation too.
+        ^ PROMOTED 23rd run, AND AGAIN ON THE 28th: OpenAI has now published a whole FRAMEWORK for
+          investigating and disclosing misalignment (6866e63b), plus six worked investigations. An
+          AISI framing of the same problem written ten months earlier is a natural counter-position.
       /blog/introducing-controlarena-a-library-for-running-ai-control-experiments   (Oct 22 2025)
       /blog/the-inspect-sandboxing-toolkit-scalable-and-secure-ai-agent-evaluations (Aug 7 2025)
         ^ PROMOTED 23rd run: 84a43a60 and d3acef50 both turn on eval sandbox construction. 26th run:
@@ -172,6 +237,8 @@ Do not derive a slug from a title on this host.
       /blog/harnessing-frontier-ai-for-cyber-defence                                (Mar 31 2026)
       /blog/an-evaluation-framework-for-ai-misuse-in-fraud-and-cybercrime           (Feb 26 2026)
       /blog/evaluating-whether-ai-models-would-sabotage-ai-safety-research          (Apr 27 2026)
+        ^ RE-RATE UP 28th run: c8f61443 records a MEASURED negative on research sabotage from
+          Anthropic. An AISI evaluation design for the same property is the natural complement.
       /blog/how-far-behind-the-frontier-are-leading-open-weight-models-on-cyber     (Jul 17 2026)
       /blog/ai-and-the-future-of-work-measuring-ai-driven-productivity-gains-for-workplace-tasks (Feb 2 2026)
       /blog/how-do-ai-models-persuade-...-large-scale-experiments                   (Dec 4 2025)
@@ -209,7 +276,7 @@ Do not derive a slug from a title on this host.
       5-key-findings-from-our-first-frontier-ai-trends-report, our-approach-to-tackling-ai-generated-csam,
       should-ai-systems-behave-like-people, navigating-the-uncharted-..., international-ai-network-consensus-...
 
-*** METR — PROMOTED 26th RUN, AND THE 13th RUN'S "LOW YIELD" VERDICT IS NOW SUPERSEDED. ***
+*** METR — PROMOTED 26th RUN, AND THE 13th RUN'S "LOW YIELD" VERDICT IS SUPERSEDED. ***
 The 13th run followed metr.org/blog properly, found only redacted governance material, and demoted it
 to rank 17. That was correct THEN and is wrong NOW: the feed has since carried the METR + Redwood
 Hugging Face assessment (read 24th run, four facts) and a first-person security post-mortem (read
@@ -220,11 +287,12 @@ Hugging Face assessment (read 24th run, four facts) and a first-person security 
       and 815f7ab2 (the four-tier data classification, and the transcript viewer that leaked across
       it). WELL MINED. *** IT PROMISES A FOLLOW-UP: METR states it has run "an initial scan of our
       evaluations" with "no evidence of any agents hacking third parties during our evaluations" and
-      that "We will share a more detailed update on this soon." WATCH FOR IT — it is the third-party
-      evaluator's side of the eval-containment cluster. ***
+      that "We will share a more detailed update on this soon." STILL NOT LANDED as of the 27th run
+      sweep. WATCH FOR IT — it is the third-party evaluator's side of the eval-containment cluster. ***
   READ (24th run): /blog/2026-08-26-openai-hugging-face-incident-investigation/ and the 91pp PDF at
       https://metr.org/hugging-face-incident-report-aug-2026.pdf   WELL MINED (24th and 25th runs).
-      CAUTION: quote the PDF, not the blog post — see fetch-routes route 4, 24th-run addition.
+      CAUTION: quote the PDF, not the blog post — see fetch-routes route 4, 24th-run addition, and 8b
+      for METR's {curly brace} paraphrase convention.
   READ (13th run, BELOW THE BAR, no fact): /blog/2026-03-25-red-teaming-anthropic-agent-monitoring/
   SEEN 26th run, not fetched: /blog/2026-08-14-funding-update/ (below the bar). Three research items
       are linked from the site footer and are UNREAD, all plausibly above the bar:
@@ -232,12 +300,13 @@ Hugging Face assessment (read 24th run, four facts) and a first-person security 
       of 349 technical workers, median 1.4-2x self-reported change, with the caveat stated in the
       blurb); "Early Work on Monitorability Evaluations" (*** HIGH — prototype eval of monitors'
       ability to catch agents doing side tasks AND agents' ability to bypass monitoring; pairs
-      directly with b446bef6, a5eaec6b and 42e1218f ***); "How Does Time Horizon Vary Across Domains?"
-      (9 benchmarks, ~7-month doubling time).
+      directly with b446bef6, a5eaec6b, 42e1218f — and now with fa05de12, since a compaction summary
+      is a monitorable surface the agent itself writes ***); "How Does Time Horizon Vary Across
+      Domains?" (9 benchmarks, ~7-month doubling time).
 
 *** EMBRACETHERED — ARCHIVE ~180 POSTS BACK TO 2018-12-16 (23rd run enumeration). ***
-*** 26th-RUN SWEEP: NOTHING NEW SINCE breaking-claude-code-opus-5-and-automode (Aug 26), read by the
-23rd run. The 2026 listing is 14 posts back to Jan 14. The BACK CATALOGUE is the only value here. ***
+*** NOT SWEPT SINCE THE 27th RUN: nothing new since breaking-claude-code-opus-5-and-automode (Aug 26),
+read by the 23rd run. The 2026 listing is 14 posts back to Jan 14. The BACK CATALOGUE is the value. ***
 Low volume in 2026, high hit rate; slugs are under /blog/posts/<year>/<slug>/.
   READ (23rd run):
     /2026/breaking-claude-code-opus-5-and-automode/   (Aug 26 2026) -> 367b7933 + upd 89df351e
@@ -260,7 +329,7 @@ Low volume in 2026, high hit rate; slugs are under /blog/posts/<year>/<slug>/.
       and 7bd6c6c9. Has a DETECTION half, which is rarer than the attack half.
     /2026/data-exfiltration-mitigation-paper-by-openai/           (Feb 04 2026)
       "OpenAI Explains URL-Based Data Exfiltration Mitigations in New Paper" — route 5b applies: it
-      names a paper. Pairs with b4d688b1/eae23eac (ai-agent-link-safety).
+      names a paper. Pairs with b4d688b1/eae23eac (ai-agent-link-safety), and now with 8e516c44.
     /2026/given-enough-agents-all-bugs-become-shallow/            (Apr 07 2026) <- pairs with 30543305.
     /2026/breaking-opus-4.7-with-chatgpt/                         (Apr 17 2026) <- memory attack; pairs 7bd6c6c9.
     /2026/pipewire-flatpak-linux-sandbox-escape-cve-2026-5674/    (Jul 30 2026) <- a Linux CVE rather
@@ -275,7 +344,7 @@ Low volume in 2026, high hit rate; slugs are under /blog/posts/<year>/<slug>/.
     /2025/the-normalization-of-deviance-in-ai/                    (Dec 04 2025) <- TOP OF 2025. A
       named safety-engineering concept applied to AI practice; this pack has no fact on it and it is
       the kind of altitude the pack wants. Pairs with the approval-fatigue material (2b9a10f8), and
-      now with 335bd48f, where human reviewers dismissed automated flags as false positives.
+      with 335bd48f, where human reviewers dismissed automated flags as false positives.
     /2025/cross-agent-privilege-escalation-agents-that-free-each-other/ (Sep 24 2025) <- VERY HIGH.
       "When Agents Free Each Other" — 6cc23314's and e899ae28's subject from the attacker side, and
       it predates the OpenAI incident by ten months.
@@ -337,18 +406,26 @@ Ids captured so far:
          UNMINED: Part A / Part B per-requirement tables in full (they extract row-faithfully).
   54018  AI Security Solutions Landscape Red Teaming Q2 2026  https://genai.owasp.org/download/54018/?tmstv=1775767894
          pdfinfo: 15 pages, CreationDate 2026-04-09. Vendor market map — LOW yield, do not re-mine.
-  *** STANDING LEAD, ID STILL NOT RESOLVED (not attempted 22nd-26th): the OWASP MCP SECURITY WHITE
+  *** STANDING LEAD, ID STILL NOT RESOLVED (not attempted 22nd-28th): the OWASP MCP SECURITY WHITE
   PAPER. *** 50592 calls it "the most granular threat taxonomy for tool invocation protocols,
   identifying 12 distinct categories including tool poisoning, rug pulls, and cross-origin escalation".
   This pack holds three of those twelve (via 78ab92f2). Strongest untouched OWASP target. Resolve the
   id by the two-step in fetch-routes 2b.
 
-*** OPENAI POST CATALOGUE — REFRESHED 26th RUN VIA A 5c HREF HARVEST ON /news/ ***
+*** OPENAI POST CATALOGUE — openai.com/news/ (formerly /index/) ***
 openai.com 403s to WebFetch; all of these need the browser (fetch-routes route 1). Slugs are EXACT —
 do not re-derive them. NOTE the landing-page change: openai.com/index/ REDIRECTS to openai.com/news/,
 which is now the sweep URL; individual posts remain /index/<slug>. The "Keep reading" footer is a
 plain RECENCY feed, NOT category-scoped.
-  *** READ 26th run — THE THREE NEWEST SUBSTANTIVE POSTS: ***
+*** NOTE: alignment.openai.com is a DIFFERENT HOST and is NOT gated — see its own section above. ***
+  *** READ 28th run: ***
+  READ: /index/model-misalignment-reporting-framework/            (Sep 16 2026, Research/Safety)
+        OpenAI's framework for tracking, investigating and disclosing model misalignment, published
+        with six inaugural reports. Three tracks, employee-initiated, SAG escalation, report-content
+        list, and the explicit non-base-rate caveat. -> 6866e63b, plus material for fa05de12,
+        6bbb70aa and 8e516c44. WELL MINED as a framework document; the six linked REPORTS are the
+        remaining value and live on alignment.openai.com (see above).
+  *** READ 26th run: ***
   READ: /index/path-to-astra/                                    (Sep 1 2026, Safety/Security)
         GPT-6 Astra designated Critical for cybersecurity under the Preparedness Framework — the first
         model at that level — with the two threshold conditions quoted, the safeguard stack, the
@@ -363,13 +440,15 @@ plain RECENCY feed, NOT category-scoped.
   READ: /index/an-alien-mind/                                    (Sep 6 2026, Safety, Jakub Pachocki)
         Mostly a high-altitude essay and BELOW THE BAR as a whole. Two things in it are not: the
         chain-of-thought monitorability precondition and the three named erosion mechanisms, and the
-        two-approach taxonomy of alignment training with each approach's named failure (spec-based RL
-        is brittle and coverage-dependent; pretraining-persona approaches lack "robustness to further
-        optimization pressure" and yield motivated reasoning). -> b446bef6. Do not re-mine the essay.
-  *** SPOTTED 26th run, UNREAD, ranked: ***
+        two-approach taxonomy of alignment training with each approach's named failure. -> b446bef6.
+        Do not re-mine the essay.
+  *** UNREAD, ranked: ***
     /index/safety-overview-gpt-6-astra/     (Sep 3 2026, Safety) <- TOP of the unread. The system-card
         companion to path-to-astra; likely carries the alignment and safeguard testing detail that
         post explicitly defers ("We will share more details ... in the model's system card at launch").
+    /index/pacing-model-development-cyber-capabilities/  <- NEW, spotted 28th run via WebSearch. Title
+        suggests it is the policy companion to the "cannot continue scaling at maximum speed for much
+        longer" statement in the misalignment framework post. Unknown date; resolve before fetching.
     /index/daybreak-for-frontline-defenders/ (Sep 3 2026, Security) <- Daybreak has been mined twice
         (ee458c93, and the 22nd run's expanding-daybreak). Probably programme/policy; one cheap read.
     /index/gpt-6-astra/                      (Sep 3 2026, Research) <- model card. BELOW THE BAR per
@@ -380,7 +459,8 @@ plain RECENCY feed, NOT category-scoped.
         since the 22nd run. Still queued; now partly superseded by path-to-astra's access-tiering.
     /index/patch-the-planet/              (Daybreak initiative for OSS maintainers; program/policy)
     /index/safety-alignment-long-horizon-models/
-        ^ RE-RATE UP: "Alignment over long tasks" is one of the three named remediation workstreams.
+        ^ RE-RATE UP: "Alignment over long tasks" is one of the three named remediation workstreams,
+          and c8f61443's myopia finding gives it a specific question to answer.
     /index/introducing-openai-presence/   (product)
     /index/trusted-access-for-cyber/, /index/scaling-trusted-access-for-cyber-defense/,
     /index/updating-our-preparedness-framework/   (governance; lower altitude)
@@ -394,7 +474,8 @@ plain RECENCY feed, NOT category-scoped.
           "Read the technical report" — READ (24th run, 38pp). *** LIVE URL, CORRECTED 25th run — the
             filename ROTTED and the old one 404s. Use the HYPHENATED form:
             https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf
-            Sections V, VIII, IX and X all mined. See fetch-routes route 8 before re-fetching. ***
+            Sections V, VIII, IX and X all mined. See fetch-routes route 8 before re-fetching.
+            NOT RE-TESTED SINCE 2026-08-29. ***
           "Read METR report"          — READ (24th run, 91pp). See the METR section above.
           "Watch Black Hat talk"      — https://www.youtube.com/watch?v=87DyyMV0kCY. UNREAD-BY-METHOD:
             no transcript route in this toolset. Superseded for bcbf13c2 by the technical report.
@@ -426,37 +507,46 @@ plain RECENCY feed, NOT category-scoped.
   (Aug 19), "Introducing ChatGPT for Teens" (Aug 18).
 
 *** ANTHROPIC /news/ — SLUGS ARE EDITORIALLY SHORTENED, DO NOT DERIVE THEM FROM TITLES (20th run) ***
-  *** READ 26th run — AND THE FIRST OF THESE IS THE HIGHEST-VALUE DOCUMENT OF THAT RUN: ***
+  *** READ 26th run — AND ITS TWO NAMED ARTIFACTS ARE NOW BOTH RESOLVED (28th run): ***
   READ: /news/improving-alignment-security-efforts    "Improving our alignment and security efforts"
         (Aug 31 2026.) Anthropic's own programme post following its July 30 incidents and the AISI
         incident. Contains: the blocking classifier and its RL-loop variant; the transcript sweep
         result; the third-party evaluator best-practice spec; the RL environment-quality pipeline
         with the >10% freeze figure, the three-day Mythos Preview rollback and the reviewer-dismissal
         failure; the accidental training-on-CoT leak; the deliberate 80-environment reward-hacking
-        experiment; and the security reallocation (~150 product engineers, block-all-outbound-by-
-        default, service-to-service identity). -> ec1be717, 335bd48f, b446bef6, 0547d73f, 50a5e3f4,
-        plus updates to d3acef50, 127fd5f9, 52d622ba, 84a43a60, 778b437e, 02f74ac7. WELL MINED.
-        *** IT NAMES TWO UNFETCHED ARTIFACTS. BOTH ARE TOP OF THE QUEUE: ***
-          The ACCOMPANYING ALIGNMENT SCIENCE BLOG POST on the reward-hacking experiment — named
-            repeatedly ("discusses this experiment at greater length"), and it is where the numbers
-            behind ec1be717 live, plus a finding that alignment training environments "can
-            substantially reduce reward hacking and reward-seeking behaviors". Resolve by route 5b
-            (ask the page for the href) or 1b. HIGHEST-VALUE NAMED-BUT-UNFETCHED ARTIFACT IN THE PACK.
-          The AUGUST RISK REPORT — cited twice by footnote, including "Section 5.2.3" for further
-            instances of accidentally training on chain-of-thought, and for detail on offline
-            monitoring of internal coding agents. Directly completes b446bef6.
+        experiment; and the security reallocation. -> ec1be717, 335bd48f, b446bef6, 0547d73f,
+        50a5e3f4, plus updates to d3acef50, 127fd5f9, 52d622ba, 84a43a60, 778b437e, 02f74ac7.
+        WELL MINED.
+        *** ITS FIVE ARTIFACT HREFS, HARVESTED EXACTLY BY ROUTE 5b ON THE 28th RUN. DO NOT GUESS
+        *** THESE — they are hash-named CDN paths. ***
+          READ 28th run — the Alignment Science post:
+            https://alignment.anthropic.com/2026/reward-seeker/
+          UNREAD, RANK 1 — the AUGUST RISK REPORT (cited by footnote for Section 5.2.3, further
+            instances of accidentally training on chain-of-thought; directly completes b446bef6):
+            https://www-cdn.anthropic.com/f61d49fa5596956a5dec75fea0e973bf6a6a8378/Redacted%20Risk%20Report%20August%202026%20.pdf
+          UNREAD, NEW AND PREVIOUSLY UNKNOWN — the April alignment risk update (Claude Mythos
+            Preview, redacted, April 10). This is the PRIMARY behind 335bd48f's three-day rollback
+            and the >10% environment-flag figure, which currently rest on a summary:
+            https://www-cdn.anthropic.com/3edfc1a7f947aa81841cf88305cb513f184c36ae/Alignment%20Risk%20Update_%20Claude%20Mythos%20Preview%20(Redacted,%20April%2010).pdf
+          UNREAD, NEW — the Fable 5 / Mythos 5 System Card (reward hacking is named in it by the
+            reward-seeker post; also the version reference point for any Fable/Mythos claim):
+            https://www-cdn.anthropic.com/57a52ea7d8f0e54e8a542e908266086df425cdf5/Claude%20Fable%205%20&%20Claude%20Mythos%205%20System%20Card.pdf
+        All four PDFs are www-cdn.anthropic.com. Expect route-8 filename rot; re-harvest from the
+        post if one 404s. curl -A then pdftotext, and pdfinfo for the fingerprint.
   READ: /news/model-hardware-standard-research-preview  "Previewing the Model Hardware Standard"
-        (Aug 27 2026.) QUEUED FOR THREE RUNS, NOW SETTLED. Mostly a partnership announcement, but two
-        things clear the bar: the explore-then-compile-to-a-deterministic-script control pattern and
-        its boundary condition (the device loop outruns model inference), and the physical-failure-
-        misread-as-software-bug failure mode. -> bb4beff9. DO NOT RE-MINE the partner list.
+        (Aug 27 2026.) Mostly a partnership announcement, but two things clear the bar: the
+        explore-then-compile-to-a-deterministic-script control pattern and its boundary condition
+        (the device loop outruns model inference), and the physical-failure-misread-as-software-bug
+        failure mode. -> bb4beff9. DO NOT RE-MINE the partner list.
         NOT FOLLOWED: the six partner write-ups (Genentech, UW, CMU, HHMI Janelia, QuEra, Tetsuwan)
         each sit behind a "Read more" link. QuEra's carries a 99.3% laser-lock recovery figure that
         bb4beff9 attributes to the summary, not to the write-up. Low priority.
   UNREAD, ranked:
     /news/enterprise-frontier-safeguards   "Developing Enterprise Frontier Safeguards with our
-        customers" (Sep 1 2026) <- TOP UNREAD. Unknown content; "frontier safeguards" developed WITH
-        customers is a deployment-practice shape this pack has little of. One cheap browser read.
+        customers" (Sep 1 2026) <- TOP UNREAD, carried THREE runs. "Frontier safeguards" developed
+        WITH customers is a deployment-practice shape this pack has little of. One cheap browser read.
+    /news/life-sciences-verification-program   (Sep 17 2026) <- NEW, spotted by the 27th run sweep.
+        A VERIFICATION programme, adjacent to the access-tiering material in ee458c93. Low expectations.
     /news/claude-fable-and-mythos-5-1      (Sep 1 2026) <- model launch. Below the bar per the
         standing rule, but note it moves the version reference points for any Fable/Mythos claim.
   READ EARLIER:
@@ -464,6 +554,16 @@ plain RECENCY feed, NOT category-scoped.
     /news/claude-text-watermark                          (Aug 14 2026.) -> 943a7e3c.
         The title-derived slug /news/how-claudes-text-watermark-works 404s. No numbers in the post.
         WATCH FOR: the detection API docs, which is where the thresholds land. NOT LANDED as of 09-08.
+    /threat-intelligence-report-september-2026   (Sep 10 2026) *** SLUG WARNING: NOT UNDER /news/.
+        It sits at the SITE ROOT. A run deriving the URL from the /news/<slug> pattern would 404. ***
+        Read to 48,000 chars by the 27th run, covering the cyber-operations half -> six facts
+        (90ecc753, 94648eeb, 732629b8, 8994141b, 0182fb5a, f389632c). SIX SECTIONS STILL UNREAD:
+        surveillance, influence operations, conventional weapons, biological misuse, scams and fraud,
+        and illicit distillation. Take the PDF, which removes the truncation problem:
+          https://www-cdn.anthropic.com/e50be2e51e7695dc4b1366a37a245a597377d3b5/Anthropic-Detecting-and-countering-091026.pdf
+          https://www-cdn.anthropic.com/b5af8acd5ee681422114af7c7b6b02c1ecd074ca/20260910_Anthropic_AI_Misuse_Report_IOCs.csv
+        Both hrefs resolved by route 5b on the 27th run, not guessed. pdfinfo it and record the
+        fingerprint. Note route 8: cdn filenames rot — re-harvest if either 404s.
   BELOW THE BAR: /news/expanding-support-for-scientists (Aug 27, grants), /news/wellbeing-research-grants
     (Aug 25, grants), "Improving Fable 5's biology safeguards" (Aug 7), the Cuéllar appointment
     (Aug 4), the Cognizant partnership (Jul 27), "Introducing Claude Opus 5" (Jul 24), "Our position
@@ -480,10 +580,13 @@ plain RECENCY feed, NOT category-scoped.
     6 pages, pdfinfo CreationDate 2026-04-20, plain `curl -A` (no gate). -> 0e577a90 + d0c5b9f8 update.
     THE HREF IS A WEBFLOW CDN HASH PATH — unguessable AND unsearchable. DONE, fully mined.
   *** STILL UNFETCHED, ranked: ***
-    Anthropic's ALIGNMENT SCIENCE blog post on the 80-environment reward-hacking experiment (see the
-      Anthropic section above). *** RANK 1. ***
-    Anthropic's AUGUST RISK REPORT, Section 5.2.3 and the internal-agent monitoring detail. RANK 2.
+    Anthropic's AUGUST RISK REPORT — href now resolved, see the Anthropic section. *** RANK 1. ***
+    Anthropic's APRIL ALIGNMENT RISK UPDATE — href now resolved, see the Anthropic section. RANK 2.
     METR's "Early Work on Monitorability Evaluations". RANK 3 (see the METR section).
+    Named by the reward-seeker post and not held: Wang et al. 2025 and MacDiarmid et al. 2025 (prior
+      reward-hacking studies), Betley et al. 2025 (emergent misalignment), Carlsmith on
+      reward-on-the-episode seekers. The first two are the ones that would tell you whether the
+      28th run's myopia negative (c8f61443) replicates.
     The GPT-Red paper linked from /index/unlocking-self-improvement-gpt-red/ (20th run).
     arXiv 2410.15686 (NetSafe), arXiv 2505.03096 (chaos engineering for LLM MAS) — both report
       MEASUREMENTS, which is what 2508.09815 lacks. Pairs with 24e4552d.
@@ -491,11 +594,11 @@ plain RECENCY feed, NOT category-scoped.
       OpenAI's research-acceleration post and used as its classification scheme. NEW 26th run.
 
 *** COGNITION — COMPLETE ARCHIVE, 82 POSTS, RE-ENUMERATED 26th RUN (unchanged since the 21st). ***
-*** THE "UNTOUCHED FOR N RUNS" NAG IS NOW ANSWERED: THE FEED HAS PUBLISHED NOTHING ON-TOPIC SINCE
+*** THE "UNTOUCHED FOR N RUNS" NAG IS RETIRED: THE FEED HAS PUBLISHED NOTHING ON-TOPIC SINCE
 *** 2026-07-13. Its three newest posts (Jul 20-28) are two acquisitions and a partnership; the newest
-*** engineering post is making-fable-cheaper-than-opus (Jul 13). SO SWEEPING COGNITION IS NOW A
-*** NEAR-ZERO-VALUE CALL — the only value here is the BACK CATALOGUE below, which does not expire.
-*** Stop treating "untouched N runs" as urgency; treat it as a standing optional backlog. ***
+*** engineering post is making-fable-cheaper-than-opus (Jul 13). SWEEPING COGNITION IS A NEAR-ZERO-
+*** VALUE CALL — the only value here is the BACK CATALOGUE below, which does not expire. Treat it as
+*** a standing optional backlog, not a debt. ***
 Slugs guessed from titles 404 — pull them from this list or re-run the index call. Confirmed exact:
 'Coding Agents 101' = /blog/coding-agents-101-the-art-of-actually-getting-things-done.
 About half the feed is partnership / funding / office / acquisition / product-launch copy — skip on sight.
@@ -596,6 +699,7 @@ GOOSE (20th run): goose-docs.ai carries a banner "goose has moved to the Agentic
   (AAIF)", dated 2026/04/07. The docs still serve normally — a governance change, not a dead source.
 
 *** MCP SPECIFICATION — THE REPO IS THE SOURCE, AND SITE URLs DO NOT MAP TO REPO PATHS ***
+*** BUT THE REPO ROUTE IS CURRENTLY GATED — see fetch-routes 3f. Use the site pages meanwhile. ***
 Enumerate with the recursive git-tree API and grep; NEVER build a repo path from an old site URL.
   site /specification/<rev>/...  -> repo docs/specification/<rev>/...
   site /docs/<rev>/...           -> repo docs/docs/<rev>/...
@@ -611,13 +715,20 @@ PAGE MOVES — full detail in fetch-routes route 3.
   docs/docs/<rev>/learn/versioning.mdx           EVERY revision. Short concept page (~51-68 lines).
   docs/specification/<rev>/basic/versioning.mdx  ONLY 2026-07-28 and draft (183 lines). Normative.
   ALSO READ 20th run (Backward Compatibility sections ONLY): basic/transports/stdio.mdx and
-  basic/transports/streamable-http.mdx at 2026-07-28. *** THE REST OF BOTH TRANSPORT PAGES IS UNREAD
-  AND HAS BEEN THE TOP MCP TARGET FOR SEVEN RUNS (20th-26th) WITHOUT BEING TAKEN. This is a queue
-  defect, not a priority — see crawl-state. ***
+  basic/transports/streamable-http.mdx at 2026-07-28.
+  *** THE REST OF BOTH TRANSPORT PAGES HAS BEEN THE TOP MCP TARGET FOR NINE RUNS (20th-28th) WITHOUT
+  *** BEING TAKEN, AND THE ROUTE THAT WOULD FETCH THEM IS NOW GATED. THE 27th RUN RECOMMENDED
+  *** DELETING THE ITEM; THE 28th CONCURS. Nine runs of every reader ranking it last IS the verdict.
+  *** Re-add it only if a fact actually needs it. ***
 RELEASED REVISION DIRECTORIES as of 2026-09-08: 2024-11-05, 2025-03-26, 2025-06-18, 2025-11-25,
-  2026-07-28, plus draft. Unchanged since the 11th run — SIXTEEN consecutive runs.
+  2026-07-28, plus draft. The site page confirms 2026-07-28 current through the 28th run (18 runs).
 REVISION FILE COUNTS (enumerate on the revision date per fetch-routes 3d, never on a docs/ prefix):
   2025-11-25 =  41 files   |   2026-07-28 = 186 files
+*** THE VERSIONING PAGE'S TWO "UNMINED" ITEMS ARE ALREADY HELD — CHECKED 28th RUN. *** The 27th run
+queued the expedited-removal exception and server/discover-as-mandatory-RPC as unmined. A query-first
+check found both already in the corpus: 012daf73 carries "at least twelve months, or ninety days under
+the expedited-removal exception", and 995c167b carries "servers MUST implement it, clients need not
+call it". QUERY BEFORE QUEUEING.
 
 CLAUDE PLATFORM DOCS — the prompting page routes to PER-MODEL sub-pages (found 12th run):
   .../prompt-engineering/prompting-claude-opus-5    <- has a 'Controlling subagent spawning' section
@@ -639,3 +750,22 @@ AZURE ARCHITECTURE CENTER — prefix https://learn.microsoft.com/en-us/azure/arc
       rag-generate-embeddings, rag-information-retrieval, rag-llm-evaluation-phase
   .../guide/secure-multitenant-rag
   .../guide/genaiops-for-mlops
+
+TIER 6 GITHUB READMEs — CLOSED OUT. A repo README is worth a fetch for LIFECYCLE STATUS and nothing
+else; if a repo matters, go to its DOCS site. AMENDMENT (16th run): a repo that HOSTS a documentation
+site is different — there the repo is the primary source and beats the site.
+Only remaining tier-6 item: the x1xhlol INDIVIDUAL prompt files. Frame anything from those as
+'this harness's published prompt does X', never as 'the correct approach is X'.
+
+dead or unreadable — EMPTY, and still TEN FOR TEN on false dead ends. Read the warning in Appendix S.
+  The Black Hat YouTube video is UNREAD-BY-METHOD (no transcript route), NOT a dead source.
+  block.github.io/goose -> goose-docs.ai (moved to AAIF governance, not dead).
+  strandsagents.com/latest/... -> 404; use /docs/...
+  modelcontextprotocol.io -> ECONNREFUSED 2026-08-12 only; transient, fine since.
+  modelcontextprotocol.io/docs/concepts/tools -> REDIRECTS (200), not gone.
+  openai.com/index/ -> REDIRECTS (200) to openai.com/news/. Post URLs unchanged.
+  cdn.openai.com/pdf/.../OpenAI-Hugging%20Face%20Incident-Technical-Report.pdf -> DEAD URL, LIVE
+    DOCUMENT. Use the HYPHENATED filename. Not re-tested since 2026-08-29.
+  api.github.com/repos/modelcontextprotocol/... -> HTTP 403 FROM THE HARNESS, not from GitHub. An
+    ENVIRONMENT GATE, not a dead source. See fetch-routes 3f. The versioning page replaces it for
+    the tripwire question.
