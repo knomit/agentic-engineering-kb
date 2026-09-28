@@ -6,7 +6,7 @@ confidence: 0.85
 sources: 3
 entities: [Anthropic, Cognition, orchestrator-worker, map-reduce-and-manage, Smart Friend, SWE-1.5]
 motifs: [wrong-deciding-variable]
-refs: ['https://www.anthropic.com/engineering/multi-agent-research-system', 'https://cognition.com/blog/dont-build-multi-agents', 'https://cognition.com/blog/multi-agents-working']
+refs: ['https://www.anthropic.com/engineering/multi-agent-research-system', 'https://cognition.com/blog/dont-build-multi-agents', 'https://cognition.com/blog/multi-agents-working', 'https://www.anthropic.com/engineering/building-c-compiler', 'kb://bc6eac5f37df/kb/decisions/ai/agents/multi-agent/parallel-writes/71be00f9.md']
 ---
 # Multi-agent vs single-threaded: the deciding condition is whether subtask outputs must be mutually consistent
 
@@ -25,5 +25,7 @@ So the decision rule is not "is the task big" or "is it parallelizable" — plen
 **A SECOND CONDITION, and it is about model capability rather than task shape.** Cognition reports that their advisory pattern ("Smart Friend", where a stronger model advises a weaker primary) failed on capability asymmetry: SWE-1.5 as the primary "was not good enough", and "the gap…was too wide". The lesson generalises to any design where one agent's output must be acted on by another: if the consumer cannot evaluate the advice it is given, adding a smarter advisor does not raise the ceiling. Check the gap before assuming a stronger reviewer or planner will lift a weaker executor.
 
 The shape that remains viable when you do need scale is what Cognition calls "map-reduce-and-manage": "a manager splits work, children execute, the manager synthesizes and reports back". Unstructured swarms fare worse — Cognition's reported symptom is "fragmented decisions" from context loss, and they name cross-agent communication as the primary remaining challenge even across the patterns that do work. Also weigh the ~15x token cost, which only high-value tasks repay.
+
+**A BOUND ON THE CODING CLAUSE.** "Coding is unsuitable" holds only where a unit of coding work cannot be checked without reading a sibling's work. Anthropic's C-compiler report is 16 agents concurrently writing a 100,000-line compiler to a 99% pass rate on most compiler test suites, with per-feature test suites and GCC as an online known-good reference supplying the check. Where that report removed the per-unit check by aiming the fleet at compiling the Linux kernel as one target, it got a different failure from the one described above: "Every agent would hit the same bug, fix that bug, and then overwrite each other's changes." That is convergence on duplicate work, not divergence into incompatible artifacts, and it is fixed by partitioning the target rather than by serialising the writes. So treat mutual consistency of outputs as the right test when no independent verifier exists, and see [[kb/decisions/ai/agents/multi-agent/parallel-writes/71be00f9]] for the conditions under which a verifier plus an exclusive claim substitutes for it.
 
 VERIFIED 2026-08-12 against both Cognition posts: the map-reduce-and-manage definition, the single-threaded-writes sentence, and the capability-gap finding are quoted accurately above.
