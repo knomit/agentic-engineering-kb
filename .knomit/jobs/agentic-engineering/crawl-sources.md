@@ -769,3 +769,50 @@ dead or unreadable — EMPTY, and still TEN FOR TEN on false dead ends. Read the
   api.github.com/repos/modelcontextprotocol/... -> HTTP 403 FROM THE HARNESS, not from GitHub. An
     ENVIRONMENT GATE, not a dead source. See fetch-routes 3f. The versioning page replaces it for
     the tripwire question.
+
+=== ANTHROPIC ENGINEERING BACK CATALOGUE — full index enumerated by the 39th run (25 posts) ===
+*** THIS FEED WAS LABELLED "QUIET SINCE APR 2026" FOR MANY RUNS AND THAT LABEL WAS ABOUT ITS NEWEST
+POST DATE, NOT ABOUT COVERAGE. Two unread posts from early 2026 were sitting behind it and produced
+three of the 39th run's four facts. A feed's newest-post date says nothing about whether its back
+catalogue has been read. ***
+
+READ (do not re-fetch except in a staleness pass): how-we-contain-claude, april-23-postmortem,
+  managed-agents, claude-code-auto-mode, harness-design-long-running-apps, eval-awareness-browsecomp,
+  infrastructure-noise, demystifying-evals-for-ai-agents, effective-harnesses-for-long-running-agents,
+  advanced-tool-use, code-execution-with-mcp, claude-code-sandboxing,
+  equipping-agents-for-the-real-world-with-agent-skills, effective-context-engineering-for-ai-agents,
+  a-postmortem-of-three-recent-issues, writing-tools-for-agents, multi-agent-research-system,
+  claude-think-tool, building-effective-agents,
+  building-c-compiler (Feb 05 2026, READ 39th run -> kb/decisions/ai/agents/multi-agent/parallel-writes/71be00f9.md,
+    kb/architecture/ai/agents/multi-agent/task-claiming/2318b57c.md; also bounded f7dee43a),
+  AI-resistant-technical-evaluations (Jan 21 2026, READ 39th run ->
+    kb/conventions/ai/agents/evaluation/benchmark-design/448d93e8.md).
+
+STILL UNREAD, ranked by expected yield for this pack:
+  /engineering/claude-code-best-practices  (Apr 18 2025) <- the /engineering copy of the best-practices
+    material; code.claude.com/docs/en/best-practices is the live doc and is in the recurring list, so
+    check for divergence rather than expecting new content.
+  /engineering/desktop-extensions        (Jun 26 2025) <- one-click MCP server installation; likely
+    carries install/trust mechanics not covered by the MCP spec facts.
+  /engineering/contextual-retrieval      (Sep 19 2024) <- pre-agent RAG, but it is the origin of a
+    technique the pack cites second-hand.
+  /engineering/swe-bench-sonnet          (Jan 06 2025) <- harness-design detail behind a SWE-bench
+    number; pairs with the harness-configuration cluster (8193c07b, d18637a2, a829cfd4).
+
+=== openai.com/news — CADENCE PROMOTED TO EVERY RUN. Recorded by the 39th run. ===
+The 38th run carried this feed as "NOT SWEPT, named" for five consecutive runs while cheaper feeds
+were swept every run and returned nothing; swept once, it produced two of five facts. It is now swept
+every run. The 39th run swept it and it was QUIET (front page unchanged from the 38th, newest Sep 23
+2026) — a quiet sweep at this cadence costs one browser call, which is the right price for it.
+Browser required (route 1); individual posts are /index/<slug>; slugs resolve from index titles by
+WebSearch + allowed_domains (route 1b).
+
+=== embracethered.com — unread as of the 39th run ===
+/blog/posts/2026/pipewire-flatpak-linux-sandbox-escape-cve-2026-5674/ (Jul 30 2026) — the only recent
+  post on this blog not already carried as a ref by an existing fact. Linux sandbox escape via
+  PipeWire; relevant to agent sandboxing, and the CVE is named.
+NOTE for future runs: hijacking-litellm-for-fun-and-profit and recovering-encrypted-llm-thoughts both
+  LOOK unread against the crawl-state history's URL lists but are already refs on
+  kb/invariants/ai/agents/security/gateway/b17b7fc2.md and
+  kb/gotchas/ai/agents/security/reasoning-traces/1d01a338.md respectively. The history's per-run URL
+  lists are not a complete record of what was read — the corpus's refs are. See fetch-routes ROUTE 14.
