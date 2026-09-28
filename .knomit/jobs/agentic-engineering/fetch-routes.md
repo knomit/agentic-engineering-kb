@@ -776,3 +776,43 @@ OpenAI's technical report gives the safeguard-gap figure as "100x ... production
 harness" (Section VIII.D), with "In preliminary experiments" attached only to the second. A run that
 greps for one figure and stops will write a fact that silently generalises across two harnesses.
 AFTER FINDING A FIGURE, GREP THE WHOLE DOCUMENT FOR ITS SUBJECT AGAIN and check for a second statement.
+
+=== ROUTE 13 — PATCHING A PRIVATE SLOT WITHOUT RE-EMITTING IT. Added by the 39th run. ===
+This retires the blocker that eleven consecutive runs recorded as unfixable.
+
+knomit_update accepts an `ops` array ALONGSIDE or INSTEAD OF `updates.body`:
+  ops: [{"op": "append", "text": "..."}]
+  ops: [{"op": "str_replace", "old_str": "...", "new_str": "..."}]
+Append adds the text as a new paragraph at the end; knomit inserts only the newlines needed and
+removes nothing. str_replace requires old_str to occur EXACTLY ONCE, byte for byte — no regex, no
+whitespace normalisation. All ops in one call land as one revision or none do, and a failed op is
+named by its zero-based index. Send ops OR updates.body, never both; ops may be combined with every
+other updates field (refs, title, confidence, sources).
+
+WHY THIS MATTERS HERE: crawl-sources (~68KB) and fetch-routes (~65KB) both exceed the inline
+knomit_explain cap and persist to a tool-result file. Editing them through updates.body meant
+reconstructing the whole file from character-range slices of that file — which is the
+re-type-from-tool-output hazard the pack forbids everywhere else, and is why the owed edits went
+undone for eleven runs. With ops, an addition costs only the added text and a correction costs only
+the changed sentence. USE ops FOR EVERY EDIT TO THESE TWO SLOTS. crawl-state is different: its
+whole body is replaced each run by design, so it uses updates.body.
+
+For str_replace on an oversized slot, get old_str EXACTLY by grepping the persisted tool-result file
+rather than by retyping from memory — a smart quote or a trailing space is enough to fail the match,
+and the error reports the longest matching prefix plus the first differing character as U+XXXX.
+
+=== READING AN OVERSIZED SLOT. Added by the 39th run, confirming the 38th run's note. ===
+Both crawl-sources and fetch-routes persisting to a tool-result file is the NORMAL case, not an
+exception. The file's lines are too long for Read's offset/limit chunking, so slice by character
+range (python read()[A:B]) or grep for the section header you need. Section headers in both slots are
+of the form `=== NAME ===`, so one python pass listing every `=+ ... =+` match gives a table of
+contents and its offsets in a single call.
+
+=== ROUTE 14 — CHECK THE CORPUS BEFORE SPENDING A FETCH ON A QUEUED "UNREAD" URL. 39th run. ===
+Not a network route; a fetch-avoidance route, and it is cheaper than every route above.
+A queue entry's "unread" flag is written by the run that queued it and is never re-validated. The
+39th run spent a browser fetch on openai.com/index/safety-overview-gpt-6-astra/ — carried as the TOP
+unread openai.com item since the 28th run — and found it was already a ref on four existing facts.
+The same run nearly spent two more fetches on embracethered posts that were likewise already refs.
+BEFORE FETCHING A QUEUED URL, run one knomit_query for its central claim and look for the URL in the
+results' refs. One query can clear several queued URLs at once, because facts from one source cluster.
