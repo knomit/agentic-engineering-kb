@@ -788,7 +788,10 @@ READ (do not re-fetch except in a staleness pass): how-we-contain-claude, april-
   AI-resistant-technical-evaluations (Jan 21 2026, READ 39th run ->
     kb/conventions/ai/agents/evaluation/benchmark-design/448d93e8.md).
 
-STILL UNREAD, ranked by expected yield for this pack:
+STILL UNREAD — ONLY claude-code-best-practices REMAINS. The 40th run read desktop-extensions,
+contextual-retrieval and swe-bench-sonnet; all three produced facts. The three entries below them are
+kept for their one-line rationales but are DONE — do not re-fetch except in a staleness pass.
+Ranked by expected yield for this pack:
   /engineering/claude-code-best-practices  (Apr 18 2025) <- the /engineering copy of the best-practices
     material; code.claude.com/docs/en/best-practices is the live doc and is in the recurring list, so
     check for divergence rather than expecting new content.
@@ -816,3 +819,32 @@ NOTE for future runs: hijacking-litellm-for-fun-and-profit and recovering-encryp
   kb/invariants/ai/agents/security/gateway/b17b7fc2.md and
   kb/gotchas/ai/agents/security/reasoning-traces/1d01a338.md respectively. The history's per-run URL
   lists are not a complete record of what was read — the corpus's refs are. See fetch-routes ROUTE 14.
+
+=== openai.com/news — BACKLOG CORRECTED BY THE 40th RUN. READ THIS BEFORE SPENDING A FETCH HERE. ===
+*** /index/better-prompt-caching-for-gpt-6/ (Sep 22 2026) WAS ALREADY READ by the 38th run and is a
+ref on kb/conventions/ai/agents/context-engineering/prompt-caching/68d5055b.md and on
+kb/decisions/ai/agents/architecture/f5bf2d02.md. It appears in NO crawl-state URL list. The 40th run
+spent a browser fetch on it before checking. This is the third consecutive run to hit the same class
+of miss: the history's per-run URL lists are a LOWER BOUND on what has been read, and one
+knomit_query on the claim is cheaper than one fetch. ***
+
+NEW on the front page as of 2026-09-29, three items dated Sep 28 2026:
+  /index/towards-safety-cases-for-frontier-ai-training/  READ 40th run. Very high yield — produced
+    four facts (run controls, incident-derived evals, cross-sample channels, artifact lineage) and a
+    second-organisation corroboration on kb/invariants/ai/agents/training/monitor-placement/50a5e3f4.md.
+    Structured as technical safeguards / operational guidelines / incident investigation. Framed as
+    recommendations "in the process of being implemented" — scope every fact from it accordingly.
+  /index/how-we-will-do-better-for-australia/            UNREAD. Company/policy, low expected yield.
+  /index/lenfest-ai-collaborative-expansion/             UNREAD. Company/philanthropy, low.
+
+Still unread and still unchecked against the corpus (check each with knomit_query FIRST):
+  /index/trusted-access-for-cyber/, /index/safety-bug-bounty/,
+  /index/introducing-openai-safety-fellowship/, /index/introducing-gpt-6-sol-and-luna/ (framework
+  post — skim for the one design decision), /index/pacing-model-development-cyber-capabilities/.
+One unexplored neighbour surfaced by the safety-cases post's "Keep reading" rail:
+  /index/priorities-and-principles-for-effective-third-party-assessments/ (Safety, Sep 22 2026) —
+  this is the post whose SAFEGUARDS assessment questions are the standing unmined item in the queue.
+
+INDEX SLUGS: the 40th run harvested these hrefs with a page script, which Appendix S FORBIDS.
+The compliant routes are get_page_text on /news/ plus WebSearch + allowed_domains (route 1b) to
+resolve a title to its slug. Do not repeat the script harvest.
