@@ -816,3 +816,30 @@ unread openai.com item since the 28th run — and found it was already a ref on 
 The same run nearly spent two more fetches on embracethered posts that were likewise already refs.
 BEFORE FETCHING A QUEUED URL, run one knomit_query for its central claim and look for the URL in the
 results' refs. One query can clear several queued URLs at once, because facts from one source cluster.
+
+=== ROUTE 15 — A REF THAT SILENTLY REDIRECTS IS A STALENESS SIGNAL, NOT A SUCCESSFUL FETCH. 40th run. ===
+Re-verifying kb/invariants/ai/agents/prompting/claude-api/ed084a84.md, its ref
+  https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-4-best-practices
+returned HTTP 200 with a full page — but the browser's reported URL was
+  .../prompt-engineering/claude-prompting-best-practices
+The page had been renamed and substantially rewritten, and the fact's per-model claims were several
+model generations out of date. Nothing about the fetch looked like a failure.
+
+THE CHECK, which costs nothing: after loading a ref, compare the URL the tool REPORTS BACK against
+the URL you asked for. The browser tools return the landed URL in their Tab Context block and
+get_page_text prints it in its header, so the comparison needs no extra call. A vendor doc that has
+been renamed has usually also been reorganised, and a fact anchored to it is a staleness candidate
+regardless of what the staleness sample said. Update the ref to the landed URL when this happens.
+
+COROLLARY, AND IT IS THE MORE USEFUL HALF: a prose doc is often NOT the authoritative source for the
+facts drawn from it. ed084a84's per-model claims live in a TABLE on a different page entirely —
+  https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting
+— which enumerates, per model, the supported thinking types, the default, and which values return
+400. The prose best-practices page only gestures at it. When a fact asserts per-model or per-version
+behaviour, find the reference table and ref THAT, not the essay that summarises it.
+
+TOOL NOTE from the same check: get_page_text truncates the TAIL at max_chars with no offset
+parameter (route 9c), so a section low on a long doc cannot be reached with it. read_page with
+ref_id on a heading returns only the heading and its buttons — headings have no descendants in that
+tree, so it is not a way to page to a section. The working move is to navigate to the narrower,
+authoritative page instead of trying to scroll the broad one.
