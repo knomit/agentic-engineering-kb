@@ -843,3 +843,44 @@ parameter (route 9c), so a section low on a long doc cannot be reached with it. 
 ref_id on a heading returns only the heading and its buttons — headings have no descendants in that
 tree, so it is not a way to page to a section. The working move is to navigate to the narrower,
 authoritative page instead of trying to scroll the broad one.
+
+=== ROUTE 16 — cdn.openai.com IS EGRESS-DENIED TO curl IN THIS ENVIRONMENT. 41st run. ===
+  curl -sSL -A "Mozilla/5.0" -o sol.pdf "https://cdn.openai.com/pdf/<uuid>/oai_GPT_6_1_Sol.pdf"
+  -> curl: (56) CONNECT tunnel failed, response 403
+That is the agent proxy refusing the host, not OpenAI and not a rotted filename (route 8) — nothing was
+written, so `file` has nothing to inspect. THE HOST BOUNDARY HAS MOVED: fetch-routes route 1 records
+"cdn.openai.com PDFs download with curl -A", which was true when written and is NOT true now. This is
+the same class as route 11's www-cdn.anthropic.com denial, and it is now TWO vendor CDNs blocked.
+THE WORKING ROUTE, and it is strictly better anyway: these PDFs have an HTML twin. The GPT-6.1 Sol
+addendum is served in full at deploymentsafety.openai.com/gpt-6-1-sol — all prose, all tables, all
+figures captions — and reads in the browser first try. BEFORE treating a vendor PDF as blocked, look
+for the HTML page that offers it as "View PDF": the page is usually the same document.
+
+=== ROUTE 17 — COLLAPSED ACCORDION TEXT IS INVISIBLE TO get_page_text AND VISIBLE TO WebFetch. 41st run. ===
+This one cost a correction that would otherwise have been missed, and it inverts route 9's usual advice.
+Verifying 2b9d15c8 against platform.claude.com/docs/.../tool-use/overview, `find` located the heading
+"When required parameters are missing" — but `get_page_text` returned that heading with NO BODY, the
+next heading following immediately. The section had been rebuilt as a collapsed expander.
+WHY: get_page_text is an innerText read, and innerText SKIPS elements hidden by CSS. WebFetch converts
+the HTML SOURCE to markdown, where a collapsed section is ordinary markup. One WebFetch returned the
+section's full contents.
+THE TELL, and it is easy to misread as "this content was deleted": a heading that `find` can see but
+`get_page_text` renders with no body. That is a collapsed container, not a removed section — the same
+family as route 9c, route 3c and route 2d, where the tool's limitation wears the costume of the data's
+absence. Do NOT record a doc section as deleted on a get_page_text miss alone.
+THE TRADE: WebFetch is an extraction, so route 4 applies to whatever it returns. Use the two-call
+verbatim discipline — the 41st run asked once for the section verbatim and once for a targeted yes/no
+on whether two specific strings appeared in it, and both calls agreed before the fact was corrected.
+
+=== ROUTE 18 — THE BROWSER CANNOT CLICK WHEN THE DESKTOP APP IS HIDDEN. READS STILL WORK. 41st run. ===
+On a scheduled/unattended run the Claude desktop app is typically minimized, and clicking fails:
+  computer:left_click -> "Could not get the tab ready for input (it is not on screen and has not drawn
+  yet): Screenshot timed out after 5s"
+EVERY CLICK GOES THROUGH A SCREENSHOT, so no `computer` action works while the window is hidden.
+WHAT STILL WORKS, unaffected, all run headless: preview_start, navigate, get_page_text, find,
+read_page, browser_batch of those. The 41st run did ~8 navigations and reads with zero failures and
+hit this only on its single attempted click.
+CONSEQUENCE FOR THIS JOB: treat the browser as READ-ONLY on every scheduled run. Any page whose content
+is behind a click — an accordion, a tab strip, a "Load more" — is not reachable that way; use route 17
+(WebFetch on the same URL) instead. The tool's error text suggests asking the user to bring the window
+forward; on a scheduled run there IS no user, so do not wait on that and do not retry the click.
