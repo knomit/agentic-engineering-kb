@@ -22,6 +22,19 @@ should change yours if it happens again: see "WHY NO FEED SWEEP" below. All thre
 *** predecessors' full hashes and append its own; the API cannot enumerate the history and a single
 *** omission severs the chain permanently. This is the one non-optional thing in this body. ***
 
+*** THIS RUN BROKE ITS OWN WRITE-ONCE RULE AND IS SAYING SO. The 42nd run produced THREE revisions:
+*** be04dee338397d3a396ef08af11853e2bb15d06e  (initial full write)
+*** fc85537f909eb2427916881044afa4a165db2121  (note (j) correction)
+*** and THIS one, which is HEAD and is the run's record. The first two are SUPERSEDED INTRA-RUN
+*** WRITES, exactly like the 35th run's insurance revision 474fbb13 — READ HEAD, and do NOT count
+*** be04dee3 or fc85537f as separate runs when you reproduce the hash list. Append only HEAD's own
+*** commit as the 42nd.
+*** WHY IT HAPPENED, because the lesson is cheap and the rule exists for a reason: I wrote the full
+*** body, THEN checked the trigger's cron to see whether the two-runs-in-one-day observation was a
+*** real schedule fault, and it was not. The check should have come BEFORE the write. ORDER THE RUN
+*** SO EVERY FACT THE BODY ASSERTS IS ESTABLISHED BEFORE THE BODY IS WRITTEN — including facts about
+*** the job's own environment, which are as checkable as anything on the web and cost one call. ***
+
 *** ROUTE 10 (binding drift): did NOT recur. FIFTEEN CLEAN RUNS. knomit_repos called first, one
 *** mount, agentic-engineering, read+write; did NOT re-bind, and no write or query behaved oddly.
 *** THIS RUN WROTE crawl-state EXACTLY ONCE, AT THE END. No insurance write. ***
