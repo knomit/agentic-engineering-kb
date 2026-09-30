@@ -907,3 +907,65 @@ The ranked "UNREAD" lists in BOTH slots are written by the run that queues an it
 re-validated when a later run actually reads it. They lag the corpus by several runs. Treat every
 "unread" marker in this file and in crawl-state as a HYPOTHESIS to be tested with one mechanism-phrased
 knomit_query, never as a fact. The corpus's refs are the only record of what has been read.
+
+=== NEW ASSET HOSTS, ADDED 42nd RUN. NOT feeds — hosts that AISI's own posts defer to. ===
+*** www.alignmentforum.org — WHERE AISI PUTS THE NUMBERS. ***
+The aisi.gov.uk blog post is the summary; the FULL CASE STUDY with the figures, tables, appendices and
+limitations is a separate post on alignmentforum.org, linked from it as "case study" / "full case
+study". This is the same shape as the 41st run's finding on deploymentsafety.openai.com: the
+announcement and the document are on different hosts, and the document is the one with the evidence.
+FETCH ROUTE 21 IS REQUIRED — get_page_text returns the literal "x" on this host; use WebFetch, with
+read_page as the structural cross-check.
+  READ 42nd run: /posts/e8nMZewwonifENQYB/assuring-agent-safety-evaluations-by-analysing-transcripts
+    "Assuring Agent Safety Evaluations By Analysing Transcripts" (Jerome Wynne, Cozmin Ududec, 10 Oct
+    2025, 18 min). The case study behind the aisi.gov.uk transcript-analysis post. -> 94858345,
+    d306b10f, bef6d86f. WELL MINED for the method, the four non-capability failure classes and the
+    tool-call-rate trap.
+    *** UNMINED AND WORTH A RETURN: the per-model tables are named but their CELLS did not come back in
+    either read (Table 1 pass rates by model, Table 2 tool call rate by model, Table 3 proportion of
+    Assistant messages featuring reasoning, Table 4 % of transcripts featuring each scanned term). The
+    a11y tree gives the captions only. A run wanting per-model figures needs a different slice. Also
+    unread: the "Observations from manual review" appendix, and Figures 9/10's per-statement scan rates. ***
+
+*** www.techrxiv.org — the AISI transcript-analysis PAPER. UNREAD. ***
+  https://www.techrxiv.org/users/1032063/articles/1391870-seven-simple-steps-for-log-analysis-in-ai-systems
+    "Seven Simple Steps for Log Analysis in AI Systems". Href harvested by route 5b from the
+    inspect-scout post, NOT guessed. The blog post gives the seven stages in one line each; the paper
+    "provide[s] detailed implementation guidance for each" plus a closing list of open questions.
+    94858345 currently carries the stages and the two non-obvious choices; the paper is where the
+    implementation detail and the open questions are. Host never touched — route unknown, test it.
+  ALSO NAMED, unfetched: the Inspect Scout "full documentation" link from the same post.
+
+=== AISI TRANSCRIPT-ANALYSIS PAIR — CLOSED OUT, 42nd RUN. It was Tier A rank 1 for many runs. ===
+Both halves read, and the pairing was real — they are the WHY and the HOW of the same problem:
+  /blog/transcript-analysis-for-ai-agent-evaluations         READ 42nd -> d306b10f (+ bef6d86f)
+  /blog/a-pipeline-for-transcript-analysis-using-inspect-scout  READ 42nd -> 94858345
+The pack's long-standing gap — six or more conclusions drawn FROM transcript analysis and no METHOD for
+doing it — is now filled by 94858345. DO NOT re-queue these two. The remaining value on this theme is
+the techrxiv paper and the alignmentforum tables, both named above.
+TIER A's NEXT: /blog/how-to-evaluate-control-measures-for-ai-agents and
+/blog/llm-judges-on-trial-a-new-statistical-framework-to-assess-autograders are now the top pair.
+
+*** 42nd-RUN CORRECTION: THE SIMONWILLISON "RANK 1" WAS A TWO-SENTENCE NOTE. ***
+The 41st run harvested simonwillison.net/tags/llms/ and ranked /2026/Sep/24/harder/ "Coding agents make
+software engineering harder" as RANK 1, "directly this pack's altitude". READ 42nd run, in full, both by
+WebFetch and by browser transcription. IT IS TWO SENTENCES:
+  "The more time I spend working with coding agents, the more convinced I am that they make software
+  engineering even harder. We can do amazing things with them, but unlocking their full potential
+  requires extraordinary discipline and knowledge."
+No mechanism, no figure, no boundary condition, no primary source, and no external link. It is titled
+"Note on 24th September 2026" — the "harder" slug is not a title. BELOW THE BAR by the one test: a
+competent model produces this from its priors. NO FACT WRITTEN. DO NOT RE-QUEUE IT.
+*** THE STRUCTURAL LESSON, which is worth more than the post: THIS BLOG HAS TWO ENTRY KINDS AND THE TAG
+FEED MIXES THEM. A "Note" is original commentary of a few sentences with nothing behind it; an "Article"
+is long-form. Ranking a tag-feed row by its slug cannot tell them apart, so a title-derived ranking of
+this feed is worthless twice over — once for FINDING 1's reason, and once because the row may have no
+document behind it at all. GO TO THE "Recent articles" RAIL, which lists articles only. ***
+  ARTICLES SEEN ON THAT RAIL 2026-09-30, all unread, ranked:
+    /2026/Sep/27/ "2026 in LLMs (so far)" (Sep 27) <- TOP. A year-in-review by this author is a
+      synthesis with primaries attached, which is the opposite of a Note.
+    /2026/Sep/22/ "Claude Opus 5.5, GPT-6 Sol, GPT-6 Luna, and a new price war" (Sep 22) <- the pack
+      has NO facts on the 5.5 pair, and "price war" suggests the pricing numbers are in here.
+    /2026/Sep/29/ "OpenAI DevDay 2026 live blog" (Sep 29) <- live-blog form, weakest, but it is the
+      only account of DevDay and the 41st run saw four Sep-29 OpenAI posts land off the back of it.
+  Resolve each slug from the rail or by route 1b. Do NOT derive it from the title.

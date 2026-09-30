@@ -884,3 +884,51 @@ CONSEQUENCE FOR THIS JOB: treat the browser as READ-ONLY on every scheduled run.
 is behind a click — an accordion, a tab strip, a "Load more" — is not reachable that way; use route 17
 (WebFetch on the same URL) instead. The tool's error text suggests asking the user to bring the window
 forward; on a scheduled run there IS no user, so do not wait on that and do not retry the click.
+
+=== ROUTE 19 — A `find` MISS IS NOT EVIDENCE THE STRING IS ABSENT FROM THE PAGE. 42nd run. ===
+MEASURED LIVE, and it nearly caused a false accusation of fabrication against a correct WebFetch.
+On https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview :
+  find{query: "Opus 5.5"}  -> "Found 1 match(es)": a single nav-sidebar LINK to the model page.
+  get_page_text on the SAME tab at the SAME moment -> TWO table rows reading "Claude Opus 5.5 / For
+  long-running agentic coding and knowledge work / auto, none / 286 tokens" and the Sonnet 5.5 twin.
+The rows were there the whole time. `find` searches the accessibility tree's role/name/text lines, and
+on this page the table's model cells did not surface for that substring.
+*** ISOLATE-THE-VARIABLE NOTE, and this is deliberate: I did NOT establish WHY. Three candidates were
+available (the cell's a11y line carries a trailing tagline; find's 20-match cap; a non-interactive
+table cell not being indexed) and I tested none of them. So this route records the OBSERVATION only.
+Do not credit a mechanism here, and do not build a workaround on one. ***
+THE RULE: `find` is for OBTAINING A REF, and for that it is fine. It is NOT an instrument for deciding
+whether a page contains a string. To decide presence or absence, use get_page_text (a transcription).
+This is the same family as route 9c (empty read_page), route 17 (collapsed accordion), route 3c (a 404
+body written to a file) and route 2d (a grep that errored): the tool's limitation wears the costume of
+the data's absence. It is now FIVE members, which makes it the most recurrent failure shape in this file.
+
+=== ROUTE 20 — ROUTE 4 CUTS BOTH WAYS: VERIFY, BUT ACQUIT WHEN THE EVIDENCE ACQUITS. 42nd run. ===
+Route 4 says an open-ended WebFetch can invent detail, and every run since has treated a WebFetch
+result as suspect. This run measured the OTHER outcome, on a 28-row token-count table: the open-ended
+WebFetch matched the browser transcription ROW FOR ROW on every model name and every token count,
+INCLUDING an ordering oddity (Claude Haiku 4.5 sitting above the "Additional models" divider, between
+Sonnet 5.5 and Opus 5) that read as a shuffling artifact and was in fact the page's real layout, and
+INCLUDING the substantive fact that the two 5.5 flagships have an `auto, none` row and NO `any, tool`
+row. I had already drafted the conclusion "the extraction fabricated the 5.5 rows" off a route-19 find
+miss. That conclusion was wrong and the extraction was right.
+THE RULE, unchanged in force and sharpened in direction: verify before writing, and verify with a
+TRANSCRIPTION (get_page_text / read_page), never with `find` and never with a hunch. Then let the
+verdict land wherever the transcription puts it. An absent-looking row is a claim about the page and
+needs the same standard of evidence as a present one — route 4's bias warning applies to the run's own
+tidy suspicions exactly as it applies to the tool's tidy answers.
+
+=== ROUTE 21 — alignmentforum.org: get_page_text RETURNS "x". USE WebFetch. 42nd run. ===
+www.alignmentforum.org/posts/<id>/<slug> is a client-rendered app and `get_page_text` returns the
+literal single character `x` (Source element: <body>) — twice in a row, so it is not a load race.
+THE WORKING ROUTE, both halves needed:
+  1. WebFetch, open-ended, for the body — it reads the page fine.
+  2. WebFetch again, TARGETED AND VERBATIM, naming each sentence you intend to quote and instructing
+     "answer exactly NOT STATED if it does not exist". This run's two calls agreed on all 12 items.
+CROSS-CHECK AVAILABLE AND WORTH IT: `read_page` DOES work on this host and returns the full
+accessibility tree with every node's text clipped at roughly 100 characters. That is useless for
+quoting and excellent for STRUCTURE — it confirms which sections, figures, tables and appendices exist
+and the first clause of each, which is exactly what you need to check that an extraction has not
+invented a section. Use read_page to bound the document, WebFetch to read it.
+WHY THIS HOST MATTERS: AISI publishes its short blog post on aisi.gov.uk and its FULL CASE STUDY with
+the figures on alignmentforum.org. The numbers live on the host that needs this route.
