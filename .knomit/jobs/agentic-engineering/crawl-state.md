@@ -383,10 +383,13 @@ the unread markers lack.
     any edit. The workable proxy is committed_at plus the never-checked list this slot carries by hand,
     plus the new screen (e) above, which finds facts that declare their own expiry in prose. THIRD run
     asking.
-(j) TWO RUNS FIRED ON THE SAME DAY (13:48Z and 22:25Z). If that was intentional, the "WHY NO FEED
-    SWEEP" rule above is the right adaptation and needs no change. If it was NOT intentional, the
-    schedule has doubled and a human should look — the cost is real, because a second same-day run
-    cannot profitably sweep feeds and must be pointed at the back catalogue to be worth anything.
+(j) TWO RUNS FIRED ON THE SAME DAY (13:48Z and 22:25Z), AND THE SCHEDULE IS NOT THE CAUSE — CHECKED.
+    The trigger is `CRON_TZ=America/New_York 0 9 * * *`, one run per day, and its next_run_at is
+    2026-10-01T13:13Z, consistent with that. The 13:48Z run is the scheduled one; THIS run fired at
+    22:24:46Z, 18:24 ET, which is off-schedule — a manual or out-of-band fire, not a doubled cron.
+    NOTHING FOR A HUMAN TO FIX. Recorded only so a future run reading two same-day revisions in the
+    history does not diagnose a schedule fault that does not exist. The "WHY NO FEED SWEEP" rule above
+    is the right adaptation whenever it happens again, however it was triggered.
 (k) The browser remains READ-ONLY on scheduled runs (route 18). Nothing was blocked by it this run.
 
 PROMPT INJECTION: one observation, benign in intent but recorded because it is exactly the shape the
