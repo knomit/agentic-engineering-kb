@@ -848,3 +848,62 @@ One unexplored neighbour surfaced by the safety-cases post's "Keep reading" rail
 INDEX SLUGS: the 40th run harvested these hrefs with a page script, which Appendix S FORBIDS.
 The compliant routes are get_page_text on /news/ plus WebSearch + allowed_domains (route 1b) to
 resolve a title to its slug. Do not repeat the script harvest.
+
+=== NEW RECURRING SOURCE, ADDED 41st RUN: deploymentsafety.openai.com. RANK 1 OF THE NEW ONES. ===
+https://deploymentsafety.openai.com/            <- the index ("Back to all updates")
+A host NO PREVIOUS RUN HAS TOUCHED. It is OpenAI's structured safety-evaluation hub: one page per model,
+each a full system card or addendum with numbered sections. NOT GATED — plain WebFetch reads it AND the
+browser reads it first try. This is a DIFFERENT SOURCE from openai.com/news, which only announces the
+model; the evaluation detail lives here and nowhere else.
+  READ 41st run: https://deploymentsafety.openai.com/gpt-6-1-sol  ("Addendum to GPT-6 Astra System Card:
+    GPT-6.1 Sol", published Sep 29 2026 — one day before the run, so no earlier run could have seen it).
+    Sections: Model Data and Training / Model Safety / Robustness / Health / Hallucinations / Alignment /
+    Monitorability / Preparedness. -> SIX facts: 491d1039, 9a8a1590, 35425199, cadca16c, 310d24b0, 9945cbad.
+    WELL MINED for sections 7 (Alignment) and 8 (Monitorability), which are where this pack's value is.
+    *** UNREAD TAIL: section 9 (Preparedness) past the biology tables — the CYBERSECURITY capability
+    section was cut by the 34,000-char read and is the one remaining piece. Sections 3-6 (safe
+    completions, vision, health, hallucinations) are per-model scorecards and are BELOW THE BAR;
+    do not spend a read on them. ***
+  KNOWN-GOOD SIBLING URL, unfetched: https://deploymentsafety.openai.com/gpt-6-astra/safeguards — the
+    PARENT card that gpt-6-1-sol defers to for every evaluation description ("please see the ... section
+    in the GPT-6 Astra card"). It is therefore the fuller document and is RANK 1 on this host.
+  The per-model PDF (cdn.openai.com/pdf/<uuid>/oai_GPT_6_1_Sol.pdf) is linked as "View PDF" but
+    cdn.openai.com is EGRESS-DENIED to curl in this environment — see fetch-routes ROUTE 16. Take the
+    HTML page instead; it carries the full text including all tables.
+
+=== alignment.anthropic.com — INDEX ENUMERATED 41st RUN (8 posts, one WebFetch). NOW FULLY READ. ===
+The 28th run added this feed without enumerating its index; that gap is closed. All eight posts:
+  /2026/reward-seeker/                      READ (28th) -> ec1be717 + 4 more
+  /2026/automated-alignment-researchers/    READ -> 8d935d4e, c807bcd3
+  /2026/taste/                              READ -> 126207f7, a0cb6dc6
+  /2026/chive/                              READ -> c6feb649
+  /2026/lie-detectors/                      READ -> f489c12e, 8511fc79, 0372e10d
+  /2026/conceptual-reasoning-index/         status unknown — no fact refs it; expect capability scores
+  /2026/agentic-misalignment-summer-2026/   READ — a ref on 0c3c2d6a
+  /2026/modular-pretraining/                status unknown — no fact refs it
+ONLY TWO ARE PLAUSIBLY UNREAD, and both are low expected yield. This feed is now a SWEEP-FOR-NEW feed,
+not a back-catalogue seam. Do not queue its posts as "unread" again without a knomit_query first.
+
+*** 41st-RUN CORRECTION TO ROUTE 14, AND IT IS THE RUN'S MAIN FINDING. ***
+Route 14 says to knomit_query before fetching a queued "unread" URL. That is right, but HOW you phrase
+the query decides whether it works, and the 41st run got this wrong once and right three times in the
+same run. The corpus indexes CLAIMS, not titles or branding.
+  FAILED: querying "enterprise frontier safeguards developed with customers" — the post's own title —
+    returned containment facts and nothing relevant. The run then spent a browser fetch on the post.
+  WORKED: querying its MECHANISM, "zero data retention versus misuse monitoring; correlating agent
+    traffic across sessions and accounts", returned 123d278f and 2667d0ea immediately, both of which
+    already ref that exact URL.
+THE RULE: phrase the route-14 query as the claim you expect the source to make, never as its title.
+A title-shaped query is close to useless because titles are marketing and bodies are mechanism.
+
+*** THE QUEUE IN crawl-state IS NOT EVIDENCE OF ANYTHING. 41st run, FOUR-FOR-FOUR. ***
+Every single one of the four "TOP UNREAD / RANK 1" items the 40th run's queue handed to the 41st turned
+out to be ALREADY MINED, with facts refing the exact URL:
+  openai.com/index/priorities-principles-third-party-assessments/  -> 87e86747 (written 38th run)
+  anthropic.com/news/enterprise-frontier-safeguards                -> 123d278f, 2667d0ea
+  alignment.anthropic.com/2026/taste/                              -> 126207f7, a0cb6dc6
+  alignment.anthropic.com/2026/chive/                              -> c6feb649
+The ranked "UNREAD" lists in BOTH slots are written by the run that queues an item and are never
+re-validated when a later run actually reads it. They lag the corpus by several runs. Treat every
+"unread" marker in this file and in crawl-state as a HYPOTHESIS to be tested with one mechanism-phrased
+knomit_query, never as a fact. The corpus's refs are the only record of what has been read.
