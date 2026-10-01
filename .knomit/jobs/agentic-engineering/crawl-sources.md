@@ -969,3 +969,56 @@ document behind it at all. GO TO THE "Recent articles" RAIL, which lists article
     /2026/Sep/29/ "OpenAI DevDay 2026 live blog" (Sep 29) <- live-blog form, weakest, but it is the
       only account of DevDay and the 41st run saw four Sep-29 OpenAI posts land off the back of it.
   Resolve each slug from the rail or by route 1b. Do NOT derive it from the title.
+
+=== deploymentsafety.openai.com — INDEX ENUMERATED 43rd RUN (8 entries, ONE plain WebFetch, ungated). ===
+The 41st run added this host and the 42nd read one page on it; nobody had enumerated the index. Done now,
+and the whole host is small — this is not a back-catalogue seam, it is eight documents. Newest first:
+  /gpt-6-1-sol              Addendum to GPT-6 Astra System Card: GPT-6.1 Sol   Sep 29 2026  READ 41st
+  /chatgpt-images-2-5       ChatGPT Images 2.5 System Card                     Sep 08 2026  BELOW THE BAR
+  /gpt-6-astra              GPT-6 Astra System Card                            Sep 03 2026  *** UNREAD ***
+  /gpt-5-6-august-update    GPT-5.6 — August Updates                           Aug 06 2026  unread, low
+  /gpt-5-6                  GPT-5.6 System Card                                Jul 09 2026  unread, low
+  /gpt-live                 GPT-Live System Card                               Jul 08 2026  unread, low
+  /gpt-5-6-preview          GPT-5.6 Preview System Card                        Jun 26 2026  unread, low
+  /gpt-rosalind-5-5         GPT-Rosalind-5-5 System Card                       Jun 03 2026  unread, low
+*** NOTE THE DISTINCTION THAT COST THE 42nd RUN NOTHING ONLY BY LUCK: /gpt-6-astra AND
+/gpt-6-astra/safeguards ARE DIFFERENT DOCUMENTS. The safeguards card is the one that has been read; the
+parent /gpt-6-astra card is on the index and has never been fetched. Do not treat one as the other. ***
+The superseded-model cards (GPT-5.6 and earlier) are per-model scorecards and are below the bar by the
+standing rule; their only remaining use is as a version reference point.
+
+=== gpt-6-astra/safeguards — SECTION 8 NOW READ (43rd run). SECTION 9 STILL UNREAD. ===
+Sections 1-7 read by the 42nd run (4-7 are per-model scorecards, BELOW THE BAR, do not re-read). Section
+8 (Alignment) taken this run by route 22 (section-targeted WebFetch) -> 8992ec34, 0cbaa443, c9b6c5fa,
+plus the figures that pinned b446bef6's "roughly half" to 54,218 tasks / 53% fewer severity-level-3
+actions, and Apollo's eval-awareness material that turned 0c3c2d6a into a three-way decision.
+*** SECTION 9 (Preparedness) reported TRUNCATED on all three WebFetch calls and on the 42nd run's browser
+read. Four attempts, two methods, zero bytes. It is the last unread part of this host's best document and
+it needs a method neither run has tried — not a fifth attempt at either. ***
+ALSO HARVESTED FROM SECTION 8 AND NOT YET WRITTEN: Figure 17's flagged oversight-gaming CoT snippets are
+IMAGES, not text, in every reader tried; the card publishes no oversight-gaming RATE to go with its
+definitions; and the deployment-simulation severity scale (what severity levels 1 and 2 are) is unstated.
+
+=== embracethered 2025 BACK CATALOGUE — FIRST ENTRY TAKEN, 43rd run ===
+  /2025/the-normalization-of-deviance-in-ai/   (Dec 04 2025) READ -> kb/gotchas/ai/agents/operations/normalized-deviance/e671d3a4.md
+    Rated TOP OF 2025 by the 23rd run and the rating was right. Plain WebFetch, ungated, two-call verbatim
+    discipline, both calls agreed. The value is NOT the sociology and NOT the mitigation list (both below
+    the bar) — it is the roster: five vendors' OWN documentation quoted admitting prompt-injection RCE,
+    exfiltration, or no human-in-the-loop, in shipped products. The author's framing of the simultaneity
+    is the quotable part.
+  STILL TOP OF THIS SEAM: /2025/cross-agent-privilege-escalation-agents-that-free-each-other/ (Sep 24
+    2025) — NOT fetched this run, NOT cleared by a route-14 query either, so its status is genuinely
+    unknown rather than unread-by-assumption. Then /2025/wrapping-up-month-of-ai-bugs/ and
+    /2025/scary-agent-skills/.
+
+=== SWEEPS, 43rd RUN ===
+anthropic.com/news, date-windowed since 2026-09-17, one WebFetch: FOUR posts, NOTHING ABOVE THE BAR.
+  /news/barclays-scales-claude (Oct 1 2026) customer story; /news/claude-discovers-novel-enzyme-system
+  (Sep 23) science result, not agent engineering; /news/accenture-embedded-evaluation (Sep 18) ALREADY in
+  ALREADY_CRAWLED; /news/life-sciences-verification-program (Sep 17) already queued low. The feed has
+  published nothing for this pack since the September threat report. Do not re-rank it upward on volume.
+NOT SWEPT THIS RUN, named: openai.com/news (needs the browser, route 1; swept 41st run ~24h before this
+  one), anthropic.com/engineering, alignment.anthropic.com, alignment.openai.com, metr.org,
+  simonwillison, embracethered index, aisi.gov.uk index, langchain, huggingface, eugeneyan, trychroma,
+  builder.aws.com, genai.owasp.org, research.google, sourcegraph, latent.space, redwoodresearch,
+  microsoft, cognition, developers.openai.com, vectara, darioamodei.com, code.claude.com.

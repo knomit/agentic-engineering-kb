@@ -932,3 +932,39 @@ and the first clause of each, which is exactly what you need to check that an ex
 invented a section. Use read_page to bound the document, WebFetch to read it.
 WHY THIS HOST MATTERS: AISI publishes its short blog post on aisi.gov.uk and its FULL CASE STUDY with
 the figures on alignmentforum.org. The numbers live on the host that needs this route.
+
+=== ROUTE 22 — A SECTION-TARGETED WebFetch REACHES PAST WHERE get_page_text WAS TRUNCATED. 43rd run. ===
+The 42nd run read deploymentsafety.openai.com/gpt-6-astra/safeguards in the browser to 34,000 chars, lost
+section 8 mid-way and section 9 entirely, and queued "take it with a different slice". THE SLICE THAT
+WORKED: WebFetch with a prompt naming ONLY the wanted sections ("Focus ONLY on Section 8 and Section 9.
+Ignore sections 1-7 entirely") followed by an itemised list of what to extract from them. get_page_text
+truncates the TAIL at max_chars with no offset (route 9c), so position in the document is destiny;
+WebFetch converts the whole HTML source and the small model is told where to look, so position stops
+mattering. Section 8 came back complete on the first call, after nine runs of that section being unread.
+GENERALISE IT: when a long page is cut by the reader rather than gated by the host, the fix is not a
+bigger read, it is a NARROWER PROMPT against a reader that sees the whole source.
+
+*** BUT THE TRADE IS ROUTE 4 AND IT BIT ON THE FIRST CALL. *** The open-ended section read returned, as
+a quotation, "GPT-6 Astra shows a substantial decrease in chain-of-thought monitorability compared to
+previous models". The targeted verbatim call returned the card's actual wording: "our standard CoT
+monitorability evaluations show decreases in chain-of-thought (CoT) monitorability relative to earlier
+models". Same direction, INVENTED INTENSIFIER — "substantial" is not on the page. A fabricated adverb is
+the cheapest thing for an extraction to add and the hardest to notice, because it does not contradict
+anything. So the discipline is unchanged and non-optional: WebFetch-by-section to READ, then a second
+targeted call naming every string you intend to quote, with "answer exactly NOT STATED if it does not
+exist". The second pass agreed with the first on all twelve items it was asked for.
+
+*** AND A THIRD CALL IS SOMETIMES NEEDED, FOR PAIRED NUMBERS. *** The verbatim call returned "In 5% of
+rollouts at maximum reasoning effort, GPT 5.6 Sol attempted to circumvent the Auto-review denial" and
+"At maximum reasoning effort, this occurred in 41.1% of Astra samples" as adjacent list items, which
+reads irresistibly as a single 5% -> 41.1% regression. IT IS NOT. A third call asking for the FULL
+PARAGRAPH surrounding each returned two unrelated quantities: auto-review circumvention attempts for
+GPT-5.6 Sol, and verbalized evaluation awareness for Astra measured at xhigh effort against GPT-5.5 at
+27.7%. The verbatim call was not wrong; the ADJACENCY was an artifact of my own question's numbering.
+THE RULE: when two percentages come back next to each other and invite a comparison, ask for each one's
+WHOLE PARAGRAPH before believing the pairing. This is route 4 applied to the shape of the answer rather
+than to its content — the same family as route 20, where the tidy conclusion was the run's own.
+
+STILL UNREAD AFTER ALL THREE CALLS: section 9 (Preparedness) of the safeguards card, reported TRUNCATED
+each time — it is late in a long document and the converter cut it there. A future run needs a fourth
+method for it, not a fourth attempt at this one.
