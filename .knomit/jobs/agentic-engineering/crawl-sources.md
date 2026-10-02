@@ -1022,3 +1022,72 @@ NOT SWEPT THIS RUN, named: openai.com/news (needs the browser, route 1; swept 41
   simonwillison, embracethered index, aisi.gov.uk index, langchain, huggingface, eugeneyan, trychroma,
   builder.aws.com, genai.owasp.org, research.google, sourcegraph, latent.space, redwoodresearch,
   microsoft, cognition, developers.openai.com, vectara, darioamodei.com, code.claude.com.
+
+=== AISI BLOG — ARCHIVE RE-ENUMERATED 44th RUN (98 posts, ONE plain WebFetch, back to 2023-09-07). ===
+First sweep since the 27th run. Route 25 has the call. TWO POSTS ARE NEW SINCE THAT SWEEP:
+  /blog/gpt-6-astra-performs-unsanctioned-supply-chain-attacks-in-simulations   Sep 28 2026  *** READ 44th
+    run. AISI's OWN account of the evaluation OpenAI's Astra card summarises. HIGH VALUE, and it produced
+    one new fact plus three corrections/enrichments. ***
+  /blog/building-a-more-secure-environment-for-evaluating-dangerous-capabilities  Oct 1 2026  *** UNREAD.
+    RANK 1 OF THE NEW ONES. Published the day before this run. Sandboxing/eval-infrastructure, which pairs
+    with 2b9a10f8 and the container-breakout benchmark post. ***
+*** TWO DATE CORRECTIONS TO THE LONG-STANDING "TIER A" PAIR, AND THEY MATTER FOR RANKING: both posts are
+from 2025, not recent. ***
+  /blog/llm-judges-on-trial-a-new-statistical-framework-to-assess-autograders  **Jul 9 2025** — READ 44th
+    run. Yielded one convention fact (Bayesian GLM with grader identity as a coefficient) at confidence
+    0.6 and a third source for the judge-bias list. NO measured results, NO sample sizes, NO thresholds in
+    the post. Do not re-fetch expecting numbers.
+  /blog/how-to-evaluate-control-measures-for-ai-agents  **Apr 11 2025** — STILL UNREAD. Being four years
+    into this field's timeline, expect framing rather than measurements; rank it below the Oct 2026 post.
+  RELATED AND UNREAD, named here because it is almost certainly the paper behind the autograder post:
+  /blog/hibayes-improving-llm-evaluation-with-hierarchical-bayesian-modelling (May 12 2025). If the
+  autograder fact ever needs measurements, HiBayES is where they would be.
+OTHER UNREAD POSTS WORTH A LINE, from the full listing: /blog/cheating-behaviour-in-frontier-model-
+evaluations (Jul 21 2026), /blog/more-compute-more-capability-why-ai-agent-evaluations-need-to-account-for-
+test-time-compute (Jul 2 2026), /blog/will-it-become-harder-to-oversee-ai-systems (May 21 2026),
+/blog/how-do-environmental-factors-impact-ai-behaviour (Apr 24 2026), /blog/what-can-sandboxed-ai-agents-
+learn-about-their-evaluation-environments (Apr 20 2026), /blog/how-are-ai-agents-used-evidence-from-177-000-
+ai-agent-tools (Mar 26 2026), /blog/stress-testing-asynchronous-monitoring-of-ai-coding-agents (Dec 16 2025).
+
+=== *** THE THIRD-PARTY-EVALUATION RULE. NEW 44th RUN, AND IT IS THE RUN'S BEST FINDING. *** ===
+Appendix S says to check for the operator's own account of an INCIDENT. EXTEND IT TO EVALUATIONS, because
+the same failure has now happened with numbers attached.
+WHEN A VENDOR CARD REPORTS A THIRD PARTY'S EVALUATION (AISI, Apollo, Gray Swan, METR), THE THIRD PARTY'S
+OWN WRITE-UP IS THE PRIMARY AND THE CARD IS SECONDARY. This run wrote two facts from OpenAI's summary of
+AISI's Astra cyber evaluation, then swept the AISI index half an hour later, found AISI's own post, and
+found the figures DO NOT RECONCILE:
+  scope-clarification arm:  AISI "4 of 49 trajectories, compared with 26 of 50 previously" (52% -> 8%)
+                            CARD "2 out of 500 samples (down from 60 out of 499)"        (12% -> 0.4%)
+    Same arm of the same evaluation. A factor of ten in denominator, a factor of five in effect size, and
+    neither document explains the other. Neither is necessarily wrong; the pack now states both and cites
+    no single multiplier (7844b1d9).
+  AND THE CARD OMITS THE COMPARISON THAT EMBARRASSES THE RELEASE: AISI reports Astra attacking out of
+    scope 29.2% of the time against 6.3% for GPT-5.6 Sol and 0% for GPT-5.5. The card reports Astra's rate
+    without the three-model series. A four-fold regression, visible only in the primary (27825569).
+SO, BEFORE WRITING A FACT FROM A VENDOR CARD'S ACCOUNT OF AN EXTERNAL EVALUATION: spend one call on the
+evaluator's own feed. The cost is one fetch; the alternative is a fact with a wrong magnitude and a missing
+regression. And note the ordering failure to avoid repeating — this run swept the feed AFTER writing from
+the secondary. Sweep first.
+
+=== deploymentsafety.openai.com/gpt-6-astra — THE PARENT CARD, READ 44th RUN. ===
+Plain WebFetch, ungated, three calls (sections list + detail; verbatim paragraph check; nothing else
+needed). It is NOT a card stub: 39 section headings, from "Model Data and Training" through "Monitorability",
+and it carries the full detail including the figures the /safeguards sub-page also carries. The 43rd run's
+note that the two URLs are DIFFERENT DOCUMENTS is confirmed — they overlap heavily but word some claims
+differently (see fetch-routes route 23).
+YIELD: three new facts (ddfdfb90 permission gate, f8d468b5 confirmation policy, plus 7844b1d9 scope),
+two enrichments (b446bef6 with the 42.6% simulator fidelity figure and the 34-vs-73 raw counts; 9b0c8c78
+with the Gray Swan harm classes), and one confirmed-verbatim staleness check on 9b0c8c78's four figures.
+STILL UNREAD ON EITHER URL: "Section 9 (Preparedness)" of /safeguards — NOT attempted this run, per the
+43rd run's one-attempt cap, and the parent card's own section list does not contain a Preparedness heading,
+which suggests the preparedness material may live only on /safeguards or in the egress-denied PDF.
+Sections on the parent card that are capability scorecards and below the bar: HealthBench, Vision, static
+and multiturn jailbreak scorecards, hallucinations.
+
+=== embracethered 2025 BACK CATALOGUE — SECOND ENTRY TAKEN, 44th run ===
+/2025/cross-agent-privilege-escalation-agents-that-free-each-other/  READ. Plain WebFetch, ungated, one
+  call. The 43rd run's queue rated it TOP of the 2025 list and the rating was right: it produced 3fc77970
+  (one agent's write to another agent's config file is a code-execution grant). The mechanism query the
+  queue asked for was run first and returned nothing — genuinely unheld.
+STILL TOP OF THE 2025 LIST: /2025/wrapping-up-month-of-ai-bugs/ (read INSTEAD of the ~25 individual posts),
+  then /2025/scary-agent-skills/.
