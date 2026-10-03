@@ -1091,3 +1091,100 @@ and multiturn jailbreak scorecards, hallucinations.
   queue asked for was run first and returned nothing — genuinely unheld.
 STILL TOP OF THE 2025 LIST: /2025/wrapping-up-month-of-ai-bugs/ (read INSTEAD of the ~25 individual posts),
   then /2025/scary-agent-skills/.
+
+=== SWEEPS, 45th RUN (2026-10-03). SIX FEEDS, SIX PLAIN WebFetch CALLS, ALL BEFORE ANY WRITE. ===
+The 44th run's "sweep before you write" rule was followed and it paid twice: the METR feed's newest post was
+unread and became the run's second source, and the alignment.anthropic.com index closed a note that had
+stood since the 28th run.
+
+*** alignment.anthropic.com INDEX ENUMERATED AT LAST — 8 posts, one call. The 28th run wrote "the blog's
+own index has not been enumerated; one route-5 call would catalogue it; nobody has spent it." Spent. ***
+  Aug 2026: /2026/reward-seeker/ (read 28th), /2026/automated-alignment-researchers/ (read),
+    /2026/taste/ (read), /2026/chive/ (read), /2026/lie-detectors/ (read),
+    *** /2026/conceptual-reasoning-index/ — UNREAD, not in ALREADY_CRAWLED, nobody has named it. ***
+  Jul 2026: /2026/agentic-misalignment-summer-2026/ (read),
+    *** /2026/modular-pretraining/ — UNREAD, "Modular Pretraining Enables Access Control", and the title
+    alone makes it the more interesting of the two for this pack: access control as a PRETRAINING property
+    rather than a runtime one. ***
+  The index shows only these 8 and no 2025 entries, so either the blog starts at Jul 2026 or the listing is
+  shallow (route 5's standing caution). /2026/coding-audit-realism/, /2026/diffuse-ai-control/ and
+  /2026/sleight-bench/ are in ALREADY_CRAWLED but do NOT appear on this listing — so the listing is
+  INCOMPLETE, confirmed, and the archive is at least 11 posts. Ask for a dated window next time.
+
+*** alignment.openai.com/misalignment-reports/ — FULLY MINED AS OF THIS SWEEP. *** 9 reports listed
+  (3 dated Sep 25 2026, 6 dated Sep 16 2026) and ALL NINE are already in ALREADY_CRAWLED. Nothing new since
+  Sep 25. This is the first sweep of this feed since the 28th run added it; it remains HIGH value as a
+  recurring feed but it has published nothing unread. Do not rank it above the back catalogues on volume.
+
+metr.org/blog — ONE NEW POST SINCE THE LAST SWEEP, AND IT WAS READ THIS RUN:
+  /blog/2026-09-30-chris-painter-senate-testimony/  Sep 30 2026  *** READ 45th run. Written Senate
+    testimony. Yielded 2d26e61b (three visibility figures) and the limiting-case enrichment to 83004507.
+    It is also a SECONDARY for every figure it cites — see the paraphrase rule below. ***
+  UNREAD METR back catalogue, now itemised with dates and ranked:
+    *** /blog/2026-06-26-gpt-5-6-sol/ (Jun 26 2026) — RANK 1 OF THIS FEED, and it is the 44th run's own
+    open task: "METR's predeployment evaluation of GPT-5.6 Sol" is a THIRD-PARTY EVALUATOR'S OWN WRITE-UP
+    of a model whose vendor card this pack holds facts from. Exactly the primary the third-party-evaluation
+    rule says to go read. ***
+    /blog/2026-03-12-sabotage-risk-report-opus-4-6-review/ (Mar 12 2026) — an external review of a vendor
+      risk report; same shape, older model.
+    /blog/2026-05-08-rd-section-anthropic-risk-report-feb-2026-review/ (May 8 2026) — ditto, R&D section.
+    /blog/2026-02-17-how-we-protect-confidential-information/ (Feb 17 2026) — pairs with 815f7ab2, which
+      already holds METR's four sensitivity tiers from the August security update. Likely overlap.
+    /blog/2026-08-14-funding-update/ (Aug 14 2026) — organisational, almost certainly below the bar.
+
+embracethered.com/blog — windowed since 2026-08-01, 4 posts:
+  *** /posts/2026/from-select-to-sysadmin-sql-copilot-bluehat-asia/  Sep 30 2026  UNREAD, NEW. ***
+    "From SELECT to SYSADMIN with SQL Copilot (CVE-2026-65669)" — a named CVE and a privilege-escalation
+    chain through a database copilot. The pack's agent-privilege cluster (3fc77970, f727c157) is the home.
+  /posts/2026/breaking-claude-code-opus-5-and-automode/ (Aug 26) in ALREADY_CRAWLED.
+  /posts/2026/hijacking-litellm-for-fun-and-profit/ (Aug 3) read 39th run (slug was truncated in that body).
+  /posts/2026/recovering-encrypted-llm-thoughts/ (Aug 16) — *** FULLY MINED INTO 1d01a338 AND a7863d24,
+    INCLUDING ITS NUMBERS AND ITS HEDGES, AND IT IS NOT IN ALREADY_CRAWLED. *** I spent a fetch on it
+    before checking. See fetch-routes route 27. The corpus's refs are the record; the URL union is not.
+
+www.anthropic.com/engineering — front page returns 10 entries, newest dated Apr 23 2026 plus the undated
+  featured /engineering/how-we-contain-claude. ALL TEN ARE IN ALREADY_CRAWLED. This feed has published
+  nothing for this pack in five months of listing depth. Sweep it, but stop expecting anything.
+
+simonwillison.net "Recent articles" rail — enumerated with exact hrefs, 10 entries, all UNREAD:
+  /2026/Sep/29/openai-devday-2026-live-blog/, /2026/Sep/27/2026-in-llms-so-far/,
+  /2026/Sep/22/opus-and-sol-and-luna/, /2026/Sep/21/jev/, /2026/Sep/12/astra-running-routes/,
+  /2026/Sep/12/openai-agents-rubygems/, /2026/Sep/8/on-navier-stokes/, /2026/Sep/4/astra-pelicans/,
+  /2026/Sep/4/rogue-agent-wikis/, /2026/Sep/2/claudes-new-system-prompt/.
+  NOTE THE EXACT SLUGS: the 44th run's queue guessed "Claude Opus 5.5, GPT-6 Sol..." would live at a
+  title-derived path; it is /opus-and-sol-and-luna/. Do not guess these.
+  RANKING, and it is lower than three runs of queueing implies: /openai-agents-rubygems/ and
+  /rogue-agent-wikis/ are COMMENTARY on primaries this pack already holds (the RubyGems attack and the
+  agent message board are both in the METR testimony and the HF incident cluster). /2026-in-llms-so-far/ is
+  a survey — high readability, low new-fact density, and surveys are where this pack picks up claims it
+  cannot trace. /astra-running-routes/, /astra-pelicans/, /on-navier-stokes/, /jev/ are not agent
+  engineering. /claudes-new-system-prompt/ is about one system prompt's lyrics behaviour.
+  NOT SWEPT THIS RUN, named: openai.com/news (needs the browser, route 1; last swept 41st),
+  aisi.gov.uk/blog (swept 44th, 24h before this run), anthropic.com/news (swept 43rd), langchain,
+  huggingface, eugeneyan, trychroma, builder.aws.com, genai.owasp.org, research.google, sourcegraph,
+  latent.space, redwoodresearch, microsoft research, microsoft security, cognition,
+  developers.openai.com, vectara, darioamodei.com, code.claude.com, owasp-agentic incidents tracker,
+  aws machine-learning.
+
+=== *** THE PARAPHRASE RULE. NEW 45th RUN, AND IT IS THE 44th RUN'S THIRD-PARTY-EVALUATION RULE ONE LEVEL
+=== DOWN: A SECONDARY DRIFTS ON DEFINITIONS, NOT ONLY ON NUMBERS, AND IT DRIFTS TOWARD THE STRONGER CLAIM. ***
+The 44th run established that a vendor's summary of a third party's EVALUATION disagrees with the primary on
+MAGNITUDE. This run found the same failure on a DEFINITION, in the opposite direction of travel (an
+independent evaluator paraphrasing a vendor), and caught it only because a staleness check happened to open
+the primary.
+  METR's Senate testimony renders Anthropic's "leads" as:
+    "AI agents completing tasks end-to-end based on high-level human input, without needing ongoing human
+     supervision"
+  Anthropic's own post defines it as:
+    "AI 'leads': it can complete most of the task end-to-end from a high-level prompt, while the human
+     supervises."
+  TWO DROPS, BOTH TOWARD MORE AUTONOMY: "most of the task" became "tasks", and "while the human supervises"
+  became "without needing ongoing human supervision" — which is not a compression of the primary, it is its
+  negation. The baseline moved too: "under 1% in February 2026" became "0-1% in February-March".
+  The number 26% is identical in both. SO THE NUMBER SURVIVING IS NOT EVIDENCE THE CLAIM SURVIVED — that is
+  the part to carry forward, because a matching figure is exactly what makes a reader stop checking.
+THE RULE: when a fact's load-bearing content is a DEFINITION, a THRESHOLD'S CONDITION, or a SCOPE, quote it
+from the primary even when the secondary is a credible independent organisation and even when its numbers
+check out. A paraphrase is a lossy channel with a direction, and the direction is whatever made the sentence
+worth quoting.
+APPLIED: 2d26e61b now carries both renderings, says which to cite, and says why.
