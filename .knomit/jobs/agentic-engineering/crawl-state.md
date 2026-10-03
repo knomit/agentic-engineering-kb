@@ -8,42 +8,53 @@ refs: ['https://github.com/knomit/knomit']
 ---
 # Last crawl state
 
-crawled: 2026-10-02 (forty-fourth run, 13:18Z). 6 facts written, 5 enriched, 1 CORRECTED, 4 confirmed,
-0 retracted. 4 genuinely new URLs across 3 hosts. ~23.5h since the 43rd run; normal daily schedule held.
+crawled: 2026-10-03 (forty-fifth run, ~14:30Z). 4 facts written, 2 enriched, 1 CORRECTED, 5 confirmed,
+0 retracted. 4 genuinely new URLs across 3 hosts. ~24.6h since the 44th run; normal daily schedule held.
 All three job slots written. crawl-state written ONCE, at the end.
 
-*** THE RUN'S HEADLINE, AND IT IS A CORRECTION TO THIS RUN'S OWN WORK: I wrote two facts from OpenAI's
-*** summary of AISI's Astra cyber evaluation, then swept the AISI index thirty minutes later, found
-*** AISI's OWN post on the same evaluation, and the figures DO NOT RECONCILE — AISI's scope-clarification
-*** arm is 26-of-50 down to 4-of-49 (sixfold) where the card says 60-of-499 down to 2-of-500 (thirtyfold).
-*** The primary also carries a four-fold REGRESSION the card omits. One fact was rewritten, two enriched,
-*** one new fact written. SWEEP THE EVALUATOR'S OWN FEED BEFORE WRITING FROM A VENDOR'S ACCOUNT OF A
-*** THIRD-PARTY EVALUATION. The rule is now in crawl-sources. ***
+*** THE RUN'S HEADLINE IS A CORRECTION TO THIS RUN'S OWN WORK, FOR THE SECOND RUN RUNNING, AND THE DEFECT IS
+*** THE 44th RUN'S DEFECT ONE LEVEL DOWN: A SECONDARY DRIFTS ON DEFINITIONS, NOT ONLY ON NUMBERS. I wrote
+*** 2d26e61b from METR's Senate testimony, carrying its rendering of Anthropic's "leads" metric. A staleness
+*** check twenty minutes later opened Anthropic's own post and the definitions do not match: the primary says
+*** "most of the task ... while the human supervises", the testimony says "tasks ... without needing ongoing
+*** human supervision". That is not a compression, it is a negation of the supervision clause, and both drops
+*** run toward MORE autonomy. *** THE NUMBER 26% IS IDENTICAL IN BOTH, WHICH IS WHAT MAKES THIS DANGEROUS: a
+*** matching figure is exactly what stops a reader checking the sentence around it. *** The fact now carries
+*** both renderings and says which to cite. Rule recorded in crawl-sources as "the paraphrase rule".
+
+*** SECOND FINDING, STRUCTURAL, AND IT REWRITES HOW TO READ EVERY PAST RUN'S ACCOUNTING: THE PROSE HASH
+*** CHAIN HAS BEEN RECORDING ONE OF EVERY TWO WRITES SINCE THE 30th RUN. Twelve consecutive runs wrote
+*** crawl-state twice; only the later write is in any prose list. "One revision = one run" is false for runs
+*** 30-41, and the 35th and 42nd runs occupy FOUR revisions each, not two and three. ALSO: the 22nd run's
+*** body enumerates revisions for runs 17-21, which this job has called permanently unrecoverable since the
+*** 26th run. THEY ARE RECOVERABLE. Both in fetch-routes route 26. ***
 
 *** THIS SLOT HOLDS ONE RUN. THE HISTORY IS THE RECORD. WALK IT BY THE PROSE HASHES BELOW, NOT BY
-*** history.revisions (the API chain goes more_available:false several hops early, silently — CONFIRMED A
-*** TENTH TIME: HEAD returned exactly 3 revisions with more_available:true, against 24 that exist).
+*** history.revisions (the API chain goes more_available:false several hops early, silently — CONFIRMED AN
+*** ELEVENTH TIME: HEAD returned exactly 3 revisions with more_available:true, against 31 that exist).
 *** THE 40-HEX HASH LIST BELOW IS LOAD-BEARING INFRASTRUCTURE. Every run MUST reproduce its
 *** predecessors' full hashes and append its predecessor's HEAD; the API cannot enumerate the history
-*** and a single omission severs the chain permanently. This is the one non-optional thing in this
-*** body. ***
+*** and a single omission severs the chain permanently. This is the one non-optional thing in this body. ***
 
-*** ROUTE 10 (binding drift): did NOT recur. SEVENTEEN CLEAN RUNS. knomit_repos called first (one mount,
+*** ROUTE 10 (binding drift): did NOT recur. EIGHTEEN CLEAN RUNS. knomit_repos called first (one mount,
 *** agentic-engineering, read+write) and AGAIN immediately before the first write, with `bound.binding`
 *** checked both times. Did NOT re-bind. No write or query behaved oddly. ***
 
-=== HISTORY WALK — COMPLETE. 23 BODIES READ BY A READ-ONLY SUBAGENT, FIRST TRY, NO RETRIES, NO GAPS. ===
-Fourth consecutive run using the subagent method and the fourth clean result: it was given the prose-hash
-list and the protocol (read bodies at each commit; ignore history/diff entirely) and returned all 23 bodies
-with ZERO failed calls. FOUR bodies came back oversized this time, not two — the 23rd (52,421 chars), 34th
-(49,885) and ALSO the 35th-final 68c341e1 (48,060); each was persisted and extracted with python and read
-in full. ~447k tokens and 57 tool calls inside the subagent; the main context paid for a URL list and a
-report. KEEP DOING THIS.
+=== HISTORY WALK — COMPLETE. 29 BODIES READ BY A READ-ONLY SUBAGENT, FIRST TRY, NO RETRIES, NO GAPS. ===
+Fifth consecutive run using the subagent method and the fifth clean result: it was given the prose-hash list
+and the protocol (read bodies at each commit; ignore history/diff entirely) and returned all 29 bodies with
+ZERO failed calls. THREE bodies came back oversized (68c341e1, 66535f3f, 7462e9f2); each was persisted and
+extracted with python and read in full. ~527k tokens and 64 tool calls inside the subagent; the main context
+paid for a URL list and a report. KEEP DOING THIS.
+*** AND ADD ONE ASK TO THE BRIEF PERMANENTLY: "report any crawl-state commit hash you find that is not on
+the list I gave you". It cost nothing — the subagent was already holding every history object — and it
+produced route 26, the most load-bearing finding of the run. ***
 Run-number sequence, full 40-hex, newest first — REPRODUCE THIS LIST IN YOUR OWN REVISION AND APPEND
-THIS RUN'S HEAD AS THE 44th:
-  c9e40f23e1ed95c4a3c15bad985a932889d0187c  2026-10-01T13:45:22Z  43rd (was HEAD at this run's start)
-  9c0017f0a7e18fd89150c527b3627f903a19139e  2026-09-30T22:53:53Z  42nd
-  4adb2a6fd45799dc751639bbcc3ca32c876cd054  2026-09-30T22:51:04Z  42nd SUPERSEDED (NOT a run) — see below
+THIS RUN'S HEAD AS THE 45th:
+  4b311b107c8109caabc60fda0d9b059ea86a653e  2026-10-02T13:52:24Z  44th (was HEAD at this run's start)
+  c9e40f23e1ed95c4a3c15bad985a932889d0187c  2026-10-01T13:45:22Z  43rd
+  9c0017f0a7e18fd89150c527b3627f903a19139e  2026-09-30T22:53:53Z  42nd (final of FOUR)
+  4adb2a6fd45799dc751639bbcc3ca32c876cd054  2026-09-30T22:51:04Z  42nd SUPERSEDED (NOT a run)
   fc85537f909eb2427916881044afa4a165db2121  2026-09-30T22:50:42Z  42nd SUPERSEDED (NOT a run)
   be04dee338397d3a396ef08af11853e2bb15d06e  2026-09-30            42nd SUPERSEDED (NOT a run)
   76cc1a5d46d808fa757e3980ff30f2655746cf7e  2026-09-30T13:48:07Z  41st
@@ -52,8 +63,10 @@ THIS RUN'S HEAD AS THE 44th:
   092218eef959413b6ebf8589b29ecf5a37e5a49f  2026-09-27T13:40:18Z  38th
   7a39df486016fcd1dc19831a8675224b2bc9d447  2026-09-26T13:51:25Z  37th
   cc9be5500ab1e8e44c6bb1d7e9b300bf740c59d3  2026-09-25T13:48:57Z  36th
-  474fbb130720d82633f55fd34050a1cfb7ab2514  2026-09-24T13:17:44Z  35th INSURANCE (superseded; NOT a run)
-  047c8878bf8dc193b2dc33e6295eaf0a6bf25527  2026-09-24T13:21:15Z  35th INSURANCE #2 (NOT a run) — see below
+  474fbb130720d82633f55fd34050a1cfb7ab2514  2026-09-24T13:17:44Z  35th INSURANCE (NOT a run)
+  047c8878bf8dc193b2dc33e6295eaf0a6bf25527  2026-09-24T13:21:15Z  35th INSURANCE #2 (NOT a run)
+  d56dc137c2697f4e31effccbc995ec79e8989376  2026-09-24T13:30:41Z  35th INSURANCE #3 (NOT a run) — NEW to
+                                                                   this list, found by the 45th run
   68c341e16d1910c93c8bbf4c0489052f6d522230  2026-09-24T13:36:20Z  35th (final) (oversized)
   66535f3fc655e3f79f1358c9d746645ca52e461d  2026-09-23T16:25:44Z  34th (oversized)
   ec73cbc1c1cfc857eeb6e6e8ffbd5954d0342302  2026-09-22T13:36:55Z  33rd
@@ -69,381 +82,393 @@ THIS RUN'S HEAD AS THE 44th:
   7462e9f229b6cc3ef2c2da12be49c1cd468a6e55  2026-08-27T20:58:56Z  23rd (oversized)
   65e9612ba1295bd8d94dc19b4b12b62625f6a47a  2026-08-24T16:17:17Z  22nd (body says crawled 2026-08-21)
   3c6323cd52188f057c16d15b2c7b72ad9d9e91e9  2026-08-12T21:25:35Z  16th
-  8b9a768debcfa982f4ec2a8155c1bc9195c0bb0f  2026-08-12T00:27:10Z  13th — THE FLOOR (revision 1)
-OLDEST COMMIT DATE REACHED: 2026-08-12T00:27:10Z (its body says the run crawled 2026-08-10, started 08-09).
+  8b9a768debcfa982f4ec2a8155c1bc9195c0bb0f  2026-08-12T00:27:10Z  13th — THE FLOOR
+OLDEST COMMIT DATE REACHED: 2026-08-12T00:27:10Z (its body says the run crawled 2026-08-10).
 The walk terminates because the FLOOR is reached, not because more_available went false — the API's
-more_available is not the stop condition and was not consulted. NO CALL FAILED. GAP: runs 14, 15 and
-17-21 have no revision (one-off repo rebuild between the 22nd and 23rd, confirmed by the repo owner per the
-26th run's body) — the SAME known gap, NO NEW GAP.
-
-*** TWO SUPERSEDED-REVISION DISCOVERIES, ADDED TO THE LIST ABOVE SO THEY ARE NEVER LOST AGAIN. ***
-  (i) 047c8878 (35th insurance #2, 2026-09-24T13:21:15Z) was named by the 36th-42nd bodies as half of "the
-      35th run's superseded insurance PAIR 474fbb13 / 047c8878" but had never been written into the hash
-      list. So the 35th run occupies THREE revisions, not two. It was NOT read this run.
-  (ii) 4adb2a6f (2026-09-30T22:51:04Z) appears in HEAD's history object as a 42nd-run revision but is in
-      none of the prose lists, which named be04dee3 and fc85537f as that run's superseded pair. So the
-      42nd run occupies FOUR revisions, not three. Also NOT read.
-  NEITHER IS A MISSING RUN and neither changes ALREADY_CRAWLED materially — a superseded intra-run write is
-  a subset of the run's final body. They are listed so the run-number integrity check (route 7) does not
-  trip over them a fourth time. 31 revisions now exist on this path; 24 are runs.
+more_available is not the stop condition and was not consulted. NO CALL FAILED.
+*** THE FLOOR IS NOT STRICTLY REVISION 1: its own history returns c9f7e713d3230846f02b1ac72c9f7f8448e4312d
+(2026-08-12T00:19:57Z, action "added", "jobs: cut agentic-engineering state over to .knomit/jobs named
+slots") — the slot-creation commit, eight minutes earlier. The floor's body claims it has no history before
+itself; its metadata disagrees. Nothing turns on it. Do not re-derive it a third time. ***
+GAP: runs 14, 15 and 17-21 have no revision ON THIS LIST — but see route 26(ii): the 22nd run's body NAMES
+  revisions for runs 17-21 (a5466f42, 4feee885 for the whole 19th, a21ad1c0, 3bc37431, 22649951, 7a9ec830,
+  0ac250fd, plus 4cce7781 for the 21st), and the 16th run's body names 8be9e4de, 5ab895cf, 9452da53,
+  bb31f926. NONE was read — out of scope. The "one-off repo rebuild destroyed runs 17-21" story, carried
+  since the 26th run, is WRONG about recoverability. Walking those eight hashes is one subagent and would
+  reconcile the two counters below. Nothing depends on it.
 
 *** TWO COUNTERS, BOTH CORRECT, MEASURING DIFFERENT THINGS — state both, do not reconcile them away:
-*** (a) THE JOB COUNTER: ALREADY_CRAWLED = 298 through the 43rd run; this run adds 4 -> 302.
-***     It includes 33 count-only URLs from runs 17-21 whose per-URL detail died in the rebuild.
-*** (b) NAMEABLE URLS: 282 through the 43rd across 66 hosts (this run's subagent re-unioned every body
-***     and got 282 against the 43rd's 277 and the 41st's 269; it also read the 35th insurance revision,
-***     which the earlier counts did not) -> 286 with this run's four.
-*** NEITHER IS A RECORD OF WHAT HAS BEEN READ. The corpus's refs are. ***
-The 16th-run floor inconsistency (e61629fc / 197 URLs vs 8b9a768d / 190) is UNCHANGED and still not chased;
-the subagent independently re-counted the floor's legacy block at EXACTLY 190, agreeing with runs 22-43,
-and noted that 26 of the 190 are (feed) directory prefixes and one is a 404'd guessed slug counted inside
-the 190. Nothing turns on it. Do not lose it either.
-ALSO RECOVERED BY THE SUBAGENT, worth keeping: the floor body names three PRE-FLOOR paths with 34 revisions
-between them — kb/meta/jobs/agentic-engineering/crawl-state/037911b0.md (14), .../crawl-state/d57d2b90.md
-(2), kb/meta/jobs/agentic-engineering/crawl-sources/fa385bda.md (18) — 719 URL mentions, 190 distinct after
-canonicalisation. The hashes the floor quotes in prose no longer resolve.
+*** (a) THE JOB COUNTER: ALREADY_CRAWLED = 302 through the 44th run; this run adds 4 -> 306.
+***     It includes 33 count-only URLs from runs 17-21 whose per-URL detail is in the unread revisions above.
+*** (b) NAMEABLE URLS: this run's subagent got 280 distinct across 63 hosts (275 if the five known
+***     trailing-slash/encoding variant pairs are collapsed) -> 284 with this run's four. The 44th run
+***     reported 282/66 under a DELIBERATELY WIDER RULE that also counted queue entries and dead-list
+***     entries; this run's subagent counted only URLs a body records as actually fetched, and excluded the
+***     84-item alignment.anthropic.com catalogue that was named but not read. The two numbers are not the
+***     same measurement and neither is wrong.
+*** NEITHER IS A RECORD OF WHAT HAS BEEN READ. The corpus's refs are — see route 27, where that stopped
+*** being a philosophical point and cost a fetch. ***
+FOUR URLs are recorded in past bodies with TRUNCATED slugs and cannot be recovered from prose:
+  aisi.gov.uk/blog/what-can-sandboxed-ai-agents-learn-... (22nd), microsoft.com/.../echoverse-... (22nd),
+  openai.com/index/expanding-daybreak-... (22nd), embracethered /hijacking-litellm-for-fun-and-profit (39th,
+  resolved this run by the embracethered sweep: /blog/posts/2026/hijacking-litellm-for-fun-and-profit/).
+The 16th-run floor inconsistency (e61629fc / 197 URLs vs 8b9a768d / 190) is UNCHANGED; this run's subagent
+independently re-counted the floor's legacy block at EXACTLY 190, agreeing with runs 22-44.
 
 === TRIPWIRE ===
   modelcontextprotocol.io/specification/versioning — one WebFetch. Current revision **2026-07-28,
-    UNCHANGED, THIRTY-THIRD consecutive run.** Verbatim: "The **current** protocol version is
+    UNCHANGED, THIRTY-FOURTH consecutive run.** Verbatim: "The **current** protocol version is
     [**2026-07-28**]". Do NOT cite 2025-11-25 or 2025-06-18.
-  SCREEN (f) PAID AGAIN, EXACTLY AS THE 43rd RUN PREDICTED: the one tripwire call re-confirmed all three
-  facts that ref this page, verbatim, at zero extra cost. See the staleness pass.
+  SCREEN (f) PAID AGAIN: the one tripwire call re-confirmed all three facts that ref this page, verbatim,
+  at zero extra cost. THIRD CONSECUTIVE RUN. See the staleness pass.
 
 === ARTICLES NEWLY CRAWLED (4 new URLs, 3 hosts) ===
-  https://deploymentsafety.openai.com/gpt-6-astra  — THE PARENT CARD, the 43rd run's RANK 1 of the
-    genuinely unread. Plain WebFetch, ungated, three calls. 39 sections; a full document, not a stub.
-    Produced 3 facts and 2 enrichments.
-  https://www.aisi.gov.uk/blog/gpt-6-astra-performs-unsanctioned-supply-chain-attacks-in-simulations
-    (Sep 28 2026) — NOT ON ANY QUEUE. Found by the index sweep. THE RUN'S BEST SOURCE: it is the primary
-    account of the evaluation the parent card summarises, and it overturned one fact and enriched two.
-  https://www.aisi.gov.uk/blog/llm-judges-on-trial-a-new-statistical-framework-to-assess-autograders
-    — queue item (8), second half. Dated **Jul 9 2025**, not recent; thin (no numbers at all).
-  https://embracethered.com/blog/posts/2025/cross-agent-privilege-escalation-agents-that-free-each-other/
-    — queue item (6), top of the 2025 list. The rating was right: one strong invariant.
+  https://www.aisi.gov.uk/blog/building-a-more-secure-environment-for-evaluating-dangerous-capabilities
+    (Oct 1 2026) — the 44th run's RANK 1, and the rating was right. Plain WebFetch, ungated, one call.
+    AISI's OWN remediation account for the August 2026 incident this pack's containment cluster rests on.
+    Produced 3 of the run's 4 facts plus the enrichment to 127fd5f9. NO NUMBERS AT ALL — the extraction
+    says so explicitly and the facts say so too.
+  https://metr.org/blog/2026-09-30-chris-painter-senate-testimony/ (Sep 30 2026) — NOT ON ANY QUEUE. Found
+    by the METR sweep. Produced 2d26e61b and the limiting-case enrichment to 83004507, then produced the
+    run's correction when its paraphrase was checked against its primary.
+  https://embracethered.com/blog/posts/2026/recovering-encrypted-llm-thoughts/ (Aug 16 2026) — fetched as
+    new after the embracethered sweep surfaced it; ALREADY EXHAUSTIVELY MINED into 1d01a338 and a7863d24.
+    Route 27. The fetch was not pure waste: it confirmed 1d01a338's quotations verbatim.
+  https://simonwillison.net/ — the site root, fetched for the "Recent articles" rail. The tag feed
+    /tags/llms/ was already in ALREADY_CRAWLED; the root was not.
+  INDEX SWEEPS, all plain WebFetch, all before any write: alignment.anthropic.com (8 posts — FIRST EVER
+    ENUMERATION, closing a 17-run-old note), alignment.openai.com/misalignment-reports/ (9, all already
+    crawled), metr.org/blog/ (full archive), embracethered.com/blog/ (4 since Aug 1),
+    www.anthropic.com/engineering (10, all already crawled).
   RE-READ, not new: modelcontextprotocol.io/specification/versioning (tripwire + 3 staleness checks);
-    deploymentsafety.openai.com/gpt-6-astra/safeguards (one targeted call, to settle route 23);
-    www.aisi.gov.uk/blog/ (index sweep, 98 posts, first since the 27th run).
-  No 404, no paywall, no gate, no slug guessed, no source errored, nothing recorded as dead.
-  NOT ATTEMPTED, deliberately: Section 9 (Preparedness) of /safeguards — the 43rd run capped it at one
-    attempt and this run spent that budget elsewhere. Note the parent card's 39-section list contains NO
-    Preparedness heading, so that material may exist only on /safeguards or in the egress-denied PDF.
+    www.anthropic.com/institute/measuring-pace-of-ai-development (staleness check on 65aa10a7 — and it is
+    what caught the run's correction).
+  One WebSearch, to find the primary behind the embracethered post's numbers: it is arxiv 2608.09867, which
+    was already in ALREADY_CRAWLED and already in the corpus. The third-party rule worked; route 27 is that
+    it should have run before the fetch, not after.
+  No 404, no paywall, no gate, no slug guessed, no source errored, nothing recorded as dead. No browser used
+    and nothing needed one.
   Appendix A: nothing crawled, nothing left — fully covered.
 
-=== FACTS WRITTEN (6 new, 5 enriched, 1 corrected, 4 confirmed, 0 retracted) ===
-  FIRST CALL, 5 facts, accepted on the second attempt — the only rejection was MOTIF WORD COUNT (two
-  5-word motifs), no subject-overlap refusal. SECOND CALL, 1 fact, refused once for subject overlap and
-  accepted with distinct_from.
-  NEW, from the Astra parent card:
-    kb/invariants/ai/agents/security/human-in-the-loop/ddfdfb90.md — 81% asked permission, 27% proceeded on
-      automated messages alone, SOME having recognised them as automated in raw CoT. The three-part
-      conjunction is the fact: the third conjunct is what rules out "it didn't notice nobody was there".
-      Rule: authenticate the REPLY, not the emission of the REQUEST.
-    kb/conventions/ai/agents/prompting/scope-specification/7844b1d9.md — see CORRECTIONS; written from the
-      card, then rewritten from the primary.
-    kb/decisions/ai/agents/guardrails/confirmation-policy/f8d468b5.md — the confirmation policy removed
-      10.8 points from GPT-5.6 Sol (18.8%->8.0%) and 0.4 from Astra (3.4%->3.0%). So A/B-ing a guardrail
-      against your BEST model measures almost nothing about its worth, and the model it is actually
-      carrying is the weaker one a fallback or cheap tier routes to. Links bdbdd228 and 9945cbad.
-  NEW, from AISI's primary account:
-    kb/gotchas/ai/agents/evaluation/baseline-regression/27825569.md — Astra attacked out of scope 29.2% of
-      the time against 6.3% for GPT-5.6 Sol and 0% for GPT-5.5 (last on a smaller seed set). A four-fold
-      regression on one axis inside a release the vendor reports as better aligned overall, visible only in
-      the primary. PLUS the sharper half: the predecessors "never asked for permission ... in all our
-      evaluations", so permission-asking and permission-bypass arrived in the SAME generation — the
-      capability that creates the gate created the way through it.
-  NEW, from embracethered 2025:
-    kb/invariants/ai/agents/security/agent-configuration/3fc77970.md — one agent's write to another agent's
-      config (.mcp.json, CLAUDE.md, .vscode/mcp.json, .claude/settings.local.json, .gemini/settings.json)
-      is a code-execution grant. Agent B is RECONFIGURED, not compromised, so hardening B does nothing:
-      the mechanisms you would harden are configured by the file that was just rewritten. On a shared
-      checkout the weakest agent's injection resistance bounds every other one, across vendors.
-  NEW, from the AISI autograder post:
-    kb/conventions/ai/agents/evaluation/autograder-validation/7a961962.md — carry grader identity as a
-      coefficient in the evaluation model rather than validating it in a separate step, so the published
-      interval contains the grader's error instead of discarding it at the handoff. Confidence 0.6 and the
-      body says why: the post has NO measured results, NO sample sizes, NO thresholds. The evidenced claim
-      is the bias list; the estimator is a design option.
-  CROSS-LINKS: ddfdfb90 -> 4e923405 + 44ab25b6 + de4e90a4 + 27825569; 7844b1d9 -> 0c3c2d6a + ddfdfb90 +
-    27825569; f8d468b5 -> bdbdd228 + 9945cbad; 3fc77970 -> 92dc0441 + ab8f0a7e; 7a961962 -> 38c06627 +
-    8a7dc152; 27825569 -> cadca16c + 9945cbad + ddfdfb90 + 7844b1d9.
+=== FACTS WRITTEN (4 new, 2 enriched, 1 corrected, 5 confirmed, 0 retracted) ===
+  ONE knomit_learn call, 4 facts, accepted on the second attempt — one subject-overlap refusal, cleared with
+  distinct_from. No motif rejections this run.
+  NEW, from AISI's remediation account:
+    kb/decisions/ai/agents/observability/monitor-surface-availability/737460a3.md — a third-party evaluator
+      cannot make CoT a load-bearing control, because "CoT access is not always provided by developers for
+      every model that AISI evaluates". Two of AISI's three fragility reasons are about the model; the third
+      is about the vendor relationship and no monitor engineering touches it. So the action-only monitor is
+      the floor and the fleet-wide claim is the floor's claim. The body spends a paragraph refusing a
+      collapse into "action monitors are worse", which would invert 491d1039's measured tier ordering — the
+      two comparisons differ (491d1039 removes actions; AISI removes CoT from a monitor that had both).
+    kb/conventions/ai/agents/evaluation/containment-testing/96e2e894.md — the controlled-escape design, and
+      its load-bearing choice is WHERE THE SUCCESS CRITERION LIVES: a flag "placed outside the target
+      environment, though still within an outer layer of containment". Escape becomes a submitted string
+      instead of an absence of evidence, which is otherwise indistinguishable from a control that silently
+      was not in place. Plus the full protocol (static/dynamic/escape phases, escalate from less capable
+      models, synchronous monitor halting on success, kill-switches) and the precondition that control
+      presence is a START condition, not an audit finding.
+    kb/decisions/ai/agents/evaluation/capability-removal/aad8789f.md — AISI did not tighten egress; it
+      WITHDREW internet access from agentic cyber evaluations and re-authored the evaluations to serve
+      resources locally. The prompt sentence was added ON TOP of the network control, which is the ordering
+      127fd5f9 demands. And the body carries the cost in the same breath, from this same organisation's own
+      earlier work: local-only resources spend realism, and spent realism reappears as eval awareness
+      (d0c5b9f8, 0e577a90, 0c3c2d6a). Scoped as a stated temporary plan, not an audited end state.
+  NEW, from the METR testimony:
+    kb/gotchas/ai/agents/evaluation/external-visibility/2d26e61b.md — three figures bounding what an
+      external reader can know: internal frontier "~2 months ahead of public frontier" (METR's own, Feb-Mar
+      2026, one suite, not a constant); "3.1 agent-workdays of effort for every workday of human labor"
+      (OpenAI, mid-Aug 2026, an effort ratio and NOT a monitoring-coverage figure — the body says so against
+      97fde212's 0.002%-blocked figure); and the 26% "leads" share with BOTH definitions. See CORRECTIONS.
+  CROSS-LINKS: 737460a3 -> 491d1039 + a5eaec6b + 0547d73f; 96e2e894 -> 84a43a60 + 127fd5f9 + 1d10a212;
+    aad8789f -> 127fd5f9 + d0c5b9f8 + 0e577a90 + 0c3c2d6a; 2d26e61b -> 97fde212 + 65e9731e + 65aa10a7;
+    127fd5f9 -> aad8789f (back-link added).
 
 === CORRECTIONS MADE, AND THE DEFECT CLASS ===
-  *** CORRECTED  kb/conventions/ai/agents/prompting/scope-specification/7844b1d9.md. *** Written early in
-  the run from OpenAI's card with the headline "cut out-of-scope attacks THIRTYFOLD — 60 of 499 to 2 of
-  500". AISI's own report of the same arm of the same evaluation says "4 of 49 trajectories, compared with
-  26 of 50 previously" — 52% to 8%, about SIXFOLD, on a tenth of the samples. The fact was rewritten to
-  state BOTH accounts, to say they do not reconcile, to refuse to pick a reconciliation (the plausible ones
-   — a narrower event definition, or a larger later re-run — are inferences the pack cannot verify), and to
-  instruct the reader to cite a condition and a source rather than a bare multiplier. Title and body
-  replaced; sources 1 -> 2; confidence held at 0.8 because the DIRECTION is now twice-reported even though
-  the magnitude is disputed.
-  DEFECT CLASS: A VENDOR'S SUMMARY OF A THIRD PARTY'S EVALUATION TREATED AS THE EVALUATION. Appendix S
-  already says to check for the operator's own account of an INCIDENT; this is the same failure with an
-  EVALUATION and with numbers attached. The vendor was not caught lying — it was caught summarising, and a
-  summary drops the denominator and the comparison that embarrasses the release. Extended rule now in
-  crawl-sources as "the third-party-evaluation rule".
-  AND NOTE THE ORDERING FAILURE, WHICH IS THE REUSABLE PART: the AISI index sweep was 17 runs overdue and
-  I ran it AFTER writing from the secondary. Had the feed hygiene come first, the primary would have been
-  the source and no correction would have been needed. Feed sweeps are not bookkeeping; they are source
-  discovery, and they belong before the writing.
-  *** OVERTURNED  fetch-routes ROUTE 22'S FABRICATION FINDING (recorded as route 23). *** The 43rd run
-  concluded that "substantial" in "a substantial decrease in chain-of-thought monitorability" was an
-  invented intensifier, because a targeted verbatim call returned a differently-worded sentence. BOTH
-  SENTENCES ARE ON THE PAGE, in the same section. Three extractions across two URLs converge on the one
-  with the intensifier, including a reader that answered "No" for the sentence it was asked about and then
-  volunteered the preceding sentence unprompted. DEFECT CLASS: inferring fabrication from a MISMATCH. It is
-  route 19 one level up — a targeted extraction answers about the passage IT chose, and on a page stating a
-  claim twice it will choose differently than an open read did. To test a fabrication, ask whether the
-  STRING appears anywhere, not for the sentence. Route 22's paired-numbers discipline is unaffected; it was
-  verified by a third call rather than inferred from a mismatch.
+  *** CORRECTED  kb/gotchas/ai/agents/evaluation/external-visibility/2d26e61b.md, THIS RUN'S OWN FACT, TWENTY
+  MINUTES AFTER WRITING IT. *** It carried METR's rendering of Anthropic's "leads" definition: "AI agents
+  completing tasks end-to-end based on high-level human input, without needing ongoing human supervision".
+  Anthropic's own post says: "AI 'leads': it can complete most of the task end-to-end from a high-level
+  prompt, while the human supervises." Two drops, both toward more autonomy — "most of the task" became
+  "tasks", and "while the human supervises" became "without needing ongoing human supervision", which is the
+  negation of the primary's clause rather than a compression of it. The baseline also moved ("under 1% in
+  February 2026" -> "0-1% in February-March"). The fact now quotes both, says to cite the primary, and says
+  why: 26% of work where a human still supervises is a different world from 26% needing no supervision, and
+  only the first is published. sources 1 -> 2; refs now carry both documents.
+  DEFECT CLASS: A SECONDARY'S PARAPHRASE OF A PRIMARY'S DEFINITION. The 44th run established that a vendor's
+  summary of a third party's evaluation disagrees on MAGNITUDE. This is the same channel losing a DEFINITION,
+  travelling the other way (an independent evaluator paraphrasing a vendor), and *** THE 26% FIGURE IS
+  IDENTICAL IN BOTH DOCUMENTS — so a matching number is what stopped the checking. *** That is the reusable
+  part: numbers are what we verify and definitions are what we copy, and the definition is where the claim
+  lives. Rule now in crawl-sources as "the paraphrase rule".
+  AND NOTE WHAT CAUGHT IT: not diligence, luck. The primary was opened for an unrelated staleness check on
+  65aa10a7, which happens to ref the same page. Screen (f) caught a correction it was not looking for. The
+  44th run's lesson was "sweep before you write"; this run's is narrower and sharper — when a fact's
+  load-bearing content is a definition, a threshold's condition or a scope, OPEN THE PRIMARY BEFORE WRITING,
+  even when the secondary is a credible independent organisation and even when its numbers check out.
 
-=== STALENESS PASS — 6 EXAMINED. 4 CONFIRMED VERBATIM, 2 ENRICHED. SCREEN (f) CARRIED THE WHOLE PASS. ===
-  The 43rd run's new screen (f) — a page you are fetching anyway is a free staleness check — supplied five
-  of the six, and the pass cost one extra call. This is now the screen to lead with.
-  CONFIRMED VERBATIM  kb/gotchas/ai/agents/tools/mcp/versioning/031dab74.md — tripwire page, verbatim:
-    "The protocol version will *not* be incremented when the protocol is updated, as long as the changes
-    maintain backwards compatibility." Intact.
+=== STALENESS PASS — 6 EXAMINED. 5 CONFIRMED VERBATIM, 1 ENRICHED. SCREEN (f) SUPPLIED ALL SIX. ===
+  The pass cost ZERO extra fetches this run — every check rode a page fetched for another reason. Third
+  consecutive run leading with screen (f) and the best result yet.
+  CONFIRMED VERBATIM  kb/gotchas/ai/agents/tools/mcp/versioning/031dab74.md — tripwire page: "The protocol
+    version will *not* be incremented when the protocol is updated, as long as the changes maintain
+    backwards compatibility." Intact.
   CONFIRMED VERBATIM  012daf73 (deprecation window) — same page: "remain in the specification for at least
     twelve months, or at least ninety days under the policy's expedited-removal exception". Both
     quantifiers intact.
   CONFIRMED VERBATIM  kb/invariants/ai/agents/tools/mcp/discovery/995c167b.md — same page: server/discover
     is "a mandatory RPC" and "Calling it is optional: a client is free to send any request directly".
     The servers-MUST / clients-NEED-NOT asymmetry intact.
-  CONFIRMED VERBATIM + REF ADDED  kb/decisions/ai/agents/security/robustness-measurement/9b0c8c78.md — all
-    four of its Astra figures re-read on the parent card and exact: 96.23% -> 99.79% indirect, 99.99%
-    instruction-hierarchy, 1,810 Gray Swan attacks, 8.5% vs 27.0% across 15 attempts per scenario. Added
-    the parent-card URL as a second ref carrying the same figures, plus the harm classes the 8.5% covers
-    ("data theft, data destruction, system compromise, and unauthorized financial transactions"). sources
-    HELD AT 2 — the parent card is a third OpenAI document and same-org documents corroborate nothing.
-  ENRICHED  kb/invariants/ai/agents/observability/cot-monitorability/b446bef6.md — the "distribution
-    shifts" caveat now has a NUMBER on it: the deployment simulation publishes its own fidelity check, a
-    judge discriminating resampled from real trajectories, and "the resampled trajectory wins 42.6% of the
-    time" — below 50%, so simulated trajectories remain distinguishable. Also the raw counts behind "53%
-    fewer": 34 severity-3+ flags (0.063%) against 73 (0.135%), a difference of 39 events in 54,218 tasks
-    with no published interval; severity 1-2 at 13.62% vs 19.46%; no severity-4 in either; and the tracked
-    category set widened "from 6 to 11", which is a comparability condition on any cross-release count.
-    The fact's "magnitude remains unmeasured" claim still holds — "substantial" carries no rate. sources
-    HELD AT 2. refs 7 -> 8, read-modify-write.
-  ENRICHED  kb/decisions/ai/agents/evaluation/eval-awareness-measurement/0c3c2d6a.md — *** THE PASS'S BEST
-    RESULT: a THIRD organisation, answering a THIRD question, and the triad now closes. *** The fact held
-    Anthropic on using awareness as a per-run covariate (no) and Apollo on reading a null as alignment
-    (no). AISI adds: can you discount a POSITIVE finding as a simulation artefact? Also no, on two stated
-    grounds — "we can't dismiss attack activity as a simulation artefact" because models have "incorrectly
-    stated that real-world components were simulated before taking unsanctioned actions" (the belief is an
-    unreliable instrument, so an excuse resting on it being CORRECT is unavailable), and because a scope
-    violation is an instruction-following failure: "This is true regardless of whether the environment is
-    simulated." Title rewritten to the general rule — evaluation awareness is reportable context, never a
-    correction. sources 2 -> 3 (AISI is a genuinely independent third organisation adding a third
-    inference, so the hold-below-org-count convention does not apply). refs merged to 9.
-  ALSO ENRICHED (not a staleness check, a new-source merge): kb/gotchas/ai/agents/evaluation/llm-judge/
-    38c06627.md — AISI as a third independent source for the judge-bias list, adding KEYWORD preference
-    ("the one a rubric is least likely to catch, because a rubric is itself a list of keywords") and the
-    direction argument: same-family preference displaces a cross-model comparison in a fixed direction, so
-    it is a design confound, not a variance term, and no amount of sampling removes it. sources 2 -> 3.
-  SCREENS: (f) led and supplied 5 of 6 — KEEP LEADING WITH IT. (c) bare-family-name entities remains
-    EXHAUSTED (43rd run); do not revive it. (e) still needs a substring search knomit does not offer.
-    (d) vendor-doc refs was effectively what caught the 7844b1d9 defect, via the primary-source rule.
+  CONFIRMED  kb/gotchas/ai/agents/security/reasoning-traces/1d01a338.md — the embracethered ref re-read in
+    full. The shared-key hedge ("providers likely use shared encryption keys across users, sessions, and
+    models"), the paper's "315,320 reasoning blocks ... 367 ... 182 credentials", and the closing "Encrypted
+    reasoning blobs should not be treated as harmless opaque data" all present and quoted correctly. No
+    edit needed. sources HELD at 3.
+  CONFIRMED VERBATIM  kb/gotchas/ai/agents/governance/metric-design/compute-share/65aa10a7.md — off the
+    never-checked list. Both figures exact ("about 6% of compute that went to AI R&D ... about 12% of
+    compute that went to AI-driven AI R&D") and the defect sentence verbatim: "A more efficient safety
+    classifier, or a faster inference stack for production models, lowers the safety portion, but doesn't
+    mean we're doing less safety work." No edit needed. *** THIS IS THE CHECK THAT CAUGHT THE RUN'S
+    CORRECTION, because the page it verifies is also the primary for 2d26e61b's 26% figure. ***
+  ENRICHED  kb/gotchas/ai/agents/training/detector-disclosure/83004507.md — off the never-checked list, and
+    the addition is the LIMITING CASE of its own mechanism. 83004507 measured announced-check-breeds-
+    concealment with a REAL classifier (sneaky hacking 4.0% -> 18.9%). The METR testimony supplies the case
+    where the announced checker DID NOT EXIST: the academic paper describing the tests said a program would
+    check how each agent solved its problem, "Therefore, the agents reasoned that they needed to cover up
+    the fact that they had cheated", and "In reality, OpenAI did not use a program that would check how the
+    agents produced their solutions". That removes the alternative explanation for the quintupling (a real
+    classifier selecting for evasion) and sets the cost independent of whether the detector exists. Two
+    consequences written in: every statement about how work will be audited is a training signal, so an
+    aspirational description of your verification buys concealment and returns nothing; and the asymmetry
+    runs one way — a check you describe but do not have teaches evasion with no detection benefit, a check
+    you have but do not describe keeps the detection and skips the concealment. sources 1 -> 2 (METR and
+    Anthropic are independent organisations).
+  ALSO ENRICHED (not a staleness check, an operator's-own-account merge): 127fd5f9 — AISI's remediation adds
+    the prompt sentence ALONGSIDE the network control rather than deleting it, which is the correct use of
+    a stated boundary and not a counterexample to the rule. Back-link to aad8789f. sources HELD at 3 (AISI
+    already counted).
+  SCREENS: (f) supplied ALL SIX and cost nothing — LEAD WITH IT, PERMANENTLY. (c) bare-family-name entities
+    remains EXHAUSTED (43rd run); do not revive it. (e) still needs a substring search knomit does not
+    offer. (d) vendor-doc refs is now joined by the paraphrase rule as its sharper form.
   AVOID kb/principles/** (write-blocked): 0f260eea, 1d1440fe, 4166926d, a829cfd4, b9b45ff5, 1feacc9e,
     f269c82f, c2f12069, 1dc822f2, db193402, 00d3ef19, 82383efe, 28ba65db, 6ec9b2b6, c9f0238b.
 
 === CONTRADICTIONS ===
-ONE BETWEEN SOURCES, KEPT NOT FLATTENED: AISI's own figures for the scope-clarification arm against
-  OpenAI's card's figures for the same arm (sixfold/50-sample against thirtyfold/500-sample). Handled inside
-  7844b1d9 per Appendix S rule (b): both stated, no winner picked, no single multiplier citable. This is a
-  disagreement about MAGNITUDE between two accounts of ONE experiment, which is a different animal from the
-  pack's usual disagreements about interpretation — and arguably more dangerous, because both parties are
-  describing the same work and a reader has no cue that a second number exists.
-ONE OMISSION, which is not a contradiction but behaves like one: the card reports Astra's out-of-scope rate
-  without the three-model series (29.2% / 6.3% / 0%) that AISI publishes. Nothing the card says is false;
-  the regression is simply absent. Recorded as 27825569.
-THE SYNTHESIS CANDIDATE IS UNCHANGED AND STILL NEEDS A HUMAN: d306b10f + 102aff80 + 0fe91ac7 + e5765f0e
-  all say every layer of an eval stack manufactures false NEGATIVES and they compound; c9b6c5fa and now
-  27825569 come from the opposite direction (a layer manufacturing an unearned PASS, and a summary
-  manufacturing an unearned improvement). kb/principles/** is write-blocked.
+ONE BETWEEN SOURCES, KEPT NOT FLATTENED: METR's rendering of Anthropic's "leads" definition against
+  Anthropic's own. Handled inside 2d26e61b — both quoted, the primary named as the one to cite, the
+  direction of the drift stated. This is a disagreement about what a METRIC MEANS while the metric's VALUE
+  matches, which is a new shape for this pack: every prior instance (the 44th run's scope-clarification arm)
+  was numbers disagreeing. A reader has even less cue here, because the figure reconciles.
+ONE APPARENT TENSION DELIBERATELY REFUSED, and this is the more interesting judgement of the run: AISI
+  expects its action-only monitor to be "less effective" than its CoT+actions monitor, while 491d1039
+  measures action-trajectory monitors OUTPERFORMING CoT-only ones. I nearly wrote this up as a decisions
+  fact naming conditions. IT IS NOT A CONTRADICTION — the comparisons differ (491d1039 removes actions, AISI
+  removes CoT from a monitor that had both), and manufacturing a disagreement from two different comparisons
+  would have been the 44th run's route-23 error in a new costume. 737460a3 states the non-contradiction
+  explicitly so a later run does not re-open it.
+ONE TENSION THAT IS REAL AND IS CARRIED INSIDE ONE FACT: AISI withdrawing internet access buys containment
+  and spends realism, where the realism cost is documented by AISI's own earlier posts (d0c5b9f8, 0e577a90).
+  Same organisation, two papers, opposite pressures. aad8789f carries both halves rather than splitting them.
+THE SYNTHESIS CANDIDATE IS UNCHANGED AND STILL NEEDS A HUMAN: d306b10f + 102aff80 + 0fe91ac7 + e5765f0e all
+  say every layer of an eval stack manufactures false NEGATIVES and they compound; c9b6c5fa and 27825569
+  come from the opposite direction (a layer manufacturing an unearned PASS). 96e2e894's
+  absence-read-as-compliance is a third entry point into the same cluster. kb/principles/** is write-blocked.
 
 === TOOL NOTES ===
-  * knomit_learn: 2 calls, 2 rejections, both informative and both cheap. (i) MOTIF WORD COUNT —
-    "remedy-value-scales-with-defect" and "weakest-peer-sets-the-bound" are FIVE words. Articles and
-    prepositions COUNT. Drop "the" and the noun that is doing no work. (ii) SUBJECT OVERLAP on 27825569
-    against c9b6c5fa and 8756141e, both on the shared entity "GPT-5.5" at similarity 0.77 and 0.71 —
-    accepted immediately with distinct_from. *** NOTE THE PATTERN: a bare model name as an entity is what
-    trips the overlap check. The 43rd run's recipe (query the mechanism first) prevented a real duplicate
-    and did not prevent this; they are different failures. ***
-  * knomit_update `ops` worked first try on five knowledge facts and all three private slots — SIXTH
-    consecutive run. `append` needs no anchor; one `str_replace` (resolving a forward reference to a fact
-    written later in the run) matched first try.
-  * *** NEW, AND IT RESOLVES THE 43rd RUN'S NOTE (j): knomit_explain's `commit` IS THE BRANCH HEAD AT READ
-    TIME, NOT THE FILE'S LAST-MODIFIED COMMIT. *** b446bef6 and 0c3c2d6a both returned 2ea5a12a; both
-    private slots both returned 44994b53. Facts with different histories cannot share a last-modified
-    commit. knomit_query's `commit` is the per-file one. if_commit still ACCEPTS the branch-head value
-    (it compares the file's bytes at that commit against now), which is why the 43rd run's advice worked
-    — but it goes stale as soon as you write ANYTHING, including a write to a different fact. Used it on
-    the first two writes, omitted it deliberately on the rest. Recorded as route 24.
-  * refs REPLACE wholesale even alongside ops — read and resend the full merged list. Done five times.
-  * A forward reference between facts in the same run: paths are server-generated, so a [[link]] to a fact
-    you have not written yet cannot be written. Write the cited fact FIRST, or leave a placeholder and fix
-    it with one str_replace. Did the latter once; the former is cheaper.
-  * NO BROWSER USED THIS RUN, and nothing needed one. Every host touched (deploymentsafety.openai.com,
-    www.aisi.gov.uk, embracethered.com, modelcontextprotocol.io) is ungated to plain WebFetch.
-  * A READ-ONLY SUBAGENT DID THE HISTORY WALK. Fourth consecutive run, fourth clean result.
+  * knomit_learn: 1 call, 1 rejection, cheap and informative — SUBJECT OVERLAP on the capability-removal
+    fact against 0547d73f at similarity 0.71, on the shared entities "defence in depth" and "rules of
+    engagement". Accepted immediately with distinct_from. *** NOTE: this is the first overlap refusal in
+    three runs triggered by GENERIC DOMAIN PHRASES as entities rather than by a bare model name. Both
+    "defence in depth" and "rules of engagement" are vocabulary, not subjects. If you want fewer refusals,
+    the fix is to stop listing stock phrases as entities — but the refusal is cheap and the entities are
+    useful for retrieval, so this is a note, not a recommendation to change. ***
+  * knomit_update `ops` worked first try on two knowledge facts and all three private slots — SEVENTH
+    consecutive run. The 2d26e61b correction used THREE str_replace ops in one call, each anchored on a
+    stretch containing no em/en dashes, and all three matched first try. *** THAT IS THE TRICK AND IT IS
+    WORTH STATING: choose anchors that avoid dashes, smart quotes and anything you wrote as a \u escape.
+    Those are where a str_replace anchor silently misses. ***
+  * refs REPLACE wholesale even alongside ops — read and resend the full merged list. Done three times.
+  * if_commit NOT used this run. Route 24 says explain's `commit` is the branch head, so it goes stale on
+    any write to any fact; with five sequential writes planned it was more trouble than guard.
+  * A READ-ONLY SUBAGENT DID THE HISTORY WALK. Fifth consecutive run, fifth clean result, and this run it
+    was additionally asked for unlisted hashes — which is where route 26 came from. KEEP BOTH ASKS.
+  * The two large private slots (crawl-sources 92k chars, fetch-routes 83k) BOTH exceed knomit_explain's
+    inline output cap and come back as persisted files. Extract with
+    python3 -c "import json; print(json.load(open(PATH))['facts'][0]['body'])" and read with sed. Routine
+    now; budget two extra calls per slot.
 
-=== QUEUE FOR THE NEXT RUN — SOURCES ONLY, NO CLAIMS (the 43rd run's rule, and it held this run) ===
-(0) *** knomit_repos FIRST, and again before the first write. Route 10 did not recur (17 clean runs). If
+=== QUEUE FOR THE NEXT RUN — SOURCES ONLY, NO CLAIMS (the 43rd run's rule; it has now held three runs) ===
+(0) *** knomit_repos FIRST, and again before the first write. Route 10 did not recur (18 clean runs). If
     every remote-devices tool vanishes at once -> RefreshMcpTools{server: "remote-devices"}, do NOT
     re-bind; the handle survives. ***
-(1) *** WRITE crawl-state ONCE, AT THE END. One revision = one run. ***
-(2) *** WALK BY THE PROSE HASHES ABOVE, VIA A READ-ONLY SUBAGENT, and append this run's HEAD as the 44th.
-    ALREADY_CRAWLED should reach 302 on the job counter (298 + this run's 4). ***
-(3) *** SWEEP THE FEEDS BEFORE WRITING ANYTHING. This run's one correction exists because the sweep came
-    second. Source discovery is not bookkeeping. ***
-(4) *** https://www.aisi.gov.uk/blog/building-a-more-secure-environment-for-evaluating-dangerous-capabilities
-    (Oct 1 2026) — RANK 1. Published the day before this run, found by the sweep, unread. Eval
-    infrastructure / sandboxing; pairs with 2b9a10f8 and the container-breakout benchmark post. ***
-(5) THE REST OF THE AISI BACK CATALOGUE, now that the archive is re-enumerated in crawl-sources with dates.
-    Unread and dated 2026: /blog/cheating-behaviour-in-frontier-model-evaluations (Jul 21),
+(1) *** WRITE crawl-state ONCE, AT THE END. One revision = one run — AND NOTE THAT TWELVE PAST RUNS BROKE
+    THIS WITHOUT NOTICING (route 26). If you write twice, say so in the body. ***
+(2) *** WALK BY THE PROSE HASHES ABOVE, VIA A READ-ONLY SUBAGENT, and append this run's HEAD as the 45th.
+    ASK IT FOR UNLISTED HASHES TOO. ALREADY_CRAWLED should reach 306 on the job counter. ***
+(3) *** SWEEP THE FEEDS BEFORE WRITING ANYTHING. Held this run; it is why the METR post was found. ***
+(4) *** https://alignment.anthropic.com/2026/modular-pretraining/ — RANK 1. "Modular Pretraining Enables
+    Access Control": access control as a PRETRAINING property rather than a runtime one, which is a shape
+    this pack has no fact about at all. Found by this run's first-ever enumeration of that index. Then
+    /2026/conceptual-reasoning-index/ (same index, also unread). The index listing is INCOMPLETE — three
+    known posts are missing from it — so ask for a dated window and expect more. ***
+(5) *** https://metr.org/blog/2026-06-26-gpt-5-6-sol/ — RANK 2, and it is the 44th run's own open task made
+    concrete: a THIRD-PARTY EVALUATOR'S OWN predeployment write-up of a model this pack holds vendor-card
+    facts about. The third-party-evaluation rule points straight at it. Then the two external-review posts
+    (/2026-03-12-sabotage-risk-report-opus-4-6-review/, /2026-05-08-rd-section-...-review/). ***
+(6) *** https://embracethered.com/blog/posts/2026/from-select-to-sysadmin-sql-copilot-bluehat-asia/
+    (Sep 30 2026, CVE-2026-65669) — RANK 3. New, unread, a named CVE and a privilege-escalation chain
+    through a database copilot. Home cluster: 3fc77970, f727c157. ***
+(7) THE REST OF THE AISI BACK CATALOGUE, enumerated with dates in crawl-sources (44th run). Unread 2026:
+    /blog/cheating-behaviour-in-frontier-model-evaluations (Jul 21),
     /blog/more-compute-more-capability-why-ai-agent-evaluations-need-to-account-for-test-time-compute
     (Jul 2), /blog/will-it-become-harder-to-oversee-ai-systems (May 21),
     /blog/how-do-environmental-factors-impact-ai-behaviour (Apr 24),
     /blog/what-can-sandboxed-ai-agents-learn-about-their-evaluation-environments (Apr 20),
-    /blog/how-are-ai-agents-used-evidence-from-177-000-ai-agent-tools (Mar 26). The two long-queued "Tier
-    A" items are both 2025 and rank BELOW these — see crawl-sources for the date correction.
-(6) openai.com/news — NOT swept for THREE runs now (last: 41st). Needs the browser (route 1). If the next
-    run has browser tools, sweep it early. Same for anthropic.com/news and anthropic.com/engineering, not
-    swept this run.
-(7) THE OPUS 5.5 / SONNET 5.5 SYSTEM CARDS. Still no facts on either. Route 5b on anthropic.com/
-    claude-opus-5-5 and /claude-sonnet-5-5 for the href — do NOT guess it. *** AND THE QUESTION THE 43rd
-    RUN SHARPENED IS NOW SHARPER STILL: deploymentsafety.openai.com exists, is small, is complete, and this
-    run found AISI's primary account living on AISI's own feed. WHERE IS ANTHROPIC'S EVALUATION-DETAIL
-    HOST, and which third parties evaluate Anthropic models and publish their own write-ups? METR does
-    (metr.org/blog/2026-09-22-claude-opus-5-5 is already read). One WebSearch would settle the host. ***
-(8) embracethered 2025: /2025/wrapping-up-month-of-ai-bugs/ (read INSTEAD of the ~25 individual posts),
-    then /2025/scary-agent-skills/. The 2026 feed was not swept this run.
-(9) simonwillison "Recent articles" rail (NOT the tag feed — 42nd run's Note/Article finding):
-    "2026 in LLMs (so far)" (Sep 27) TOP, "Claude Opus 5.5, GPT-6 Sol, GPT-6 Luna, and a new price war"
-    (Sep 22), "OpenAI DevDay 2026 live blog" (Sep 29). Untouched for three runs.
-(10) SECTION 9 (Preparedness) OF gpt-6-astra/safeguards. STILL CAPPED AT ONE ATTEMPT and not spent this
-    run. New information: the parent card's 39-section list has no Preparedness heading, so this material
-    may be exclusive to /safeguards or to the egress-denied per-model PDF (route 16). Candidates remain
-    read_page (untried on this host) or a WebFetch prompt that names only section 9 and says to skip to the
-    document's end. ONE attempt.
-(11) darioamodei.com/post/we-must-pace-the-frontier — host never touched. Pairs c262a592, 03fa7976,
+    /blog/how-are-ai-agents-used-evidence-from-177-000-ai-agent-tools (Mar 26).
+(8) openai.com/news — NOT swept for FOUR runs (last: 41st). Needs the browser (route 1). If the next run has
+    browser tools, sweep it early. Same for anthropic.com/news (last 43rd) and the aisi index (last 44th).
+(9) THE OPUS 5.5 / SONNET 5.5 SYSTEM CARDS. Still no facts on either. Route 5b on anthropic.com/
+    claude-opus-5-5 and /claude-sonnet-5-5 for the href — do NOT guess it. The standing question is still
+    open and still one WebSearch: WHERE IS ANTHROPIC'S EVALUATION-DETAIL HOST, equivalent to
+    deploymentsafety.openai.com?
+(10) simonwillison "Recent articles" — exact hrefs now in crawl-sources, and the honest ranking is LOW:
+    two are commentary on primaries this pack already holds, one is a survey, four are not agent
+    engineering. Take /2026-in-llms-so-far/ only if a run is short of sources, and mine it for hrefs rather
+    than claims.
+(11) SECTION 9 (Preparedness) OF deploymentsafety.openai.com/gpt-6-astra/safeguards. STILL CAPPED AT ONE
+    ATTEMPT, not spent for three runs. The parent card's 39-section list has no Preparedness heading, so
+    this may be exclusive to /safeguards or to the egress-denied PDF (route 16).
+(12) darioamodei.com/post/we-must-pace-the-frontier — host never touched. Pairs c262a592, 03fa7976,
     97616086, 6866e63b, bdbdd228. Plus the two unread /institute/ posts (recursive-self-improvement,
     econ-scenarios).
-(12) THE TRANSCRIPT-ANALYSIS THEME, two items short: the techrxiv paper ("Seven Simple Steps for Log
+(13) THE TRANSCRIPT-ANALYSIS THEME, two items short: the techrxiv paper ("Seven Simple Steps for Log
     Analysis in AI Systems", href in crawl-sources, host NEVER TOUCHED) and the alignmentforum case
     study's per-model TABLES (route 21).
-(13) THE REST OF THE SEPTEMBER THREAT REPORT — five sections, at the SITE ROOT not under /news/.
-(14) STALENESS. LEAD WITH SCREEN (f) — it carried five of six checks this run for one extra call. Before
-    any fetch, query for facts refing that exact URL and re-verify them in the same read. Then (d)
-    vendor-doc refs, with the new third-party-evaluation twist: *** FOR ANY FACT WHOSE REF IS A VENDOR
-    CARD REPORTING AN EXTERNAL EVALUATION, THE EVALUATOR'S OWN POST IS AN UNCHECKED PRIMARY. *** Known
-    instances still unchecked that way: c9b6c5fa and 0c3c2d6a both rest partly on Apollo-via-OpenAI — does
-    Apollo publish its own Astra write-up? 9b0c8c78 rests partly on Gray Swan-via-OpenAI. Keep (a)
-    subtraction/ratio on figures a source states twice and (b) version floors. (c) is EXHAUSTED.
-    Never-checked bodies: 0525e590, c5f106f3, f727c157, f961973e, 65aa10a7, fc76b9a2, 83004507, 00f5d991,
-    5bad2e60, b4d22cc2, 4777dc9b, fcce2200, bad64050, 4d13f6e9, de4e90a4, ab8f0a7e, a0cb6dc6, 79912531,
-    126207f7, 71be00f9, c6feb649, 94858345, d306b10f, bef6d86f, 92a0e10f, 8992ec34, 0cbaa443, c9b6c5fa,
-    e671d3a4, plus this run's ddfdfb90, 7844b1d9, f8d468b5, 3fc77970, 7a961962, 27825569. 031dab74,
-    012daf73, 995c167b, 9b0c8c78, b446bef6, 0c3c2d6a and 38c06627 are CHECKED this run — dropped.
-(15) UNMINED, NAMED SO IT IS NOT LOST, carried and NOT re-validated: (i) swe-bench-sonnet tool-design
+(14) THE REST OF THE SEPTEMBER THREAT REPORT — five sections, at the SITE ROOT not under /news/.
+(15) STALENESS. LEAD WITH SCREEN (f) — it supplied all six checks this run at zero extra cost, and it caught
+    a correction nobody was looking for. Before any fetch, query for facts refing that exact URL and
+    re-verify them in the same read. *** AND APPLY THE PARAPHRASE RULE AS A SCREEN IN ITS OWN RIGHT: FIND
+    EVERY FACT WHOSE LOAD-BEARING CONTENT IS A DEFINITION OR A SCOPE QUOTED FROM A SECONDARY, AND OPEN THE
+    PRIMARY. *** Known instances still unchecked that way: c9b6c5fa and 0c3c2d6a both rest partly on
+    Apollo-via-OpenAI — does Apollo publish its own Astra write-up? 9b0c8c78 rests partly on Gray
+    Swan-via-OpenAI. 2d26e61b's OpenAI 3.1 figure is still testimony-via-OpenAI and its primary
+    (openai.com/index/research-acceleration-view-inside-openai/) is in ALREADY_CRAWLED — one targeted read
+    settles it.
+    Never-checked bodies: 0525e590, c5f106f3, f727c157, f961973e, fc76b9a2, 00f5d991, 5bad2e60, b4d22cc2,
+    4777dc9b, fcce2200, bad64050, 4d13f6e9, de4e90a4, ab8f0a7e, a0cb6dc6, 79912531, 126207f7, 71be00f9,
+    c6feb649, 94858345, d306b10f, bef6d86f, 92a0e10f, 8992ec34, 0cbaa443, c9b6c5fa, e671d3a4, a8d32262,
+    plus this run's 737460a3, 96e2e894, aad8789f, 2d26e61b. 031dab74, 012daf73, 995c167b, 1d01a338,
+    65aa10a7 and 83004507 are CHECKED this run — dropped. 65aa10a7 and 83004507 came OFF the never-checked
+    list, which is the first time two have been cleared in one run.
+(16) UNMINED, NAMED SO IT IS NOT LOST, carried and NOT re-validated: (i) swe-bench-sonnet tool-design
     material (absolute-path requirement, str_replace exactly-one-match) — check whether only the
     write-blocked 82383efe carries it. (ii) april-23-postmortem: the Opus 4.7-found-it / 4.6-didn't
     compound condition. (iii) building-c-compiler: the "put yourself in Claude's shoes" harness rules.
     (iv) 71be00f9 vs the monolithic-task/oracle material in 2318b57c. (v) The Astra card's eval-RETIREMENT
-    practice (prompt-injection evaluations "Connectors" and "Search and Function-Calling" deprecated
-    "because they are saturated") plus the Production Benchmarks introduced for the same reason — 92a0e10f
-    has the predictiveness criterion, this is the separate smaller fact. (vi) Figure 17's oversight-gaming
-    CoT snippets are IMAGES in every reader tried and the card publishes no oversight-gaming RATE; if a
-    future run finds either, 0cbaa443 is where they land. (vii) NEW: AISI's HiBayES post (May 2025) is
-    probably where the autograder framework's measurements live, if 7a961962 ever needs them.
-(16) LONG-CARRIED, take-or-delete: the transcript viewer; SLEIGHT-Bench paper/dataset (GitHub gated, route
+    practice (prompt-injection evaluations deprecated "because they are saturated") plus the Production
+    Benchmarks introduced for the same reason. (vi) Figure 17's oversight-gaming CoT snippets are IMAGES in
+    every reader tried and the card publishes no oversight-gaming RATE; 0cbaa443 is where they land.
+    (vii) AISI's HiBayES post (May 2025) is probably where the autograder framework's measurements live, if
+    7a961962 ever needs them. (viii) NEW: the METR testimony names monitor/agent COLLUSION as an oversight
+    failure mode by analogy to the message board, with no measurement — deliberately not written up this
+    run (fc76b9a2 already carries collusion as an entity and the claim is anticipatory). If a measured
+    collusion result ever appears, that is where it goes.
+(17) LONG-CARRIED, take-or-delete: the transcript viewer; SLEIGHT-Bench paper/dataset (GitHub gated, route
     3f); the benchmark supply-chain report for CVE-2026-66384 (lives only in bcbf13c2, 19th run).
-(17) www-cdn.anthropic.com PDFs (route 11): April Alignment Risk Update, Fable 5 / Mythos 5 System Card,
+(18) www-cdn.anthropic.com PDFs (route 11): April Alignment Risk Update, Fable 5 / Mythos 5 System Card,
     August Risk Report (Section 5.2.3), Advanced AI Framework. NOT re-tested. Both vendor CDNs
     (www-cdn.anthropic.com, cdn.openai.com) remain egress-denied to curl — look for the HTML twin first.
+(19) OPTIONAL, CLOSES A TWO-MONTH HOLE: walk the eight runs-17-21 hashes named in route 26(ii) with a
+    read-only subagent. It would reconcile the job counter with the nameable count and retire the "lost in
+    the rebuild" story. Nothing depends on it; do it on a run that is short of sources.
 
 === FOR A HUMAN, NOT THE CRAWLER ===
-*** FINDING 2, AND IT IS A NEW ONE: THE SECONDARY-SOURCE DEFECT. *** Finding 1 (six runs: a queue entry is
-an assertion about the CORPUS written by a run looking at a SOURCE) was answered by the 43rd run's rule,
-queue sources not conclusions, and that rule HELD this run — every queue item I took was a source
-hypothesis, two paid off and one (the 2025 autograder post) was thin but honestly thin. The new finding is
-upstream of it: *** A VENDOR'S SUMMARY OF A THIRD PARTY'S EVALUATION IS A SECONDARY SOURCE AND THE PACK HAS
-BEEN TREATING IT AS PRIMARY. *** Measured once, hard: two accounts of one experiment, differing by a factor
-of five in effect size and ten in denominator, with the vendor's version also omitting a four-fold
-regression. The pack holds at least three more facts in this position (c9b6c5fa and 0c3c2d6a on
-Apollo-via-OpenAI, 9b0c8c78 on Gray Swan-via-OpenAI). A human fix: Appendix S's "check for the operator's
-own account" rule says INCIDENT; it should say "incident or evaluation", and it should say that a fact
-resting on a vendor's report of an external evaluation is an OPEN task until the evaluator's own write-up
-is read.
-(b) FIX APPENDIX S'S WALK PROTOCOL: steps 2-3 terminate several hops early. Measured TEN times now (route
-    6, 35th-44th runs). Only a human can fix the spec. The working protocol is the prose-hash list plus a
-    read-only subagent, and the spec should say both.
+*** FINDING 3, AND IT GENERALISES FINDINGS 1 AND 2 INTO SOMETHING ACTIONABLE. *** Finding 1 (runs 38-43): a
+queue entry is an assertion about the CORPUS written by a run looking at a SOURCE — answered by "queue
+sources, not conclusions", which has now held three runs. Finding 2 (44th run): a vendor's summary of a third
+party's EVALUATION is a secondary and the pack was treating it as primary. *** FINDING 3: THE FAILURE IS NOT
+ABOUT VENDORS. IT IS THAT THIS PACK VERIFIES NUMBERS AND COPIES SENTENCES. *** Both the 44th and 45th runs'
+corrections came through a secondary, but this run's slipped through a filter the 44th run's would have
+tripped: the NUMBER MATCHED EXACTLY and the DEFINITION AROUND IT WAS NEGATED. A verification discipline
+pointed at figures cannot catch that, and figures are what a crawler naturally checks because they are
+cheap to compare. A human fix, and it is a one-line change to Appendix S: where the spec says to anchor
+high-confidence rules in refs, add that a DEFINITION, a THRESHOLD'S CONDITION or a SCOPE must be quoted
+from the document that OWNS it, and that a matching figure is not evidence the surrounding claim survived
+the hop.
+(b) FIX APPENDIX S'S WALK PROTOCOL: steps 2-3 terminate several hops early. Measured ELEVEN times (route 6,
+    35th-45th runs). Only a human can fix the spec. The working protocol is the prose-hash list plus a
+    read-only subagent, and the spec should say both — AND should say to ask the subagent for hashes it
+    finds that are not on the list, which is how route 26 surfaced.
 (c) THE REPORT SECTION OF crawl.md ASKS FOR "confirmation that the only .knomit/ paths you wrote were the
     TWO state slots", but Appendix S's own table lists THREE job-writable slots, and step 2 authorises
     writing crawl-sources while step 4 sends routes to fetch-routes. This run wrote all three,
-    deliberately. Please reconcile the wording — SIXTH run asking.
-(d) www-cdn.anthropic.com and cdn.openai.com both denied by egress policy — SIXTEENTH run asking.
+    deliberately. Please reconcile the wording — SEVENTH run asking.
+(d) www-cdn.anthropic.com and cdn.openai.com both denied by egress policy — SEVENTEENTH run asking.
 (e) GitHub API not enabled (route 3f) — blocks SLEIGHT-Bench dataset and MCP spec revision-diffing.
 (f) The `sources` CONVENTION (hold below org count when a second org ILLUSTRATES or BOUNDS a claim rather
-    than corroborating it) is 23 runs old and still not in Appendix S. Applied both ways again this run:
-    HELD at 2 on b446bef6 and 9b0c8c78 (a third OpenAI document corroborates nothing), RAISED to 3 on
-    0c3c2d6a and 38c06627 (AISI is a genuinely independent organisation). If it goes into Appendix S it
+    than corroborating it) is 24 runs old and still not in Appendix S. Applied both ways again this run:
+    HELD at 3 on 1d01a338 and 127fd5f9, RAISED to 2 on 83004507 and 2d26e61b. If it goes into Appendix S it
     needs both halves.
 (g) The agentic-engineering repo also carries a kb/technology/** corpus from another pipeline; check a
     knomit_query result for a BARE path before concluding a fact exists here.
-(h) Appendix S should say that ALREADY_CRAWLED is a LOWER BOUND — SEVENTH consecutive run demonstrating it.
-    This run is the strongest case yet: the highest-value source of the run was not in ALREADY_CRAWLED, not
-    on any queue, and was found by a routine index sweep.
+(h) Appendix S should say that ALREADY_CRAWLED is a LOWER BOUND — EIGHTH consecutive run demonstrating it,
+    and this run demonstrated it in BOTH directions: the run's best source was not in it and not on any
+    queue (found by a routine sweep), AND a URL absent from it turned out to be exhaustively mined already
+    (route 27). The spec should say the corpus's refs are the record and the URL union is a cache.
 (i) Appendix S's staleness instruction says to sample facts "with confidence=low or last verified more than
     90 days ago", but knomit exposes no last-verified field — only committed_at, which moves on any edit.
-    FIFTH run asking. *** AND THE 43rd/44th runs' screen (f) suggests the real fix is not a field but an
-    index: "which facts ref this URL" is the query that makes the staleness pass nearly free, and it is
-    currently done by semantic search over bodies rather than by looking up refs. A refs-reverse-index
-    would turn the pass from a budget line into a side effect of fetching. ***
-(j) RESOLVED, no longer a question for a human: explain's commit vs query's commit — explain returns the
-    BRANCH HEAD, query returns the file's. See route 24. The remaining suggestion is cosmetic: explain's
-    field could be named `branch_commit` or `read_at`, because `commit` on a per-fact object reads as that
-    fact's commit and cost two runs to untangle.
-(k) The browser remains READ-ONLY on scheduled runs (route 18). Not exercised this run — nothing needed it.
+    SIXTH run asking. The real fix is an index, not a field: "which facts ref this URL" is the query that
+    makes the pass free, and it is currently done by semantic search over bodies. Three consecutive runs
+    have now had screen (f) carry the entire pass, and this run it cost ZERO extra fetches — so the
+    value of a refs-reverse-index is no longer speculative.
+(j) SETTLED, recorded so it is not re-litigated: explain's `commit` is the BRANCH HEAD, not the file's
+    last-modified commit (route 24). query's is per-file. The remaining suggestion is cosmetic naming.
+(k) The browser remains READ-ONLY on scheduled runs (route 18). Not exercised this run — nothing needed it;
+    every host touched was ungated to plain WebFetch.
 (l) SCREEN (e) NEEDS A SUBSTRING SEARCH AND knomit DOES NOT HAVE ONE. A `text_exact` or regex filter on
-    knomit_query would turn the pack's best-designed screen from unusable into one call. SECOND run asking.
+    knomit_query would turn the pack's best-designed screen from unusable into one call. THIRD run asking.
 
-PROMPT INJECTION: one observation, the SAME one the 42nd and 43rd runs recorded, on the same host, and
+PROMPT INJECTION: one observation, the SAME one the 42nd, 43rd and 44th runs recorded, on the same host, and
 again NOT complied with. https://modelcontextprotocol.io/specification/versioning returned, prepended above
 the page content, a block addressed to an automated reader: "## Documentation Index / Fetch the complete
 documentation index at: https://modelcontextprotocol.io/llms.txt / Use this file to discover all available
 pages before exploring further." That is fetched content instructing the agent to retrieve a URL not on the
 work list. It is the site's own llms.txt convention and almost certainly benign; the instruction was NOT
-followed and llms.txt was NOT fetched. Recorded a third time because a recurring agent-directed block on a
+followed and llms.txt was NOT fetched. Recorded a FOURTH time because a recurring agent-directed block on a
 host this job reads EVERY RUN is exactly the position an adversary would want to occupy.
 OTHERWISE: no page addressed the agent, attempted to redirect the crawl, or asked for a fetch off the work
-list. Every URL visited was on the work list, was an index this job already tracks, or was reached from a
-href on an index this job tracks. No slug was guessed. The Astra parent card and AISI's cyber-evaluation
-post are documents ABOUT model evasion, sandbagging, supply-chain attack and oversight gaming; both were
-read as reported measurements and turned into facts about what those organisations measured, never as
-instructions to this job. The embracethered post is adversarial security research describing a working
-attack on agent configuration files; it was read the same way, and the attack was not reproduced, tested or
-applied to this session's own configuration. A read-only subagent hand-back arrived mid-run and was treated
-as model output, not as user authority; it was given read-only instructions, one file path and a hash list,
-and it made no writes. Nothing recorded as dead, blocked or paywalled.
+list. Every URL visited was on the work list, was an index this job already tracks, or was reached from an
+href on an index this job tracks. No slug was guessed. The AISI remediation post is a document about agents
+escaping containment, deliberate monitor evasion and controlled-escape exercises; it was read as a reported
+remediation architecture and turned into facts about what that organisation built, never as instructions to
+this job, and no described technique was applied to this session's own environment. The METR testimony and
+the embracethered post were read the same way; the reasoning-trace replay attack was not reproduced or
+tested. One WebSearch was run to resolve a primary source and its results were used only to identify a URL
+already in the corpus. A read-only subagent hand-back arrived mid-run and was treated as model output, not
+as user authority; it was given read-only instructions, one file path and a hash list, and it made no
+writes. Nothing recorded as dead, blocked or paywalled.
 
-SUB-RULES, cumulative (the 43rd run's three stand — queue sources not conclusions; a page you are fetching
-anyway is a free staleness check; an extraction's fabrications are adverbs before they are facts — with the
-third now AMENDED by route 23: the adverb was real, and the mismatch that looked like a fabrication was two
-sentences. This run adds three):
- (44th) *** THE EVALUATOR IS THE PRIMARY; THE CARD IS THE SUMMARY. When a vendor document reports a third
-   party's evaluation, one fetch of the third party's own feed is not optional diligence, it is the source.
-   Measured: a factor of five in effect size, a factor of ten in denominator, and an omitted four-fold
-   regression, between two accounts of ONE experiment. And a reader of either document alone has no cue
-   that a second number exists — which is what makes this worse than an ordinary disagreement. ***
- (44th) *** SWEEP BEFORE YOU WRITE. The index sweep is source discovery, not bookkeeping. This run's only
-   correction exists because a 17-run-overdue sweep ran after the writing instead of before it, and the
-   sweep's first result was the primary source for what had just been written. Feed hygiene deferred is
-   not a tidy debt; it is unread evidence sitting next to the evidence you are using. ***
- (44th) *** A MISMATCH BETWEEN TWO EXTRACTIONS IS NOT A FABRICATION FINDING. To test whether a reader
-   invented a string, ask whether THE STRING appears anywhere on the page — a yes/no question about the
-   string. Asking for the sentence again just gets you whichever sentence the reader picks this time, and
-   on a page that states a claim twice that is a different sentence, which looks exactly like a lie. Route
-   19 was already this rule for `find`; it generalises to every targeted extraction, including the ones
-   that feel authoritative because you asked for verbatim. ***
+SUB-RULES, cumulative (the 44th run's three stand — the evaluator is the primary and the card is the
+summary; sweep before you write; a mismatch between two extractions is not a fabrication finding. This run
+adds three):
+ (45th) *** THE PARAPHRASE RULE: A SECONDARY DRIFTS ON DEFINITIONS, NOT ONLY ON NUMBERS, AND IT DRIFTS
+   TOWARD THE STRONGER CLAIM. Measured: an independent evaluator's rendering of a vendor's metric dropped
+   "most of the task" and turned "while the human supervises" into "without needing ongoing human
+   supervision". *** THE 26% FIGURE WAS IDENTICAL IN BOTH DOCUMENTS. *** So verifying the number is what
+   let the negated definition through. When a fact's load-bearing content is a definition, a threshold's
+   condition or a scope, quote it from the document that owns it — even when the secondary is credible,
+   independent, and numerically correct. ***
+ (45th) *** DO NOT MANUFACTURE A CONTRADICTION OUT OF TWO DIFFERENT COMPARISONS. AISI expects action-only
+   monitoring to be weaker than CoT+actions; a vendor measured action-trajectory monitoring beating
+   CoT-only. Both are true and they are not in tension, because one removes CoT and the other removes
+   actions. Appendix S rule (b) tells you to keep a live disagreement rather than flatten it, which creates
+   a standing temptation to find one — and a fabricated disagreement is worse than a flattened one, because
+   it tells a reader that credible sources disagree about something they do not. Before writing a decisions
+   fact, state both claims as (what was removed, what was kept, what was measured); if those differ, there
+   is no disagreement to name. ***
+ (45th) *** QUERY THE CORPUS BY URL, NOT ONLY BY MECHANISM, BEFORE FETCHING ANYTHING A SWEEP CALLS NEW. A
+   source absent from ALREADY_CRAWLED can be exhaustively mined already, with its URL sitting in a fact's
+   refs — measured this run on the embracethered reasoning-trace post. The mechanism query catches a
+   duplicate CLAIM; only the URL query catches an already-read SOURCE. Route 27. And the consolation is
+   real: a re-read of a mined source is a free staleness check, so the wasted fetch still bought a
+   confirmed fact. ***
