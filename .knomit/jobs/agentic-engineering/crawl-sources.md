@@ -1188,3 +1188,134 @@ from the primary even when the secondary is a credible independent organisation 
 check out. A paraphrase is a lossy channel with a direction, and the direction is whatever made the sentence
 worth quoting.
 APPLIED: 2d26e61b now carries both renderings, says which to cite, and says why.
+
+=== SWEEPS, 46th RUN (2026-10-04). FOUR FEEDS, FOUR PLAIN WebFetch CALLS, ALL BEFORE ANY WRITE. ===
+
+*** THE RUN'S STRUCTURAL FINDING: alignment.anthropic.com's INDEX RETURNED 62 ENTRIES. THE 45th RUN'S CALL
+*** ON THE SAME URL RETURNED 8, AND CONCLUDED "the index shows only these 8 and no 2025 entries, so either
+*** the blog starts at Jul 2026 or the listing is shallow". IT WAS SHALLOW. There is a full /2025/ archive
+*** behind it and the blog does not start in Jul 2026. This is route 5's depth-varies caution in its most
+*** extreme measured form to date: 8 -> 62 on one URL, one run apart, with a date window asked for both
+*** times. The 45th run also inferred incompleteness correctly from a different signal (three known-read
+*** slugs absent from its listing) and still under-estimated the archive by 7x. TREAT ANY "this feed is
+*** small" conclusion as a statement about one call. ***
+
+*** AND A TRAP INSIDE THE SAME RESULT: THE SLUGS ARE GOOD, THE DATES ARE NOT. *** The listing's own
+structure contradicts itself: a "## 2025" heading is followed by month labels that descend through
+"December 2024" and "January 2024" while the slugs under them are all /2025/..., and /2025/sleight-bench/
+is labelled May 2025 though the pack read it as a 2026 post. So the month-year labels are derived, not
+read, and must not be used for ranking or for an "is it new" judgement. The SLUGS are trustworthy by
+route 5's own tell -- the listing contains real title/slug mismatches that no slugifier would produce,
+the clearest being "Beyond Data Filtering: Knowledge Localization for Capability Removal in LLMs" ->
+/2025/selective-gradient-masking. Use the hrefs, ignore the dates, and get a real date from the post.
+
+*** YEAR-PREFIX DISCREPANCY, UNRESOLVED, CHECK BEFORE RE-FETCHING: *** ALREADY_CRAWLED records
+  /2026/sleight-bench/, /2026/coding-audit-realism/ and /2026/ai-organizations/. This listing gives the
+  same three posts as /2025/sleight-bench/, /2025/coding-audit-realism/ and /2025/ai-organizations/. One
+  of the two is wrong and it is cheap to settle from a fact's refs (7be4071e refs coding-audit-realism).
+  Do not add a second fetch of one of these on the strength of a different year prefix.
+
+alignment.anthropic.com -- READ THIS RUN: /2026/modular-pretraining/ ("Modular Pretraining Enables Access
+  Control", the 45th run's RANK 1, and the rating was right) -> kb/architecture/ai/agents/security/
+  capability-access-control/5a36eb3b.md. GRAM = "Gradient-Routed Auxiliary Modules". Its comparison arm is
+  the valuable part; its own method is preliminary and 5B-max.
+  *** STILL UNREAD AND NOW ITEMISED -- 44 POSTS. RANKED FOR THIS PACK (agent engineering, not alignment
+  research for its own sake), because most of this archive is below the bar and the top of it is not: ***
+    RANK 1  /2025/selective-gradient-masking/  "Beyond Data Filtering: Knowledge Localization for
+            Capability Removal in LLMs" -- the sibling of modular-pretraining, and 5a36eb3b is the home
+            waiting for it. Same team, same question, likely the method modular-pretraining builds on.
+    RANK 2  /2025/summarization-for-monitoring/  "Monitoring Computer Use via Hierarchical Summarization"
+            -- a MONITOR ARCHITECTURE post. The pack's monitor cluster (491d1039, a5eaec6b, 737460a3) is
+            about what a monitor can see and how it is evaded, and holds nothing on how to build one that
+            scales over long trajectories.
+    RANK 3  /2025/strengthening-red-teams/  "A Modular Scaffold for Control Evaluations" -- scaffold design
+            rather than a result; pairs with a5eaec6b and with the unread AISI ControlArena post.
+    RANK 4  /2025/petri-v2/ then /2025/petri/ -- Petri is already an entity in fa5bc47a and 7be4071e with
+            no primary ever read, and v2 advertises "Improved Eval-Awareness Mitigations", which is the
+            pack's eval-awareness cluster's open end.
+    RANK 5  /2025/automated-auditing/  "Building and evaluating alignment auditing agents" -- agents built
+            to audit, which is agent engineering however it is filed.
+    RANK 6  /2025/reward-hacking-ooc/  "Training on Documents about Reward Hacking Induces Reward Hacking"
+            -- adjacent to ec1be717's cluster and to 83004507 (what you say about checking becomes
+            training signal).
+    RANK 7  /2025/pretraining-data-filtering/ -- the filtering baseline 5a36eb3b measures GRAM against.
+    RANK 8  /2025/inoculation-prompting/ -- a named training-time technique with a stated mechanism.
+    ALSO UNREAD, LOWER: /2026/conceptual-reasoning-index/ (the 45th run's rank-1 runner-up; an index/
+      benchmark announcement, so expect capability scores rather than design decisions -- see the
+      standing "prefer method posts to framework posts" rule), /2025/auditbench/,
+      /2025/automated-researchers-sandbag/, /2025/automated-alignment-agent/,
+      /2025/automated-w2s-researcher/, /2025/subtle-reasoning/, /2025/honesty-elicitation/,
+      /2025/auditing-overt-saboteur/, /2025/auditing-mo-replication/, /2025/sabotage-risk-report/,
+      /2025/cheap-monitors/, /2025/bloom-auto-evals/, /2025/activation-oracles/,
+      /2025/alignment-faking-mitigations/, /2025/alignment-faking-revisited/,
+      /2025/stress-testing-model-specs/, /2025/believe-it-or-not/, /2025/modifying-beliefs-via-sdf/,
+      /2025/distill-paraphrases/, /2025/unsupervised-elicitation/, /2025/challenges-hopes/,
+      /2025/inverse-scaling/, /2025/subliminal-learning/, /2025/wont-vs-cant/, /2025/psm/, /2025/msm/,
+      /2025/backdooring-classifiers/, /2025/introspection-adapters/, /2025/abstractive-red-teaming/,
+      /2025/teaching-claude-why/, /2025/bumpers/, /2025/recommended-directions/, /2025/openai-findings/,
+      /2025/introducing-safeguards-research-team/, /2025/anthropic-fellows-program-2026/.
+    OFF-SITE ENTRIES ON THE SAME INDEX (not this host, do not treat as blog slugs):
+      arxiv.org/abs/2506.18032, anthropic.com/research/reasoning-models-dont-say-think,
+      anthropic.com/research/auditing-hidden-objectives,
+      anthropic.com/research/constitutional-classifiers,
+      anthropic.com/research/forecasting-rare-behaviors, and a drive.google.com folder for the CoT
+      faithfulness evaluations. *** anthropic.com/research/ IS A PATH THIS JOB HAS NEVER TOUCHED. ***
+
+metr.org/blog -- swept, windowed since 2026-09-25. NOTHING NEW since the Senate testimony (Sep 30, read
+  45th run). READ THIS RUN: /blog/2026-06-26-gpt-5-6-sol/ (the 45th run's RANK 2, and it paid) ->
+  kb/gotchas/ai/agents/evaluation/measurement-attribution/bb2b798b.md. UNREAD METR back catalogue now:
+  /blog/2026-03-12-sabotage-risk-report-opus-4-6-review/, /blog/2026-05-08-rd-section-anthropic-risk-
+  report-feb-2026-review/, /blog/2026-02-17-how-we-protect-confidential-information/,
+  /blog/2026-08-14-funding-update/ (organisational), plus pre-2026: /blog/2025-12-09-common-elements-of-
+  frontier-ai-safety-policies/ and the 2025 responses-to-consultations, all below the bar.
+  *** ONE ITEM LEFT UNMINED FROM THE SOL POST ON PURPOSE: it attributes cheating rates partly to the
+  evaluation scaffold's prompts and task wording. The open-ended extraction returned that as a quotation;
+  the verbatim verification call was not spent on it, so it is NOT in bb2b798b. It is the strongest claim
+  in the post for harness designers -- one targeted verbatim call settles it. ***
+
+embracethered.com/blog -- swept, windowed since 2026-09-01. ONE post in window and it was READ THIS RUN:
+  /posts/2026/from-select-to-sysadmin-sql-copilot-bluehat-asia/ (Sep 30, CVE-2026-65669) ->
+  kb/incidents/ai/agents/security/privilege-escalation/4ac8983f.md, plus the third-instance enrichment to
+  92dc0441. Nothing else new. The 2025 back catalogue (~180 posts to 2018) remains the standing backlog.
+
+www.aisi.gov.uk/blog -- RE-ENUMERATED, ~100 entries back to 2023-09-07, one plain WebFetch (route 25
+  holds: the complete archive comes back alongside the window). NOTHING NEW since
+  /blog/building-a-more-secure-environment-for-evaluating-dangerous-capabilities (Oct 1, read 45th run).
+  *** SLUG CORRECTION TO THE 45th RUN'S QUEUE ITEM (7), which would have 404'd: the test-time-compute post
+  is /blog/more-compute-more-capability-why-ai-agent-evals-need-to-account-for-test-time-compute
+  ("evals", not "evaluations"). crawl-sources had it right; the queue had it wrong. Take slugs from here,
+  never from a queue entry. ***
+  *** SEVEN SLUGS ON THIS LISTING THAT NO PAST RUN HAS RECORDED, so the tier-A catalogue above is not the
+  whole unread set: /blog/preliminary-assessment-of-kimi-k3s-cyber-capabilities (Jul 23 2026),
+  /blog/how-far-behind-the-frontier-are-leading-open-weight-models-on-cyber (Jul 17 2026),
+  /blog/how-fast-is-autonomous-ai-cyber-capability-advancing (May 13 2026),
+  /blog/evaluating-whether-ai-models-would-sabotage-ai-safety-research (Apr 27 2026),
+  /blog/mapping-the-limitations-of-current-ai-systems (Oct 23 2025), /blog/inspect-cyber (Jun 26 2025),
+  /blog/long-form-tasks (Dec 3 2024). Of these, /blog/evaluating-whether-ai-models-would-sabotage-ai-
+  safety-research is the one to take first -- the pack holds c807bcd3 and 7be4071e on automated
+  researchers misbehaving and has no third-party treatment of deliberate safety-research sabotage. ***
+
+NOT SWEPT THIS RUN, named: openai.com/news and anthropic.com/news (both need the browser or were swept
+  within three runs), alignment.openai.com/misalignment-reports/ (swept 45th, fully mined),
+  anthropic.com/engineering (swept 45th, nothing in five months of listing depth), simonwillison.net,
+  deploymentsafety.openai.com, langchain, huggingface, eugeneyan, trychroma, builder.aws.com,
+  genai.owasp.org, research.google, sourcegraph, latent.space, redwoodresearch, microsoft research,
+  microsoft security, cognition, developers.openai.com, vectara, darioamodei.com, code.claude.com,
+  owasp-agentic incidents tracker, aws machine-learning.
+
+=== THE PARAPHRASE RULE EXTENDS TO MODALITY, AND THE EXTENSION ACQUITTED RATHER THAN CONVICTED. 46th run. ===
+The 45th run's rule covers a DEFINITION drifting across a hop between documents. This run tested the same
+screen on a single primary and found the adjacent failure it should also cover: a source that states its
+material as OPEN QUESTIONS, rendered by a fact as ASSERTIONS. The verbatim check on METR's
+propensity-investigation template came back with the key sentences present but all interrogative
+("Would these practices result in overfitting to evaluations...?"), against a fact titled as a flat claim.
+That looked exactly like a correction waiting to be written. *** IT WAS NOT. *** fc76b9a2's body already
+carries a MODALITY block saying it is an anticipatory template describing questions an investigation SHOULD
+answer, with no measurements, and every claim in the body is attributed as "METR asks". The fact was right
+and the query snippet was short. SO THE RULE HAS TWO HALVES: (i) check modality, not only wording and
+numbers -- a question promoted to a claim is the same lossy channel as a definition losing a clause, and it
+drifts toward the stronger statement for the same reason; (ii) READ THE WHOLE FACT BEFORE WRITING THE
+CORRECTION. A knomit_query snippet truncates at ~400 chars and the hedge lives at the END of a
+well-written body, so the screen that finds candidate drift systematically hides the evidence that
+acquits. This is route 20 one level down: there it was a second fetch that acquitted a source, here it is
+a full read that acquits a fact.
