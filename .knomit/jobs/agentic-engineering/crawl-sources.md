@@ -1319,3 +1319,86 @@ CORRECTION. A knomit_query snippet truncates at ~400 chars and the hedge lives a
 well-written body, so the screen that finds candidate drift systematically hides the evidence that
 acquits. This is route 20 one level down: there it was a second fetch that acquitted a source, here it is
 a full read that acquits a fact.
+
+=== NEW RECURRING FEED, ADDED 47th RUN: www.anthropic.com/research. RANK 1 OF THE NEW ONES. ===
+*** THE 46th RUN SURFACED THIS PATH FROM THE ALIGNMENT BLOG'S OWN INDEX AND FLAGGED IT AS "NEVER TOUCHED".
+*** ONE PLAIN WebFetch SETTLES IT: IT IS A LIVE FEED, NOT A HANDFUL OF LEGACY PAGES. 10 entries
+*** returned, 2026-09-04 to 2026-10-01, with a "See more" link, so there is depth behind it. This is a
+*** THIRD Anthropic publication alongside /news/ and /engineering/ and alongside alignment.anthropic.com,
+*** and it carries FULL RESEARCH WRITE-UPS of incidents the pack previously held only from /news/
+*** summaries and third parties. Plain WebFetch, ungated, no browser. SWEEP IT EVERY RUN. ***
+The index as returned this run, newest first:
+  /research/claude-shaped-science                                      (Oct 1 2026)   UNREAD
+  /research/what-work-can-robots-do                                    (Sep 30 2026)  UNREAD, off-topic
+  /research/your-thoughts-on-ai                                        (Sep 29 2026)  UNREAD, off-topic
+  /research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities      (Sep 29 2026)  UNREAD, RANK 2
+  /research/yes-claude-can-do-nine-loops                               (Sep 25 2026)  UNREAD
+  /research/project-swap                                               (Sep 24 2026)  UNREAD, RANK 3
+                                                                       (agents trading on a human's behalf)
+  /research/claude-uplifts-biomolecular-modeling                       (Sep 17 2026)  UNREAD, off-topic
+  /research/intelligence-targeting-conventional-weapons-capabilities   (Sep 10 2026)  UNREAD
+  /research/alignment-assessment-cybersecurity-incidents               (Sep 9 2026)   *** READ 47th ***
+  /research/formalizing-fermats-last-theorem                           (Sep 4 2026)   UNREAD, off-topic
+KNOWN /research/ SLUGS FROM THE ALIGNMENT BLOG'S OFF-SITE LINKS, all still unread and all older than the
+  index window above, so the "See more" depth is real: /research/reasoning-models-dont-say-think,
+  /research/auditing-hidden-objectives, /research/constitutional-classifiers,
+  /research/forecasting-rare-behaviors.
+*** THE ONE POST READ THIS RUN WAS THE HIGHEST-YIELD SINGLE DOCUMENT OF THE RUN and it is the completed
+*** version of an assessment 778b437e had been carrying as ONGOING with three named open questions. This
+*** is Appendix S's "check for the operator's own account" rule paying out: the pack held these four
+*** incidents from /news/investigating-incidents-cybersecurity-evals plus AISI, and the full account
+*** answers two of the three open questions and contradicts a third-party report's framing. 122,646
+*** characters; WebFetch returns only the first 100,000 and names an offset for the rest (see
+*** fetch-routes). THE FINAL 22,646 CHARACTERS ARE UNREAD — one more call with offset=100000 takes them. ***
+
+=== SWEEPS, 47th RUN (2026-10-06). SEVEN FEEDS PLUS THE TRIPWIRE, ALL PLAIN WebFetch, ALL BEFORE ANY WRITE. ===
+*** THE RUN'S SOURCE-LIST FINDING: "FULLY MINED" IS A STATEMENT ABOUT ONE SWEEP, EXACTLY AS "this feed is
+*** small" WAS FOR THE 46th RUN. The 46th run recorded alignment.openai.com/misalignment-reports/ as
+*** "FULLY MINED AS OF THIS SWEEP" with 9 reports, and did not re-sweep it. It now lists ELEVEN: two were
+*** posted 2026-10-02 and both were read this run. A feed that publishes in BATCHES (this one has gone
+*** 6 -> 9 -> 11) will look exhausted on every sweep that lands between batches. Sweep it every run. ***
+alignment.openai.com/misalignment-reports/ -- windowed since 2026-09-26. TWO NEW, BOTH READ:
+  /preparing-for-a-restart-after-reading-slack/ (incident 2026-05-22, posted 2026-10-02) -> 689406b5.
+    Classified by the operator as NOT misaligned; the value is in the mitigation, not the behaviour.
+  /command-injecting-a-reference-tool-to-copy-a-source-file/ (incident 2026-05-16, discovered 2026-05-25,
+    posted 2026-10-02) -> bc7f14b7, plus the 20%->100% monitoring enrichment to 7aecb3c3.
+www.anthropic.com/research -- ENUMERATED FOR THE FIRST TIME, see the section above. One post read.
+alignment.anthropic.com -- index returned 62 entries again, "spanning from April 2022 through August 2026",
+  so the 46th run's 62 is reproducible and the archive genuinely predates 2026 by years. READ THIS RUN:
+  /2025/selective-gradient-masking/ (the 46th run's RANK 1) -> ae9fda8d, plus the lineage enrichment to
+  5a36eb3b. *** YEAR-PREFIX DISCREPANCY, PARTLY RESOLVED: the /2025/ prefix IS REAL. The post fetched at
+  /2025/selective-gradient-masking/ and states its own date as December 8, 2025. So /2025/ slugs are not a
+  listing artifact. That does NOT settle sleight-bench, coding-audit-realism or ai-organizations, which
+  the corpus holds under /2026/ — those still need settling from a fact's refs, not a fetch. ***
+  REMAINING RANKED UNREAD, unchanged from the 46th run's list except that RANK 1 is now done:
+  /2025/summarization-for-monitoring/ (monitor architecture, the pack's monitor cluster has no build fact)
+  is now RANK 1; then /2025/strengthening-red-teams/; then /2025/petri-v2/ and /2025/petri/;
+  then /2025/automated-auditing/; /2025/reward-hacking-ooc/; /2025/pretraining-data-filtering/ (the
+  filtering baseline BOTH ae9fda8d and 5a36eb3b measure against, so it is now worth more than its old
+  rank 7); /2025/inoculation-prompting/. The long lower list stands.
+metr.org/blog -- windowed since 2026-09-28. NOTHING NEW; newest still the Senate testimony (Sep 30).
+  *** THE SOL POST'S UNMINED ITEM IS NOW MINED: one targeted verbatim call returned "In addition to a
+  model's own propensities, we believe that observed cheating rates can also be influenced by the prompts
+  used in the evaluation scaffold and the exact wordings of task instructions." Appended to bb2b798b at
+  the modality the source gives it — a stated belief about what CAN influence the rate, no measurement.
+  The 46th run was right to hold it back for verification and right that one call settled it. ***
+embracethered.com/blog -- windowed since 2026-09-28. NOTHING NEW; newest still the SQL Copilot post
+  (Sep 30, read 46th). The 2025/2018 back catalogue remains the standing backlog.
+www.aisi.gov.uk/blog -- windowed since 2026-10-01. NOTHING NEW; newest still
+  /blog/building-a-more-secure-environment-for-evaluating-dangerous-capabilities (Oct 1, read 45th).
+  Every slug on this sweep's listing was already in this file, including the four that looked new
+  (/blog/international-evaluation-best-practice-and-open-questions-in-ai-measurement,
+  /blog/how-our-new-control-red-team-is-stress-testing-frontier-monitors,
+  /blog/cheating-behaviour-in-frontier-model-evaluations,
+  /blog/finding-cloud-misconfigurations-with-frontier-ai-a-case-study) — the last two are already mined
+  to 8756141e and a5eaec6b. CHECK THIS FILE BEFORE RANKING A SLUG AS NEW; it cost nothing this run only
+  because the check was one grep.
+www.anthropic.com/engineering -- windowed since 2026-09-20. NOTHING NEW; newest still april-23-postmortem
+  (Apr 23 2026). SEVEN RUNS QUIET at the newest-date level; the back catalogue is separately tracked above.
+modelcontextprotocol.io/specification/versioning -- the tripwire, one call, see crawl-state.
+NOT SWEPT THIS RUN, named: openai.com/news (needs the browser, route 1; last swept 41st — SEVEN RUNS),
+  anthropic.com/news (last swept 43rd), deploymentsafety.openai.com, simonwillison, langchain,
+  huggingface, eugeneyan, trychroma, builder.aws.com, genai.owasp.org, research.google, sourcegraph,
+  latent.space, redwoodresearch, microsoft research, microsoft security, cognition,
+  developers.openai.com, vectara, darioamodei.com, code.claude.com, owasp-agentic incidents tracker,
+  aws machine-learning.
