@@ -1017,3 +1017,70 @@ WHAT TO DO, IN ORDER:
   * The validator reports ONE motif per call even when several are over-long, so a payload with three bad motifs takes three round trips. Audit every motif in the payload when the first one is rejected, rather than fixing only the named one.
   * Four-word motifs that read naturally almost always have a verb in the middle and no function words: `reader-executes-writer-content`, `denylist-defeated-by-indirection` (the "by" costs a slot and is worth it), `declarative-input-becomes-code`. Three words is safer and usually no worse: `suppression-not-removal`.
 *** AND A SEPARATE, CHEAPER LESSON ABOUT LARGE learn CALLS: the retry cost scales with the WHOLE payload, not with the broken fact. *** If a learn call is large and its metadata is at all uncertain, there is a case for sending the facts in two calls so a metadata rejection cannot cost the other bodies. Weigh that against the cross-ref rule (facts in one call may cite each other circularly; facts in separate calls cannot cite forward), which is why this run sent one call and would again -- but it should have counted the hyphens.
+
+=== ROUTE 30 - *** THE TWO-HASH-SPACE QUESTION IS SETTLED: ONE REVISION, TWO NAMES. ROUTE 26'S DOUBLE-WRITE FINDING WAS AN ARTIFACT. 47th run. *** ===
+Route 26 (45th run) found that for the same run, crawl-state's prose-quoted commit and the hash appearing
+in explain's `history[]` differ, with the history[] one dated 3-10 minutes earlier, and read that as
+evidence of two writes per run. The 46th run recovered 21 such unlisted hashes and raised the alternative
+hypothesis: route 24 established that explain's returned `commit` is the BRANCH HEAD rather than the
+file's last-modified commit, so a run recording "my HEAD" from an explain result records a branch head
+while history[] records the file's own commit — two identifier spaces for one revision.
+
+THE TEST, AND IT WAS ONE CALL. The 39th run has both ids known: prose 375dc0f7 (2026-09-28T13:50:17Z) and
+history 182c7f61 (2026-09-28T13:45:04Z). knomit_explain anchored at 182c7f61 returns the 39th run's body
+— "crawled: 2026-09-28 (thirty-ninth run)" — the same run the prose list labels 39th.
+
+*** AND THE BODY ITSELF IS THE DECIDING EVIDENCE, WHICH IS WHY THIS DID NOT NEED A SECOND CALL: the 39th
+*** run's body states "THIS RUN WROTE crawl-state EXACTLY ONCE, AT THE END. No insurance write. The bridge
+*** held." A run that was explicitly auditing its own write-once discipline reports one write. Two hashes,
+*** one write. The prose chain is NOT recording one of every two writes; it is recording the same
+*** revisions under the other of two names. ***
+
+WHAT THIS MEANS FOR THE WALK, and it is good news: BOTH SPACES RESOLVE. explain accepts a prose hash and
+it accepts a history hash, and either returns the body. So the prose chain is sufficient and the 21
+unlisted hashes the 46th run recovered are not a gap to close — they are aliases. KEEP REPRODUCING THE
+PROSE LIST ANYWAY: it is the only enumerable index, because the API's history chain still terminates
+early (route 6, measured thirteen times). Do NOT spend further calls trying to reconcile the two lists,
+and do NOT record a double-write finding on the strength of a hash mismatch.
+The one thing still genuinely unresolved: the 35th run's and the 42nd run's multiple same-day revisions
+are REAL extra writes — those runs say so in their own bodies. Mismatched hashes are aliases; bodies that
+announce a superseded or insurance write are not.
+
+=== ROUTE 31 - WebFetch STOPS AT 100,000 CHARACTERS AND SAYS SO, WITH AN OFFSET TO CONTINUE. 47th run. ===
+A 122,646-character page (anthropic.com/research/alignment-assessment-cybersecurity-incidents) returned
+with an explicit note: the answer "covers only characters 0 to 100000; the final 22646 were not read — to
+read on, call WebFetch again with the same url and offset: 100000". This is a DIFFERENT limit from
+get_page_text's ~48k browser cap (route 9c) and, unlike that one, IT ANNOUNCES ITSELF and is pageable.
+Three consequences:
+  (a) The note is the only thing that tells you a tail exists. A long page whose answer looks complete
+      may simply have had its material in the first 100k. Read the note on every long fetch and record
+      the unread tail in crawl-sources, or the next run will treat the source as exhausted.
+  (b) Targeted verbatim calls on a long page still work when the quoted passage is early, and three such
+      calls on this page all landed inside the first 100k while the note appeared on all three. The note
+      firing does NOT mean the call failed.
+  (c) WebFetch caches per URL for about 15 minutes, and three differently-prompted calls on the same URL
+      all returned fresh targeted answers this run, so the cache is not a barrier to several verbatim
+      passes on one document.
+
+=== ROUTE 28, THIRD AND FOURTH CONFIRMATIONS, AND THE CLASS IS WIDER THAN CODE. 47th run. ===
+Route 28 (46th run) says never promote a literal out of an open-ended extraction, with code as the worst
+case. This run's verbatim calls convicted the open-ended reads THREE more times on the SAME pages, and
+only one of the three was code-shaped:
+  (i) An open-ended read called the exfiltrated file "a 149,544-byte Perl module". The verbatim call shows
+      the filename and path are REDACTED in the report. The byte count survived; the identification of
+      what the file was did not, and was invented in the direction a reader would expect from a
+      Perl-flavoured context.
+  (ii) An open-ended read gave "blocked 55-66% of Mythos 5/Opus 4.7 actions" — a RANGE across two models.
+      The page gives two separate figures attached to two separate models: 66% for Mythos 5, 55% for Opus
+      4.7. A range is a plausible-looking compression that destroys the per-model attribution, which was
+      the entire point of the number.
+  (iii) An open-ended read gave "attempted task abortion seven times". The page says the model "attempted
+      to abort the task using a command but was unsuccessful due to a misconfiguration in our evaluation
+      harness" and then "attempted to give up seven more times". One plus seven, not seven.
+*** THE WIDENED RULE: the fabrication class is not only code, it is any literal that a summariser can
+*** RECONSTRUCT plausibly — a filename implied by context, a range implied by two numbers, a count implied
+*** by the word "more". An open-ended extraction is reliable for STRUCTURE and unreliable for anything a
+*** careful-sounding writer would fill in. Verify every number you will attach to a named entity, every
+*** identifier, and every quantifier adjacent to a word like "more", "another" or "also". ***
+COST AND VALUE, measured: five verbatim calls across three documents this run, three convictions. The
+discipline is paying at better than one defect caught per two calls.
