@@ -85,9 +85,12 @@ grader sets the headline number.
 
 ## Maintenance
 
-A periodic crawl job refreshes the pack. Its state lives under
-`.knomit/jobs/agentic-engineering/`: `crawl-sources/` holds the live source list, yield
-ranking and known-dead URLs, and `crawl-state/` holds **only the most recent run** —
-the full crawl record is that fact's revision history, not its body. Each run also
-re-checks a sample of low-confidence and ageing facts against their sources and
-corrects or retracts them; this is a field where advice expires.
+A periodic crawl job refreshes the pack. Its instructions are the skill
+`.knomit/skills/agentic-engineering-crawl/`: the procedure, the pack spec, the one-off
+sources and the seed feed list. The skill is read-only to the job and changes only
+through git. Its state, which is data only, lives under
+`artifacts/jobs/agentic-engineering/`: per-feed high-water marks (`feeds.md`),
+per-host lists of URLs already read (`seen/`), finished one-off sources, discovered
+feeds, the queue, fetch recipes, and one appended record per run (`crawl-state.md`).
+Each run also re-checks a sample of low-confidence and ageing facts against their
+sources and corrects or retracts them; this is a field where advice expires.
