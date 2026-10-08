@@ -94,3 +94,77 @@ SEPARATELY, AND NOT A DRIFT: the repo CATALOGUE changed mid-run. The first knomi
 5 repos; the pre-write call listed 6, with `knomit-playbooks` (034f37d5b4a5) new. The binding was unchanged
 and correct both times (one mount, agentic-engineering, read+write). So knomit_repos' catalogue is live and
 a new row appearing is not route 10. Check `bound.binding`, not the repo count.
+
+=== ROUTE 36 (49th run). *** knomit_explain ANCHORED AT AN EXPLICIT `commit` RETURNED NO `history` OBJECT AT ALL -- 37 CALLS, 37 TIMES. AND THIS CONTRADICTS THE 48th RUN'S MEASUREMENT, SO BOTH ARE RECORDED. *** ===
+This run's read-only subagent made 37 anchored calls of the form
+    knomit_explain(file=".knomit/jobs/agentic-engineering/crawl-state.md", commit="<40-hex>")
+and reported that EVERY one came back as a single node of kind "system_file" carrying `blob`, `size`,
+`content` and `superseded: true`, with NO `history` key, no `revisions`, no `diff` and no
+`more_available`. Not a short chain -- absent.
+THE 48th RUN MEASURED THE OPPOSITE on the same path with the same kind of call, recording that
+"more_available was true on every read except the floor's". Both runs used a subagent, both reported 0
+failures, and both reproduced the same byte-comparisons, so neither looks careless.
+THE DISAGREEMENT IS NOT RESOLVED AND MUST NOT BE FLATTENED. Two candidate explanations, neither tested:
+  (a) a server change between 2026-10-07 and 2026-10-08;
+  (b) the response shape differs by whether the body is served inline or persisted to a file, and the two
+      runs had different oversized sets (route 34's corollary says that set moves).
+WHAT TO DO, WHICH IS THE SAME EITHER WAY AND IS WHY THIS COSTS NOTHING TO LEAVE OPEN: walk by the prose
+hash list, never by history.revisions. If the history object is absent the documented protocol cannot run
+at all; if it is present it terminates early. The prose list is the only mechanism under both readings.
+ONE CHEAP TEST FOR A FUTURE RUN: make one anchored call yourself, in the main session rather than in a
+subagent, and record whether `history` is present and whether the body came back inline. That single
+datapoint distinguishes (a) from (b) and would retire this route.
+
+=== ROUTE 37 (49th run). *** THE VERBATIM CALL -- ROUTE 32'S OWN INSTRUMENT -- TRUNCATES EACH QUOTE AT ~125 CHARACTERS AND THEN PARAPHRASES THE REST WITHOUT MARKING IT AS PARAPHRASE. *** ===
+Route 32 says never write a number from an open-ended extraction and to get the sentence verbatim instead.
+This run measured a limit on that remedy. A single targeted call asking for nine passages from
+aisi.gov.uk/blog/transect-... returned three of them cut mid-sentence with an explicit note, e.g.:
+    "Rerunning the same analysis also requires retaining the transcript, category definitions, settings,"
+    (truncated to the 125-character limit; the sentence continues with "custom analysis code and software
+     versions.")
+THE TAIL AFTER THE NOTICE IS THE SUMMARISER'S RECONSTRUCTION, NOT THE PAGE'S TEXT. It is offered in the
+same breath as the verbatim part and in quotation marks. So a long "verbatim" quote is part transcription
+and part exactly the thing route 32 forbids, and the seam is marked only by a parenthetical that is easy
+to read past.
+THE RULE: ASK FOR THE SHORT DISTINGUISHING CLAUSE, NOT THE WHOLE SENTENCE. If a claim needs a compound
+condition quoted in full (and this pack's quality bar often does -- see 012daf73's "twelve months / ninety
+days"), split it across two or three numbered asks of under ~120 characters each rather than one long one.
+AND TREAT ANY CONTINUATION THE TOOL SUPPLIES AFTER A TRUNCATION NOTICE AS UNVERIFIED: either re-ask for
+that clause on its own, or write the fact around the part that was actually returned.
+THIS IS DISTINCT FROM ROUTE 31 (WebFetch stopping at 100,000 characters of the PAGE). That is a page-length
+cap that announces itself and is pageable with `offset`. This is a per-QUOTE cap inside the answer, it is
+not pageable, and what it hands you in place of the missing text is generated.
+
+=== ROUTE 38 (49th run). ROUTE 32'S FABRICATION CLASS EXTENDS TO ENTITY ATTRIBUTION, AND THAT IS THE WORST SUB-CLASS YET BECAUSE IT READS AS CORROBORATED. ===
+Route 32 caught fabricated NUMBERS; the 47th run's widened rule covers filenames, ranges and counts. This
+run adds an organisation name. The open-ended read of
+metr.org/blog/2026-10-06-ai-systems-could-cover-up-misbehavior/ reported the Inspect transcript viewer as
+"developed by the UK AI Security Institute". The verbatim call returns only:
+    "Meridian Labs, the team behind Inspect, patched the vulnerability within one day of reporting."
+The page says nothing about who originally authored Inspect. Inspect IS widely associated with UK AISI,
+which is precisely why the summariser supplied it.
+*** WHY THIS SUB-CLASS IS THE DANGEROUS ONE: a fabricated number is checkable against the page and looks
+*** wrong the moment you look. A fabricated attribution is checkable against the WORLD, where it is
+*** plausible or even true, so a reviewer's background knowledge CONFIRMS it and the fabrication survives
+*** review. The defect is not that the claim is false; it is that the SOURCE did not make it, which is
+*** what a ref asserts. ***
+THE RULE: verify verbatim every org-to-artifact attribution you are about to put in a body or an entities
+list -- who built it, who maintains it, who funded it, who disclosed it. If the page does not say, the fact
+does not say, and the body should state that the source is silent rather than leaving a gap a later run
+fills in. Applied this run: 9cd59af4's enrichment names Meridian Labs as "the team behind Inspect" and adds
+an explicit line telling future readers not to fill in original authorship.
+
+=== ROUTE 39 (49th run). A "See more" / "Load more" CONTROL MAY BE A DEAD PLACEHOLDER. CHECK ITS href BEFORE QUEUEING THE DEPTH BEHIND IT. ===
+www.anthropic.com/research returns 10 entries and a "See more" link. The 47th and 48th runs both inferred
+real depth behind it (correctly) and queued "the See more depth" as a target (uselessly): its href is `#`.
+There is no next page to fetch and no pagination parameter to guess, so two runs carried a queue item that
+could never be executed as written.
+THE ASK THAT SETTLES IT IN THE SAME CALL AS THE SWEEP, at no extra cost: when asking an index for its
+entries, also ask "is there a See more or pagination link, and what is its target URL?". A `#`, a
+`javascript:` scheme, or no href at all means the depth is client-side or absent, and the only routes
+onward are (a) another page that links the older items directly, or (b) a known-slug list.
+FOR THIS SPECIFIC CASE THE ANSWER IS (a) AND IT IS ALREADY IN HAND: the alignment.anthropic.com index links
+17 older anthropic.com/research slugs directly. That is the route to /research depth. See crawl-sources.
+GENERAL FORM, and it is the counterpart to route 5's depth-varies caution: route 5 says one call may
+under-report a listing's depth. This says a visible affordance for MORE depth may not be wired to
+anything. Neither the count nor the control is evidence; only a URL that resolves is.
