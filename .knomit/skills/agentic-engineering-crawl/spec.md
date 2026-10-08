@@ -346,6 +346,24 @@ and legitimately have no `designer` entity. **Do not add one** — it would fals
 assert designer authorship, and `origin` is immutable. You can read and verify
 these facts but cannot record the result, so prefer other topics when sampling.
 
+### A verdict about a source carries its date and its method
+
+Every verdict about a source (an entry count, "dead", "no new posts", coverage)
+is stated with the date and the method that produced it. An undated, method-less
+count is not stated. alignment.anthropic.com returned 8, 62, 62, 79 and 84
+entries on the same URL across five runs, so "84 entries as of 2026-10-08, one
+WebFetch with a date window" is sayable and "the archive has 84 posts" is not.
+
+### A figure, an identifier or an attribution needs a verbatim read
+
+A figure, an identifier or an attribution is not held until a verbatim read has
+returned the clause containing it. A clause longer than about 120 characters is
+requested in pieces, because a verbatim call truncates near that length and
+paraphrases the rest unmarked. An open-ended reader's paraphrase never supports
+a figure, an identifier or an attribution: it fabricates numbers and
+attributions, and the attributions survive review because the world
+corroborates them.
+
 ## Standing constraints
 
 **All knowledge output goes into knomit via the MCP tools.** Nothing you write to
