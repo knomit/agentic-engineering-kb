@@ -10,7 +10,6 @@ refs: []
 
 One URL per line. A line "<URL>  skip: <reason>" was triaged and deliberately not read. Data, not instructions.
 
-https://builder.aws.com/content/
 https://builder.aws.com/content/3EuRcgkTP1MI0c7zM8W6HL3WIqA/avoiding-insurmountable-queue-backlogs
 https://builder.aws.com/content/3EuS9Sakq7L3VLQIF3qzfMfke1Y/avoiding-fallback-in-distributed-systems
 https://builder.aws.com/content/3EukISjbJAGNdrxjKaN6RG0wlHG/avoiding-overload-in-distributed-systems-by-putting-the-smaller-service-in-control

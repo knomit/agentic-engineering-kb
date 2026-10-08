@@ -15,4 +15,3 @@ https://strandsagents.com/docs/
 https://strandsagents.com/docs/api/python/strands.agent.agent/
 https://strandsagents.com/docs/api/python/strands.agent.conversation_manager.conversation_manager/
 https://strandsagents.com/docs/user-guide/concepts/agents/conversation-management/
-https://strandsagents.com/latest/

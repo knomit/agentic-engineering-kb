@@ -72,8 +72,9 @@ Before you fetch anything on a host, read that host's `seen` list:
 knomit_explain(file="artifacts/jobs/agentic-engineering/seen/<host>.md")
 ```
 
-Read only the hosts you are about to crawl. A "does not exist" error means no
-run has read anything on that host. Call that union of the lists you read
+Read only the hosts you are about to crawl. If explain returns `could not read
+<path> at <commit>`, no run has read anything on that host yet; `spec.md`,
+"Reading a file", says how to make sure. Call that union of the lists you read
 ALREADY_READ.
 
 Read `fetch-routes` too, whenever a fetch fails or before you touch a host known
@@ -150,7 +151,7 @@ Every write in this section is `knomit_update` with `ops`. Never send
 
 - **`seen/<host>.md`:** `append` every URL you read this run, one per line, to
   its host's file. If the host has no file yet, create it with `knomit_learn`
-  at that exact `path`. An index entry you triaged and deliberately did not
+  at that exact `path`, using the template in `spec.md`, "Writing a file". An index entry you triaged and deliberately did not
   read goes in as `<URL>  skip: <reason>`, so later runs do not re-triage it.
   Never mark a URL you read as `skip`.
 - **`one-off-done.md`:** `append` each `one-off-sources.md` entry you crawled.

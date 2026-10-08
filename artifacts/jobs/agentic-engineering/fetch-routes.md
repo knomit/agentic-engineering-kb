@@ -10,14 +10,13 @@ refs: []
 
 type: reference / job-state. Per-host fetch recipes and tool caveats for the agentic-engineering crawl.
 
-*** READ THIS FIRST. THIS SLOT IS A CONTINUATION, NOT THE WHOLE FILE. ***
-ROUTES 1 THROUGH 31 AND EVERY HOST RECIPE LIVE AT THE OLD PATH AND ARE STILL FULLY READABLE:
-    knomit_explain(file=".knomit/jobs/agentic-engineering/fetch-routes.md")
-98,223 characters, last revision c48215b69eb6c9166ee9afbd1744d9a13f825705. READS WORK NORMALLY THERE.
-WRITES DO NOT — see the migration note below. Every run must read BOTH: the old path for routes 1-31 and
-the host recipes (openai.com 403 browser route, the OWASP User-Agent gate, the CDN egress denials, the
-oversized-slot reading recipe, the motif validator's token limit), and this slot for route 32 onward.
-Nothing was copied, so nothing was truncated in the move.
+*** THIS FILE IS A CONTINUATION: ROUTES 32 ONWARD. ***
+Routes 1 through 31 and the host recipes (openai.com 403 browser route, the OWASP User-Agent gate, the CDN
+egress denials, the oversized-slot reading recipe, the motif validator's token limit) are in the read-only
+archive. The old path was removed from HEAD, so read it at the archive commit:
+    knomit_explain(file=".knomit/jobs/agentic-engineering/fetch-routes.md", commit="a97120e607ad6fc1d930a85793898571b4be4123")
+98,223 characters. Read it only when a fetch fails or a route you need is not in this file. Never read it
+on every run. Nothing was copied, so nothing was truncated in the move.
 
 === MIGRATION, 48th RUN (2026-10-07). THE REASON THIS SLOT EXISTS. ===
 The fact tools now REFUSE every write under .knomit/. Verbatim refusal on a knomit_update to
