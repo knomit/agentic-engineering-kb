@@ -47,4 +47,9 @@ https://www.anthropic.com/news/life-sciences-verification-program
 https://www.anthropic.com/news/model-hardware-standard-research-preview
 https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents
 https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities
+https://www.anthropic.com/claude-haiku-5-5
+https://www.anthropic.com/news/2026-usage-policy-update  skip: usage-policy change, no engineering content
+https://www.anthropic.com/news/anthropic-cyber-mission  skip: programme announcement, not a method post
+https://www.anthropic.com/news/genesis-mission-commitment  skip: partnership announcement, no engineering content
+https://www.anthropic.com/research/project-swap
 https://www.anthropic.com/threat-intelligence-report-september-2026
