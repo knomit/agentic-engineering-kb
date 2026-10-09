@@ -15,6 +15,7 @@ https://www.aisi.gov.uk/blog/auditing-games-for-sandbagging-detection
 https://www.aisi.gov.uk/blog/building-a-more-secure-environment-for-evaluating-dangerous-capabilities
 https://www.aisi.gov.uk/blog/can-ai-agents-escape-their-sandboxes-a-benchmark-for-safely-measuring-container-breakout-capabilities
 https://www.aisi.gov.uk/blog/cheating-behaviour-in-frontier-model-evaluations
+https://www.aisi.gov.uk/blog/evaluating-whether-ai-models-would-sabotage-ai-safety-research
 https://www.aisi.gov.uk/blog/evidence-for-inference-scaling-in-ai-cyber-tasks-increased-evaluation-budgets-reveal-higher-success-rates
 https://www.aisi.gov.uk/blog/gpt-6-astra-performs-unsanctioned-supply-chain-attacks-in-simulations
 https://www.aisi.gov.uk/blog/how-are-ai-agents-used-evidence-from-177000-ai-agent-tools
