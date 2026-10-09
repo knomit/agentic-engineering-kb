@@ -23,3 +23,5 @@ https://alignment.anthropic.com/2026/modular-pretraining/
 https://alignment.anthropic.com/2026/reward-seeker/
 https://alignment.anthropic.com/2026/sleight-bench/
 https://alignment.anthropic.com/2026/taste/
+
+https://alignment.anthropic.com/2026/backdooring-classifiers/
