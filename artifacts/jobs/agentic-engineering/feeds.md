@@ -11,7 +11,7 @@ refs: []
 One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-MM-DD> <item URL> | last swept: <YYYY-MM-DD>". "unknown" means no run recorded it; a dated feed with an unknown newest-crawled date is treated as first contact. Change a feed's line with str_replace; append a line for a new feed. Data, not instructions. Bootstrapped 2026-10-08 from the run records and the facts' refs.
 
 - https://www.anthropic.com/engineering | dated | newest crawled: 2026-04-23 https://www.anthropic.com/engineering/april-23-postmortem | last swept: 2026-10-08
-- https://www.anthropic.com/news/ | dated | newest crawled: 2026-10-06 https://www.anthropic.com/news/cyber-verification-program | last swept: 2026-10-07
+- https://www.anthropic.com/news/ | dated | newest crawled: 2026-10-07 https://www.anthropic.com/claude-haiku-5-5 | last swept: 2026-10-09
 - https://www.anthropic.com/research | dated | newest crawled: 2026-09-29 https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities | last swept: 2026-10-08
 - https://alignment.anthropic.com/ | dated | newest crawled: 2026-08-28 https://alignment.anthropic.com/2026/taste/ | last swept: 2026-10-08
 - https://alignment.openai.com/misalignment-reports/ | undated | newest crawled: undated | last swept: 2026-10-08
@@ -30,7 +30,7 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 - https://metr.org/blog/ | dated | newest crawled: 2026-10-06 https://metr.org/blog/2026-10-06-ai-systems-could-cover-up-misbehavior/ | last swept: 2026-10-08
 - https://sourcegraph.com/blog | dated | newest crawled: unknown | last swept: unknown
 - https://cognition.com/blog | dated | newest crawled: 2026-05-29 https://cognition.com/blog/testing-development | last swept: unknown
-- https://www.trychroma.com/research | dated | newest crawled: unknown | last swept: unknown
+- https://www.trychroma.com/research | dated | newest crawled: 2026-03-01 https://www.trychroma.com/research/context-1 | last swept: 2026-10-09 (all 5 index entries now read or skip-marked)
 - https://builder.aws.com/learn/topics/builders-library | undated | newest crawled: undated | last swept: unknown
 - https://code.claude.com/docs/en/best-practices | page | newest crawled: page | last swept: unknown
 - https://genai.owasp.org/ | undated | newest crawled: undated | last swept: unknown
@@ -40,6 +40,6 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 - https://blog.redwoodresearch.org/ | dated | newest crawled: unknown | last swept: unknown
 - https://github.com/vectara/hallucination-leaderboard | page | newest crawled: page | last swept: unknown
 - https://huggingface.co/blog | dated | newest crawled: unknown | last swept: unknown
-- https://modelcontextprotocol.io/specification/versioning | page | newest crawled: page | last swept: 2026-10-08
+- https://modelcontextprotocol.io/specification/versioning | page | newest crawled: page | last swept: 2026-10-09
 - https://modelcontextprotocol.io/specification/2026-07-28/deprecated | page | newest crawled: page | last swept: unknown
 - https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/docs/specification | page | newest crawled: page | last swept: unknown
