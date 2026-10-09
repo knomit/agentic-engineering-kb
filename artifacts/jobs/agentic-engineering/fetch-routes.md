@@ -167,3 +167,38 @@ FOR THIS SPECIFIC CASE THE ANSWER IS (a) AND IT IS ALREADY IN HAND: the alignmen
 GENERAL FORM, and it is the counterpart to route 5's depth-varies caution: route 5 says one call may
 under-report a listing's depth. This says a visible affordance for MORE depth may not be wired to
 anything. Neither the count nor the control is evidence; only a URL that resolves is.
+
+=== ROUTE 40 (50th run). ROUTE 39 GENERALISES ACROSS THE WHOLE anthropic.com SITE, NOT JUST /research. ===
+Sweeping www.anthropic.com/news/ with the route-39 ask ("is there a See more or pagination link, and what is
+its target URL?") returned: the News list has a "See more" link and its target is "#". Same placeholder as
+/research. So the depth behind anthropic.com listings is client-side on at least two sections, and there is
+no pagination parameter to guess on either. Do not queue "the See more depth" for any anthropic.com index.
+The routes onward are the ones route 39 names: another page that links the older items directly (the
+alignment.anthropic.com index links 17 older /research/ slugs), or a known-slug list.
+ALSO MEASURED ON THAT SWEEP: the same index returns an item in BOTH a featured block and the dated list, so
+one post can appear twice in an enumeration with identical URL and date. Deduplicate by URL before counting
+anything, and remember route 33 -- ask for the enumeration, never the count.
+AND THE DATED LIST IS NOT THE WHOLE FEED: Claude Haiku 5.5 (Oct 7) appeared only in the featured section,
+not in the dated News list, and its URL is at the SITE ROOT (/claude-haiku-5-5), not under /news/. A sweep
+that reads only the dated rows misses model launches entirely.
+
+=== ROUTE 41 (50th run). deploymentsafety.openai.com/gpt-6-astra/safeguards IS 109,623 CHARACTERS AND EXCEEDS THE FETCH CAP -- BUT THE APOLLO SECTION IS INSIDE THE FIRST 100,000. ===
+A targeted verbatim call on that URL returned its three asked-for quotes and then the route-31 notice:
+    "this page's text is 109623 characters long and the answer above covers only characters 0 to 100000;
+     the final 9623 were not read -- to read on, call WebFetch again with the same url and offset: 100000."
+So the page is pageable and the cap announced itself, exactly as route 31 says. The operational point for
+this specific URL: the "External Evaluations for Alignment - Apollo Research" section is reachable in ONE
+plain call with no offset, and the queue's long-standing "Section 9 (Preparedness), capped at one attempt"
+item is most likely in the unread 9,623-character tail -- so spend that one attempt with offset: 100000
+rather than on a fresh no-offset call, which will return the same first 100k again.
+
+=== ROUTE 42 (50th run). A SHORT PAGE MAY IGNORE THE VERBATIM-QUOTE FORMAT AND RETURN THE RAW PAGE TEXT INSTEAD. THAT IS THE GOOD OUTCOME, NOT A FAILED CALL. ===
+modelcontextprotocol.io/specification/versioning was asked for two numbered quotes under 110 characters each
+and instead returned the page's prose essentially whole, headings, callouts and link targets included. The
+asked-for facts were in it and the current revision (2026-07-28) was readable directly off the page text.
+WHY THIS MATTERS GIVEN ROUTES 32, 37 AND 38: those routes exist because the extraction layer REGULARISES
+and FABRICATES when it summarises. Raw page text is the one return shape that cannot do either. So when a
+verbatim ask comes back as the page itself, treat it as the strongest possible evidence, not as the tool
+misbehaving, and do not re-ask in the hope of a tidier answer -- a tidier answer is a worse one.
+It also means the ~125-character per-quote truncation of route 37 does not bite on short pages: ask a short
+page for the clause and you may get the surrounding paragraphs for free.
