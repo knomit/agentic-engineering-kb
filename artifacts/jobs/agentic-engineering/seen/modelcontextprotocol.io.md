@@ -16,6 +16,7 @@ https://modelcontextprotocol.io/docs/extensions/overview
 https://modelcontextprotocol.io/specification/2025-06-18
 https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices
 https://modelcontextprotocol.io/specification/2025-11-25/changelog
+https://modelcontextprotocol.io/specification/versioning
 https://modelcontextprotocol.io/specification/2026-07-28
 https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization
 https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/authorization-server-discovery
