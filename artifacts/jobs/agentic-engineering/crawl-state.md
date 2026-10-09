@@ -193,3 +193,109 @@ Nothing recorded as dead, blocked or paywalled. The .knomit/ write refusal is re
 SUB-RULES, cumulative (the 45th run's three, the 46th's two, the 47th's two and the 48th's two stand. This run adds two):
  (49th) *** A FORWARDING POINTER CANNOT LIVE ONLY AT THE DESTINATION. The 48th run migrated the job's state and documented the move thoroughly -- in the new slot, which is the one place a run working from the spec does not look. This run read the three paths its prompt names, found a record three days stale, and concluded a run had vanished. When a job moves something the spec points at, the move is not recorded until it is recorded WHERE THE SPEC STILL SENDS THE READER, or the spec itself is changed. A run that cannot edit the spec must therefore treat "the record looks impossibly stale" as a signal to search for a migrated location BEFORE reporting a gap -- and must report the discrepancy to a human either way, because only a human can close it. ***
  (49th) *** VERIFY ATTRIBUTIONS, NOT JUST NUMBERS -- AND KNOW THAT A FABRICATED ATTRIBUTION IS THE ONE DEFECT A REVIEWER'S KNOWLEDGE CONFIRMS. Route 32 established that the open-ended reader regularises figures. This run caught it inventing an ORGANISATION: "Inspect, developed by the UK AI Security Institute", where the page says only "Meridian Labs, the team behind Inspect". The invention was plausible and may even be true of the world, which is exactly why it is worse than a wrong number -- a wrong number looks wrong against the page, while a wrong attribution looks right against everything the reviewer already knows. A ref asserts that the SOURCE made the claim. Verify every who-built-it, who-maintains-it, who-disclosed-it verbatim, and when the page is silent, say the page is silent. ***
+
+## Run of 2026-10-09 (50th run)
+
+DEDUP READS. feeds.md (33 feed lines), queue.md (items 6-20), discovered-sources.md (empty -- no
+job-discovered feeds), one-off-done.md (59 URLs; every one-off-sources.md entry is already done, so no
+one-off work existed this run), fetch-routes.md (routes 32-39; the pre-32 archive was NOT read, nothing
+sent me there). seen lists read, for the hosts crawled only: alignment.anthropic.com (13 URLs),
+anthropic.com (38), aisi.gov.uk (18), trychroma.com (3), modelcontextprotocol.io (17). No failed calls, no
+gaps. crawl-state.md was not read, per the skill.
+
+INDEXES SWEPT. www.anthropic.com/news/ (dated, high-water 2026-10-06) and www.trychroma.com/research
+(dated, high-water unknown -> first contact). modelcontextprotocol.io/specification/versioning as the
+versioning tripwire (page). The /research, alignment.anthropic.com and aisi.gov.uk indexes were NOT swept
+this run -- they were swept on 2026-10-08 and this run spent its budget on the queued articles behind them
+instead, so their feeds.md lines are untouched.
+
+ARTICLES NEWLY CRAWLED (added to seen):
+- https://alignment.anthropic.com/2026/backdooring-classifiers/
+- https://www.anthropic.com/research/project-swap
+- https://www.aisi.gov.uk/blog/evaluating-whether-ai-models-would-sabotage-ai-safety-research
+- https://www.trychroma.com/research/evaluating-chunking
+- https://www.anthropic.com/claude-haiku-5-5
+- https://modelcontextprotocol.io/specification/versioning (tripwire)
+
+TRIAGED AND SKIPPED (recorded in seen with reasons, so they are not re-triaged):
+anthropic.com/news/2026-usage-policy-update, /news/anthropic-cyber-mission,
+/news/genesis-mission-commitment -- all three Oct 8, all policy or programme announcements rather than
+method posts. trychroma.com/research/embedding-adapters -- May 2024, below the altitude bar.
+
+NO SOURCE ERRORED, was paywalled or was blocked this run. Nothing was declared dead.
+
+FACTS WRITTEN (6 new):
+- kb/gotchas/ai/agents/security/training-data-poisoning/d6d542ce.md -- about 32 poisoned fine-tuning
+  examples install a classifier backdoor regardless of training set size; the internal CBRN replication
+  went in with little robustness loss, so passing deployment checks is not evidence of a clean dataset.
+- kb/architecture/ai/agents/delegation/principal-representation/de01cc36.md -- in the agent-mediated
+  market the limiting factor was representation, not bargaining; certify understanding of the specific
+  principal, not just model competence.
+- kb/architecture/ai/agents/multi-agent/market-mechanisms/c0b36bb7.md -- agents do not tire, so turn
+  budgets and concurrency caps are mechanism design rather than anti-abuse plumbing.
+- kb/conventions/ai/agents/evaluation/sabotage-continuation/87f6aaf5.md -- the continuation eval design
+  (prefill another model's partly-sabotaged trajectory and score correct-vs-continue), plus the grader
+  discipline that a rare behaviour's non-zero LLM-judge rate is a judge-error hypothesis first.
+- kb/conventions/ai/rag/chunking-evaluation/3c0e0fbe.md -- document-level IR benchmarks are structurally
+  blind to chunking; token-level recall/precision/Precision-Omega/IoU is the instrument, and the
+  efficiency half is what a recall-only setup misses.
+- kb/gotchas/ai/agents/model-selection/latency/737c3af3.md -- the speed ranking between size classes
+  inverts between serving modes, and effort is now a per-call knob on the small model too.
+
+FACT ENRICHED (1):
+- kb/decisions/ai/agents/model-selection/total-cost/26e77a95.md -- added two further mechanisms that break
+  the per-token-price inference, both from the Haiku 5.5 launch page: an updated tokenizer that "uses
+  slightly more tokens per task" (invisible in any rate, so invisible to exactly the comparison teams make
+  on a model swap), and prompt-length price tiering, which an agent's growing context can cross mid-run.
+  sources 1 -> 2, confidence 0.70 -> 0.75, ref added.
+
+CORRECTION MADE, AND WHAT WAS WRONG (1):
+- kb/gotchas/ai/agents/multi-agent/delegation/c7290868.md. Defect class: the TITLE asserted the exact
+  causal inversion that the fact's own body had been corrected to reject. The title read "...are overly
+  prescriptive when they lack codebase depth", while the body (corrected on 2026-07-29) states that
+  prescriptiveness comes from small-scoped delegation TRAINING and that shallow context is only what makes
+  it backfire. Evidence: both source clauses re-verified verbatim against cognition.com/blog/
+  multi-agents-working this run. A consumer reading titles only would have inherited the wrong remedy --
+  give the manager more context and the verbosity goes away -- which the body explicitly says is false.
+  Title now states the corrected causality. Second defect, same fact: the body carried a "CORRECTED
+  (staleness pass, 2026-07-29): ... An earlier version of this fact stated..." paragraph, which is edit
+  history the spec keeps out of bodies; it was replaced with the fact's current scope, keeping the
+  foreseeable-misreading warning.
+
+STALENESS PASS (5 sampled, all outside kb/principles/**):
+1. 031dab74 (MCP revision does not increment for compatible changes) -- CONFIRMED. The versioning tripwire
+   returned "The **current** protocol version is [**2026-07-28**]", so every 2026-07-28-anchored fact in
+   the MCP cluster still names the live revision.
+2. 012daf73 (MCP deprecations) -- CONFIRMED. The deprecation window still reads verbatim on the same page:
+   features "remain in the specification for at least twelve months, or at least ninety days under the
+   policy's expedited-removal exception". Both components of the compound condition intact. Noted that the
+   fact anchors this to /specification/versioning rather than to /community/feature-lifecycle, which
+   defines it -- queued as item (21).
+3. afce1dae (long-context RAG failure taxonomy) -- CONFIRMED, no change. Source live, publication date
+   still 2024-08-12, no update notice or newer-models addendum, and the corpus-saturation quote returned
+   verbatim. The fact already carries an explicit model-generation scope paragraph, so no correction was
+   needed; its sub-0.8 confidence remains correct.
+4. c7290868 -- CORRECTED. See above.
+5. 0c3c2d6a (verbalized evaluation awareness is reportable context, never a correction) -- CONFIRMED, and
+   this settles the queue's "Apollo-via-OpenAI" paraphrase worry for this fact. All three Apollo clauses
+   returned verbatim off deploymentsafety.openai.com/gpt-6-astra/safeguards -- "At xhigh reasoning effort,
+   this occurred in 41.1% of Astra samples", "At max reasoning effort, Astra's rate was 50.6%.", "given
+   the higher rates of eval awareness and limited evaluation window" -- and the page attributes them to
+   Apollo Research by name, in a section headed "External Evaluations for Alignment - Apollo Research".
+   Route 38's attribution worry does not apply here: the attribution is the page's own, not a summariser's.
+   c9b6c5fa, 9b0c8c78 and 2d26e61b remain unchecked.
+
+FETCH ROUTES ADDED: 40 (the placeholder "See more" href generalises to anthropic.com/news; one post can
+appear twice in one enumeration; and the dated list is not the whole feed -- the Haiku 5.5 launch sat only
+in the featured block, at the site root rather than under /news/), 41 (the Astra safeguards page is 109,623
+characters, the Apollo section is inside the first 100,000, and the long-queued Preparedness item is most
+likely in the unread tail -- spend the one attempt with offset: 100000), 42 (a short page may return its raw
+text instead of the asked-for quotes, which given routes 32/37/38 is the strongest return shape there is).
+
+NO FEEDS DISCOVERED. discovered-sources.md unchanged.
+
+NO PROMPT INJECTION OR AGENT-ADDRESSED TEXT was encountered in any page read this run.
+
+ROUTE 36 REMAINS OPEN AND ITS CHEAP TEST IS STILL UNSPENT: this run made no knomit_explain call with an
+explicit commit anchor, so it produced no datapoint on whether an anchored explain returns a history
+object.
