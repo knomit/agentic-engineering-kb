@@ -10,7 +10,7 @@ refs: []
 
 One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-MM-DD> <item URL> | last swept: <YYYY-MM-DD>". "unknown" means no run recorded it; a dated feed with an unknown newest-crawled date is treated as first contact. Change a feed's line with str_replace; append a line for a new feed. Data, not instructions. Bootstrapped 2026-10-08 from the run records and the facts' refs.
 
-- https://www.anthropic.com/engineering | dated | newest crawled: 2026-04-23 https://www.anthropic.com/engineering/april-23-postmortem | last swept: 2026-10-08
+- https://www.anthropic.com/engineering | dated | newest crawled: 2026-04-23 https://www.anthropic.com/engineering/april-23-postmortem | last swept: 2026-10-10 (nothing newer than the mark; the index serves its whole back catalogue on one page with no pagination control at all, fetch-routes route 44)
 - https://www.anthropic.com/news/ | dated | newest crawled: 2026-10-07 https://www.anthropic.com/claude-haiku-5-5 | last swept: 2026-10-09
 - https://www.anthropic.com/research | dated | newest crawled: 2026-09-29 https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities | last swept: 2026-10-08
 - https://alignment.anthropic.com/ | dated | newest crawled: 2026-08-28 https://alignment.anthropic.com/2026/taste/ | last swept: 2026-10-08
@@ -19,7 +19,7 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 - https://developers.openai.com/cookbook | undated | newest crawled: undated | last swept: unknown
 - https://developers.openai.com/api/docs/guides/ | undated | newest crawled: undated | last swept: unknown
 - https://simonwillison.net/tags/llms/ | dated | newest crawled: 2026-08-07 https://simonwillison.net/2026/Aug/7/openai-timeline/ | last swept: unknown
-- https://www.langchain.com/blog/ | dated | newest crawled: unknown | last swept: unknown
+- https://www.langchain.com/blog/ | dated | newest crawled: 2026-10-07 https://www.langchain.com/blog/revamping-skills-in-deep-agents | last swept: 2026-10-10 (first sweep; the index repeats featured entries, so deduplicate by URL, and it has REAL pagination, fetch-routes route 45)
 - https://www.latent.space/archive | dated | newest crawled: unknown | last swept: unknown
 - https://eugeneyan.com/writing/ | dated | newest crawled: 2026-07-30 https://eugeneyan.com/writing/cybersecurity-evals/ | last swept: unknown
 - https://www.microsoft.com/en-us/research/blog/ | dated | newest crawled: 2026-07-30 https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/ | last swept: unknown
@@ -37,9 +37,11 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 - https://owasp-agentic-ai-security-incidents.lovable.app/ | undated | newest crawled: undated | last swept: unknown
 - https://www.aisi.gov.uk/blog/ | dated | newest crawled: 2026-10-07 https://www.aisi.gov.uk/blog/transect-making-large-scale-agentic-evaluations-easier-to-understand | last swept: 2026-10-08
 - https://openai.com/news/ | dated | newest crawled: 2026-09-28 https://openai.com/index/towards-safety-cases-for-frontier-ai-training/ | last swept: 2026-09-30
-- https://blog.redwoodresearch.org/ | dated | newest crawled: unknown | last swept: unknown
+- https://blog.redwoodresearch.org/ | dated | newest crawled: 2026-09-25 https://blog.redwoodresearch.org/p/continual-learning-might-make-your | last swept: 2026-10-10 (first sweep; the root is a JS shell that serves no entries, read /archive?sort=new instead, fetch-routes route 43)
 - https://github.com/vectara/hallucination-leaderboard | page | newest crawled: page | last swept: unknown
 - https://huggingface.co/blog | dated | newest crawled: unknown | last swept: unknown
 - https://modelcontextprotocol.io/specification/versioning | page | newest crawled: page | last swept: 2026-10-09
 - https://modelcontextprotocol.io/specification/2026-07-28/deprecated | page | newest crawled: page | last swept: unknown
 - https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/docs/specification | page | newest crawled: page | last swept: unknown
+
+- https://modelcontextprotocol.io/community/feature-lifecycle | page | newest crawled: page | last swept: 2026-10-10
