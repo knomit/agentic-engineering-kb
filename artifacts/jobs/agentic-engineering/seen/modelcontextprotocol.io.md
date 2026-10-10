@@ -28,3 +28,5 @@ https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning
 https://modelcontextprotocol.io/specification/2026-07-28/changelog
 https://modelcontextprotocol.io/specification/2026-07-28/server/discover
 https://modelcontextprotocol.io/specification/2026-07-28/server/tools
+
+https://modelcontextprotocol.io/community/feature-lifecycle
