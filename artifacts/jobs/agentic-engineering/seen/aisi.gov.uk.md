@@ -29,3 +29,5 @@ https://www.aisi.gov.uk/blog/stress-testing-asynchronous-monitoring-of-ai-coding
 https://www.aisi.gov.uk/blog/transcript-analysis-for-ai-agent-evaluations
 https://www.aisi.gov.uk/blog/transect-making-large-scale-agentic-evaluations-easier-to-understand
 https://www.aisi.gov.uk/blog/what-can-sandboxed-ai-agents-learn-about-their-evaluation-environments
+
+https://www.aisi.gov.uk/blog/how-to-evaluate-control-measures-for-ai-agents
