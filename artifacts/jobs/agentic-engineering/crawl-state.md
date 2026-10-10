@@ -299,3 +299,123 @@ NO PROMPT INJECTION OR AGENT-ADDRESSED TEXT was encountered in any page read thi
 ROUTE 36 REMAINS OPEN AND ITS CHEAP TEST IS STILL UNSPENT: this run made no knomit_explain call with an
 explicit commit anchor, so it produced no datapoint on whether an anchored explain returns a history
 object.
+
+=== 51st RUN, 2026-10-10 ===
+
+DEDUP READS. feeds.md (33 feed lines), discovered-sources.md (empty of feeds), one-off-done.md (59 URLs -- every one-off entry already
+crawled, so nothing was due from that tier), queue.md (items 6, 7, 9-21), fetch-routes.md (routes 32-42; the pre-32 archive was NOT read, no
+fetch needed it). seen lists read, for the hosts crawled only: alignment.anthropic.com (13 + 1 = 14 URLs), anthropic.com (43), aisi.gov.uk
+(19), modelcontextprotocol.io (18), langchain.com (4), blog.redwoodresearch.org (NO FILE -- first contact, created this run). No failed
+calls. crawl-state.md was not read, per the skill.
+
+ONE PROCEDURAL NOTE: the skill's uninitialised test names crawl-state.md among the files to probe with knomit_explain, while section 1 says
+not to read it. It was not probed, on the narrower instruction; the other five state files all read clean, and the append below succeeded,
+so the pack is initialised either way. A human may want to reconcile those two lines of the skill.
+
+RECURRING-FEED INDEXES SWEPT (3).
+- www.anthropic.com/engineering -- 25 entries enumerated, NOTHING newer than the 2026-04-23 mark. Not a stale sweep: this index has no
+  pagination control whatsoever and served its entire back catalogue to 2024-09-19 in one call (route 44), so the enumeration is complete.
+- www.langchain.com/blog -- FIRST SWEEP EVER, 19 rows since 2026-08-01 (with repeats; deduplicated by URL). Highest-yield new feed in
+  several runs. Real pagination with a resolvable target (route 45).
+- blog.redwoodresearch.org -- FIRST SWEEP EVER. Root served zero entries as a JS shell; /archive?sort=new returned 12 rows in one plain
+  fetch (route 43). Six in-scope posts are now queued.
+
+NOT SWEPT, AND DELIBERATELY SO: anthropic.com/research, alignment.anthropic.com and aisi.gov.uk each had an ARTICLE read off the queue
+without an index sweep. The /research high-water mark was left at 2026-09-29 rather than advanced to the 2026-10-01 article that was read,
+because advancing it would have hidden anything published in that window. Queue item 7 records this.
+
+ARTICLES NEWLY CRAWLED (6, all added to seen).
+- https://alignment.anthropic.com/2026/hot-mess-of-ai/
+- https://www.anthropic.com/research/claude-shaped-science
+- https://modelcontextprotocol.io/community/feature-lifecycle
+- https://www.aisi.gov.uk/blog/how-to-evaluate-control-measures-for-ai-agents
+- https://www.langchain.com/blog/how-to-build-a-model-router-in-the-harness
+- https://www.langchain.com/blog/revamping-skills-in-deep-agents
+- https://blog.redwoodresearch.org/p/continual-learning-might-make-your
+Plus 13 index entries triaged and skip-marked (1 anthropic.com, 8 langchain.com, 4 blog.redwoodresearch.org).
+
+NOTHING ERRORED, NOTHING WAS PAYWALLED, NOTHING WAS BLOCKED. No browser tool was needed. No source is recorded as dead this run.
+No prompt-injection text addressed to an AI agent was encountered on any page read.
+
+FACTS WRITTEN (8).
+- kb/gotchas/ai/agents/security/monitor-evasion/continual-learning/f829bd47.md -- continual learning turns a BLOCKING monitor into a
+  training signal against itself; four conditions stated in full; no scheming required. The run's best find.
+- kb/gotchas/ai/agents/reliability/error-composition/9a5214f2.md -- error incoherence rises with horizon length; scale fixes it on easy
+  tasks only; raising a reasoning budget is weaker than the overthinking it is meant to offset.
+- kb/invariants/ai/agents/tools/mcp/lifecycle/8b0f7afe.md -- the deprecation window's MEASUREMENT POINT, the narrow definition of the
+  expedited-removal trigger, the ninety-day hard floor, and the two misreadings (deprecated is not a removal date; spec removal is not SDK
+  removal).
+- kb/decisions/ai/agents/security/control-protocols/fd507236.md -- capability-adapted control protocols, and the cost: the safety case
+  expires with the next model.
+- kb/gotchas/ai/agents/context-engineering/skills/tool-binding/d88c2408.md -- a skill-bound tool does not exist until the skill is read, and
+  the prompt-cache escape is model-dependent.
+- kb/decisions/ai/agents/architecture/model-routing/766706aa.md -- router in the harness, one decision per thread, and cache LIFETIME (not
+  model quality) as the condition on re-routing.
+- kb/gotchas/ai/agents/multi-agent/subagent-governance/d4e5d281.md -- a harness-level control does not reach subagents, and the reported
+  saving looks best in the architecture where it is least true.
+- kb/architecture/ai/agents/multi-agent/research-harness/7c40e64c.md -- checking as a separate adversarial-referee session rather than a step
+  inside the producing session.
+One learn call was REFUSED as same-subject against kb/principles/ai/agents/reliability/b9b45ff5.md (shared entity "harness", similarity
+0.70) and resubmitted with distinct_from. b9b45ff5 is about harness-vs-model as the prior when an agent underperforms; 766706aa is about
+where a model router is placed. Different subjects; both kept.
+
+FACTS UPDATED (1).
+- kb/gotchas/ai/agents/tools/mcp/deprecation/012daf73.md -- refs merged and extended from 3 to 5: added the feature-lifecycle policy page
+  (the document that DEFINES the twelve-month / ninety-day window the fact had been citing to /specification/versioning) and a local ref to
+  8b0f7afe. Full merged list resent; no ref dropped. Body unchanged.
+
+NO RETRACTIONS.
+
+CONTRADICTIONS AND CANDIDATE DEFECTS FOUND.
+- *** ONE CANDIDATE DEFECT IN 012daf73, FOUND AND DELIBERATELY NOT ACTED ON. *** The fact says HTTP+SSE's earliest removal is "three months
+  after SEP-2596 reaches Final, not the twelve-month default". The policy page read this run states the opposite measurement rule -- the
+  window "is measured from the release of the specification revision in which the feature is first marked Deprecated, not from the date the
+  SEP reaches Final" -- and puts the expedited floor at ninety days from the feature BECOMING Deprecated. Either the deprecated registry
+  really phrases that one entry against SEP-Final (two sources disagreeing, which is a `decisions` fact) or 012daf73 paraphrased the
+  registry wrong (which is a correction). THE REGISTRY WAS NOT RE-READ THIS RUN, so the fact was left alone: correcting a figure from an
+  inference rather than a verbatim read is exactly what routes 32 and 38 forbid. Queued as item 21 with the single call that settles it.
+- No contradiction found BETWEEN sources this run. The AISI control post (Apr 2025) and the Redwood post (Sep 2026) sit next to each other
+  without conflicting: AISI argues for protocols tuned to current capability, Redwood argues that one class of protocol (blocking, inside a
+  continual-learning loop) degrades on its own. They are complementary and were written as separate facts rather than merged.
+
+STALENESS PASS -- 5 FACTS CHECKED, 3 CONFIRMED, 1 CONFIRMED AND ENRICHED, 2 INCOMPLETE (one fact counted in both categories is 012daf73).
+1. kb/gotchas/ai/agents/tools/mcp/deprecation/012daf73.md -- CONFIRMED AND ENRICHED. The "at least twelve months, or ninety days under the
+   expedited-removal exception" claim verified verbatim against the policy page; refs extended. Candidate defect above is separate.
+2. kb/decisions/ai/agents/reasoning/limits/4b0261d0.md -- CONFIRMED, no change. arXiv:2506.09250 live, still at v2 (2025-06-16) with no
+   later revision, still listed as A. Lawsen alone, and all three alleged design defects re-verified (output-token limit at the failure
+   threshold, a grader conflating truncation with reasoning failure, unsolvable River Crossing instances for N > 5). The body was NOT
+   extended: it already carries two paragraphs of the edit-history text the spec forbids ("STALENESS CHECK 2026-08-09 -- CONFIRMED",
+   "Confidence 0.7 -> 0.75"), and the spec says a fact opened for another reason must not be extended with more of it. Left as found.
+3. kb/architecture/ai/agents/state-management/fc249ffc.md -- CONFIRMED, no change. humanlayer/12-factor-agents live (273 commits on main,
+   26.6k stars, (c) 2026 footer). Both cited factors still present as headings, verbatim: "Factor 12: Make your agent a stateless reducer"
+   and "Factor 5: Unify execution state and business state".
+4. kb/gotchas/ai/agents/evaluation/llm-judge/38c06627.md -- PARTIALLY CONFIRMED, no change, one call from done. applied-llms.org live.
+   Position bias confirmed verbatim ("The order of options presented can bias the LLM's decision.") with its stated fix of swapping the
+   order and re-running; length bias confirmed verbatim ("LLMs tend to bias toward longer responses.") with its fix of keeping paired
+   responses similar in length. SELF-PREFERENCE was NOT found in the first 100,000 of the page's 106,618 characters. That is an unread tail,
+   NOT a refutation, and the fact rests on three refs so self-preference may sit on one of the other two. Queued as item 24(i).
+5. kb/conventions/ai/agents/security/red-teaming/43155c66.md -- SOURCE LIVE, CLAIM UNVERIFIED BY THIS METHOD. The OWASP resource landing
+   page is live (published 2026-04-09, download link intact), but its own text names neither "memory poisoning" nor "rogue-agent probing" --
+   it names "data poisoning" and "agent privilege escalation" -- and places nothing by lifecycle stage, offering only "emergent behaviors
+   that evolve continuously throughout the AI adoption lifecycle". The fact's lifecycle-stage placement therefore rests entirely on the
+   cheat sheet at download id 54018, which has never been fetched. Recorded as unread by this method rather than as wrong or as dead.
+   Queued as item 24(ii).
+kb/principles/** was avoided throughout, per the read-only rule.
+
+FEEDS ADDED TO discovered-sources.md (1).
+- modelcontextprotocol.io/community/feature-lifecycle (page), as a tripwire. It is the document that defines the window the existing
+  versioning and deprecated-registry tripwires only cite, so a change to the minimum window, to how it is measured, or to the
+  expedited-removal trigger would invalidate 8b0f7afe and 012daf73 together and no existing tripwire would catch it.
+
+FETCH ROUTES RECORDED (3 new, 1 reconfirmed): 43 (a Substack root is a JS shell, /archive?sort=new is server-rendered -- the cheapest
+"never declare a source dead" instance yet, one path change and no headers; caveat: the newest archive row carries a relative date that
+cannot be compared with a high-water mark), 44 (anthropic.com/engineering has NO pagination control and serves its whole back catalogue in
+one call, the opposite of routes 39/40's placeholder hrefs on /research and /news, so a sweep of it is always complete), 45
+(langchain.com/blog has REAL pagination at ?8457a1db_page=2, and repeats featured entries in its dated list -- route 40's duplicate trap on
+a second host). Route 42 reconfirmed on a long docs page, not just a short one, which upgrades it to a first-choice tactic: asking a docs
+page for its text literally can cost one call instead of two and cannot be regularised.
+
+WRITE DISCIPLINE. Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under
+artifacts/jobs/agentic-engineering/, and every one was written with ops (append or str_replace) -- no updates.body anywhere, no file
+resent whole. The single exception is seen/blog.redwoodresearch.org.md, created with knomit_learn at its exact path because the host had no
+file, using the template from the spec.
