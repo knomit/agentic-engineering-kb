@@ -25,3 +25,5 @@ https://alignment.anthropic.com/2026/sleight-bench/
 https://alignment.anthropic.com/2026/taste/
 
 https://alignment.anthropic.com/2026/backdooring-classifiers/
+
+https://alignment.anthropic.com/2026/hot-mess-of-ai/
