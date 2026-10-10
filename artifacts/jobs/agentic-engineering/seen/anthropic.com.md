@@ -53,3 +53,6 @@ https://www.anthropic.com/news/anthropic-cyber-mission  skip: programme announce
 https://www.anthropic.com/news/genesis-mission-commitment  skip: partnership announcement, no engineering content
 https://www.anthropic.com/research/project-swap
 https://www.anthropic.com/threat-intelligence-report-september-2026
+
+https://www.anthropic.com/research/claude-shaped-science
+https://www.anthropic.com/engineering/claude-code-best-practices  skip: dated 2025-04-18, superseded by the live code.claude.com/docs/en/best-practices page already read
