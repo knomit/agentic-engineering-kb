@@ -202,3 +202,45 @@ verbatim ask comes back as the page itself, treat it as the strongest possible e
 misbehaving, and do not re-ask in the hope of a tidier answer -- a tidier answer is a worse one.
 It also means the ~125-character per-quote truncation of route 37 does not bite on short pages: ask a short
 page for the clause and you may get the surrounding paragraphs for free.
+
+=== ROUTE 43 (51st run). A SUBSTACK ROOT IS A JS SHELL; `/archive?sort=new` IS SERVER-RENDERED AND RETURNS THE FULL LIST. ===
+blog.redwoodresearch.org/ returned only the blog title, tagline, subscriber banner and a subscribe form, plus the text "This site requires
+JavaScript to run correctly." Zero entries. The same host at https://blog.redwoodresearch.org/archive?sort=new returned twelve rows with
+titles, slugs and dates in one plain WebFetch, no browser needed.
+SO: for any Substack-hosted feed, the root is not the index. Go straight to /archive?sort=new and never spend a fetch on the root, and never
+record a Substack as JS-blocked on the strength of its root alone. This is the cheapest instance yet of the "never declare a source dead"
+rule: one path change, no headers, no browser.
+ONE CAVEAT MEASURED ON THE SAME CALL: the newest row's date came back as a RELATIVE string ("8 hrs ago") with no absolute date, while every
+older row carried "Oct 5", "Sep 25" and so on. A relative date cannot be compared against a high-water mark, so treat such a row as a
+candidate regardless of the mark rather than trying to resolve it from the index.
+
+=== ROUTE 44 (51st run). anthropic.com/engineering NEEDS NO DEPTH ROUTE AT ALL — IT IS THE ONE anthropic.com SECTION THAT IS NOT PAGINATED. ===
+Routes 39 and 40 established that /research and /news both show a "See more" control whose href is `#`, so their depth is client-side and
+unreachable. /engineering is different in the opposite direction, and the route-39 ask settled it in the sweep call: "No 'See more' link or
+pagination control appears on this page." The index returned twenty-five dated entries in one call, from 2024-09-19 (contextual-retrieval)
+through 2026-04-23 (april-23-postmortem) — i.e. the WHOLE back catalogue, oldest post included.
+THE OPERATIONAL POINT: one plain WebFetch of /engineering is a complete enumeration, so a sweep of it is never partial and a missing article
+there means the article does not exist, not that the index was shallow. Do not queue depth behind it and do not treat route 5's depth-varies
+caution as applying to it. Contrast /research and /news, where the opposite holds.
+ALSO FOUND ON THAT SWEEP: /engineering/claude-code-best-practices (2025-04-18) is on the index and was not in `seen`, which is a different
+URL from the code.claude.com/docs/en/best-practices page the pack already reads. It is below the feed's high-water mark so it was never a
+candidate; it is now skip-marked so it stops reappearing as an apparent gap.
+
+=== ROUTE 45 (51st run). langchain.com/blog HAS REAL PAGINATION WITH A RESOLVABLE TARGET — THE FIRST QUEUED "DEPTH" ITEM IN A WHILE THAT IS ACTUALLY EXECUTABLE. ===
+The route-39 ask on www.langchain.com/blog/ returned a numbered pagination control whose next-page target is
+`https://www.langchain.com/blog?8457a1db_page=2`. That is a URL that resolves, not a `#` placeholder, so unlike every anthropic.com index the
+depth behind this feed can be fetched by incrementing the parameter. The parameter name is opaque and site-generated: copy it verbatim off the
+index rather than reconstructing it, and re-read it off the index if it ever 404s.
+SECOND MEASUREMENT ON THE SAME CALL, AND IT IS ROUTE 40'S DUPLICATE TRAP ON A DIFFERENT HOST: the index serves several entries twice, once in
+a featured block and once in the dated list, with identical URL and date. Deduplicate by URL before counting or triaging. Route 40 recorded
+this for anthropic.com/news; two hosts now, so assume it of any index with a featured block.
+THIRD, AND IT IS WHY THIS FEED IS WORTH THE PAGINATION: the dated list is dominated by product release notes. The spec's "prefer method posts
+to framework posts" rule did the triage work here — two method posts out of nineteen rows produced three facts, and eight release notes were
+skip-marked without being read.
+
+=== ROUTE 42 RECONFIRMED (51st run), ON A SECOND HOST AND A LONGER PAGE. ===
+modelcontextprotocol.io/community/feature-lifecycle was asked for "this page's text as literally as possible" and returned the entire policy —
+prose, the three state tables, the roles table, heading anchors and link targets — not a summary. Every figure and definition in the fact
+written from it (8b0f7afe) came off that raw text, so routes 32, 37 and 38 had nothing to bite on. Route 42 said a SHORT page may do this;
+this page is a full policy document and did it too. PRACTICAL UPSHOT: on a docs-site page, asking for the text literally is worth trying
+BEFORE the numbered-verbatim-clause format, because when it works it costs one call instead of two and the result cannot be regularised.
