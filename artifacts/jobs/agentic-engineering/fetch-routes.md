@@ -244,3 +244,28 @@ prose, the three state tables, the roles table, heading anchors and link targets
 written from it (8b0f7afe) came off that raw text, so routes 32, 37 and 38 had nothing to bite on. Route 42 said a SHORT page may do this;
 this page is a full policy document and did it too. PRACTICAL UPSHOT: on a docs-site page, asking for the text literally is worth trying
 BEFORE the numbered-verbatim-clause format, because when it works it costs one call instead of two and the result cannot be regularised.
+
+=== ROUTE 46 (52nd run). *** THE OPEN-ENDED READ INVENTED A RANKING THE PAGE DOES NOT STATE. ROUTE 32'S FABRICATION CLASS EXTENDS TO SUPERLATIVES AND ORDERINGS. *** ===
+The open-ended read of alignment.anthropic.com/2025/strengthening-red-teams/ reported "Suspicion modeling had the largest
+effect" and went on to rank all five attack components against each other. The targeted verbatim call on the SAME URL in
+the SAME run returned the page's own summary clause:
+    "suspicion modeling, attack selection and subtlety have strong effects on attack strength"
+and added, unprompted, that the article does not single out one component as largest.
+SO THE FABRICATION WAS NEITHER A NUMBER (route 32) NOR AN ATTRIBUTION (route 38) -- IT WAS A RANK. A superlative is as
+generated as a figure, and it is more tempting to write than a figure because it is what makes a fact feel sharp: "X
+mattered most" is a better sentence than "X, Y and Z all mattered", which is exactly why the summariser reaches for it.
+THE RULE: add superlatives, orderings and "the primary driver" claims to the list of things that need a verbatim read
+before they reach a body. If the verbatim call returns an enumeration where the summary gave you a ranking, write the
+enumeration.
+DETECTION SIGNATURE, cheap to apply: a summary that cleanly ranks every item in a list. A source that had measured a
+clean ranking would have published the ranking, and a source that publishes "A, B and C have strong effects" is telling
+you it did not separate them.
+
+=== ROUTE 42 RECONFIRMED A THIRD TIME (52nd run), ON TWO MORE modelcontextprotocol.io PAGES, ONE OF THEM A TABLE. ===
+/specification/2026-07-28/deprecated and /specification/versioning were each asked for "this page's text as literally as
+possible" and each returned the page essentially whole: prose, callouts, heading anchors, link targets, and -- the part
+that matters -- the deprecation registry's full six-row table with every cell intact, including the two rows whose
+earliest-removal wording is the anomaly d24435b9 is about. A TABLE IS THE SHAPE A SUMMARISER MOST WANTS TO COMPRESS, and
+asking for the text literally is what stopped it. Routes 32, 37 and 38 had nothing to bite on.
+PRACTICAL UPSHOT, now measured on three hosts and four pages: on a docs site, ask for the text literally FIRST. One call
+instead of two, and the result cannot be regularised.
