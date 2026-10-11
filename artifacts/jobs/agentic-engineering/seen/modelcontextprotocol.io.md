@@ -30,3 +30,5 @@ https://modelcontextprotocol.io/specification/2026-07-28/server/discover
 https://modelcontextprotocol.io/specification/2026-07-28/server/tools
 
 https://modelcontextprotocol.io/community/feature-lifecycle
+
+https://modelcontextprotocol.io/specification/2026-07-28/deprecated
