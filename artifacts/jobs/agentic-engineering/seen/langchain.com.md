@@ -25,3 +25,5 @@ https://www.langchain.com/blog/langsmith-managed-deep-agents-whats-new  skip: pr
 https://www.langchain.com/blog/managed-deep-agents-schedules-per-run-configuration-slack  skip: product release note
 https://www.langchain.com/blog/reliability-healthcare-ai-langsmith-use-cases  skip: vertical use-case marketing
 https://www.langchain.com/blog/jev-is-now-available-in-langsmith-evals  skip: availability announcement; the method post jev-agent-evals-langsmith is queued instead
+
+https://www.langchain.com/blog/agents-that-can-pay-with-stripe-link
