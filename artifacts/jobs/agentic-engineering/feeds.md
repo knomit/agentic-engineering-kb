@@ -19,7 +19,7 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 - https://developers.openai.com/cookbook | undated | newest crawled: undated | last swept: unknown
 - https://developers.openai.com/api/docs/guides/ | undated | newest crawled: undated | last swept: unknown
 - https://simonwillison.net/tags/llms/ | dated | newest crawled: 2026-08-07 https://simonwillison.net/2026/Aug/7/openai-timeline/ | last swept: unknown
-- https://www.langchain.com/blog/ | dated | newest crawled: 2026-10-07 https://www.langchain.com/blog/revamping-skills-in-deep-agents | last swept: 2026-10-10 (first sweep; the index repeats featured entries, so deduplicate by URL, and it has REAL pagination, fetch-routes route 45)
+- https://www.langchain.com/blog/ | dated | newest crawled: 2026-10-08 https://www.langchain.com/blog/agents-that-can-pay-with-stripe-link | last swept: 2026-10-11 (the index repeats featured entries, so deduplicate by URL, and it has REAL pagination, fetch-routes route 45; two entries at or above the mark are still unread, see queue)
 - https://www.latent.space/archive | dated | newest crawled: unknown | last swept: unknown
 - https://eugeneyan.com/writing/ | dated | newest crawled: 2026-07-30 https://eugeneyan.com/writing/cybersecurity-evals/ | last swept: unknown
 - https://www.microsoft.com/en-us/research/blog/ | dated | newest crawled: 2026-07-30 https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/ | last swept: unknown
@@ -40,8 +40,8 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 - https://blog.redwoodresearch.org/ | dated | newest crawled: 2026-09-25 https://blog.redwoodresearch.org/p/continual-learning-might-make-your | last swept: 2026-10-10 (first sweep; the root is a JS shell that serves no entries, read /archive?sort=new instead, fetch-routes route 43)
 - https://github.com/vectara/hallucination-leaderboard | page | newest crawled: page | last swept: unknown
 - https://huggingface.co/blog | dated | newest crawled: unknown | last swept: unknown
-- https://modelcontextprotocol.io/specification/versioning | page | newest crawled: page | last swept: 2026-10-09
-- https://modelcontextprotocol.io/specification/2026-07-28/deprecated | page | newest crawled: page | last swept: unknown
+- https://modelcontextprotocol.io/specification/versioning | page | newest crawled: page | last swept: 2026-10-11
+- https://modelcontextprotocol.io/specification/2026-07-28/deprecated | page | newest crawled: page | last swept: 2026-10-11
 - https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/docs/specification | page | newest crawled: page | last swept: unknown
 
-- https://modelcontextprotocol.io/community/feature-lifecycle | page | newest crawled: page | last swept: 2026-10-10
+- https://modelcontextprotocol.io/community/feature-lifecycle | page | newest crawled: page | last swept: 2026-10-11
