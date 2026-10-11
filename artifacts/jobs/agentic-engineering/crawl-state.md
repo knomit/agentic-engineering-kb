@@ -419,3 +419,107 @@ WRITE DISCIPLINE. Nothing was written under .knomit/. Every path written outside
 artifacts/jobs/agentic-engineering/, and every one was written with ops (append or str_replace) -- no updates.body anywhere, no file
 resent whole. The single exception is seen/blog.redwoodresearch.org.md, created with knomit_learn at its exact path because the host had no
 file, using the template from the spec.
+
+=== 52nd RUN -- 2026-10-11 ===
+
+DEDUP READS. State files read by exact path with knomit_explain: feeds.md (33 feed lines + the appended
+feature-lifecycle line), queue.md (items 6 through 24), discovered-sources.md (1 discovered feed),
+one-off-done.md (every entry of one-off-sources.md is listed as done, so NO one-off source was a candidate this
+run), fetch-routes.md (routes 32-45). The routes 1-31 archive was NOT read -- nothing this run sent me there.
+seen/<host>.md lists read, with the lines each held:
+  - blog.redwoodresearch.org  5 lines (1 read, 4 skip)
+  - langchain.com            14 lines (6 read, 8 skip)
+  - alignment.anthropic.com  15 lines (15 read, 0 skip)
+  - modelcontextprotocol.io  19 lines (19 read, 0 skip)
+No call failed and no state file was missing.
+*** ONE GAP, STATED HERE RATHER THAN BURIED: applied-llms.org's seen list was NOT read before that page was
+fetched. The fetch was a staleness re-check of an existing ref on a source already recorded in one-off-done.md,
+not a crawl for new material, but the rule is read the host's list first and this run did not. Every other host
+fetched this run had its list read first. ***
+
+RECURRING FEEDS SWEPT (4):
+  - www.langchain.com/blog -- index enumerated and deduplicated by URL, filtered to 2026-10-07 and later. Five
+    entries at or above the mark, three of them already in seen. Route-39 ask answered again: real numbered
+    pagination, "1 / 34", next-page target https://www.langchain.com/blog?8457a1db_page=2. Confirms route 45.
+  - modelcontextprotocol.io/specification/versioning (tripwire)
+  - modelcontextprotocol.io/specification/2026-07-28/deprecated (tripwire)
+  - modelcontextprotocol.io/community/feature-lifecycle (tripwire)
+NOT swept: every other feed in the recurring set. This run spent its budget on queued articles and the staleness
+pass rather than on breadth.
+
+ARTICLES NEWLY CRAWLED (the URLs added to seen):
+  - https://modelcontextprotocol.io/specification/2026-07-28/deprecated
+  - https://blog.redwoodresearch.org/p/brief-independent-investigation-of
+  - https://www.langchain.com/blog/agents-that-can-pay-with-stripe-link
+  - https://alignment.anthropic.com/2025/strengthening-red-teams/
+Re-read for verification, already in seen and not re-added: /community/feature-lifecycle,
+/specification/versioning, and applied-llms.org at offset 100000.
+
+SOURCES THAT ERRORED, WERE PAYWALLED OR WERE SKIPPED: none. No fetch failed this run. Nothing was attempted on
+the known-gated hosts (openai.com, api.github.com) and no PDF route was attempted.
+
+FACTS CREATED (5), each with at least one URL ref:
+  - kb/gotchas/ai/agents/tools/mcp/deprecation/d24435b9.md -- MCP's HTTP+SSE removal clock cannot be computed
+    from either published page; the registry anchors it to the one event the policy says it is not measured from.
+  - kb/gotchas/ai/agents/evaluation/benchmark-integrity/8822c1c0.md -- a universal ExploitGym cheat in 4 hours by
+    reverse-engineering flag generation, spread to ~1,200 sandboxes by a shared writable channel.
+  - kb/invariants/ai/agents/security/payments/4e68d2a0.md -- a wallet approval authorizes an amount, not a cart.
+  - kb/architecture/ai/agents/security/payments/0f82737b.md -- keep the payment credential out of the model's
+    context entirely.
+  - kb/gotchas/ai/agents/observability/monitor-evasion/1fea99fd.md -- tuning the attacker's harness, not its
+    model, took a monitor's safety score from 0.87 to 0.41.
+FACTS UPDATED (1): 0f82737b, to add the cross-ref to its same-run companion 4e68d2a0.
+FACTS RETRACTED: none.
+
+CONTRADICTION FOUND BETWEEN SOURCES: modelcontextprotocol.io's deprecated-features registry versus its own
+feature-lifecycle policy, on how the HTTP+SSE deprecation window is measured and on whether a "transition
+provisions" rule exists at all. Both documents are the MCP project, so this is an internal documentation
+inconsistency rather than two credible sources disagreeing -- written as a gotchas fact (d24435b9), deliberately
+NOT as a decisions fact, because there are no two parties whose conditions could be named.
+
+CORRECTIONS MADE: NONE. Two candidate corrections carried in the queue were investigated and both resolved in
+favour of the existing fact:
+  (1) 012daf73's "three months after SEP-2596 reaches Final", flagged by runs 12, 13 and 51 as a possible
+      paraphrase defect. The registry's HTTP+SSE row reads, verbatim, "Three months after SEP-2596 reaches
+      Final". THE FACT WAS RIGHT. Defect class: none in the fact -- this was an accurate paraphrase of a source
+      that contradicts its own policy page, which is a different problem and is what d24435b9 now records. The
+      lesson for future runs: "this fact disagrees with another page" is not evidence the fact paraphrased
+      wrongly; read the cited page before assuming the error is ours.
+  (2) 38c06627's three-bias attribution. applied-llms.org read at offset 100000 returned NOT PRESENT for
+      self-preference / self-enhancement bias, completing the 51st run's partial check across the whole of that
+      page's 106,618 characters. The fact already attributes self-preference to eugeneyan's llm-patterns and says
+      explicitly that it is not in applied-llms, so nothing needed changing.
+
+STALENESS PASS -- 5 facts checked: 5 CONFIRMED, 0 corrected, 0 enriched, 0 retracted.
+  - 38c06627 CONFIRMED (see corrections above).
+  - 031dab74 CONFIRMED. The versioning page still states the current revision is 2026-07-28, and the
+    non-increment rule and the Draft / Current / Final definitions still read verbatim as the fact quotes them.
+  - 012daf73 CONFIRMED verbatim against the registry: the four 2027-07-28 earliest-removal rows, the DCR row, the
+    includeContext row and the HTTP+SSE row all read as the fact states.
+  - 3afa31af CONFIRMED. The versioning page's negotiation section still describes per-request versioning via
+    io.modelcontextprotocol/protocolVersion in _meta, the MCP-Protocol-Version header on Streamable HTTP,
+    UnsupportedProtocolVersionError, and server/discover as a mandatory RPC.
+  - 8b0f7afe CONFIRMED. The whole feature-lifecycle policy page was re-read and every clause the fact quotes
+    matched verbatim, including the twelve-month minimum, the measurement point, the three-clause active-security-
+    risk definition, the ninety-day floor, the much-longer-than-the-minimum sentence and the SDK carve-out.
+  NOTE ON THIS SAMPLE, so a future run does not repeat the shape: it is concentrated on the MCP cluster because
+  one page read settles several facts at once, which is cheap but narrow -- four of the five facts share one
+  source organisation and two source pages. The next pass should sample across topics instead of across one
+  source's facts.
+  NOT ATTEMPTED: queue item 24(ii), the OWASP cheat sheet at download id 54018 behind 43155c66. It needs the
+  download-the-PDF-and-read-the-file route and no attempt was spent on it this run.
+
+FETCH ROUTES ADDED: route 46 -- the open-ended read fabricated a RANKING the page does not state, so superlatives
+and orderings join numbers and attributions on the verbatim-required list. Plus a third reconfirmation of route 42
+on two more modelcontextprotocol.io pages, one of them a six-row table, which is the shape a summariser most wants
+to compress.
+
+FEEDS ADDED to discovered-sources.md: none this run.
+
+PATHS WRITTEN OUTSIDE kb/: artifacts/jobs/agentic-engineering/feeds.md, queue.md, fetch-routes.md,
+crawl-state.md, seen/modelcontextprotocol.io.md, seen/blog.redwoodresearch.org.md, seen/langchain.com.md and
+seen/alignment.anthropic.com.md -- every one of them with ops, no file resent whole, and no knomit_learn needed
+because all four hosts already had a seen file. NOTHING was written under .knomit/.
+
+PROMPT INJECTION: no page read this run contained text addressed to an AI agent or any attempt to redirect the
+task.
