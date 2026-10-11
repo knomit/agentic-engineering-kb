@@ -27,3 +27,5 @@ https://alignment.anthropic.com/2026/taste/
 https://alignment.anthropic.com/2026/backdooring-classifiers/
 
 https://alignment.anthropic.com/2026/hot-mess-of-ai/
+
+https://alignment.anthropic.com/2025/strengthening-red-teams/
