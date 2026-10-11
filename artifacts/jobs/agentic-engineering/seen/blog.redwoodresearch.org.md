@@ -15,3 +15,5 @@ https://blog.redwoodresearch.org/p/paper-distillation-for-incrimination  skip: a
 https://blog.redwoodresearch.org/p/frontier-models-state-different-decision  skip: stated-preference elicitation, no engineering consequence
 https://blog.redwoodresearch.org/p/capabilities-research-expands-the  skip: research-agenda positioning, not a method or failure mode
 https://blog.redwoodresearch.org/p/sota-alignment-assessments-dont-strongly  skip: assessment-epistemics argument, no agent-design consequence
+
+https://blog.redwoodresearch.org/p/brief-independent-investigation-of
