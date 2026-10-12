@@ -17,3 +17,5 @@ https://blog.redwoodresearch.org/p/capabilities-research-expands-the  skip: rese
 https://blog.redwoodresearch.org/p/sota-alignment-assessments-dont-strongly  skip: assessment-epistemics argument, no agent-design consequence
 
 https://blog.redwoodresearch.org/p/brief-independent-investigation-of
+
+https://blog.redwoodresearch.org/p/latent-reasoning-architectures-would
