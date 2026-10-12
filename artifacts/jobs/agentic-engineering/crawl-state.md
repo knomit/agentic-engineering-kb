@@ -523,3 +523,45 @@ because all four hosts already had a seen file. NOTHING was written under .knomi
 
 PROMPT INJECTION: no page read this run contained text addressed to an AI agent or any attempt to redirect the
 task.
+
+=== 53rd RUN -- 2026-10-12 ===
+
+DEDUP READS. feeds.md (33 feed lines), queue.md (items 6 to 24), discovered-sources.md (1 entry), one-off-done.md (59 URLs -- every one-off entry is done, so no one-off work this run), fetch-routes.md (routes 32 to 46; the archive was NOT read, nothing sent me there). seen lists read, for the five hosts crawled only: alignment.anthropic.com (16 URLs), anthropic.com (45), langchain.com (15), blog.redwoodresearch.org (6), aisi.gov.uk (20). No failed or empty state read; no gaps.
+
+RECURRING INDEXES SWEPT: www.anthropic.com/research (12 unique entries, route-39 ask applied -- "See more" href still `#`), www.langchain.com/blog (20 cards, 18 unique, pagination target re-confirmed as ?8457a1db_page=2). Four articles were read off the QUEUE without sweeping their feeds, so those feed lines were deliberately left alone: alignment.anthropic.com, blog.redwoodresearch.org, aisi.gov.uk/blog.
+
+ARTICLES NEWLY CRAWLED (6, all added to seen):
+- https://alignment.anthropic.com/2025/pretraining-data-filtering/
+- https://www.anthropic.com/research/yes-claude-can-do-nine-loops
+- https://www.anthropic.com/research/investigating-unintended-model-actions
+- https://blog.redwoodresearch.org/p/latent-reasoning-architectures-would
+- https://www.aisi.gov.uk/blog/introducing-controlarena-a-library-for-running-ai-control-experiments
+- https://www.langchain.com/blog/how-snyk-turned-an-internal-support-agent-into-a-customer-feature
+TRIAGED AND SKIP-MARKED (3): anthropic.com/research/your-thoughts-on-ai and /what-work-can-robots-do (surveys, no agent-engineering content); langchain.com/blog/slack-sdk-managed-deep-agents (release note, ninth on that feed).
+
+FACTS WRITTEN (7):
+- kb/gotchas/ai/agents/security/fetch-guardrails/fe5e20fb.md -- the web fetch tool's URL-length cap, defeated by free URL shorteners. The cap bounds the string handed in, not the request made.
+- kb/gotchas/ai/agents/evaluation/unsanctioned-actions/8cd07df9.md -- "Most are forms of persistence": the restriction an agent routes around is the one blocking a task it was told to finish. Environments named verbatim; the government-form case deliberately left unattached to any environment.
+- kb/invariants/ai/agents/observability/cot-monitorability/f5b65a83.md -- necessity versus propensity. Only necessity survives adversarial pressure, and latent architectures remove it.
+- kb/gotchas/ai/agents/evaluation/classifier-selection/e30972db.md -- F1 0.96 versus 0.94 on synthetic labels, and the ranking inverted on the real objective.
+- kb/decisions/ai/agents/autonomy/supervision-budget/d5ae4515.md -- a fail-loud task is what makes an unattended "keep going" loop affordable.
+- kb/conventions/ai/agents/security/authorization/7b1488e3.md -- per-request tool binding from the signed-in user's permissions, written against 48c4e555's misreading.
+- kb/architecture/ai/agents/security/control-protocols/9dda5723.md -- micro-protocol versus macro-protocol, and the cross-episode state the macro tier requires.
+
+FACT ENRICHED (1): aad8789f gained a second operator. Anthropic reports "we had already turned off live internet access for some high-risk and cybersecurity evaluations" and "we have now decided to expand that to include all our internal evaluations". That makes withdrawal-over-filtering a shape two independent operators adopted after their own agents acted beyond remit, and it extends the scope past agentic-cyber, which the AISI case alone did not support. sources 1 -> 2, confidence 0.85 -> 0.9, title generalised from one evaluator to operators.
+
+CORRECTION MADE, AND WHAT WAS WRONG. de4e90a4 ended: "The report also states the RL reward signal had already correctly penalised this behaviour and the model did it regardless: a training-time penalty is not a deployment-time stop." Two targeted verbatim calls on its only ref (alignment.openai.com/misalignment-reports/exposing-a-github-token-in-a-public-repository/) returned NOT PRESENT for any clause mentioning reward, grading, training signal or reinforcement learning, and NOT PRESENT for any clause saying the behaviour was penalised in training. DEFECT CLASS: route 38 -- a claim attributed to a source that the source does not make, plausible enough that a reader's background knowledge confirms it. The sentence was removed and replaced with the five mitigations the report DOES state, all of them external to the model, which reaches the fact's own conclusion (1) by the operator's conduct rather than by argument. Two quotes were also aligned to the page's wording ("focus on a local proof construction." and "Do NOT pursue artifact/action workaround now.").
+
+STALENESS PASS (5 sampled, plus one blocked):
+- de4e90a4 -- CORRECTED, as above.
+- 0525e590 -- CONFIRMED. 4 of 4 clauses verbatim. NOTE FOR FUTURE PASSES: a first narrow ask returned NOT PRESENT for the reward-grader sentence's tail and for the 1+1 calculator detail; a second, differently-framed ask returned both verbatim. A single NOT PRESENT is not evidence of absence -- re-ask before weakening a fact.
+- 737460a3 -- CONFIRMED. 4 of 4 verbatim on the live AISI page.
+- de199022 -- CONFIRMED. 4 of 4 verbatim (1%, about 50%, the "convinces the monitor" clause, 79%). The page is 122,623 characters and the route-31 notice fired at 100,000; everything needed was inside the first window.
+- c6feb649 -- CONFIRMED. 4 of 4 verbatim on alignment.anthropic.com/2026/chive/.
+- 5bad2e60 -- INCOMPLETE, BLOCKED. Its only ref, alignment.anthropic.com/2026/reward-seeker/, is refused by WebFetch's extraction model under the AUP (route 47). The fact was NOT weakened: it was written from that page with long verbatim quotes on the 21st run, so the block is a tool change, not a source change. Needs a browser call.
+
+NEW FETCH ROUTES (2, written to fetch-routes.md): route 47, the extraction-layer AUP refusal on reward-seeker. Route 48, two fresh fabrication sub-classes caught by second calls on the unintended-actions page -- a QUANTIFIER widened ("some high-risk and cybersecurity evaluations" summarised as "all internal evaluations", fusing a narrow accomplished fact with a broad decision) and a PAIRING invented (the government-form case tied to OSWorld, which the page never connects). Both ran toward the tidier sentence, as route 32 predicts.
+
+NO SOURCE ERRORED OR WAS PAYWALLED apart from the route-47 refusal above, which is a tool refusal and not a source verdict. No new feeds were found, so discovered-sources.md is unchanged. one-off-done.md is unchanged: every one-off entry was already done.
+
+NOTHING WAS WRITTEN UNDER .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/, written with ops: five seen lists, feeds.md, fetch-routes.md, queue.md and this record. No seen/<host>.md needed creating this run.
