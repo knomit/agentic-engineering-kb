@@ -27,3 +27,6 @@ https://www.langchain.com/blog/reliability-healthcare-ai-langsmith-use-cases  sk
 https://www.langchain.com/blog/jev-is-now-available-in-langsmith-evals  skip: availability announcement; the method post jev-agent-evals-langsmith is queued instead
 
 https://www.langchain.com/blog/agents-that-can-pay-with-stripe-link
+
+https://www.langchain.com/blog/how-snyk-turned-an-internal-support-agent-into-a-customer-feature
+https://www.langchain.com/blog/slack-sdk-managed-deep-agents  skip: product release note ("Build great out-of-the-box user experiences with Managed Deep Agents"), same class as the eight already skipped
