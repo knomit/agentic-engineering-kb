@@ -12,14 +12,14 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 
 - https://www.anthropic.com/engineering | dated | newest crawled: 2026-04-23 https://www.anthropic.com/engineering/april-23-postmortem | last swept: 2026-10-10 (nothing newer than the mark; the index serves its whole back catalogue on one page with no pagination control at all, fetch-routes route 44)
 - https://www.anthropic.com/news/ | dated | newest crawled: 2026-10-07 https://www.anthropic.com/claude-haiku-5-5 | last swept: 2026-10-09
-- https://www.anthropic.com/research | dated | newest crawled: 2026-09-29 https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities | last swept: 2026-10-08
+- https://www.anthropic.com/research | dated | newest crawled: 2026-10-09 https://www.anthropic.com/research/investigating-unintended-model-actions | last swept: 2026-10-12 (swept with the route-39 ask: 12 unique entries on that date, the "See more" href still `#`, so no depth route; two entries at or above the mark left unread, see queue)
 - https://alignment.anthropic.com/ | dated | newest crawled: 2026-08-28 https://alignment.anthropic.com/2026/taste/ | last swept: 2026-10-08
 - https://alignment.openai.com/misalignment-reports/ | undated | newest crawled: undated | last swept: 2026-10-08
 - https://deploymentsafety.openai.com/ | dated | newest crawled: 2026-09-29 https://deploymentsafety.openai.com/gpt-6-1-sol | last swept: 2026-10-01
 - https://developers.openai.com/cookbook | undated | newest crawled: undated | last swept: unknown
 - https://developers.openai.com/api/docs/guides/ | undated | newest crawled: undated | last swept: unknown
 - https://simonwillison.net/tags/llms/ | dated | newest crawled: 2026-08-07 https://simonwillison.net/2026/Aug/7/openai-timeline/ | last swept: unknown
-- https://www.langchain.com/blog/ | dated | newest crawled: 2026-10-08 https://www.langchain.com/blog/agents-that-can-pay-with-stripe-link | last swept: 2026-10-11 (the index repeats featured entries, so deduplicate by URL, and it has REAL pagination, fetch-routes route 45; two entries at or above the mark are still unread, see queue)
+- https://www.langchain.com/blog/ | dated | newest crawled: 2026-10-08 https://www.langchain.com/blog/agents-that-can-pay-with-stripe-link | last swept: 2026-10-12 (20 cards, 18 unique on that date; the index repeats featured entries, so deduplicate by URL, and it has REAL pagination, fetch-routes route 45; nothing dated after 2026-10-09, and both entries at or above the mark are now resolved — one read, one skip-marked)
 - https://www.latent.space/archive | dated | newest crawled: unknown | last swept: unknown
 - https://eugeneyan.com/writing/ | dated | newest crawled: 2026-07-30 https://eugeneyan.com/writing/cybersecurity-evals/ | last swept: unknown
 - https://www.microsoft.com/en-us/research/blog/ | dated | newest crawled: 2026-07-30 https://www.microsoft.com/en-us/research/blog/echoverse-deep-evolving-environments-for-computer-use-agents/ | last swept: unknown
