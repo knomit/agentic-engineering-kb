@@ -56,3 +56,8 @@ https://www.anthropic.com/threat-intelligence-report-september-2026
 
 https://www.anthropic.com/research/claude-shaped-science
 https://www.anthropic.com/engineering/claude-code-best-practices  skip: dated 2025-04-18, superseded by the live code.claude.com/docs/en/best-practices page already read
+
+https://www.anthropic.com/research/investigating-unintended-model-actions
+https://www.anthropic.com/research/yes-claude-can-do-nine-loops
+https://www.anthropic.com/research/your-thoughts-on-ai  skip: public-attitudes survey, no agent-engineering content
+https://www.anthropic.com/research/what-work-can-robots-do  skip: economic task survey, no agent-engineering content
