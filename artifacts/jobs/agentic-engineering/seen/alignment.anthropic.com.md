@@ -31,3 +31,5 @@ https://alignment.anthropic.com/2026/hot-mess-of-ai/
 https://alignment.anthropic.com/2025/strengthening-red-teams/
 
 https://alignment.anthropic.com/2025/pretraining-data-filtering/
+
+https://alignment.anthropic.com/2026/conceptual-reasoning-index/
