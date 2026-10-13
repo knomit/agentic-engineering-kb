@@ -18,7 +18,7 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 - https://deploymentsafety.openai.com/ | dated | newest crawled: 2026-09-29 https://deploymentsafety.openai.com/gpt-6-1-sol | last swept: 2026-10-01
 - https://developers.openai.com/cookbook | undated | newest crawled: undated | last swept: unknown
 - https://developers.openai.com/api/docs/guides/ | undated | newest crawled: undated | last swept: unknown
-- https://simonwillison.net/tags/llms/ | dated | newest crawled: 2026-08-07 https://simonwillison.net/2026/Aug/7/openai-timeline/ | last swept: unknown
+- https://simonwillison.net/tags/llms/ | dated | newest crawled: 2026-09-24 https://simonwillison.net/2026/Sep/24/harder/ | last swept: 2026-10-13 (first sweep; 30 entries at or above the old mark on that date, of which 1 read, 19 skip-marked and the rest queued. REAL pagination, ?page=N, 67 pages as of that date, fetch-routes route 50. It is a link blog: most rows are quoted comments, model launches and tool release notes, so the triage ratio here is unlike a method-post feed)
 - https://www.langchain.com/blog/ | dated | newest crawled: 2026-10-08 https://www.langchain.com/blog/agents-that-can-pay-with-stripe-link | last swept: 2026-10-12 (20 cards, 18 unique on that date; the index repeats featured entries, so deduplicate by URL, and it has REAL pagination, fetch-routes route 45; nothing dated after 2026-10-09, and both entries at or above the mark are now resolved — one read, one skip-marked)
 - https://www.latent.space/archive | dated | newest crawled: unknown | last swept: unknown
 - https://eugeneyan.com/writing/ | dated | newest crawled: 2026-07-30 https://eugeneyan.com/writing/cybersecurity-evals/ | last swept: unknown
@@ -40,7 +40,7 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 - https://blog.redwoodresearch.org/ | dated | newest crawled: 2026-09-25 https://blog.redwoodresearch.org/p/continual-learning-might-make-your | last swept: 2026-10-10 (first sweep; the root is a JS shell that serves no entries, read /archive?sort=new instead, fetch-routes route 43)
 - https://github.com/vectara/hallucination-leaderboard | page | newest crawled: page | last swept: unknown
 - https://huggingface.co/blog | dated | newest crawled: unknown | last swept: unknown
-- https://modelcontextprotocol.io/specification/versioning | page | newest crawled: page | last swept: 2026-10-11
+- https://modelcontextprotocol.io/specification/versioning | page | newest crawled: page | last swept: 2026-10-13
 - https://modelcontextprotocol.io/specification/2026-07-28/deprecated | page | newest crawled: page | last swept: 2026-10-11
 - https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/docs/specification | page | newest crawled: page | last swept: unknown
 
