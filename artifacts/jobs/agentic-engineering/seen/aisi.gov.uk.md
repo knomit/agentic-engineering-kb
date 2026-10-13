@@ -33,3 +33,5 @@ https://www.aisi.gov.uk/blog/what-can-sandboxed-ai-agents-learn-about-their-eval
 https://www.aisi.gov.uk/blog/how-to-evaluate-control-measures-for-ai-agents
 
 https://www.aisi.gov.uk/blog/introducing-controlarena-a-library-for-running-ai-control-experiments
+
+https://www.aisi.gov.uk/blog/will-it-become-harder-to-oversee-ai-systems
