@@ -61,3 +61,5 @@ https://www.anthropic.com/research/investigating-unintended-model-actions
 https://www.anthropic.com/research/yes-claude-can-do-nine-loops
 https://www.anthropic.com/research/your-thoughts-on-ai  skip: public-attitudes survey, no agent-engineering content
 https://www.anthropic.com/research/what-work-can-robots-do  skip: economic task survey, no agent-engineering content
+
+https://www.anthropic.com/research/the-missing-map-of-the-sky
