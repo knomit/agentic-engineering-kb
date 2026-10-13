@@ -565,3 +565,55 @@ NEW FETCH ROUTES (2, written to fetch-routes.md): route 47, the extraction-layer
 NO SOURCE ERRORED OR WAS PAYWALLED apart from the route-47 refusal above, which is a tool refusal and not a source verdict. No new feeds were found, so discovered-sources.md is unchanged. one-off-done.md is unchanged: every one-off entry was already done.
 
 NOTHING WAS WRITTEN UNDER .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/, written with ops: five seen lists, feeds.md, fetch-routes.md, queue.md and this record. No seen/<host>.md needed creating this run.
+
+=== RUN RECORD: 2026-10-13 (54th run) ===
+
+DEDUP READS. feeds.md (33 feed lines), discovered-sources.md (1 entry), one-off-done.md (59 URLs, all entries of one-off-sources.md), queue.md (items 6 to 24), fetch-routes.md (routes 32 to 48). seen lists read, with their URL counts: anthropic.com (49 lines, 8 of them skip), alignment.anthropic.com (17), aisi.gov.uk (21), blog.redwoodresearch.org (7, 4 of them skip), simonwillison.net (8). crawl-state.md was NOT read, per the skill. No read failed and no state file was missing.
+
+RECURRING FEEDS SWEPT. simonwillison.net/tags/llms/ (first sweep since the bootstrap; 30 entries at or above the old 2026-08-07 mark on this date, enumerated with the route-39 ask, which also returned the pagination target). modelcontextprotocol.io/specification/versioning (tripwire). No other index was swept this run: the rest of the work came off the queue.
+
+ARTICLES NEWLY CRAWLED (5, all added to seen):
+  https://www.anthropic.com/research/the-missing-map-of-the-sky
+  https://blog.redwoodresearch.org/p/cot-controllability-evals-seem-very
+  https://alignment.anthropic.com/2026/conceptual-reasoning-index/
+  https://www.aisi.gov.uk/blog/will-it-become-harder-to-oversee-ai-systems
+  https://simonwillison.net/2026/Sep/24/harder/
+Plus 19 simonwillison.net index entries triaged and skip-marked rather than read.
+
+ERRORS, SKIPS, PAYWALLS. None. No fetch failed this run, and no source was unreachable. alignment.anthropic.com/2026/reward-seeker/ was NOT re-attempted (route 47: the extraction model refuses it under the AUP; it needs a browser call, which this run did not spend).
+
+FACTS WRITTEN (8, all with at least one external ref, all figures from a second verbatim call):
+  kb/gotchas/ai/agents/multi-agent/review-coverage/31997024.md -- two rounds of agent review passed a defect the project had pre-registered as a known issue; a human caught it by looking at the output image.
+  kb/conventions/ai/agents/data-pipelines/provenance/07d4f5b2.md -- label every output element measured or predicted, and earn the error bar by predicting data the agent was told to hide.
+  kb/invariants/ai/agents/evaluation/elicitation/eccf0867.md -- a capability eval's headline number is a lower bound set by its prompt (5.5% to 15% on GPT-OSS-120B, ~2-3x across open-source models).
+  kb/gotchas/ai/agents/evaluation/scoring-rules/34649828.md -- the scoring predicate decides the number: a self-corrected violation still counts as a violation.
+  kb/conventions/ai/agents/evaluation/dataset-construction/65694027.md -- close to 14,000 generated constraints yielded 567 human-approved ones, and only those 567 score.
+  kb/conventions/ai/agents/evaluation/score-scales/f8615061.md -- anchor an unverifiable benchmark at random guessing and at an inter-rater-agreement ceiling, not at 0 and 100.
+  kb/conventions/ai/agents/evaluation/reference-free/c0c4be9c.md -- cross-query logical consistency is an eval signal that needs no ground truth.
+  kb/architecture/ai/agents/observability/oversight-surfaces/89647c7d.md -- four oversight surfaces, inter-agent communication among them, and the properties needed to detect degradation are not routinely tracked.
+No fact was updated and none was retracted this run.
+
+WHAT THE FIVE PAGES YIELDED, AND WHAT THEY DID NOT.
+  the-missing-map-of-the-sky: the highest-yield page of the run. Its value is not the astronomy but two harness disciplines -- a named risk that no reviewer converted into a check, and the measured/predicted labelling plus masked hold-out that let an extrapolating pipeline publish an error bar. UNMINED remainder: the per-region agent parallelisation, the deterministic-vs-learned pipeline separation in the authors' own diagram, and the "more than a dozen successive versions" cadence.
+  cot-controllability-evals-seem-very: two facts, and the elicitation one is the more general. UNMINED: the per-mode and per-model tables, and the on-policy-vs-out-of-distribution few-shot comparison.
+  conceptual-reasoning-index: three facts, all about building evals for tasks with no verifiable answer. UNMINED: the LMCA argument-GENERATION arm (a model writes, a second model rates against the rubric), which is excluded from the index and is the obvious thing to revisit if it is ever folded in; and the CRI weighting scheme itself, which the authors say will change.
+  will-it-become-harder-to-oversee-ai-systems: ONE fact, and the finding is that this is a qualitative review with NO measurements -- 25 expert interviews, a literature review, a count of more than twenty degradation pathways, and nothing scored. Its four-surface enumeration is the transferable part; the rest overlaps 491d1039 and 737460a3.
+  simonwillison.net/2026/Sep/24/harder/: read, and it produced NOTHING -- a two-sentence note. Recorded so no later run re-queues it.
+
+CONTRADICTIONS BETWEEN SOURCES. None found this run. The nearest thing is a scope relationship rather than a disagreement: the CoT-controllability post raises a measured compliance number that 491d1039 and 5bad2e60 rest on, and explicitly declines to draw the conclusion that would conflict with them.
+
+CORRECTIONS MADE, AND WHAT WAS WRONG. None. No existing fact was found defective this run.
+
+STALENESS PASS (5 facts sampled from the queue's never-checked list, all re-read against their own refs). ALL FIVE CONFIRMED; no corrections, no retractions.
+  9a5214f2 (alignment.anthropic.com/2026/hot-mess-of-ai/) -- CONFIRMED. The error-incoherence definition, the easy-vs-hard-task coherence clause, the overthinking-versus-budget heading and the irreversible-actions limit on ensembling all matched. THE ONE INCIDENT OF THE PASS: the body's quote "Across all tasks and models, the longer models spend reasoning and taking actions..." did NOT come back on the first ask, which returned a different real sentence on the same page instead; a presence-shaped second ask returned the quote exactly. Written up as fetch-routes route 49.
+  79912531 (alignment.anthropic.com/2026/taste/) -- CONFIRMED, all six figures: 53% pre-discussion, 68% post, 92 pairs at 77%, the at-least-two-points filter, the ten-appearance cap, and the alternative 83% over 50 of the 92. The page qualifies the 68% as "for strong-confidence, post-discussion preferences", which is what the fact already attributes it to.
+  ad69c6c7 (aisi.gov.uk Transect) -- CONFIRMED, all four quotes verbatim (sub-agent labels, the turn definition, file-read-is-not-influence, billions of tokens).
+  81dcb24c (same source) -- CONFIRMED (fresh judgements may differ, Transect saves individual judgements, and the retained-inputs clause as far as the per-quote cap allows).
+  263da769 (same source) -- CONFIRMED. The agreement/disagreement asymmetry came back in two pieces across two asks; the tail "but disagreement can help direct closer inspection." was confirmed by a pointed second ask, which is route 49 again.
+  BONUS, OUTSIDE THE SAMPLE: the MCP versioning tripwire was re-read. Current revision is still 2026-07-28 and the twelve-months / ninety-days deprecation window still reads verbatim, so 3afa31af, 012daf73 and 8b0f7afe remain anchored.
+
+FEEDS ADDED TO discovered-sources.md. None this run.
+
+FETCH ROUTES ADDED. Route 49 (a describe-the-claim verbatim ask returns A matching clause, not necessarily the quoted sentence -- the mirror of routes 32/37/38/46/48, and the cost is weakening a fact that was correct; verify an existing quote by naming its opening words and asking for presence). Route 50 (simonwillison.net tag pages paginate by ?page=N and the route-39 ask returns the page count for free; it is a link blog, so budget one sweep plus a few PRIMARY fetches rather than a page walk).
+
+PATHS WRITTEN OUTSIDE kb/. All under artifacts/jobs/agentic-engineering/ and all with ops: seen/anthropic.com.md, seen/alignment.anthropic.com.md, seen/aisi.gov.uk.md, seen/blog.redwoodresearch.org.md, seen/simonwillison.net.md, feeds.md, queue.md, fetch-routes.md and this file. No seen file had to be created this run. Nothing was written under .knomit/.
