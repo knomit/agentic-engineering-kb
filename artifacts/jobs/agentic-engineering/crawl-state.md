@@ -617,3 +617,50 @@ FEEDS ADDED TO discovered-sources.md. None this run.
 FETCH ROUTES ADDED. Route 49 (a describe-the-claim verbatim ask returns A matching clause, not necessarily the quoted sentence -- the mirror of routes 32/37/38/46/48, and the cost is weakening a fact that was correct; verify an existing quote by naming its opening words and asking for presence). Route 50 (simonwillison.net tag pages paginate by ?page=N and the route-39 ask returns the page count for free; it is a link blog, so budget one sweep plus a few PRIMARY fetches rather than a page walk).
 
 PATHS WRITTEN OUTSIDE kb/. All under artifacts/jobs/agentic-engineering/ and all with ops: seen/anthropic.com.md, seen/alignment.anthropic.com.md, seen/aisi.gov.uk.md, seen/blog.redwoodresearch.org.md, seen/simonwillison.net.md, feeds.md, queue.md, fetch-routes.md and this file. No seen file had to be created this run. Nothing was written under .knomit/.
+
+=== 55th RUN — 2026-10-14. THREE FEEDS SWEPT FOR THE FIRST TIME; ROUTE 47 RETIRED BY A BROWSER CALL. ===
+
+DEDUP READS. feeds.md (33 feed lines), queue.md (items 6-25), discovered-sources.md (1 entry), one-off-done.md (59 URLs — every one-off source is done, so nothing was due from that list). fetch-routes.md read in full (routes 32-50; the archive was NOT read, no route sent me there). seen lists read, for the hosts crawled only: aisi.gov.uk (22 URLs), sourcegraph.com (3), latent.space (2), research.google (MISSING — `could not read ... at f0072ea1`, so no run had read anything on that host; created this run). No failed calls, no gaps beyond that expected one.
+
+RECURRING FEEDS SWEPT: www.latent.space/archive, research.google/blog, sourcegraph.com/blog — all three at "last swept: unknown" since the bootstrap, i.e. UNREAD rather than up to date. All three carried in-scope unread material. Not swept this run: the rest of the recurring set.
+
+ARTICLES NEWLY CRAWLED (4 URLs, added to seen):
+  https://www.latent.space/p/claude-dynamic-workflows
+  https://research.google/blog/open-and-emergent-problems-in-agentic-privacy-and-security-a-contextual-angle/
+  https://sourcegraph.com/blog/a-smarter-way-to-run-code-migrations-with-less-llm-context
+  https://alignment.anthropic.com/2026/reward-seeker/ (read via the browser pane for the staleness pass; already in seen from the 21st run)
+Skip-marked without reading: 21 index rows across the three new hosts (AINews digests, product and pricing notes, out-of-scope research).
+
+ERRORS AND BLOCKS:
+  https://www.latent.space/archive?sort=new — CLIENT_ERROR from the target. The plain /archive worked. This CORRECTS route 43 and is now route 54.
+  research.google/blog pagination — "of 135" pages, every href `javascript(0):void`. No depth route (route 52).
+  Claude_Browser get_page_text — the 158,063-character read exceeded the token ceiling and persisted as a single-line JSON file that Read cannot split and that the spec forbids scripting over, so the tail of reward-seeker stayed unread (route 51a).
+  Claude_Browser find — "No matches" on a phrase that may well be present; element-level matching, inconclusive (route 51b).
+  Nothing paywalled. No source recorded as dead.
+
+FACTS CREATED (5):
+  kb/architecture/ai/agents/multi-agent/orchestration/cff924a5.md — the model writes the orchestration program, so the tuning knob becomes default parallelism, not topology
+  kb/invariants/ai/agents/operations/cost-control/09b6b554.md — the model does not know its budget while running; spend is a harness ceiling
+  kb/architecture/ai/agents/multi-agent/communication/6fba697c.md — sub-agents coordinate via a shared filesystem and the lead agent; no peer message path
+  kb/gotchas/ai/agents/tools/code-execution/cf8359fd.md — returning only the aggregate removes the model's ability to notice the aggregate was wrong
+  kb/architecture/ai/agents/security/policy-layer/85416afc.md — contextual integrity: appropriateness of a flow, so policy is generated per request
+All five carry their source modality explicitly. The three latent.space facts sit at 0.6 because the source is a third-party write-up of a conference talk with no measurements; 85416afc sits at 0.5 because it is a workshop agenda with none either.
+
+FACTS UPDATED (3): fc911d9c (Sourcegraph added as a third vendor shipping programmatic tool calling, sources 2->3, plus a pointer to the verification cost cf8359fd names); 714a540c (window_size enrichment, below); 71be00f9 (corrected, below).
+FACTS RETRACTED: none.
+
+CONTRADICTIONS BETWEEN SOURCES: none new. One PAIRING worth naming rather than a conflict — 6fba697c's designed shared-filesystem channel is the same substrate as 44ab25b6's unintended one, where it was the first rung of a five-rung escalation ending in egress. Recorded as pack analysis inside 6fba697c, not as a disagreement.
+
+FEEDS ADDED to discovered-sources.md: none. The three swept this run were already in the seed list.
+
+PROMPT INJECTION: none observed on any page read this run.
+
+STALENESS PASS — 5 SAMPLED.
+  5da76ff0 CONFIRMED. 4 of 4 asked-for clauses verbatim on alignment.anthropic.com/2025/summarization-for-monitoring/, including the 96%/98% summarizer ratings and "early research with room to improve and evolve". Note the first clause is MID-SENTENCE on the page, which is how the fact quotes it — a presence-shaped ask returned the whole sentence and settled it.
+  fcce2200 CONFIRMED. 5 of 5 verbatim on the SLEIGHT-Bench post: "50% of attacks are never caught on any of the 10 trials", "Only 8 out of 40 are reliably detected", the blind-spot definition, the plausible-naming FPR caveat, and the three 0% catch rates (N-hops, Omission, Jailbreaks) as table values.
+  714a540c CONFIRMED and ENRICHED. The Strands conversation-management page is live; "Tool Pair Preservation", "Dangling Message Cleanup", summary_ratio 0.3 and preserve_recent_messages 10 all still read verbatim, and the 2026-08-12 correction holds — still no explicit Python default for window_size. NEW: the page's Python example sets window_size=20. The fact now says so, because a reader carrying the TypeScript 40 into Python would be using a number that page's own example contradicts.
+  71be00f9 CORRECTED — TWO QUOTATION DEFECTS, SAME CLASS, FOUND BY ONE PRESENCE-SHAPED CALL ON anthropic.com/engineering/building-c-compiler.
+    (a) TRUNCATION INSIDE A QUOTATION, CLOSED WITH A FULL STOP. The fact quoted "Every agent would hit the same bug, fix that bug, and then overwrite each other's changes. Having 16 agents running didn't help." The page's second sentence is "Having 16 agents running didn't help because each was stuck solving the same task." The quote was cut at "help" and punctuated as if the sentence ended there. The dropped clause is the source's OWN statement of the convergence mechanism — i.e. the fact amputated the evidence for its own thesis. Both sentences are now quoted in full and separately.
+    (b) A PARAPHRASE PRESENTED AS A QUOTE, WITH A SUBJECT SHIFT. The fact had the report noting that the fleet "frequently broke existing functionality". The page says "Claude started to frequently break existing functionality each time it implemented a new feature" — different tense, different wording, and attributed to Claude implementing features rather than to the 16-agent fan-out. Attributing a per-feature regression to the fan-out is the route-38 defect (the source did not make the claim the ref asserts) with the added sting that it reads as corroborating the fan-out skepticism. The page's sentence is now quoted as written, with the subject stated.
+    THE CLASS, AND IT IS WORTH SUSPECTING ELSEWHERE: a quotation of roughly a sentence-and-a-half, ending suspiciously neatly, is route 37's per-quote truncation surviving into a body — the earlier run asked for a long passage, got the ~125-character cut plus a reconstruction, and wrote the tidy version down. Grep the corpus's longer quotes for a full stop that lands exactly where a clause would have continued.
+  00f5d991 INCOMPLETE, BUT THE BLOCKER MOVED. Route 47 said its only ref was unreadable; route 51 retires that — the browser pane reads the page with no gate. What stopped the check is the reader's output ceiling, not the AUP: the Safety Monitor Bypass section holding this fact's quotes sits past the 50,000 characters get_page_text returns, and the larger read persisted as one unsplittable JSON line. CONFIRMED from what WAS read: the page is live, authored by Richard Qi, Benjamin Wright, Monte MacDiarmid and Evan Hubinger, August 2026, and Figure 1 reports safety classifier bypass at 38% against an Init of 0%. ONE DISCREPANCY, NOT ACTED ON: Figure 1 renders the meta-gaming quote shorter than the fact does (no "matching certain patterns", no "/truncate"). Figure 1 is an abbreviated caption, so per route 49 that is not evidence of absence and the fact was left alone. 5bad2e60 is in the identical position on the identical page.
