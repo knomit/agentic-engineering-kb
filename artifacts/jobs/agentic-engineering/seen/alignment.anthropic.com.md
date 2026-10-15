@@ -33,3 +33,10 @@ https://alignment.anthropic.com/2025/strengthening-red-teams/
 https://alignment.anthropic.com/2025/pretraining-data-filtering/
 
 https://alignment.anthropic.com/2026/conceptual-reasoning-index/
+
+https://alignment.anthropic.com/2026/petri-v2/
+
+https://alignment.anthropic.com/2025/anthropic-fellows-program-2026/  skip: fellowship programme announcement, no engineering content
+https://alignment.anthropic.com/2024/anthropic-fellows-program/  skip: fellowship programme announcement, no engineering content
+https://alignment.anthropic.com/2025/introducing-safeguards-research-team/  skip: team announcement, no engineering content
+https://alignment.anthropic.com/2025/recommended-directions/  skip: research-agenda positioning, no agent-engineering content
