@@ -63,3 +63,5 @@ https://www.anthropic.com/research/your-thoughts-on-ai  skip: public-attitudes s
 https://www.anthropic.com/research/what-work-can-robots-do  skip: economic task survey, no agent-engineering content
 
 https://www.anthropic.com/research/the-missing-map-of-the-sky
+
+https://www.anthropic.com/research/launching-opt-in-vuln-finding-service-for-open-source
