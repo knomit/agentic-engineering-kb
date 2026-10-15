@@ -45,3 +45,5 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 - https://api.github.com/repos/modelcontextprotocol/modelcontextprotocol/contents/docs/specification | page | newest crawled: page | last swept: unknown
 
 - https://modelcontextprotocol.io/community/feature-lifecycle | page | newest crawled: page | last swept: 2026-10-11
+
+- https://code.claude.com/docs/en/workflows | page | newest crawled: page | last swept: 2026-10-15 (added this run; the tripwire for d43b3db6 and 565222b5, see discovered-sources)
