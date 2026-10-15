@@ -24,3 +24,5 @@ https://www.latent.space/p/nyc2026  skip: subscriber meetup notice
 https://www.latent.space/p/dyna  skip: physical robotics autonomy, out of scope
 https://www.latent.space/p/biohub-deepmind  skip: protein folding, out of scope
 https://www.latent.space/p/periodic  skip: materials-science research interview, out of scope
+
+https://www.latent.space/p/stacklok
