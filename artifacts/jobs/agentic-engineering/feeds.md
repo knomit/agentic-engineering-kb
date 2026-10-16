@@ -47,3 +47,5 @@ One line per feed: "- <feed URL> | <dated|undated|page> | newest crawled: <YYYY-
 - https://modelcontextprotocol.io/community/feature-lifecycle | page | newest crawled: page | last swept: 2026-10-11
 
 - https://code.claude.com/docs/en/workflows | page | newest crawled: page | last swept: 2026-10-15 (added this run; the tripwire for d43b3db6 and 565222b5, see discovered-sources)
+
+- https://www.microsoft.com/en-us/security/blog/topic/ai-and-machine-learning/?sort-by=newest-oldest | dated | newest crawled: 2026-10-01 https://www.microsoft.com/en-us/security/blog/2026/10/01/insights-from-the-2026-microsoft-digital-defense-report/ | last swept: 2026-10-16 (added this run, see discovered-sources; 12 rows on that date back to 2026-08-27, three in scope. The mark names the newest row on the index, which is QUEUED not read, so treat the mark as the index position reached rather than as a post that was mined. Depth is a "Load More" to the same URL plus &paged=2, route 57. Rows are month-and-day only; the year comes off the URL. One row pointed at blogs.microsoft.com, a different host)
