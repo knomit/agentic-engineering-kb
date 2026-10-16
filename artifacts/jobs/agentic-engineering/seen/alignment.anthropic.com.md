@@ -40,3 +40,5 @@ https://alignment.anthropic.com/2025/anthropic-fellows-program-2026/  skip: fell
 https://alignment.anthropic.com/2024/anthropic-fellows-program/  skip: fellowship programme announcement, no engineering content
 https://alignment.anthropic.com/2025/introducing-safeguards-research-team/  skip: team announcement, no engineering content
 https://alignment.anthropic.com/2025/recommended-directions/  skip: research-agenda positioning, no agent-engineering content
+
+https://alignment.anthropic.com/2025/automated-auditing/
