@@ -347,3 +347,39 @@ https://code.claude.com/docs/en/workflows was asked for "this page's text as lit
 
 === ROUTE 33, SIXTH DATAPOINT ON alignment.anthropic.com's INDEX DEPTH (56th run). ===
 The same URL with a route-33 enumeration ask has now returned 8 entries (45th run), 62 (46th and 47th), 79 (48th), 84 (2026-10-08) and 84 (2026-10-15). The last two agree, which is the first time two measurements have matched, and the 2026-10-15 call also answered the route-39 question in the same breath: "The page has no 'See more,' 'Load more,' or pagination control." So this index is like anthropic.com/engineering rather than like /research — one call is the whole archive, and the earlier smaller counts were shallow reads of a complete page, not a paginated one. Still record what one call returned on one date; two agreeing calls are not a guarantee.
+
+=== ROUTE 57 (57th run). FOUR DEPTH VERDICTS ON FOUR NEVER-SWEPT HOSTS, PLUS TWO INDEX TRAPS THAT ARE NOT ABOUT DEPTH AT ALL. ===
+The route-39 ask ("is there a See more / Load more / Older / numbered control, and what is its target URL?") was put to four
+indexes that had sat at "last swept: unknown" since the bootstrap. All four answered cleanly in the sweep call, at no extra cost.
+  (a) eugeneyan.com/writing/ -- NO CONTROL OF ANY KIND, and that is the good outcome: one plain WebFetch returned the whole
+      archive, newest 2026-06-21 back to 2015-09-17. This is the anthropic.com/engineering shape (route 44), not the
+      research.google shape: a missing post means the post does not exist, not that the index was shallow. Do not queue depth.
+  (b) www.microsoft.com/en-us/research/blog/ -- REAL, RESOLVABLE, numbered: next page is
+      https://www.microsoft.com/en-us/research/blog/?research-area=all&page=2 and the control said "of 149" pages.
+      Contrast research.google (route 52), where a numbered control advertising 135 pages exposes `javascript(0):void` for
+      every one of them. Same widget shape, opposite verdict -- which is route 39's whole point.
+  (c) www.microsoft.com/en-us/security/blog/topic/ai-and-machine-learning/?sort-by=newest-oldest -- the per-topic archive route
+      55 named as the depth route has its OWN depth, a "Load More" button whose target is that same URL plus `&paged=2`.
+      So route 55's per-topic link is not a dead end; it is the entry to a paged archive. FIFTH distinct shape for "depth"
+      in this pack, after dead `#`, dead `javascript(0):void`, incrementable parameter, and per-topic archive link.
+  (d) aws.amazon.com/blogs/machine-learning/ -- a single "← Older posts" link to https://aws.amazon.com/blogs/machine-learning/page/2/,
+      the sourcegraph.com shape (route 53). Resolves.
+
+*** TRAP ONE, NEW AND WORTH MORE THAN THE FOUR VERDICTS: ON THE AWS ML BLOG THE FIRST ROWS SERVED ARE NOT THE NEWEST. ***
+The enumeration returned "Safely Releasing Frontier Models to Customers" (30 JUN 2026) and "How frontier teams are reinventing
+AI-native development" (10 JUN 2026) as rows 1 and 2, ABOVE ten rows dated 13-15 OCT 2026. A run that takes "the first entry"
+as the newest, or that stops reading once a row falls below the high-water mark, gets the wrong answer on this host and would
+record the feed as having nothing new. This is route 40's duplicate trap mutated: there a featured block repeated rows, here a
+featured block REORDERS them. THE RULE: order the enumeration by the date you read off each row, never by its position, and
+never stop the scan early on a date that falls below the mark.
+
+*** TRAP TWO: A HIGH-WATER MARK CAN SIT ABOVE EVERY ROW THE INDEX HAS, AND THEN NO CANDIDATE CAN EVER QUALIFY. ***
+eugeneyan.com/writing/ carried "newest crawled: 2026-07-30 .../cybersecurity-evals/" in feeds.md, bootstrapped from the run
+records. The index gives that same post as 21 Jun 2026, and nothing on the index is dated later. So the mark was ABOVE the
+whole feed, every sweep would return zero candidates, and the feed would read as permanently up to date while six in-scope
+practitioner posts sat unread below it. The mark's DATE was corrected to the index's own 2026-06-21; the URL was already right.
+THE CHECK, which costs nothing because the sweep already returns the dates: when a sweep returns zero candidates, compare the
+mark's date against the NEWEST row on the index. If the mark is newer than every row, the mark is wrong, not the feed quiet.
+AND THE SECOND HALF OF THE RULE: a mark that is merely correct still hides everything below it. A feed whose whole back
+catalogue arrives in one call (shapes (a) above, route 44, route 33's alignment.anthropic.com) should have its below-mark rows
+triaged into the queue once, because the sweep has already paid for the enumeration.
