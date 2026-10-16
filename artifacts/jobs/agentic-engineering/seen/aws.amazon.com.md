@@ -19,3 +19,5 @@ https://aws.amazon.com/blogs/machine-learning/deploy-and-evaluate-models-with-am
 https://aws.amazon.com/blogs/machine-learning/manage-private-pricing-offers-for-amazon-bedrock-with-managed-entitlements/  skip: billing and entitlements, out of scope
 https://aws.amazon.com/blogs/machine-learning/natural-language-security-queries-at-orca-security-using-amazon-bedrock/  skip: customer story, framework post
 https://aws.amazon.com/blogs/machine-learning/how-shipstation-global-built-an-ai-it-help-desk-on-amazon-bedrock-agentcore/  skip: customer story, framework post
+
+https://aws.amazon.com/blogs/machine-learning/trust-in-depth-giving-agents-more-autonomy-without-losing-control/
