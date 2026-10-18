@@ -42,3 +42,5 @@ https://alignment.anthropic.com/2025/introducing-safeguards-research-team/  skip
 https://alignment.anthropic.com/2025/recommended-directions/  skip: research-agenda positioning, no agent-engineering content
 
 https://alignment.anthropic.com/2025/automated-auditing/
+
+https://alignment.anthropic.com/2026/auditbench/
