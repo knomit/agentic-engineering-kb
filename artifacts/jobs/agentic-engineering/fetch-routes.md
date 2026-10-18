@@ -383,3 +383,43 @@ mark's date against the NEWEST row on the index. If the mark is newer than every
 AND THE SECOND HALF OF THE RULE: a mark that is merely correct still hides everything below it. A feed whose whole back
 catalogue arrives in one call (shapes (a) above, route 44, route 33's alignment.anthropic.com) should have its below-mark rows
 triaged into the queue once, because the sweep has already paid for the enumeration.
+
+=== ROUTE 58 (58th run). *** A DATED INDEX CAN CARRY AN UNDATED ROW, AND THE CANDIDATE RULE CANNOT SEE IT. THIS IS NOT A DEPTH PROBLEM AND IT COST THIS PACK THREE FACTS' DELAY, NOT A FETCH. *** ===
+The sweep of www.anthropic.com/engineering returned three dated rows, all at or below the 2026-04-23 mark, plus one featured
+entry at the TOP of the page with NO DATE AT ALL: /engineering/redesigning-source-control. It was absent from
+seen/anthropic.com.md. A run applying the dated-feed rule as written -- "candidates are the index entries dated ON or after
+the high-water date" -- drops it, because it has no date to compare. It was read this run and produced THREE facts
+(1ed3880b, fbe7060b, fa3d1496), including the pack's hardest numbers yet on agent-driven load: 2,500 merges/day in May 2026
+to over 30,000/day by September, and ~25 million CI checkouts/day.
+THE RULE: on a dated feed, an entry WITHOUT a date is a candidate whenever it is not in `seen`, full stop. Do not order it
+against the mark and do not drop it for being unorderable. Ask the sweep for each row's date explicitly, so a missing date
+shows up as missing rather than as absent-from-the-answer.
+THIS IS THE THIRD DISTINCT FEATURED-BLOCK TRAP ON ONE SITE, and they are all different failures: route 40 (the featured
+block REPEATS table rows, so deduplicate by URL), route 57 trap one (a featured block REORDERS rows, so never order by
+position), and now this one (a featured row carries NO date, so never require one). The featured block is also where
+anthropic.com puts bare-path URLs that are not under the feed's own prefix at all -- /claude-sonnet-5-5, /claude-opus-5-5 --
+so a row's URL need not share the index's path either. Related date-precision cases already recorded: relative dates on
+Substack and huggingface Community Articles (routes 43/56), month-only dates on alignment.anthropic.com (route 33), and
+year-from-the-section-heading on embracethered.com and blog.redwoodresearch.org.
+
+=== ROUTE 57(a) SHAPE CONFIRMED ON A FOURTH HOST (58th run). cognition.com/blog HAS NO PAGINATION CONTROL OF ANY KIND. ===
+The route-39 ask returned no "See more", no "Load more", no "Older", no numbered control -- and one plain WebFetch returned
+all 91 rows back to 2024-03-12. This is the eugeneyan.com/writing and anthropic.com/engineering shape (routes 44, 57(a)),
+not the research.google shape: a missing post means the post does not exist. Do not queue depth for this feed, and triage its
+below-mark rows into the queue once, because the sweep has already paid for the whole enumeration. Dates are MM.DD.YY.
+
+=== ROUTE 33, SEVENTH DATAPOINT (58th run). alignment.openai.com/misalignment-reports/ STATED 19 AND ENUMERATED 18. ===
+Same mechanism as the 48th run's 12-versus-11 on the same URL: the page's own header gives a total, the enumeration ask
+returns the rows, and the two disagree. The enumeration is the sound half. ALSO NEW ON THIS FEED, and it is not a route-33
+issue: every row carries THREE dates -- incident, first posted, last updated -- and the last-updated values MOVE on old rows
+(several June 2026 rows read "10/15/26"). So a URL already in `seen` can have been revised since it was read. That is a
+staleness question for the facts citing it, not a crawl candidate, and nothing in this job detects it.
+
+=== METHOD NOTE (58th run). A STALENESS SAMPLE THAT SHARES REFS COSTS ONE FETCH PER PAGE, NOT ONE PER FACT. ===
+Five facts were checked this run in THREE fetches: 2f33c7ff and 065eb829 both cite the GLM-5.3 page (8 asked-for clauses
+confirmed in one call), a0cb6dc6 and 126207f7 both cite the TASTE page (7 in one call), and b17b7fc2 took its own. The
+per-call verbatim ask comfortably carried 7-8 short presence-shaped items without hitting route 37's per-quote truncation,
+because each asked-for clause was under ~110 characters. So when picking the five, prefer facts that CLUSTER on one source
+over five unrelated ones: the pack has several such clusters (the GLM-5.3 page, the TASTE page, the SLEIGHT-Bench page, the
+Astra safeguards page, the Petri pages). It is not a licence to check fewer facts -- it is a licence to check the same five
+for a third of the fetches.
