@@ -35,3 +35,5 @@ https://www.aisi.gov.uk/blog/how-to-evaluate-control-measures-for-ai-agents
 https://www.aisi.gov.uk/blog/introducing-controlarena-a-library-for-running-ai-control-experiments
 
 https://www.aisi.gov.uk/blog/will-it-become-harder-to-oversee-ai-systems
+
+https://www.aisi.gov.uk/blog/towards-technical-best-practice-for-frontier-ai-development
