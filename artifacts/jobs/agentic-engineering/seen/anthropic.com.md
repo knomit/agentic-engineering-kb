@@ -65,3 +65,11 @@ https://www.anthropic.com/research/what-work-can-robots-do  skip: economic task 
 https://www.anthropic.com/research/the-missing-map-of-the-sky
 
 https://www.anthropic.com/research/launching-opt-in-vuln-finding-service-for-open-source
+
+https://www.anthropic.com/news/an-update-on-independent-evaluators
+https://www.anthropic.com/engineering/redesigning-source-control
+https://www.anthropic.com/news/2026-us-midterms  skip: election-integrity policy, no engineering content
+https://www.anthropic.com/news/singapore-office-opening  skip: office and MOU announcement, no engineering content
+https://www.anthropic.com/research/ai-expectations-gap  skip: economics survey, no agent-engineering content
+https://www.anthropic.com/research/employment-at-anthropic  skip: economics, no agent-engineering content
+https://www.anthropic.com/research/expectations-for-the-future  skip: economics, no agent-engineering content
