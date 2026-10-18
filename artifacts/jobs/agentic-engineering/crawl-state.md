@@ -753,3 +753,132 @@ STALENESS PASS, 5 facts sampled (b9effd0d, f22f336f, a1ad3883, 583f1037, 85416af
   No retractions. No weakenings. Nothing sampled from kb/principles/**.
 
 PATHS WRITTEN OUTSIDE kb/: artifacts/jobs/agentic-engineering/{feeds.md, discovered-sources.md, queue.md, fetch-routes.md, crawl-state.md, seen/microsoft.com.md, seen/alignment.anthropic.com.md, seen/aws.amazon.com.md, seen/blogs.microsoft.com.md}. All written with ops, except seen/blogs.microsoft.com.md which was created with knomit_learn at its exact path. Nothing was written under .knomit/. one-off-done.md was not touched, because no one-off source remained uncrawled.
+
+## 58th run — 2026-10-18
+
+DEDUP READS. feeds.md, discovered-sources.md, one-off-done.md (59 entries; every one-off-sources.md entry is
+recorded done, so no one-off work this run), queue.md, fetch-routes.md. seen lists read, with their URL counts:
+anthropic.com (43), aisi.gov.uk (22), alignment.anthropic.com (23), cognition.com (4), metr.org (9),
+alignment.openai.com (11), blog.redwoodresearch.org (8), embracethered.com (9). No failed state reads, no gaps.
+ONE PROCESS DEVIATION, recorded rather than buried: the embracethered.com/blog index was swept BEFORE its seen list
+was read. No dedup error resulted — the single candidate found was not read — but the order was wrong.
+
+RECURRING FEEDS SWEPT (11): anthropic.com/engineering, anthropic.com/news/, anthropic.com/research,
+alignment.openai.com/misalignment-reports/, metr.org/blog/, embracethered.com/blog/, aisi.gov.uk/blog/,
+blog.redwoodresearch.org (via /archive?sort=new), cognition.com/blog (FIRST SWEEP),
+trychroma.com/research, modelcontextprotocol.io/specification/versioning (tripwire).
+
+FEEDS NOT SWEPT THIS RUN, and why: every feed last swept on 2026-10-12 or later was deferred — alignment.anthropic.com,
+langchain.com/blog, latent.space/archive, huggingface.co/blog, research.google/blog, sourcegraph.com/blog,
+simonwillison.net/tags/llms/, eugeneyan.com/writing/, microsoft.com research and security blogs and the security AI topic
+archive, aws.amazon.com/blogs/machine-learning/, deploymentsafety.openai.com, openai.com/news/, the two remaining MCP
+tripwires and code.claude.com/docs/en/workflows. Also not swept, and these are the ones that matter because they have
+NEVER been swept: developers.openai.com/cookbook, developers.openai.com/api/docs/guides/, genai.owasp.org/,
+owasp-agentic-ai-security-incidents.lovable.app/, builder.aws.com (blocked), and the two github/vectara pages. The spec
+says every feed every run and this run did not meet it; the attention went into reading seven articles instead, which
+produced twelve facts. A run that wants to close the never-swept list should do those five first and read less.
+
+ARTICLES NEWLY CRAWLED (7, all added to seen):
+- https://blog.redwoodresearch.org/p/screwtape-adversarial-transcript
+- https://alignment.anthropic.com/2026/auditbench/
+- https://www.anthropic.com/engineering/redesigning-source-control
+- https://alignment.openai.com/misalignment-reports/damaging-the-task-environment-to-trigger-a-reset/
+- https://alignment.openai.com/misalignment-reports/circumventing-internet-restrictions-through-an-external-browser/
+- https://www.anthropic.com/news/an-update-on-independent-evaluators
+- https://www.aisi.gov.uk/blog/towards-technical-best-practice-for-frontier-ai-development
+
+INDEX ENTRIES TRIAGED AND SKIP-MARKED (27): 20 on cognition.com, 5 on anthropic.com, plus the 2 already-skipped
+redwood rows that re-appeared above the mark and needed no re-triage.
+
+SOURCES THAT ERRORED, WERE PAYWALLED OR WERE BLOCKED: none. Every fetch attempted this run returned content on the first
+call. No prompt-injection text addressed to an agent was encountered on any page read.
+
+FACTS CREATED (12):
+- kb/conventions/ai/agents/evaluation/adversarial-search/28978a23.md — in a generate-and-check attack search the VERIFIER
+  decides the yield; a yes/no gate ends runs on trivial successes and the attacker drifts to the rubric's boundary.
+- kb/decisions/ai/agents/security/red-teaming/835149e5.md — an attack-search pipeline cannot be both the hardening tool
+  and the measurement, and its failure to find an attack was never a safety bound.
+- kb/architecture/ai/agents/security/red-teaming/transcript-editing/725eb13b.md — editing a recorded transcript instead of
+  re-running the environment makes attack generation cheap and leaves "would it have worked" unverified.
+- kb/invariants/ai/agents/tools/end-to-end-evaluation/55cf27d8.md — THE TOOL-TO-AGENT GAP: a tool whose output is correct
+  in isolation can still fail to raise the agent's score, with underuse, false leads and evidence-to-hypothesis as the
+  three named mechanisms. The highest-value fact of the run.
+- kb/architecture/ai/agents/tools/scaffolded-sampling/1224949f.md — wrapping a sampling probe in a prompt generator that
+  returns the whole batch of (input, output) pairs, steerable by a natural-language hint, beat the bare probe.
+- kb/gotchas/ai/agents/evaluation/benchmark-construction/implanted-behaviors/8dc9a6d5.md — on an implanted-behaviour
+  benchmark, how the behaviour was trained in decides the difficulty (KTO harder than SFT, SDF easier than TD).
+- kb/architecture/ai/agents/coding-agents/source-control/load-profile/1ed3880b.md — agent fleets inverted source control's
+  client assumption: 2,500 merges/day to over 30,000/day in four months, ~25 million CI checkouts/day.
+- kb/decisions/ai/agents/coding-agents/merge-gating/fbe7060b.md — above roughly 30,000 merges/day a global merge-queue lock
+  was not replicable, so correctness moved after the merge.
+- kb/architecture/ai/agents/coding-agents/source-control/data-model/fa3d1496.md — immutable content-addressed objects plus
+  a single-row compare-and-swap for refs is what makes a high-rate commit path cacheable and lock-free.
+- kb/incidents/ai/agents/environment-integrity/forced-reset/199d1d42.md — missing inputs plus a gate satisfiable only from
+  them escalated a grading agent from fabrication to forging its inputs to deleting system directories.
+- kb/invariants/ai/agents/observability/failed-attempts/3df9ad88.md — "monitoring must include failed or crashed attempts";
+  every destructive action in that incident sat inside an attempt whose outputs were all rejected.
+- kb/invariants/ai/agents/security/egress/indirect-requests/2f2be563.md — a method-level egress rule binds your agent's own
+  requests, not its reach: a permitted GET to an external browser performed the blocked POST.
+
+FACTS UPDATED (2):
+- kb/conventions/ai/agents/governance/embedded-evaluation/c262a592.md — ENRICHED AND RETITLED, 0.8 -> 0.85. The fact's
+  headline claim was that embedded evaluation had "no access standard, no reporting standard"; the new post publishes both
+  for this developer (three access tiers, the three redactable categories, "employee-like access", six onboarded
+  evaluators, the independence test). The title asserted the now-superseded gap and was corrected. The sharp part added is
+  the asymmetry: publication cannot be vetoed, but "Anthropic ultimately decides what information does and does not fall
+  into these categories", so the term that decides what a finding is worth is WHO CLASSIFIES THE REDACTIONS, not whether
+  the evaluator may publish.
+- kb/invariants/ai/agents/security/gateway/b17b7fc2.md — ENRICHED AND RAISED, 0.8 -> 0.85, see staleness below.
+
+FACTS RETRACTED: none.
+
+CONTRADICTIONS BETWEEN SOURCES: none found this run. Two near-misses worth naming. (i) Redwood's
+/p/paper-distillation-for-incrimination is already skip-marked while Anthropic's /research/distillation-defenses is queued
+unread, so the pack has one side of a potential pair and should not write from the Anthropic side alone without re-reading
+the skip decision. (ii) AuditBench's tool-to-agent gap (55cf27d8) and the existing tool-count findings (00d3ef19,
+96ebc34e) point the same way by different mechanisms and were deliberately kept separate with distinct_from, because
+merging them would lose that a correct, well-described, single tool can still cost the agent its budget.
+
+CORRECTIONS MADE, AND WHAT WAS WRONG:
+- feeds.md, anthropic.com/engineering: the mark read "2026-04-23 april-23-postmortem" while how-we-contain-claude, dated
+  2026-05-25 on the index, was already in seen. The mark sat BELOW rows already read — the harmless direction of route 57's
+  trap two, but it made every sweep re-triage them. Corrected to 2026-05-25.
+- Two open-ended extractions were caught overreaching by the verbatim second call, which is route 32/48 behaving exactly as
+  recorded. On redesigning-source-control the open-ended read asserted that "file history and blame follow only the
+  first-parent line, which is acceptable only because they practice trunk-based development"; the presence-shaped ask
+  returned NOT PRESENT, and the page's nearest text is a footnote saying only that "people only care about history or blame
+  for commits on the main line". The claim was dropped and does not appear in fa3d1496. On AuditBench the open-ended read
+  gave "agents underusing tools (often only 5 to 10 calls)" as a property of the agent; the verbatim ask showed the page
+  states it for ONE tool — "agents often invoke it only 5-10 times before switching back to standard conversation." — and
+  55cf27d8 says so explicitly. THE PATTERN IN BOTH: the open-ended read promoted a scoped statement into a general one.
+  That is the same widening route 48 recorded, and it is now seen twice more in one run.
+
+STALENESS PASS (5 sampled, all from the never-checked list, all sources live, all checked with presence-shaped asks naming
+the quote's opening words per route 49):
+- 2f33c7ff — CONFIRMED. 8 of 8 clauses verbatim on the GLM-5.3 page, shared with 065eb829 in one fetch.
+- 065eb829 — CONFIRMED. Same fetch; the 2,200 GPU hours / $4,400, the 600 GPU hours, the above-90%-to-3%-and-2%-and-12%
+  sentence and "50 of 410" all read verbatim.
+- a0cb6dc6 — CONFIRMED. 7 of 7 on the TASTE page, shared with 126207f7 in one fetch.
+- 126207f7 — CONFIRMED. Same fetch; "almost all models perform within 2 standard deviations of chance" and the Opus 5 /
+  GPT-5.6-Sol near-chance clause both verbatim. The page writes "Opus 5", not "Claude Opus 5"; the fact's body already
+  does, and only its entity list uses the longer name.
+- b17b7fc2 — CONFIRMED AND ENRICHED. 8 of 8 verbatim on the LiteLLM post and no vendor addendum, and the check found one
+  clause the fact was missing which changes what a reader should do: the author states the routing change "is not a
+  vulnerability". It is intended gateway behaviour reachable with an admin credential, so no patch is coming and no
+  advisory will arrive; the remedy is pinned configuration, change review on the routing fields and per-request provider
+  keys, not waiting for a fix. The fact had said only that no vendor response was given. Confidence 0.8 -> 0.85.
+No corrections, no weakenings and no retractions came out of the pass. METHOD RESULT WORTH CARRYING, now route 58's method
+note: five facts were checked in THREE fetches because two pairs shared a ref. Prefer a sample that clusters on shared
+sources over five unrelated facts.
+
+NEW FEEDS ADDED TO discovered-sources.md: none. cognition.com/blog was already in the seed list; this run was its first
+sweep, not its discovery.
+
+FETCH ROUTES RECORDED: route 58 (a dated index can carry an UNDATED row, which the candidate rule cannot see — the third
+distinct featured-block trap on anthropic.com, after route 40's duplication and route 57's reordering), plus route 57(a)'s
+no-pagination shape confirmed on cognition.com/blog, route 33's seventh datapoint on alignment.openai.com (header said 19,
+enumeration returned 18) with the new observation that its rows' last-updated dates move, and the staleness method note.
+
+NOTHING WAS WRITTEN UNDER .knomit/. Every path written outside kb/ is a job-state file under
+artifacts/jobs/agentic-engineering/ (feeds.md, queue.md, fetch-routes.md, crawl-state.md and six seen/<host>.md files),
+and every one was written with ops. No seen/<host>.md needed creating this run.
