@@ -21,3 +21,5 @@ https://blog.redwoodresearch.org/p/brief-independent-investigation-of
 https://blog.redwoodresearch.org/p/latent-reasoning-architectures-would
 
 https://blog.redwoodresearch.org/p/cot-controllability-evals-seem-very
+
+https://blog.redwoodresearch.org/p/screwtape-adversarial-transcript
