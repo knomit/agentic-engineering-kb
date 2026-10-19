@@ -19,3 +19,5 @@ https://embracethered.com/blog/posts/2026/hijacking-litellm-for-fun-and-profit/
 https://embracethered.com/blog/posts/2026/macos-terminal-dillma-dns-exfil-ansi-escape-code-fix/
 https://embracethered.com/blog/posts/2026/recovering-encrypted-llm-thoughts/
 https://embracethered.com/blog/posts/2026/toctou-agent-what-you-click-is-not-what-you-get/
+
+https://embracethered.com/blog/posts/2026/visual-studio-copilot-remote-code-execution/
