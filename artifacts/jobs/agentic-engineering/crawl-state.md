@@ -882,3 +882,42 @@ enumeration returned 18) with the new observation that its rows' last-updated da
 NOTHING WAS WRITTEN UNDER .knomit/. Every path written outside kb/ is a job-state file under
 artifacts/jobs/agentic-engineering/ (feeds.md, queue.md, fetch-routes.md, crawl-state.md and six seen/<host>.md files),
 and every one was written with ops. No seen/<host>.md needed creating this run.
+
+## 2026-10-19 (59th run)
+
+**Dedup reads.** feeds.md (33 feed lines), discovered-sources.md (3 entries), one-off-done.md (59 URLs, every one-off source already done, so no one-off work this run), queue.md (items 6-36), fetch-routes.md (routes 32-58; the archive was NOT read, no fetch needed it). seen lists read, with their URL counts: anthropic.com (57), alignment.openai.com (13), embracethered.com (9), developers.openai.com (4), simonwillison.net (31). Two seen lists came back "could not read" and were therefore empty, correctly: owasp-agentic-ai-security-incidents.lovable.app and claude.dev. Both were created this run. No failed or unexplained calls.
+
+**Recurring indexes swept.** Two. simonwillison.net/tags/llms/ (second sweep; 30 rows at or above the old mark) and owasp-agentic-ai-security-incidents.lovable.app (FIRST SWEEP EVER, via the browser pane). Plus one page re-read: code.claude.com/docs/en/best-practices. The 58th run swept eleven feeds on 2026-10-18, the day before, so the other dated feeds were deliberately left: a one-day re-sweep of a feed that publishes weekly buys nothing, and the budget went to the queue and to the two indexes that had never been followed.
+
+**Articles newly crawled (6).**
+- https://alignment.openai.com/misalignment-reports/accessing-and-changing-internal-systems-during-dashboard-research/ (queue item 34 rank 1)
+- https://embracethered.com/blog/posts/2026/visual-studio-copilot-remote-code-execution/ (queue item 35 ii)
+- https://www.anthropic.com/research/distillation-defenses (queue item 35 i)
+- https://owasp-agentic-ai-security-incidents.lovable.app/ (first sweep, browser pane)
+- https://simonwillison.net/2026/Oct/16/code-review/ (new candidate on the swept index)
+- https://claude.dev/blog/solving-code-review-at-anthropic/ (NEW HOST, reached as the primary behind the simonwillison link post)
+Plus 11 simonwillison.net index entries triaged and skip-marked, and four re-reads for the staleness pass (code.claude.com best-practices, simonwillison cat-and-thariq, applied-llms.org, the OWASP agentic Top 10 resource page) - all four were already in seen or one-off-done, so nothing was appended for them.
+
+**Errored, blocked or skipped by name.** One: a plain WebFetch of owasp-agentic-ai-security-incidents.lovable.app returned the no-content sentinel. It is NOT a dead source - the browser pane read it completely (route 59). Nothing else failed. No paywalls. No prompt-injection attempts were found in any page read this run.
+
+**Facts written (8).**
+- kb/invariants/ai/agents/security/credential-lifecycle/add71337.md - reverting a config change does not revoke what it issued; the restored setting left the minted storage token usable, so alert on the CHANGE EVENT, not the current value.
+- kb/gotchas/ai/agents/coding-agents/path-validation/49a299ee.md - a protected-name denylist compared by string equality before OS normalisation; `.mcp.json.` passed and the write landed on `.mcp.json` (CVE-2026-103572, CVSS 8.8).
+- kb/gotchas/ai/agents/observability/reasoning-exposure/ee4e6420.md - summarised reasoning cost a distilling model 80.4% -> 71.8% on SWE-bench Verified; trace fidelity is a dial on capability transfer.
+- kb/architecture/ai/agents/security/abuse-controls/ea3561e5.md - the effective distillation defenses are account-age, context-mutability, tenancy and billing, each with a stated cost to honest callers.
+- kb/gotchas/ai/agents/security/incident-statistics/5c43cf17.md - the live OWASP tracker's 513 is three populations: 54 curated incidents, 4 verified CVE discoveries, 455 retroactive NVD High/Critical.
+- kb/gotchas/ai/agents/coding-agents/review-convergence/e4e6823a.md - reviewer noise is a cost multiplier when the author is an agent; one PR ran 50+ rounds overnight, 59% of repeat findings were pre-existing code, and the convergence work moved one-round pass 65% -> 78%.
+- kb/invariants/ai/agents/coding-agents/review-gating/18d8df24.md - an agent's approval never counts as a person's, the human directing the agent is a required reviewer, and approval binds to one commit.
+- kb/architecture/ai/agents/multi-agent/finding-gating/7b6bbf86.md - gate findings on a separate verifier vote, and measure the reviewer by author disposition classes plus its harmful-suggestion rate on known-clean PRs.
+
+**Contradictions found between sources.** None this run. One near-miss worth recording: ee4e6420 and e4e6823a both bear on how much of an agent's intermediate output should be exposed, and they pull in opposite directions - hide reasoning to deny a competitor a training corpus, surface findings into the implementing session to close the review loop without a human. They are not in conflict (different audiences, different channels) and were written as separate facts rather than forced into a decisions fact.
+
+**Corrections made, and what was wrong.**
+- 2b74037b ("pick the smallest model that passes your evals"), confidence 0.7. The fact presented the smallest-model rule as the decision rule. Re-reading applied-llms.org verbatim found the source states BOTH halves in different sections: "Choose the smallest model that gets the job done." in the cost-and-latency section and "Prototype with the most highly capable models before trying to squeeze performance out of weaker models." elsewhere. The defect class is a dropped sequencing condition - the rule is for the optimisation stage, and applied to a first build it inverts, because a small model's failure is uninterpretable until the frontier model is known to succeed. Also relabelled the headline exemplar: the source attributes "Haiku + 10-shot prompt outperforms zero-shot Opus and GPT-4." to a tweet and presents it as anecdata, which the fact did not say. Separately, this fact's body carried a paragraph beginning "STALENESS: source verified 2026-07-26..." - exactly the pipeline-addressed edit history the spec forbids in a body - and that paragraph was replaced by the epistemic content it was burying. Confidence unchanged at 0.7.
+- No retractions.
+
+**Staleness pass (5 sampled, all live sources).** Sampled on LOW CONFIDENCE (0.70-0.75), not age; the age criterion cannot be applied as written because the repo-wide 2abc4f2c commit (2026-08-27) stamps hundreds of facts with a date that is not a verification date. Results: 111f8b2c CONFIRMED verbatim (2 of 2 clauses); 8cf06566 CONFIRMED at source level - the resource page is live and the counted edition is unrevised, still dated "December 9, 2025" with no version label; 4b0261d0 CONFIRMED - no post-2025 counter-position or vindication of the Apple paper surfaced, so the contested framing and both refs stand; bef38871 ENRICHED AND RAISED 0.75 -> 0.85, sources 1 -> 2, after its own ref page confirmed both anchors verbatim AND the new claude.dev post supplied an independent production form of its calibration advice (run the reviewer on known-clean PRs and count harmful suggestions; classify each comment by author disposition - fixed, wrong, intentional, didn't matter - because a single false-positive rate conflates "wrong" with "didn't matter"); 2b74037b CORRECTED as above.
+
+**State written.** seen/alignment.openai.com.md, seen/embracethered.com.md, seen/anthropic.com.md, seen/simonwillison.net.md (append); seen/claude.dev.md and seen/owasp-agentic-ai-security-incidents.lovable.app.md (created with knomit_learn); feeds.md (six lines replaced, one appended); discovered-sources.md, fetch-routes.md, queue.md (append plus three str_replaces). one-off-done.md untouched - nothing was crawled from one-off-sources.md. Nothing was written under .knomit/. NOTE FOR THE NEXT READER OF queue.md: this run's new items are numbered 38 and 39; there is no item 37.
+
+**Routes recorded.** Route 59 (the built-in browser pane renders a client-rendered SPA that plain WebFetch returns empty; preview_start then get_page_text, two calls, no approval needed - and this reopens every entry the pack had written off as JS-blocked, builder.aws.com above all). Route 42 reconfirmed a fifth time. The never-declare-a-source-dead tally is now seven for seven.
