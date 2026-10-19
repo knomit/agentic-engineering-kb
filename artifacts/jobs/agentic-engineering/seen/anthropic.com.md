@@ -73,3 +73,5 @@ https://www.anthropic.com/news/singapore-office-opening  skip: office and MOU an
 https://www.anthropic.com/research/ai-expectations-gap  skip: economics survey, no agent-engineering content
 https://www.anthropic.com/research/employment-at-anthropic  skip: economics, no agent-engineering content
 https://www.anthropic.com/research/expectations-for-the-future  skip: economics, no agent-engineering content
+
+https://www.anthropic.com/research/distillation-defenses
