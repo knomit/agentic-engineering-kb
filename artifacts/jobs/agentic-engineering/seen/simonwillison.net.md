@@ -41,3 +41,16 @@ https://simonwillison.net/2026/Sep/25/john-gruber/  skip: quoted commentary on a
 https://simonwillison.net/2026/Sep/23/bof-agentic-engineering/  skip: event announcement
 https://simonwillison.net/2026/Sep/22/opus-and-sol-and-luna/  skip: model launches and pricing
 https://simonwillison.net/2026/Sep/20/voxium/  skip: side project, no agent-engineering content
+
+https://simonwillison.net/2026/Oct/16/code-review/
+https://simonwillison.net/2026/Oct/15/chirp-pong/  skip: side project, no agent-engineering content
+https://simonwillison.net/2026/Oct/15/anthropic-tells-investors/  skip: company revenue reporting, no engineering content
+https://simonwillison.net/2026/Oct/15/latex/  skip: side project, no agent-engineering content
+https://simonwillison.net/2026/Oct/14/tree-appreciator/  skip: side project, no agent-engineering content
+https://simonwillison.net/2026/Oct/14/ai-is-mass-decompiling-games/  skip: decompilation commentary, no agent-engineering consequence
+https://simonwillison.net/2026/Oct/13/redesigning-source-control-at-anthropic/  skip: link post; the primary (engineering/redesigning-source-control) is read
+https://simonwillison.net/2026/Oct/13/llm-gemini/  skip: tool release note
+https://simonwillison.net/2026/Oct/12/llm-meta-ai/  skip: tool release note
+https://simonwillison.net/2026/Oct/9/built-using-my-voice/  skip: the author's own blog feature, no agent-engineering content
+https://simonwillison.net/2026/Oct/1/matthew-green/  skip: quoted comment on sandboxing, no engineering consequence
+https://simonwillison.net/2026/Sep/29/openai-devday-2026-live-blog/  skip: live blog of product announcements
