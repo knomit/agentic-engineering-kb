@@ -423,3 +423,48 @@ because each asked-for clause was under ~110 characters. So when picking the fiv
 over five unrelated ones: the pack has several such clusters (the GLM-5.3 page, the TASTE page, the SLEIGHT-Bench page, the
 Astra safeguards page, the Petri pages). It is not a licence to check fewer facts -- it is a licence to check the same five
 for a third of the fetches.
+
+=== ROUTE 59 (59th run). THE BUILT-IN BROWSER PANE READS A CLIENT-RENDERED SPA THAT PLAIN WebFetch RETURNS EMPTY, AND THE SEVENTH "DEAD" SOURCE TURNED OUT TO BE ONE CALL AWAY. ===
+owasp-agentic-ai-security-incidents.lovable.app had sat in the recurring set with "last swept: unknown" since the
+12th run. A plain WebFetch of the root, asked for an enumeration of its incident entries, returned exactly the
+no-content sentinel:
+    NO READABLE CONTENT
+THE ROUTE THAT WORKED, two calls, no login, no scripts:
+    mcp__remote-devices__Claude_Browser__preview_start { url: "https://owasp-agentic-ai-security-incidents.lovable.app/" }
+      -> returns tabId "seed"
+    mcp__remote-devices__Claude_Browser__get_page_text { tabId: "seed", max_chars: 12000 }
+That returned the rendered <main> whole: every stat tile with its number, all four figure legends with their
+coverage and selection-bias notes, the twelve visible record cards with titles, months, ASI mappings and source
+labels, the data/snapshot section, the citation block, the full ASI01-ASI10 reference list and the two source
+schedules. No site approval was requested and nothing was blocked. The browser tools arrive DEFERRED: one
+ToolSearch with
+    select:mcp__remote-devices__Claude_Browser__preview_start,mcp__remote-devices__Claude_Browser__get_page_text,...
+loads the set in a single round trip; do not load them one at a time.
+WHAT THIS GENERALISES TO. Route 51 retired route 47 by showing the pane reads a page the FETCH TOOL'S EXTRACTION
+MODEL refuses. This is the other half: the pane also reads a page whose bytes contain no content at all, because
+it executes the client-side render the fetch tool cannot. Every JS-rendered entry still sitting unread in
+one-off-sources.md on that basis - gorilla.cs.berkeley.edu/leaderboard.html, www.swebench.com,
+www.promptfoo.dev/docs/intro, and above all builder.aws.com/learn/topics/builders-library, which three runs have
+failed on and which is named there as the most valuable unmined item in the file - is a preview_start plus a
+get_page_text away. TRY THE PANE BEFORE RECORDING ANY PAGE AS JS-BLOCKED.
+THE TALLY IS NOW SEVEN FOR SEVEN: builder.aws.com (three runs), the Vectara leaderboard, the OWASP PDFs twice,
+the OWASP User-Agent gate, and now this. No source this pack has ever recorded as unreachable has stayed
+unreachable.
+ONE LIMIT WORTH CARRYING: get_page_text returns the page AS RENDERED, so content behind a pagination control is
+not in it. This page's record list ends at a "Load 12 more" button reading "42 remaining", so the read gives the
+newest 12 of 54 curated records. Clicking it needs the computer action tool, which is a different cost; the page
+also advertises per-figure CSV downloads and a public MCP endpoint, and neither has been tried.
+AND THE ROUTE-32 STATUS OF A PANE READ IS DIFFERENT FROM A FETCH: get_page_text returns extracted DOM text, not a
+summariser's answer, so the figures in it are the page's own and do not need a second verbatim call. That is why
+5c43cf17 could be written with the tracker's numbers off a single read. Do not extend that licence to
+read_page's accessibility summaries or to a screenshot.
+
+=== ROUTE 42 RECONFIRMED A FIFTH TIME (59th run), ON code.claude.com/docs/en/best-practices. ===
+A single WebFetch asking for three short presence-shaped quotes returned the ENTIRE page as raw markdown instead
+of three quotes - every section from the context-window preamble to the failure-pattern list. Fifth host, fifth
+time: a page under roughly 100,000 characters answering a short verbatim ask tends to ignore the format and hand
+back the text, which is the good outcome, because the answer is then the page rather than a reading of it. The
+operational consequence for the staleness pass is the one route 36's method note already states: prefer a sample
+whose refs are short documentation pages, because one call both re-verifies the quote and re-reads the whole
+source for anything the fact is missing. This call confirmed bef38871's two anchors verbatim AND turned up the
+bundled /code-review skill and the findings-return-to-the-session behaviour the fact did not carry.
