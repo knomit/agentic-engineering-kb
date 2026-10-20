@@ -468,3 +468,43 @@ operational consequence for the staleness pass is the one route 36's method note
 whose refs are short documentation pages, because one call both re-verifies the quote and re-reads the whole
 source for anything the fact is missing. This call confirmed bef38871's two anchors verbatim AND turned up the
 bundled /code-review skill and the findings-return-to-the-session behaviour the fact did not carry.
+
+=== ROUTE 60 (60th run). *** ROUTE 59 CASHED: THE PANE READ builder.aws.com AND THE BFCL LEADERBOARD ON THE FIRST TRY. EIGHT FOR EIGHT. ***
+Route 59 predicted that every page still recorded as JS-blocked on the strength of a plain fetch was a preview_start plus a
+get_page_text away. Two of the four it named were tried this run and both worked, with no site approval requested and nothing
+blocked:
+    https://builder.aws.com/learn/topics/builders-library   -> 20 article rows, each with author, date and blurb
+    https://gorilla.cs.berkeley.edu/leaderboard.html        -> the whole BFCL V4 table, ~100 rows x 16 columns, as text
+builder.aws.com had been failed by THREE separate runs and is named in one-off-sources.md as the most valuable unmined item in
+the file. An article page on that host reads the same way: navigate then get_page_text returned the rollback-safety article
+whole, body text, pull quotes and all. The remaining two named pages (www.swebench.com, www.promptfoo.dev/docs/intro) are
+still untried and should be assumed reachable until a PANE read fails on them.
+
+TIMING. The first get_page_text on builder.aws.com returned the page shell with the literal text "Loading posts by tag
+#builders-library..." where the list belongs. A second identical call, with nothing between it but the round trip, returned all
+20 rows. So a client-rendered list may need one retry; an empty-looking pane read is not a verdict until the second call agrees.
+
+*** THE LIMIT THAT COST A CALL, AND IT IS NOT IN ROUTE 59: get_page_text RETURNS TEXT, NOT LINKS. ***
+The builders-library index read gave every row's title, author and date and NO href for any of them, because the extraction is
+innerText. A title is not a URL on that host - the article paths are /content/<22-char-id>/<slug>, and the id is unguessable.
+The route that worked: WebSearch with allowed_domains: ["builder.aws.com"] on the exact title, which returned the full path as
+its first result. So enumerating a pane-rendered index costs one extra call PER ARTICLE you decide to read. Budget for that
+before queueing ten rows off one index. Claude_Browser__find returns ref_N element handles rather than hrefs, so it does not
+solve this either; clicking through with the computer action tool would, at a different cost.
+
+AND THE COROLLARY FOR THE TABLE CASE: on BFCL the absence of hrefs costs nothing, because the content IS the text. A wide
+table comes back as tab-separated rows in header order, so the columns have to be counted against the header group row to be
+read correctly (BFCL's is Rank, Overall Acc, Model, Cost, then five section scores, Relevance, Irrelevance, Max Delta, SD,
+Latency Mean, Organization, License - sixteen fields). Count them on the first row before quoting any cell. Route 59's licence
+holds: these are the page's own numbers and need no second verbatim call.
+
+=== ROUTE 61 (60th run). claude.dev/blog's INDEX IS PLAIN-FETCHABLE, AND ITS DATES CARRY A PARSING TRAP. ===
+The 59th run added claude.dev/blog as a feed without ever fetching the index, having reached one article sideways through a
+simonwillison.net link post. The index needs nothing special: one plain WebFetch of https://claude.dev/blog with a route-39
+ask enumerated 10 rows with titles, hrefs and dates. Depth is a single "LOAD MORE" button reading "Press R to load more" with
+no href - route 39's class, so the back catalogue needs the pane.
+THE TRAP: the extracted text concatenates the year with the reading time. "Oct 15, 202614 minutes" is 2026-10-15 plus a
+14-minute read, not a year 202614. A date read off this index without splitting that boundary is wrong in a way that still
+parses, which is the dangerous shape. It also showed the 59th run's mark for this feed to be a day late: the index dates
+solving-code-review-at-anthropic to 2026-10-15, while the mark had 2026-10-16 taken from the link post that cited it. A date
+read off a LINK POST is the link post's date, not the primary's.
