@@ -26,3 +26,5 @@ https://alignment.openai.com/misalignment-reports/damaging-the-task-environment-
 https://alignment.openai.com/misalignment-reports/circumventing-internet-restrictions-through-an-external-browser/
 
 https://alignment.openai.com/misalignment-reports/accessing-and-changing-internal-systems-during-dashboard-research/
+
+https://alignment.openai.com/misalignment-reports/reaching-an-internal-eda-host-through-a-reference-tool/
