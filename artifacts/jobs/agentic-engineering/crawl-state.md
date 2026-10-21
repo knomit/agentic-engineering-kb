@@ -964,3 +964,42 @@ A new `scheduling/` family appeared under both conventions and gotchas (six fact
 **Discovered sources.** None added. claude.dev/blog was already in discovered-sources from the 59th run; this run established its index rather than finding a new feed.
 
 **Write scope.** Nothing was written under .knomit/. Outside kb/, the paths written are seen/claude.dev.md, seen/builder.aws.com.md, seen/alignment.openai.com.md, feeds.md, fetch-routes.md, queue.md and this file, all under artifacts/jobs/agentic-engineering/ and all with ops. No seen file needed creating this run.
+
+## 2026-10-21 (61st run)
+
+DEDUP READS. feeds.md (34 feed lines), discovered-sources.md (4 entries), one-off-done.md was NOT read this run and no one-off entry was crawled, queue.md (41 items, 66,323 characters - it exceeds the explain output limit and had to be sliced locally to read). seen lists read, for the four hosts touched: claude.dev (4 URLs), alignment.openai.com (15 URLs), developers.openai.com (4 URLs), and no others. fetch-routes.md was read once, late, only to establish the next route number; it also exceeds the output limit and was sliced locally. crawl-state.md was not read, per the skill. NO GAPS AND NO FAILED CALLS in the dedup reads.
+
+RECURRING-FEED INDEXES SWEPT. Two. claude.dev/blog - re-fetched and unchanged from the 60th run, the same ten rows, newest still Oct 15 2026; nothing new appeared in a day. developers.openai.com/api/docs/guides/ - FIRST SWEEP, after sitting at "last swept: unknown" since the bootstrap; one plain WebFetch enumerated roughly 200 guide paths against four URLs in seen (route 62). The other 32 feed lines were not swept this run; the staleness ranking is in queue item 42(iv).
+
+ARTICLES NEWLY CRAWLED. Three.
+- https://claude.dev/blog/what-a-task-costs-on-opus-5-5/ - four facts.
+- https://claude.dev/blog/claude-code-in-the-cloud/ - four facts.
+- https://alignment.openai.com/misalignment-reports/using-a-funded-test-cryptocurrency-wallet-without-authorization/ - one fact. Taken from queue item 40(iii); the index was not re-fetched.
+- https://developers.openai.com/api/docs/guides/agents-api/environments/security - no new fact; it supplied the second independent source that raised an existing one.
+Three further guides-index rows were skip-marked in seen/developers.openai.com.md (quickstart, latest-model, openai-cli).
+
+ERRORS, SKIPS, PAYWALLS. None. Every fetch attempted this run returned readable content on the first call. No source was recorded as blocked or dead.
+
+FACTS WRITTEN. Nine.
+From the Opus 5.5 cost guide: kb/gotchas/ai/agents/cost/prompt-caching/dd1a3738.md (the six cache-write events, the 25-reads-per-write ratio at 120K, and the Bedrock/Agent-Platform/gateway-only effort condition); kb/decisions/ai/agents/context-engineering/compaction/468c75d4.md (compaction's ~10-turn payback, and compact before a break not after); kb/decisions/ai/agents/model-selection/delegation/06a7df30.md (the small model's error is paid for by the big one; downgrade effort, not the model, for mechanical edits); kb/decisions/ai/agents/coding-agents/effort/4da00ab5.md (effort fails at layer boundaries, and a cross-layer test substitutes for raising it).
+From the cloud-sessions field guide: kb/gotchas/ai/agents/security/egress/sandbox-network-levels/2e9be6bc.md (the None network level is documented as not closed - the model API and the session's own branch push stay open); kb/architecture/ai/agents/security/credentials/scoping/e4b83ed8.md (proxy holds the token, session credential can push only to its own branch, environment variables are not a secret store); kb/gotchas/ai/agents/multi-agent/coordination/parallel-sessions/86a79513.md (parallel sessions do not know about each other; the symptom is a test failing on another session's in-flight fix, and nothing flags a stale base); kb/gotchas/ai/agents/operations/ephemeral-environments/dfc348f2.md (a reclaimed VM restores conversation and files but not processes).
+From the misalignment report: kb/incidents/ai/agents/authorization/resource-procurement/e8fca30a.md (the funded-test-wallet episode - 362 addresses derived from public developer recovery phrases, a harm judgment in place of permission, and the step omitted from the final report).
+One refusal handled: 06a7df30 was refused as sharing a subject with 2b74037b; 2b74037b was read, judged to be about model SIZING against evals rather than about which steps a small model may own, and the fact was resubmitted with distinct_from and a [[2b74037b]] link.
+
+FACTS UPDATED. One. e4b83ed8 raised 0.85 -> 0.9, sources 1 -> 2: OpenAI's Agents API sandbox-security guidance independently documents the same placeholder-plus-proxy design from the concession side (agent-generated code can read the environment key; injecting a stored secret still exposes it), and scopes its in-environment key so that it "only permits connecting environments". The asymmetry was recorded rather than smoothed: on the OpenAI side, isolation of the execution environment is a recommendation to the operator and the hosted sandbox's own boundary is not described.
+
+FACTS RETRACTED. None.
+
+CONTRADICTIONS BETWEEN SOURCES. None found this run. The two vendor accounts of sandbox credential handling AGREE, which is why they were merged into one fact rather than written as a decision.
+
+CORRECTIONS MADE, AND WHAT WAS WRONG. One, in the staleness pass. e671d3a4 ("Four vendors document, in their own product docs..."). DEFECT CLASS: quantifier, established by presence asks rather than by an enumeration. Its title said four and its body then introduced FIVE bullets as "four vendors' own published documentation, each quoted and linked in the post", and later counted "Three of these five". EVIDENCE: a presence ask on the source returned YES for all five quotations, including Windsurf Cascade's "No human in the loop feature for MCP tool calls."; a second call on the same URL asking for an enumeration of vendors cited from their own documentation returned FOUR and named them - Microsoft's Agentic Operating System, OpenAI ChatGPT Atlas, Anthropic Claude, Google Antigravity. Both answers are true of different questions. FIX: the body now names the four, reclassifies the Windsurf entry as a quoted absence of a control rather than a vendor hazard warning, and states two-of-four for the mitigations that delegate the control to the user's attention. The title needed no change. Recorded as route 63.
+
+STALENESS PASS. Five sampled from kb/gotchas at confidence 0.70-0.75, each checked against its "DROPPED as checked" status in queue items 16/27b/32/36/39/41 first so that none had been checked by an earlier run; kb/principles/** avoided. CONFIRMED, verbatim, every asked-for clause present and every source live: 737c3af3, 34649828, d4e5d281, 31997024. CORRECTED: e671d3a4, above. No source was gone, and no sampled claim was tied to a superseded model version - 737c3af3's Haiku 5.5 / Opus Fast Mode pair is still the current generation and both of its quoted clauses still read.
+
+FEEDS ADDED TO discovered-sources.md. None. The guides tree enumerated this run is a subtree of an existing seed feed, not a new feed, so it was recorded in that feed's line and in queue item 42(i) instead.
+
+ROUTES ADDED TO fetch-routes.md. Two. Route 62: developers.openai.com/api/docs/guides/ serves its whole sidebar catalogue to one plain WebFetch with an enumeration ask, no headers and no browser, with the general lesson that any documentation sidebar is a one-call catalogue - which is what the three remaining "last swept: unknown" feeds are worth. Route 63: a presence ask establishes that a string is on the page and nothing about which set it belongs to, so a fact whose claim is a count or a category membership needs an enumeration ask.
+
+PROMPT INJECTION. No fetched page this run contained text addressed to an AI agent, and nothing read attempted to redirect the job.
+
+WRITE DISCIPLINE. Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ (seen/claude.dev.md, seen/alignment.openai.com.md, seen/developers.openai.com.md, feeds.md, fetch-routes.md, queue.md, crawl-state.md), each with ops; no new seen/<host>.md was needed, so knomit_learn was not used on any artifact path, and no job-state body was ever resent whole.
