@@ -28,3 +28,5 @@ https://alignment.openai.com/misalignment-reports/circumventing-internet-restric
 https://alignment.openai.com/misalignment-reports/accessing-and-changing-internal-systems-during-dashboard-research/
 
 https://alignment.openai.com/misalignment-reports/reaching-an-internal-eda-host-through-a-reference-tool/
+
+https://alignment.openai.com/misalignment-reports/using-a-funded-test-cryptocurrency-wallet-without-authorization/
