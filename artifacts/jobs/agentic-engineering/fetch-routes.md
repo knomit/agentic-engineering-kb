@@ -508,3 +508,29 @@ THE TRAP: the extracted text concatenates the year with the reading time. "Oct 1
 parses, which is the dangerous shape. It also showed the 59th run's mark for this feed to be a day late: the index dates
 solving-code-review-at-anthropic to 2026-10-15, while the mark had 2026-10-16 taken from the link post that cited it. A date
 read off a LINK POST is the link post's date, not the primary's.
+
+=== ROUTE 62 (61st run). developers.openai.com/api/docs/guides/ SERVES ITS WHOLE SIDEBAR CATALOGUE TO ONE PLAIN WEBFETCH. ===
+This feed had sat at "last swept: unknown" since the bootstrap. It needs nothing special: one plain WebFetch with a
+route-39-style enumeration ask ("enumerate every guide page, exact title and link path, grouped by section heading; do not
+summarise or count") returned roughly 200 guide paths under about 30 section headings. No headers, no browser, no second
+call - the flag was isolated, there are no passengers in this recipe. The index is a navigation sidebar rather than a dated
+list, so the feed is undated and candidates are everything not in seen; seen held four URLs against those ~200 paths.
+The pack-dense slice is /api/docs/guides/agents-api/** (sessions and events, environments and sandboxes, tools, multi-agent,
+observability, tracing, errors and recovery) and /api/docs/guides/agents/** for the SDK (orchestration,
+guardrails-approvals, sandboxes, running-agents); then /guides/compaction, /guides/prompt-caching/diagnostics,
+/guides/tools-skills, /guides/tools-tool-search, /guides/safety-checks/misalignment-monitoring. The ranked list is queue
+item 42. Article pages under this tree also answer plain WebFetch, including literal-string asks.
+THE GENERAL LESSON, which applies to every undated docs feed still unswept: a documentation sidebar is a one-call
+catalogue. The cost of taking such a feed off the "last swept: unknown" list is one fetch, and nine consecutive runs have
+now found in-scope unread material on every feed taken off it.
+
+=== ROUTE 63 (61st run). AN ENUMERATION ASK AND A PRESENCE ASK CAN DISAGREE ABOUT A ROSTER, AND THE ENUMERATION IS RIGHT. ===
+Extends routes 33 and 49, and the 60th run's note that quoting the exact string beats describing the clause.
+On embracethered.com/blog/posts/2025/the-normalization-of-deviance-in-ai/ a presence ask naming five literal quotations
+returned YES on all five, which reads as a five-vendor roster. A second call on the same URL asking for an ENUMERATION
+("list every distinct vendor or product the post cites with a quotation or reference to that vendor's own documentation, as
+the post writes it, then say how many") returned four, and named them. Both answers are correct about different questions:
+the fifth quotation is on the page but is not a citation of that vendor's own documentation.
+SO: a presence ask confirms that a string exists; it says nothing about which set the string belongs to. Any fact whose
+claim is a COUNT or a CATEGORY membership needs the enumeration ask, not a round of presence asks - and this is the second
+time a quantifier defect in this corpus traced back to presence asks being used to establish a roster.
