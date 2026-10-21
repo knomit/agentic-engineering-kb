@@ -15,3 +15,6 @@ https://claude.dev/blog/solving-code-review-at-anthropic/
 https://claude.dev/blog/automating-eval-design-and-hillclimbing/
 https://claude.dev/blog/building-effective-agent-automations/
 https://claude.dev/blog/how-we-made-claude-ai-faster/  skip: web front-end performance work on claude.ai, no agent-engineering content
+
+https://claude.dev/blog/what-a-task-costs-on-opus-5-5/
+https://claude.dev/blog/claude-code-in-the-cloud/
