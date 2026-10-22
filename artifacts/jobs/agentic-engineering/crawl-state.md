@@ -1014,7 +1014,7 @@ ARTICLES NEWLY CRAWLED (8). claude.dev/blog/spending-your-effort/; claude.dev/bl
 
 ERRORED OR SKIPPED. genai.owasp.org/2026/10/08/genai-and-agentic-ai-exploit-roundup-q3-2026/ - plain WebFetch returned client_error with nothing retrieved, on a run where the same host's root answered the same tool normally, so not a host gate. Recorded in seen with the failure as its reason rather than as a triage skip, and route 64a lists three untried routes in cost order. It is the single most wanted unread item this run surfaced.
 
-FACTS WRITTEN (9).
+FACTS WRITTEN (10).
 - kb/gotchas/ai/agents/coding-agents/effort/3caa5e35.md - effort removes verification failures and leaves ambiguity failures standing; 370 attempts per setting, passes 140 to 214, and "picked the wrong reading" rose 25 to 47 in absolute count.
 - kb/decisions/ai/agents/coding-agents/effort/b3251c6a.md - the per-category payoff spreads four-fold (Hardware +41 points, Operations +10) and the two weakest categories stay weakest.
 - kb/decisions/ai/agents/coding-agents/task-specification/4e9a0bc9.md - the dial's wall-clock multiplier was ~45x on an underspecified build and ~5x on the specified version.
@@ -1025,8 +1025,6 @@ FACTS WRITTEN (9).
 - kb/invariants/ai/agents/guardrails/coverage/1f7492f9.md - input guardrails bind to the first agent and output guardrails to the final-output agent, so a manager workflow's interior tool calls are uncovered; count guarded TOOLS, not guarded agents.
 - kb/invariants/ai/agents/interop/protocols/agent-control-standard/4d0f4f21.md - OWASP's ACS v0.1.0: a pre-action authorization wire spec, 19 hooks, 5 dispositions, 3 pillars, ACS-Core mandatory, and an HMAC-SHA256 envelope requirement its own reference implementation does not meet. Carries expires 2027-03-01, the stated v0.2.0 target.
 - kb/conventions/ai/agents/coding-agents/long-horizon/stopping/c5f51633.md - premature stopping takes three named forms, and the standing-rule remedy must keep the destructive-action stop while removing the status-report stop.
-
-That is ten paths for nine planned facts; the stopping fact was the tenth write and is counted in the enrichment tally below as neither - it is a new fact. Nine new facts plus one, ten in total.
 
 ENRICHMENTS (3).
 - kb/architecture/ai/agents/guardrails/1beb89e6.md - second source added, confidence 0.75 to 0.8, sources 1 to 2; the resume unit named as a serializable run state, and the coexistence of the three placements with the coverage limit stated and linked to 1f7492f9.
