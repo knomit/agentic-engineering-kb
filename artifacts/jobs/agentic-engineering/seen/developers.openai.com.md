@@ -20,3 +20,7 @@ https://developers.openai.com/api/docs/guides/agents-api/environments/security
 https://developers.openai.com/api/docs/quickstart  skip: getting-started walkthrough, no design constraints
 https://developers.openai.com/api/docs/guides/latest-model  skip: model-version marketing page
 https://developers.openai.com/api/docs/libraries/openai-cli  skip: CLI reference, below the pack's altitude bar
+
+https://developers.openai.com/api/docs/guides/agents-api/errors
+https://developers.openai.com/api/docs/guides/agents/guardrails-approvals
+https://developers.openai.com/api/docs/guides/agents-api/environments/lifecycle
