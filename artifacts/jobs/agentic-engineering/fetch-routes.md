@@ -534,3 +534,19 @@ the fifth quotation is on the page but is not a citation of that vendor's own do
 SO: a presence ask confirms that a string exists; it says nothing about which set the string belongs to. Any fact whose
 claim is a COUNT or a CATEGORY membership needs the enumeration ask, not a round of presence asks - and this is the second
 time a quantifier defect in this corpus traced back to presence asks being used to establish a roster.
+
+## Route 64 - genai.owasp.org site root: one plain WebFetch with an enumeration ask returns the whole link graph
+
+Established 2026-10-22, 62nd run, first sweep of this feed. `https://genai.owasp.org/` answers a plain WebFetch, and an ask phrased as "enumerate every distinct resource, publication, guide, initiative or project linked from this page, giving title and href; if a count is stated, enumerate the items rather than reporting the count" returned the complete link graph in one call: the What's New block, blog, events, news, the eight initiative cards, the whole main navigation and the footer, each with its href. No browser pane, no headers, no depth call. This is route 62's shape on a different host - an index whose entire catalogue comes back for one fetch - and it is the cheap way to sweep this feed.
+
+Two observations about the result that matter for triage, not for fetching. The navigation labels `/llm-top-10/` as "LLM Top 10 for 2025" while a 2026 Top 10 exists at `/resource/owasp-genai-llm-top-10-2026/`; both that and `/resource/owasp-top-10-for-agentic-applications-for-2026/` were ALREADY in seen, so the stale-looking label is not a version gap in the pack. And the same URL appears under several sections, and the Red Teaming initiative card points at `/initiatives/ai-red-teaming-initiative/` while the navigation points at `/initiatives/ai-red-teaming/` - deduplicate by URL and expect two spellings of that one.
+
+### 64a - the Q3 2026 exploit roundup does not answer a plain WebFetch
+
+`https://genai.owasp.org/2026/10/08/genai-and-agentic-ai-exploit-roundup-q3-2026/` returned `client_error` with nothing of the page retrieved, on 2026-10-22, by plain WebFetch, on a run where the site root on the same host answered the same tool normally. So this is not a host-level gate. UNREAD BY PLAIN WEBFETCH, not dead - untried routes, in cost order: the `/blog/` index, which may carry the body or a different canonical path; a `User-Agent` header, which is the cheapest of the six and is what the OWASP gate turned out to be the three times it was misdiagnosed; and the browser pane, which has now paid off on three OWASP-adjacent or JS-rendered pages (routes 59, 60, 64). Do not record this source as blocked on the strength of the one failure above.
+
+## Tool caveat - knomit_learn refuses a multi-fact call with a harness 403, not a knomit error
+
+62nd run. A single `knomit_learn` carrying THREE long fact bodies (roughly 2 to 4 KiB of body text each) returned `Error POSTing to endpoint: MCP server returned 403 Forbidden. The request may have been blocked by a firewall or security service.` Nothing was written. The identical first fact, resubmitted alone with every other field unchanged, was accepted immediately, and the run then wrote eight more facts as one-fact calls without a single further 403.
+
+THE VARIABLE IS ISOLATED ONLY AS FAR AS "three long bodies fails, one long body succeeds". Two long bodies was never tried, and the threshold is unknown; it is the request's size rather than anything about the content, since the content that failed in the batch succeeded unchanged on its own. The symptom is the misleading part: a 403 mentioning a firewall reads like an auth or network problem with the knomit server, and it is neither - the binding was valid and the next call on it worked. Write facts ONE PER CALL when bodies are long, and if a 403 appears on a write, split the call before investigating anything else.
