@@ -18,3 +18,8 @@ https://claude.dev/blog/how-we-made-claude-ai-faster/  skip: web front-end perfo
 
 https://claude.dev/blog/what-a-task-costs-on-opus-5-5/
 https://claude.dev/blog/claude-code-in-the-cloud/
+
+https://claude.dev/blog/spending-your-effort/
+https://claude.dev/blog/getting-started-with-claude-code-mods/
+https://claude.dev/blog/getting-the-most-out-of-opus-5-5/
+https://claude.dev/blog/building-with-claude-sonnet-5-5/
