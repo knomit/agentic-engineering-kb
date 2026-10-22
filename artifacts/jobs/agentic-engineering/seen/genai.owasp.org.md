@@ -30,3 +30,13 @@ https://genai.owasp.org/resource/owasp-genai-llm-top-10-2026/
 https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/
 https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/
 https://genai.owasp.org/resource/state-of-agentic-ai-security-and-governance/
+
+https://genai.owasp.org/
+https://genai.owasp.org/2026/10/08/genai-and-agentic-ai-exploit-roundup-q3-2026/  skip: NOT a triage skip - a FAILED FETCH. Plain WebFetch returned client_error with nothing retrieved on 2026-10-22. In scope and wanted; re-attempt via /blog/ or the browser pane, see fetch-routes
+https://genai.owasp.org/glossary/  skip: terminology list, below the pack's altitude bar
+https://genai.owasp.org/roadmap/  skip: project planning, not field knowledge
+https://genai.owasp.org/learning/  skip: video index, no fetchable prose
+https://genai.owasp.org/quotes/  skip: industry endorsements
+https://genai.owasp.org/supporters/  skip: sponsor list
+https://genai.owasp.org/contributors/  skip: people list
+https://genai.owasp.org/ai-security-solutions-landscape/  skip: vendor directory; the Q2 2026 landscape resource is already read
