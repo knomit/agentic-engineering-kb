@@ -26,3 +26,5 @@ https://github.com/sierra-research/tau-bench
 https://github.com/softov/ahpd
 https://github.com/strands-agents/sdk-python
 https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools
+
+https://github.com/GenAI-Security-Project/agent-control-standard
