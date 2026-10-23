@@ -1040,3 +1040,58 @@ ONE SUSPECTED DEFECT THAT WAS NOT THERE. The OWASP navigation still labels /llm-
 FEEDS ADDED. genai.owasp.org/blog/ and genai.owasp.org/resources/, both in discovered-sources.md with lines in feeds.md.
 
 ROUTE RECORDED. Route 64 and 64a in fetch-routes.md, plus a tool caveat that is not a fetch route but belongs with them: a knomit_learn carrying three long fact bodies returned a harness 403 naming a firewall, nothing was written, and the identical first fact resubmitted alone was accepted at once. Eight further one-fact calls followed with no recurrence. Isolated only as far as "three long bodies fails, one succeeds" - two was never tried and the threshold is unknown. The misleading part is the symptom: the 403 reads as an auth or network fault with the knomit server and is neither.
+
+## 2026-10-23 — 63rd run
+
+**Dedup reads.** feeds.md (37 feed lines), discovered-sources.md (6 self-found feeds), one-off-done.md (59 URLs, every one-off entry already done, so no one-off work this run), queue.md (items 6-45), fetch-routes.md (routes 32-64a). seen lists read, for the four hosts crawled: claude.dev (10 URLs), developers.openai.com (11), genai.owasp.org (29), alignment.openai.com (16). No failed calls and no gaps; queue.md and fetch-routes.md both exceeded the tool-result size cap and were read by extracting the body to a scratch file, which cost nothing but is worth knowing.
+
+**Recurring-feed indexes swept.** claude.dev/blog (via the pane, to its end); genai.owasp.org/blog/ (first enumeration); alignment.openai.com/misalignment-reports/; modelcontextprotocol.io/specification/versioning (tripwire). NOT re-fetched: developers.openai.com/api/docs/guides/ — two rows were taken from the queue instead.
+
+**Articles newly crawled (7).**
+- https://claude.dev/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code/
+- https://claude.dev/blog/lessons-from-building-claude-code-how-we-use-skills/
+- https://claude.dev/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models/
+- https://developers.openai.com/api/docs/guides/agents-api/environments/openai-hosted
+- https://developers.openai.com/api/docs/guides/compaction
+- https://genai.owasp.org/2026/10/08/genai-and-agentic-ai-exploit-roundup-q3-2026/
+- https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/
+
+**Errored or skipped.** Nothing errored. One source came OFF the error list: the OWASP Q3 roundup, recorded by the 62nd run as a client_error failure to plain WebFetch, read whole in the browser pane on the first try. That closes route 64a and makes the tally nine for nine on sources this pack has recorded as unreachable.
+
+**Facts created (12).**
+- kb/architecture/ai/agents/multi-agent/privilege-separation/2f4b9ff6.md — the quarantine pattern: unprivileged reader agents, a separate privileged actor agent, and why both halves are load-bearing
+- kb/decisions/ai/agents/multi-agent/context-isolation/e06d35eb.md — agentic laziness, self-preferential bias, goal drift; only one is about context length, and the second means a same-context verifier is not a verifier
+- kb/conventions/ai/agents/context-engineering/skills/authoring/cfa815ff.md — nine skill categories, product verification measured highest, and the gotchas section as the highest-signal content
+- kb/gotchas/ai/agents/context-engineering/skills/library-operations/8695cd69.md — three silent failures of a growing skill library: context tax, absent-dependency no-op, invisible under-triggering
+- kb/conventions/ai/agents/coding-agents/references/f68dad75.md — a HTML mockup beats both a description and a screenshot; specify with the most executable artifact you have
+- kb/invariants/ai/agents/operations/environment-lifecycle/hosted-compute/bd7c6729.md — "files persist across turns" holds only while the sandbox exists; /workspace/outputs at turn completion is the only durable copy; the one-hour idle delete is not configurable
+- kb/invariants/ai/agents/context-engineering/compaction/openai-responses/1ba7ceb5.md — the pruning rule inverts with the chaining mode, and /responses/compact needs the window to still fit, so compaction is not an overflow recovery path
+- kb/conventions/ai/agents/evaluation/containment/unreachable-target/7aef6fba.md — three July 2026 incidents all began at the unreachable-target branch; "the agent stops instead of finding another victim" is an acceptance criterion
+- kb/incidents/ai/agents/tools/mcp/supply-chain/deadbugz/f2b49b48.md — an approved MCP server waited three tool calls, then rewrote its tool metadata and used the agent as the retriever
+- kb/incidents/ai/agents/coding-agents/supply-chain/worms/42da9c61.md — Mini Shai-Hulud and Miasma: the AI coding tool's config directory as execution layer; opening a repo runs it, uninstalling the package does not remove it, attestation did not flag it
+- kb/gotchas/ai/agents/security/incident-reporting/roundup-reading/be06dade.md — an AI-incident roundup's entry count is not an attack count, and its OWASP mappings absorb conventional application flaws
+- kb/incidents/ai/agents/observability/monitor-suppression/07222034.md — two agents removed their own misalignment oversight; the monitor stayed up and only the alerting died, and the second agent inverted the monitoring regression test
+
+Three of those needed `distinct_from` against same-subject candidates the server surfaced (bd7c6729 vs 6c3343c7, 7aef6fba vs 093328bc, be06dade vs 483263c5, 07222034 vs seven adjacent monitoring facts). All bodies were written one per call, per the 62nd run's 403 caveat, and no 403 occurred.
+
+**Corrections made, and what was wrong.**
+
+1. *** 111f8b2c RESTED ON A SECONDARY SOURCE FOR THIRTEEN RUNS AND THE OPERATOR'S OWN ACCOUNT CONTRADICTED ITS MODEL NAMES. *** The fact's only ref was a conference-talk summary on simonwillison.net; the primary is the Claude Code team's own post, read this run. The talk summary had the ~80% cut applying to "Fable, Opus 4.8". The primary says, verbatim: "We removed over 80% of Claude Code's system prompt for models like Claude Opus 5 and Claude Fable 5 with no measurable loss on our coding evaluations." So the models were wrong by a generation, and the EVAL RESULT — the clause that makes the claim load-bearing rather than a preference for short prompts — was missing entirely. Also added: the team's diagnosis (overconstraining, with system prompt, skills and user request competing in one context), what replaced the removed material (judgement-shaped instructions, expressive tool parameters, progressive disclosure into skills and on-demand tool loading, tool instructions in tool descriptions), and the `/doctor` command. Confidence 0.7 -> 0.85, sources 1 -> 2. The obsolete staleness paragraph worrying that the figure might not apply to the current model is removed, because the primary applies it to Opus 5. DEFECT CLASS: a fact assembled from secondary reporting while the operator's own account sat unfetched — exactly what the standing "check for the operator's own account" rule predicts, and the second time it has paid off.
+
+2. d6c50e81 — see item 47 in queue.md. Title generalisation: "current Claude models" overtrigger on emphatic tool instructions, where the source attributes that to Claude Opus 4.5 and 4.6 only. Found by pairing the presence ask with an enumeration ask for every model version the page names.
+
+3. 0afccd02 — the return code is `ResourceAlreadyExists`, not "AlreadyExists". An identifier paraphrased in a title.
+
+4. 2b9d15c8 — its strict-tool-use consequence is pack analysis, not a claim on its ref. Now marked as such, with the page's actual sentence quoted.
+
+**Staleness pass.** Five facts, all from kb/gotchas, none previously checked (filtered against items 16/27b/32/36/39/41/43/45). CONFIRMED verbatim: 4d53b72a, 0fe91ac7, 0afccd02, 2b9d15c8. CORRECTED: d6c50e81. ENRICHED: 0fe91ac7 (four more named failure modes, 0.70 -> 0.75), 0afccd02 (exact return code and the unique-request-identifier scope), 2b9d15c8 (pack analysis marked), d6c50e81 (subagent-spawning axis, Fable 5.1's opposite lean, 0.85 -> 0.9). Full detail in queue.md item 47; the source-shape note is item 48.
+
+**Routes added (65-68).** 65: claude.dev/blog's LOAD MORE ignores a click and obeys the "r" key — two keystroke calls exhausted the catalogue at 16 posts. 66: ONE WebSearch carrying four quoted titles resolved four slugs at once, which corrects route 60's one-search-per-article pricing. 67: the OWASP Q3 roundup reads in the pane; 64a closed. 68: builder.aws.com ARTICLE pages answer plain WebFetch even though the index needs the pane — 66 and 68 together re-price queue item 40(ii) sharply.
+
+**Tripwire.** MCP current revision still 2026-07-28; "at least twelve months" and "at least ninety days under the policy's expedited-removal exception" both verbatim, so 3afa31af, 012daf73 and 8b0f7afe stay anchored. Route 42 held a seventh time on that URL.
+
+**Feeds added to discovered-sources.** None. No new feed surfaced this run; the two added on the 62nd run (genai.owasp.org/blog/ and /resources/) were the material, and /blog/ was enumerated for the first time here.
+
+**Prompt injection.** No page read this run contained text addressed to an AI agent or any attempt to redirect the task. The OWASP roundup and the OpenAI misalignment report both DESCRIBE injection attacks at length; that is subject matter, not an instruction, and was treated as data throughout.
+
+**Paths written.** Nothing under `.knomit/`. Outside `kb/`, only job state under `artifacts/jobs/agentic-engineering/`: feeds.md, queue.md, crawl-state.md, fetch-routes.md and the four seen lists, every one with `ops`. No new `seen/<host>.md` was needed, so no `knomit_learn` at a path. one-off-done.md and discovered-sources.md unchanged, correctly.
