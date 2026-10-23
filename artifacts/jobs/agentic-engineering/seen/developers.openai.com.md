@@ -24,3 +24,6 @@ https://developers.openai.com/api/docs/libraries/openai-cli  skip: CLI reference
 https://developers.openai.com/api/docs/guides/agents-api/errors
 https://developers.openai.com/api/docs/guides/agents/guardrails-approvals
 https://developers.openai.com/api/docs/guides/agents-api/environments/lifecycle
+
+https://developers.openai.com/api/docs/guides/agents-api/environments/openai-hosted
+https://developers.openai.com/api/docs/guides/compaction
