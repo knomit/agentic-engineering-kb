@@ -550,3 +550,42 @@ Two observations about the result that matter for triage, not for fetching. The 
 62nd run. A single `knomit_learn` carrying THREE long fact bodies (roughly 2 to 4 KiB of body text each) returned `Error POSTing to endpoint: MCP server returned 403 Forbidden. The request may have been blocked by a firewall or security service.` Nothing was written. The identical first fact, resubmitted alone with every other field unchanged, was accepted immediately, and the run then wrote eight more facts as one-fact calls without a single further 403.
 
 THE VARIABLE IS ISOLATED ONLY AS FAR AS "three long bodies fails, one long body succeeds". Two long bodies was never tried, and the threshold is unknown; it is the request's size rather than anything about the content, since the content that failed in the batch succeeded unchanged on its own. The symptom is the misleading part: a 403 mentioning a firewall reads like an auth or network problem with the knomit server, and it is neither - the binding was valid and the next call on it worked. Write facts ONE PER CALL when bodies are long, and if a 403 appears on a write, split the call before investigating anything else.
+
+## Route 65 - claude.dev/blog: the LOAD MORE button ignores a click and obeys the "r" key, and the whole catalogue is 16 posts
+
+Established 2026-10-23, 63rd run. Queue item 44(i) called this the highest-expected-value call available, and it cost three pane calls in total.
+
+`preview_start` on `https://claude.dev/blog` renders the index. `Claude_Browser__find` for "load more" returns two handles, `generic "LOAD MORE"` and `generic "Press R to load more"`. CLICKING THE "LOAD MORE" HANDLE DID NOTHING - `get_page_text` afterwards returned the same ten rows with the control still present. Sending `computer {action: "key", text: "r"}` loaded the next five rows immediately. A second call with `repeat: 4` loaded the last row and REMOVED the control, so the catalogue is exhausted in two keystroke calls.
+
+The general lesson for any index whose depth control advertises a keyboard shortcut: send the key, do not click the button. A control rendered as a `generic` node rather than a `button` in the accessibility tree is a hint that the click handler is not on the element the handle points at.
+
+FULL CATALOGUE, 2026-10-23: one undated featured card (`How the Claude Code team does code review`) plus 15 dated rows, newest `Oct 08, 2026` and oldest `Apr 10, 2026`. ALL 16 ARE NOW RESOLVED in seen - nine read before this run, three read this run, one skip-marked, and three still unread (see queue item 46). There is no control below the last row, so this host has no further depth and a future sweep of it is the plain fetch of the top ten plus these keystrokes.
+
+A DATE-PAIRING NOTE THAT CORRECTS NOTHING BUT SHOULD BE KNOWN BEFORE THE MARK IS TOUCHED. In the pane's extracted text the list cards render DATE, then title, then reading time, while the featured card renders category, reading time, title, authors and NO date. Route 61 read the plain fetch's `"Oct 15, 202614 minutes"` as the featured post's date; the pane shows no date on that card at all and shows `Oct 08, 2026` on the row immediately after the author line. The two extractions therefore disagree about which post `Oct 08`/`Oct 15` belongs to, and NEITHER is a verbatim read of a date next to a title. The mark was left unchanged for that reason. Settle it, if it ever matters, by reading one article page and taking the date off the post itself.
+
+## Route 66 - one WebSearch with several quoted titles resolves several slugs at once
+
+63rd run. Route 60 recorded that enumerating a pane-rendered index "costs one extra call PER ARTICLE you decide to read", because `get_page_text` returns innerText and no hrefs. That is the worst case, not the cost.
+
+A single `WebSearch` with `allowed_domains: ["claude.dev"]` whose query strung together FOUR distinct quoted title fragments returned the full path for all four in one result set, plus six more paths on the same host unasked. So the cheap move after any pane-rendered or href-less index is one search carrying several quoted titles, and only then per-title searches for whatever is still missing. Budget one search per BATCH, not one per article.
+
+This matters most for queue item 40(ii), the nine unread builders-library rows, which route 60 priced at one search plus one pane read each.
+
+## Route 67 - the OWASP Q3 exploit roundup reads in the browser pane. 64a IS CLOSED, AND THE TALLY IS NINE FOR NINE
+
+63rd run. Route 64a recorded `https://genai.owasp.org/2026/10/08/genai-and-agentic-ai-exploit-roundup-q3-2026/` as returning `client_error` to a plain WebFetch with nothing retrieved, and listed three untried routes in cost order. The cheapest two were tried in that order and the second worked:
+
+1. `/blog/` index, plain WebFetch with an enumeration ask: WORKED as a sweep and enumerated 10 posts back to 2025-12-09 with hrefs and dates, no pagination control of any kind - but it gave the SAME URL for the Q3 roundup, so it was not an alternative path to the body.
+2. `preview_start` on the failing URL plus `get_page_text`: WORKED on the first try, no approval requested, nothing blocked. It returned the full report - overview, trend section, the entry list, every per-entry Incident Summary, Impact Assessment, Attack Breakdown, OWASP mappings, CVE references, mitigations and source references. It exceeded 30,000 characters and was truncated at that cap, so ask for `max_chars` above the default or expect to page it.
+
+No source this pack has recorded as unreachable has stayed unreachable: builder.aws.com (three runs), the Vectara leaderboard, the OWASP PDFs twice, the OWASP User-Agent gate, the OWASP incidents tracker, the BFCL leaderboard, and now this. The standing rule earns its keep - prefer "unread by method X" over "dead", every time.
+
+The pane's route-59 licence applies: this is extracted DOM text, so the report's figures and identifiers are the page's own and needed no second verbatim call. Five facts came off this one read.
+
+## Route 68 - builder.aws.com ARTICLE pages answer a plain WebFetch, even though the INDEX needs the pane
+
+63rd run, found incidentally during the staleness pass. Routes 59 and 60 established the pane as the route for `https://builder.aws.com/learn/topics/builders-library`, which is JS-rendered and serves an empty shell to a plain fetch. That verdict is about the INDEX only.
+
+A plain WebFetch of `https://builder.aws.com/content/3Ev0BENTyBr0XxzRk5FDZzgNYos/making-retries-safe-with-idempotent-apis` returned the article's prose and answered a four-part verbatim quotation ask correctly. So an article on this host does not need the pane.
+
+COMBINED WITH ROUTE 66, the price of queue item 40(ii) drops sharply: one batched WebSearch resolves several of the nine unread titles to `/content/<id>/<slug>` paths, and each of those is then one ordinary WebFetch. Route 60's "one search plus one pane read per article" was an over-estimate on both halves.
