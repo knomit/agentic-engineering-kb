@@ -23,3 +23,7 @@ https://claude.dev/blog/spending-your-effort/
 https://claude.dev/blog/getting-started-with-claude-code-mods/
 https://claude.dev/blog/getting-the-most-out-of-opus-5-5/
 https://claude.dev/blog/building-with-claude-sonnet-5-5/
+
+https://claude.dev/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code/
+https://claude.dev/blog/lessons-from-building-claude-code-how-we-use-skills/
+https://claude.dev/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models/
