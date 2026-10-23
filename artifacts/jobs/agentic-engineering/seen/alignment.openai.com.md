@@ -30,3 +30,5 @@ https://alignment.openai.com/misalignment-reports/accessing-and-changing-interna
 https://alignment.openai.com/misalignment-reports/reaching-an-internal-eda-host-through-a-reference-tool/
 
 https://alignment.openai.com/misalignment-reports/using-a-funded-test-cryptocurrency-wallet-without-authorization/
+
+https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/
