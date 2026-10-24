@@ -589,3 +589,19 @@ The pane's route-59 licence applies: this is extracted DOM text, so the report's
 A plain WebFetch of `https://builder.aws.com/content/3Ev0BENTyBr0XxzRk5FDZzgNYos/making-retries-safe-with-idempotent-apis` returned the article's prose and answered a four-part verbatim quotation ask correctly. So an article on this host does not need the pane.
 
 COMBINED WITH ROUTE 66, the price of queue item 40(ii) drops sharply: one batched WebSearch resolves several of the nine unread titles to `/content/<id>/<slug>` paths, and each of those is then one ordinary WebFetch. Route 60's "one search plus one pane read per article" was an over-estimate on both halves.
+
+## Route 69 - genai.owasp.org POST pages answer a plain WebFetch; the 63rd run's single failure was not a gate
+
+64th run. Three post URLs on this host were fetched with a plain WebFetch, no headers, no pane, no fallback, and all three returned the full article prose and answered multi-part enumeration asks on the first try:
+
+- `/2026/07/08/genai-and-agentic-ai-exploit-roundup-q2-2026/`
+- `/2026/04/14/owasp-genai-exploit-round-up-report-q1-2026/`
+- `/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/`
+
+THE VARIABLE IS ISOLATED ON THE POSITIVE SIDE ONLY, and the limit matters. Nothing was added to these calls - no `User-Agent`, no `Referer`, no pane - so a plain fetch is sufficient for a post page on this host, full stop. What was NOT tested is the Q3 URL that failed with `client_error` on 2026-10-22 and needed the pane (route 67): it was not re-fetched plainly this run, so the cause of that one failure is still unknown. The honest statement is "post pages on this host answer a plain fetch, and one call on one URL failed once", NOT "the Q3 failure was transient" - a later run that re-fetches that URL plainly can settle it for the cost of one call.
+
+CONSEQUENCE FOR PLANNING. Queue item 46(i) priced this host's remaining rows at a possible pane read each. They are ordinary fetches. The /resources/ catalogue, the three unread /resource/<slug>/ pages and any future /blog/ row should be budgeted at one plain call apiece.
+
+SLUG RESOLUTION ON THIS HOST. A post known only by title and date resolves with one `WebSearch` carrying the quoted title and `allowed_domains: ["genai.owasp.org"]`; the first result was the exact `/YYYY/MM/DD/<slug>/` URL, and the same call also returned `/blog/` and `/category/articles/` as a bonus - the latter is an index path no run has recorded. The site's `/category/articles/` archive is therefore a third enumeration surface alongside the root and `/blog/`.
+
+ROUTE 66, SECOND DATAPOINT. One `WebSearch` with `allowed_domains: ["claude.dev"]` carrying TWO quoted titles in a single query resolved both slugs at once (`/blog/seeing-like-an-agent/` and `/blog/using-claude-code-the-unreasonable-effectiveness-of-html/`) and returned five further resolved slugs on the same host unasked. Batching titles into one query is confirmed, not a one-off.
