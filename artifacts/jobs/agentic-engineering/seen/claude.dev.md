@@ -27,3 +27,7 @@ https://claude.dev/blog/building-with-claude-sonnet-5-5/
 https://claude.dev/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code/
 https://claude.dev/blog/lessons-from-building-claude-code-how-we-use-skills/
 https://claude.dev/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models/
+
+https://claude.dev/blog/seeing-like-an-agent/
+https://claude.dev/blog/lessons-from-building-claude-code-prompt-caching-is-everything/
+https://claude.dev/blog/using-claude-code-the-unreasonable-effectiveness-of-html/
