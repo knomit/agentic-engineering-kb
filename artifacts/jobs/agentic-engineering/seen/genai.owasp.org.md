@@ -42,3 +42,7 @@ https://genai.owasp.org/contributors/  skip: people list
 https://genai.owasp.org/ai-security-solutions-landscape/  skip: vendor directory; the Q2 2026 landscape resource is already read
 
 https://genai.owasp.org/blog/
+
+https://genai.owasp.org/2026/07/08/genai-and-agentic-ai-exploit-roundup-q2-2026/
+https://genai.owasp.org/2026/04/14/owasp-genai-exploit-round-up-report-q1-2026/
+https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/
