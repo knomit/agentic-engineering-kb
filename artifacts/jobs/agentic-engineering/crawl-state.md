@@ -1095,3 +1095,72 @@ Three of those needed `distinct_from` against same-subject candidates the server
 **Prompt injection.** No page read this run contained text addressed to an AI agent or any attempt to redirect the task. The OWASP roundup and the OpenAI misalignment report both DESCRIBE injection attacks at length; that is subject matter, not an instruction, and was treated as data throughout.
 
 **Paths written.** Nothing under `.knomit/`. Outside `kb/`, only job state under `artifacts/jobs/agentic-engineering/`: feeds.md, queue.md, crawl-state.md, fetch-routes.md and the four seen lists, every one with `ops`. No new `seen/<host>.md` was needed, so no `knomit_learn` at a path. one-off-done.md and discovered-sources.md unchanged, correctly.
+
+## 2026-10-24 (64th run)
+
+**Dedup reads.** feeds.md, discovered-sources.md, one-off-done.md (59 URLs; every one-off-sources.md entry is still recorded done, so no one-off work existed), queue.md, fetch-routes.md, and two seen lists: seen/claude.dev.md (13 URLs) and seen/genai.owasp.org.md (31 URLs). No gaps and no failed calls.
+
+**ONE OPERATIONAL PROBLEM WORTH FLAGGING TO THE HUMAN: two state files have outgrown a direct read.** knomit_explain on queue.md returned 85,596 characters and on fetch-routes.md 74,770, both over this session's tool-result cap, so each came back only as a path to a saved file and had to be sliced open with a shell before it could be read. Both reads succeeded and nothing was lost, but a run without a shell could not have read either file, and both grow every run. queue.md in particular is 50 numbered items of which the first 40-odd are history: items 6 through 44 are mostly "DONE -- Nth run" annotations kept inside live items. A human compaction pass that moves resolved items out would make the file readable again; the job should not do it unprompted, since the spec gives it no licence to restructure state beyond ops.
+
+**Recurring-feed indexes swept: NONE.** Every read this run came off queue item 46, and no index was re-fetched. That is a deliberate choice rather than an omission: item 46 ranked six named URLs on two hosts whose facts-per-read are the highest in the pack, and both lists are now exhausted, which is worth more than another thin sweep of a dated feed. Two feeds (claude.dev/blog, genai.owasp.org/blog/) became tripwire-only as a result, so the next run has two fewer depth seams and should spend the saved calls on the never-enumerated genai.owasp.org/resources/ catalogue and on re-sweeping the dated feeds.
+
+**Articles newly crawled (6).** All six by plain WebFetch, first try, no fallbacks.
+
+- https://claude.dev/blog/seeing-like-an-agent/ (Apr 10 2026, Thariq Shihipar)
+- https://claude.dev/blog/lessons-from-building-claude-code-prompt-caching-is-everything/ (Apr 30 2026)
+- https://claude.dev/blog/using-claude-code-the-unreasonable-effectiveness-of-html/ (May 20 2026)
+- https://genai.owasp.org/2026/07/08/genai-and-agentic-ai-exploit-roundup-q2-2026/
+- https://genai.owasp.org/2026/04/14/owasp-genai-exploit-round-up-report-q1-2026/
+- https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/ (Idan Habler, Cisco)
+
+**Errored, paywalled or skipped: none.** No fetch failed this run and nothing was skip-marked.
+
+**Facts created (14).**
+
+From claude.dev:
+- kb/conventions/ai/agents/context-engineering/prompt-caching/12396dc1.md - a fork out of a live conversation gets zero cache unless it reuses the parent's exact prefix; uncached compaction costs MORE the longer the history, and the forked version is "a cache hit at one tenth the price"
+- kb/architecture/ai/agents/tools/progressive-disclosure/24dcdd3b.md - the answer-only documentation subagent, with both rejected alternatives and why each failed
+- kb/gotchas/ai/agents/tools/scaffold-lifecycle/7812abaf.md - todo reminders inverted as models improved; replaced by tasks as a communication substrate
+- kb/gotchas/ai/agents/tools/interface-design/e348773e.md - two tool-design failures: a second purpose bolted into one call with its interaction undefined, and structure requested as free text then parsed
+- kb/conventions/ai/agents/coding-agents/output-formats/c19b24e3.md - the HTML-over-Markdown case, at 0.65, with the export rule as the transferable part and the subjectivity stated
+
+From the OWASP Q2 2026 roundup:
+- kb/incidents/ai/agents/security/tool-results/sentry-agentjacking/1d11a25a.md - 85% across 100+ executions; a public DSN is the whole access step
+- kb/incidents/ai/agents/security/ci-cd/comment-and-control/0a3ed7f6.md - one family across three vendors; injection and exfiltration on the same GitHub surface
+- kb/incidents/ai/agents/security/platforms/langflow-cross-tenant/71a78731.md - CVE-2026-55255 / CVE-2026-33017, fixed in 1.9.1
+- kb/gotchas/ai/agents/frameworks/semantic-kernel/tool-arguments/307afe66.md - CVE-2026-26030 / CVE-2026-25592; a read-only-looking tool whose filter argument is evaluated
+
+From the OWASP Q1 2026 roundup:
+- kb/gotchas/ai/agents/security/vulnerability-management/913b851a.md - 8 incidents, 1 CVE; the seven without one had no patch either
+- kb/incidents/ai/agents/security/destructive-actions/openclaw/42ff6f67.md - advisory request became an action, and the stop control was not authoritative
+- kb/incidents/ai/agents/security/advisory-agents/meta-internal-leak/bfc4278d.md - an agent with no permissions caused the exposure because the human was the actuator
+- kb/incidents/ai/agents/security/cloud-platforms/vertex-double-agent/e6c05158.md - a Google-managed service identity the operator never created and cannot see in its own IAM review
+
+From the ASI06 memory post:
+- kb/incidents/ai/agents/security/memory-poisoning/memorytrap/113ace86.md - one approved npm install reached memory, the GLOBAL HOOKS CONFIG and the system prompt; v2.1.50 closed only the system-prompt path
+
+**Facts updated (6).** Two enrichments plus four from the staleness pass.
+
+- 68d5055b - second independent source, Anthropic's Claude Code team, with the Anthropic-side substitutes (mode changes as tools, order-stable defer_loading stubs, system-reminder in the next message, static-first layout, per-model caches, hit-rate alerting). sources 1 -> 2, confidence 0.85 -> 0.9. This closes the queue note that its only anchor was one vendor's post.
+- dd1a3738 - second source on the model-switch event, plus the inversion it implies: at 100k tokens into an Opus conversation, dropping to Haiku for an easy question costs MORE, and the remedy is a subagent with a prepared hand-off rather than a session-level switch. sources 1 -> 2.
+
+**Facts retracted: none.**
+
+**Corrections made, and what was wrong.**
+
+- **c90c13e6 - a MISSING BRANCH, which is a defect class this pack has not recorded before.** The fact presented the intern test as three remedies. The source distinguishes FOUR outcomes, and the dropped one is the only one that is not a remedy: "If the answer is no and we simply can't improve the context to fix it, then we may have hit a task that's too hard for contemporary LLMs." Every clause the fact did assert was verbatim correct, so no presence ask on the fact's own claims could have found this. Also aligned: branch two's source wording is "reduce the complexity of the task" rather than decomposition specifically, and the test's framing is "an average college student in the relevant major". confidence 0.70 -> 0.75.
+- **dc38f95f - an attribution slip.** The body said "The failure Amazon names explicitly as a fork bomb." Amazon's wording is that an overloaded service can "essentially fork-bomb itself" - the duplication is self-inflicted, which is the part that makes it a loop. Body now carries the source's phrasing. confidence 0.85 -> 0.9.
+- **62c9a78b - a body cleaned of edit history.** It carried "VERIFICATION AND VERSION PIN (checked 2026-07-30): all four claims above re-verified verbatim against the source; no update notice on the page", which is exactly what the spec keeps out of bodies. The publication date and the MCP-revision analysis that follows it are current epistemic status and were kept; the checked-on date and the re-verified clause were removed. Written up here because this is where a correction belongs.
+- **A QUEUED ASSUMPTION THAT TURNED OUT WRONG, recorded so a later run does not re-make it.** Queue item 46(ii) said the HTML post "is the primary for the new f68dad75, whose HTML-mockup claim currently rests on one sentence in a different post." It is not. f68dad75 is about HTML as INPUT TO the agent - specify a change with the most executable artifact you have - while this post is about HTML as OUTPUT FROM the agent to a human, and it makes no claim about mockups as specifications. Adding it to f68dad75's refs would have manufactured a second source for a claim it does not make. A separate fact (c19b24e3) was written instead, citing f68dad75 as the adjacent claim. f68dad75 is unchanged and its single-source status stands.
+
+**Staleness pass (5 sampled, 4 confirmed, 1 enriched).** Sampled across kb/architecture, kb/conventions and kb/gotchas at confidence 0.70-0.85, filtered against the checked lists in queue items 16/27b/32/36/39/41/43/45/47; kb/principles avoided as read-only to jobs.
+
+- 89647c7d - CONFIRMED, five of five asked-for clauses verbatim against aisi.gov.uk. One note, not a defect: the recommendation sentence the fact quotes is quoted short - the source sentence continues past where the quotation ends.
+- 15e7bf02 - CONFIRMED, and ENRICHED with the initializer's three artifacts as the source names them (init.sh, claude-progress.txt, an initial git commit) plus the one-feature-per-session rule verbatim. confidence 0.70 -> 0.75.
+- dc38f95f - CONFIRMED, four of four, and corrected as above. builder.aws.com answered a plain article fetch again: a second datapoint for route 68.
+- 62c9a78b - CONFIRMED, all four (the hundreds-of-thousands-of-tokens clause, 150,000 -> 2,000 at 98.7%, the PII sentence, and the Nov 4 2025 publication date), and cleaned as above.
+- c90c13e6 - ENRICHED with the dropped fourth branch, as above.
+
+**Method note for the next staleness pass.** Items 43, 45 and 47 each found a COUNT or CATEGORY defect and the method note each time was to add an enumeration ask about the FACT's claim. This run's defect was invisible to that: the missing text was not in the fact to ask about. The ask that finds it runs against the SOURCE's structure - "name every branch, outcome or case this passage distinguishes" - and belongs in any check of a fact whose value is that it enumerates something.
+
+**Scope confirmation.** Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ - feeds.md, queue.md, fetch-routes.md, crawl-state.md, seen/claude.dev.md, seen/genai.owasp.org.md - and every one with ops. No new seen/<host>.md was needed, so knomit_learn was not used on a job-state path. one-off-done.md and discovered-sources.md were read and not written: no one-off source was crawled and no new feed was found.
