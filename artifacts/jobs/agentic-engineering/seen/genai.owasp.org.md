@@ -46,3 +46,14 @@ https://genai.owasp.org/blog/
 https://genai.owasp.org/2026/07/08/genai-and-agentic-ai-exploit-roundup-q2-2026/
 https://genai.owasp.org/2026/04/14/owasp-genai-exploit-round-up-report-q1-2026/
 https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/
+
+https://genai.owasp.org/resources/
+https://genai.owasp.org/resource/a-practical-guide-for-secure-mcp-server-development/
+https://genai.owasp.org/download/52676/?tmstv=1771286427
+https://genai.owasp.org/resource/solutions-landscape-red-teaming-taxonomy/  skip: vendor landscape taxonomy, not field knowledge
+https://genai.owasp.org/resource/ai-security-solutions-landscape-for-agentic-ai-q2-2026/  skip: vendor directory; the Q2 2026 red-teaming landscape is already read
+https://genai.owasp.org/resource/al-security-solutions-landscape-for-llm-and-gen-al-apps-q2-2026/  skip: vendor directory
+https://genai.owasp.org/resource/al-security-solutions-landscape-for-llm-and-gen-al-apps-q2-q3-2025/  skip: vendor directory, superseded by the Q2 2026 edition
+https://genai.owasp.org/resource/owasp-genai-security-project-solutions-reference-guide-q2_q325/  skip: vendor directory
+https://genai.owasp.org/resource/owasp-vendor-evaluation-criteria-for-ai-red-teaming-providers-tooling-v1-0/  skip: procurement criteria for buying red-teaming services
+https://genai.owasp.org/resource/owasp-aibom-generator/  skip: tool landing page, no design prose
