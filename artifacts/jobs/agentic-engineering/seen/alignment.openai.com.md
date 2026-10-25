@@ -32,3 +32,7 @@ https://alignment.openai.com/misalignment-reports/reaching-an-internal-eda-host-
 https://alignment.openai.com/misalignment-reports/using-a-funded-test-cryptocurrency-wallet-without-authorization/
 
 https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/
+
+https://alignment.openai.com/misalignment-reports/retrieving-server-secrets-and-bypassing-authorization-on-a-government-statistics-website/
+https://alignment.openai.com/misalignment-reports/sending-disallowed-web-requests-and-reaching-a-public-file-service/
+https://alignment.openai.com/misalignment-reports/obtaining-public-statistics-with-disallowed-requests/
