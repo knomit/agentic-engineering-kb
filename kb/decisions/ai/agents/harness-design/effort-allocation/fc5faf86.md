@@ -2,9 +2,9 @@
 kind: pragmatic
 type: heuristic
 domain: [agentic-engineering, architecture, evaluation, security]
-confidence: 0.75
+confidence: 0.8
 sources: 1
-entities: [Incalmo, MHBench, Claude Sonnet 4, Eugene Yan, attack graph]
+entities: [Incalmo, ExpertPromptShell, MHBench, Multi-Host Bench, Claude Sonnet 4, Eugene Yan, attack graph, Equifax replica]
 motifs: [wrong-deciding-variable]
 refs: ['https://eugeneyan.com/writing/cybersecurity-evals/']
 ---
@@ -17,3 +17,7 @@ What Incalmo supplies is worth naming because it generalises: decoupled planning
 The consequence for where to spend: when an agent is failing at a long-horizon task, upgrading the model is usually the more expensive and less effective lever than giving it a structured external state representation, splitting planning from execution, and providing services for the sub-steps it currently improvises. Two corroborating observations from the same survey: context bloat specifically impaired long-horizon planning in the multi-host scenarios, and decomposing objectives into subtasks improved the interpretability of partial progress — both harness-level changes.
 
 The honest boundary, and the condition that decides it: this measurement comes from offensive-security benchmarks, where the task decomposes cleanly into discrete stages with verifiable outcomes and the state genuinely fits in a graph. Do not assume the tenfold figure transfers to open-ended tasks whose state cannot be externalised that way — there, model capability reasserts itself. What transfers is the direction of the effect and the order in which to try things.
+
+THE TWO SCAFFOLDS BY NAME, AND ONE PRECISION THE HEADLINE GLOSSES. The benchmark is Multi-Host Bench (MHBench). The baseline is a different scaffold, not a weaker prompt: "On the previous best system (ExpertPromptShell), Claude Sonnet 4 captured critical assets in just 3 out of 40 networks." The improved figure is "With Incalmo, that number jumped to 37 out of 40 networks, including the 50-host Equifax replica."
+
+Worth knowing before citing this as a same-model comparison: the source names Claude Sonnet 4 only for the 3/40 figure. For 37/40 it says "that number", which refers back to the Sonnet 4 result, so the same-model reading is an implication the page supports rather than a sentence it states. The page's own conclusion is explicit and does not depend on that reading: "The experiments showed that the system framework matters far more than the underlying model."
