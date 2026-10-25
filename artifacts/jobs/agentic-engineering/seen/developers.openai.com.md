@@ -27,3 +27,7 @@ https://developers.openai.com/api/docs/guides/agents-api/environments/lifecycle
 
 https://developers.openai.com/api/docs/guides/agents-api/environments/openai-hosted
 https://developers.openai.com/api/docs/guides/compaction
+
+https://developers.openai.com/api/docs/guides/agents-api/multi-agent
+https://developers.openai.com/api/docs/guides/agents/orchestration
+https://developers.openai.com/api/docs/guides/tools-skills
