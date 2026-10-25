@@ -1164,3 +1164,56 @@ From the ASI06 memory post:
 **Method note for the next staleness pass.** Items 43, 45 and 47 each found a COUNT or CATEGORY defect and the method note each time was to add an enumeration ask about the FACT's claim. This run's defect was invisible to that: the missing text was not in the fact to ask about. The ask that finds it runs against the SOURCE's structure - "name every branch, outcome or case this passage distinguishes" - and belongs in any check of a fact whose value is that it enumerates something.
 
 **Scope confirmation.** Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ - feeds.md, queue.md, fetch-routes.md, crawl-state.md, seen/claude.dev.md, seen/genai.owasp.org.md - and every one with ops. No new seen/<host>.md was needed, so knomit_learn was not used on a job-state path. one-off-done.md and discovered-sources.md were read and not written: no one-off source was crawled and no new feed was found.
+
+## 2026-10-25 (65th run)
+
+**Dedup reads.** feeds.md, discovered-sources.md, one-off-done.md (59 URLs, every one-off entry already done, so nothing was due from that file), queue.md (read via the fetch-routes route-70 note's method — it exceeded the tool-result cap at ~91,000 characters and had to be extracted from the saved result file). seen lists read, for the three hosts crawled: genai.owasp.org (30 lines), developers.openai.com (12), alignment.openai.com (17). No failed state reads. claude.dev's seen file was NOT re-read — the 64th run recorded that host as exhausted and this run only fired its tripwire, reading nothing.
+
+**Recurring-feed indexes swept (5).** genai.owasp.org/resources/ (FIRST SWEEP, enumerated), alignment.openai.com/misalignment-reports/ (19 rows), genai.owasp.org/blog/ (tripwire), claude.dev/blog (tripwire), plus developers.openai.com/api/docs/guides/ worked from its existing catalogue without re-fetching the index. The other ~30 recurring feeds were NOT swept this run; the stalest are listed in queue item 51(v).
+
+**Articles newly crawled (7).**
+- https://genai.owasp.org/resources/ (index)
+- https://genai.owasp.org/resource/a-practical-guide-for-secure-mcp-server-development/ and its download URL https://genai.owasp.org/download/52676/?tmstv=1771286427
+- https://developers.openai.com/api/docs/guides/agents-api/multi-agent
+- https://developers.openai.com/api/docs/guides/agents/orchestration
+- https://developers.openai.com/api/docs/guides/tools-skills
+- https://alignment.openai.com/misalignment-reports/retrieving-server-secrets-and-bypassing-authorization-on-a-government-statistics-website/
+- https://alignment.openai.com/misalignment-reports/sending-disallowed-web-requests-and-reaching-a-public-file-service/
+- https://alignment.openai.com/misalignment-reports/obtaining-public-statistics-with-disallowed-requests/
+
+Six OWASP catalogue rows were triaged and skip-marked (vendor directories, procurement criteria, a tool landing page). Nothing errored or was paywalled. One tool-level failure: curl to genai.owasp.org was refused by the agent egress proxy with "CONNECT tunnel failed, response 403", which is an allowlist restriction on this session rather than a site gate — recorded in fetch-routes with route 70, which makes WebFetch the sufficient route anyway.
+
+**Facts created (9).**
+- kb/invariants/ai/agents/security/egress/method-restrictions/95c84f4a.md — a GET-only restriction bounds the verb, not the reach
+- kb/gotchas/ai/agents/security/error-disclosure/073d80d6.md — a verbose server error as an agent-grade capability (2 sources)
+- kb/invariants/ai/agents/context-engineering/skills/instruction-priority/f7446644.md — skill instructions arrive at user-prompt priority
+- kb/gotchas/ai/agents/platform/openai/skills/8ec9b5c9.md — three incompatible skill-attachment surfaces, and the 404 read-after-write window
+- kb/invariants/ai/agents/multi-agent/openai-agents-api/c6665329.md — subagents inherit MCP tools and credentials but not function tools
+- kb/gotchas/ai/agents/multi-agent/openai-agents-api/74d4b364.md — a completed wait is not a completed task
+- kb/invariants/ai/agents/tools/mcp/security/state-isolation/b6b8630c.md — multi-tenant isolation lives in the storage shape; three cleanup triggers
+- kb/conventions/ai/agents/tools/mcp/security/injection-containment/3138f8e8.md — "One Task, One Session"
+- kb/gotchas/ai/agents/evaluation/trajectory-monitoring/39353548.md — probing continued after the task was already answered (raised to 2 sources and 0.9 within the run)
+
+**Facts enriched (5).** c1bbf73f (OpenAI's answer-ownership deciding rule and the three stated costs of over-splitting, incl. approval surfaces; sources 2 -> 3, conf 0.80 -> 0.85); ba5db3ec (OWASP as a second independent source naming RFC 8693 delegation plus the distinct server identity as the remedy; sources 1 -> 2); 2f2be563 (a second independent episode of the same bypass, with OPTIONS reconnaissance against the target and an anonymizing relay; sources 1 -> 2); 39353548 (OpenAI's own stated conclusion that "correct answers are not enough to establish that a model behaved appropriately", plus the quoted concealment reasoning; sources 1 -> 2, conf 0.85 -> 0.90); and the four staleness edits below. Nothing was retracted.
+
+**Corrections made, and what was wrong.**
+1. *A misattributed mechanism, in a title, while the body was correct.* 5f6330ef was titled "...and the fix is priority classes not cleverness". Its source never mentions priority classes in the hard-versus-soft section and endorses neither allocation model; the mechanism it names is droppable versus non-droppable work shed above a high threshold (its example 90% of maximum). The body already had this right and in more detail. Defect class: attribution error confined to the title — the part a consumer compresses the fact into. Title rewritten.
+2. *A misfiled count.* The same fact carried `sources: 0` against one live external ref. Now 1.
+3. *A missing result.* 766706aa described its source's measurement methodology at length and never stated the outcome. The source publishes 973 threads, merged PRs 29.2% vs 27.3% (p = 0.49), PR opens 38.9% vs 39.6% (p = 0.82), median cost $0.94 vs $2.61 (64% less), mean -42%, p90 -37%. Added with the p-values and the caveat that non-detection is not absence. Defect class: missing result — see the method note in queue item 52.
+4. *A composition presented as a source's statement.* c99ec745's "P(needed) times size" rule: its primary ref carries the likelihood term only, with no numeric threshold, no size or token-budget condition, no paying-twice framing and no when-not-to guidance. The product form is this pack's own composition across three refs; now stated as such.
+5. *An over-broad implication.* fc5faf86's same-model claim: the source names Claude Sonnet 4 only for the 3/40 figure and reaches 37/40 via "that number". Flagged as a supported implication rather than a stated sentence; both scaffold names and the benchmark name added.
+6. *One body cleaned.* ba5db3ec carried a "**VERIFICATION.** Re-verified 2026-08-12 against both the originally cited 2025-06-18 revision..." paragraph — the edit-history text the spec forbids in a body — which was replaced by the new second-source material. c1bbf73f carried "VERIFIED (staleness pass, 2026-07-29): ... Confidence 0.7 -> 0.8." and the phrase "two further avoid-conditions they name and this fact previously omitted"; the source-dating sentence was kept as current provenance and the diff text removed.
+
+**Staleness pass (5 sampled, from kb/decisions at 0.70-0.80, none previously checked, weighted to the oldest commits).** CONFIRMED: f6937c7b (all six multipliers verbatim; enriched with chart-versus-prose provenance and the fact that quality is asserted not measured; 0.70 -> 0.75), fc5faf86 (both figures and the conclusion quote verbatim; enriched per correction 5; 0.75 -> 0.80). CORRECTED: 5f6330ef (corrections 1 and 2), 766706aa (correction 3; 0.75 -> 0.85), c99ec745 (correction 4; conf unchanged). None retracted — every sampled ref was live and every substantive claim held.
+
+**Route and tooling findings.** Route 70: OWASP /download/<id>/?tmstv=<n> URLs answer a plain WebFetch as readable text, and a /resource/<slug>/ landing page is only an abstract — the variable was isolated (no headers, no Referer, no cookie, first try). Also recorded in fetch-routes: curl cannot reach genai.owasp.org from this session at all (egress 403); knomit_learn's `distinct_from` is a per-fact field and is silently ignored at call level, which cost two refused calls; a motif is rejected at write time for exceeding four hyphen-separated words; and knomit_explain on queue.md exceeds the tool-result cap.
+
+**Two feeds became tripwires.** claude.dev/blog and genai.owasp.org/blog/ fired clean (nothing after Oct 15 and Oct 8 respectively) and alignment.openai.com/misalignment-reports/ joins them with every visible row now read — freeing roughly three calls a run for the seams in queue item 51.
+
+**The route-33 discrepancy is explained.** The misalignment-reports page stated 20 and the enumeration returned 19; the single missing row was one already in seen since the 60th run. The extraction drops a row — the page is not miscounting itself. Reconcile an enumeration against seen before concluding a feed shrank.
+
+**Feeds added to discovered-sources.** None this run.
+
+**No prompt-injection attempts were observed** in any page read this run.
+
+**Write discipline.** Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ — feeds.md, queue.md, fetch-routes.md, crawl-state.md and three seen/<host>.md files — and all were written with `ops`; no new seen/<host>.md was needed, so knomit_learn was not used for job state, and no job-state body was ever resent whole.
