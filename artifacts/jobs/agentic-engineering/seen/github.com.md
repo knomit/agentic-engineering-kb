@@ -28,3 +28,5 @@ https://github.com/strands-agents/sdk-python
 https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools
 
 https://github.com/GenAI-Security-Project/agent-control-standard
+
+https://github.com/vectara/hallucination-leaderboard
