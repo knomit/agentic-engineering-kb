@@ -30,3 +30,7 @@ https://builder.aws.com/content/3F073j4jJOsSRTDlQM3eiZxkFLm/beyond-five-9s-lesso
 https://builder.aws.com/content/3F08f7GPFiZMCgXD8gny6OjxR0Z/challenges-with-distributed-systems
 
 https://builder.aws.com/content/3F04j2yRAAMBuPSPs50xwXZqg01/ensuring-rollback-safety-during-deployments
+
+https://builder.aws.com/content/3ErTKQOTKc5NIw031UePBPxTQ6I/automating-safe-hands-off-deployments
+https://builder.aws.com/content/3F07fTC9nQCkhqCTP5vIzgyOcIH/amazons-approach-to-automated-software-and-systems-testing
+https://builder.aws.com/content/3F08Mhh186qOa4VhG19egs06NJa/going-faster-with-continuous-delivery  skip: slug resolved this run, left unread for budget; rank 2 in queue item 53
