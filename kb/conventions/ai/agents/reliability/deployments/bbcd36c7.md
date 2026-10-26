@@ -1,0 +1,18 @@
+---
+type: process
+domain: [agentic-engineering, reliability, operations, distributed-systems, deployment, evaluation]
+confidence: 0.85
+sources: 1
+entities: [Amazon, AWS Builders' Library, Clare Liguori, bake period, one-box stage, canary, rolling deployment, minimum sample, Principal Engineer]
+motifs: [soak-window-without-traffic, positional-threshold-not-uniform]
+refs: ['https://builder.aws.com/content/3ErTKQOTKc5NIw031UePBPxTQ6I/automating-safe-hands-off-deployments', 'kb://bc6eac5f37df/kb/conventions/ai/agents/reliability/deployments/84a39164.md']
+---
+# A soak window is not a test until it has traffic — Amazon's bake criteria pair a duration with a minimum request count
+
+Amazon's described deployment pipeline gates each stage on a bake period, and the durations are positional rather than uniform: at least one hour after each one-box stage, at least 12 hours after the first regional wave, and at least two to four hours after each remaining regional wave. The part worth copying is that a bake criterion can additionally require a **minimum sample** — the stated example is "wait for at least 100 requests to the Create API" — because a stage can sit through its whole time window without the changed code path being exercised, and then pass.
+
+The rest of the mechanism that makes those windows meaningful: a one-box stage deploys to the smallest unit (one VM, one container, or a small percentage of Lambda invocations) and takes at most ten percent of a Region's or AZ's requests, and it rolls back on metrics scoped to that box alone — its own fault rate and latency — rather than on a fleet aggregate in which one box's faults are diluted. Rolling batches then replace "at most 33 percent" of boxes per Region so that "at least 66 percent of the overall capacity is healthy" throughout. The forward and reverse rates are deliberately asymmetric: some teams deploy as little as 5% per batch while rolling back 33% at a time, because the risk of going fast is not the same in the two directions. The full global rollout takes "about four or five business days", and shortening bake for an urgent fix is handled by Principal Engineer review, limiting the changes in flight and watching actively — not by an automated override.
+
+WHY THIS TRANSFERS TO AGENT SYSTEMS, AND WHY THE SAMPLE CLAUSE MATTERS MORE THERE. An agent canary is usually both low-traffic and high-variance per request: a handful of sessions in an hour, each exercising a different tool path, and many of them not touching the change at all. A time-boxed soak therefore proves even less for an agent than it does for a request-response service. Gate promotion on a minimum count of COMPLETED TASKS of the kind the change affects, and keep the canary's metrics scoped to the canary rather than reading them off a fleet-wide dashboard.
+
+SCOPE. This is one organisation's internal practice as described in 2020, and the numbers are the article's examples rather than a current AWS policy or a published measurement of what the thresholds buy. The structure — positional bake durations, a minimum-sample clause, scoped canary metrics, asymmetric forward and rollback rates — is what is established here; the specific hour counts are not a recommendation for anyone else's traffic shape.
