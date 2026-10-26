@@ -57,3 +57,6 @@ https://genai.owasp.org/resource/al-security-solutions-landscape-for-llm-and-gen
 https://genai.owasp.org/resource/owasp-genai-security-project-solutions-reference-guide-q2_q325/  skip: vendor directory
 https://genai.owasp.org/resource/owasp-vendor-evaluation-criteria-for-ai-red-teaming-providers-tooling-v1-0/  skip: procurement criteria for buying red-teaming services
 https://genai.owasp.org/resource/owasp-aibom-generator/  skip: tool landing page, no design prose
+
+https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/
+https://genai.owasp.org/download/51928/?tmstv=1762283701
