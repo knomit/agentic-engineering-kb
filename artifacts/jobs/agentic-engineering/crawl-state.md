@@ -1217,3 +1217,48 @@ Six OWASP catalogue rows were triaged and skip-marked (vendor directories, procu
 **No prompt-injection attempts were observed** in any page read this run.
 
 **Write discipline.** Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ — feeds.md, queue.md, fetch-routes.md, crawl-state.md and three seen/<host>.md files — and all were written with `ops`; no new seen/<host>.md was needed, so knomit_learn was not used for job state, and no job-state body was ever resent whole.
+
+## 2026-10-26 — 66th run
+
+DEDUP READS. feeds.md, discovered-sources.md (via the feeds line notes), one-off-done.md was NOT read this run because no one-off-sources entry was crawled; queue.md (99,957 characters, returned as a file by the tool-result cap again — the fetch-routes caveat on extracting it with a one-line python json read held). seen lists read before fetching, with their URL counts at read time: genai.owasp.org (43 lines), developers.openai.com (15), builder.aws.com (19), github.com (appended to without a prior read — the append succeeded, so the file existed; its count was not recorded). fetch-routes.md read for routes 66, 68, 69, 70 and the tool caveats. crawl-state.md not read, per the skill.
+
+RECURRING INDEXES SWEPT: developers.openai.com/cookbook (FIRST SWEEP) and github.com/vectara/hallucination-leaderboard (FIRST SWEEP). No other index was re-fetched: every other row read this run was taken from queue item 51 by its own URL. Three tripwire feeds (claude.dev/blog, genai.owasp.org/blog/, alignment.openai.com/misalignment-reports/) were deliberately not called, having been swept clean one day earlier on a roughly weekly growth rate.
+
+ARTICLES NEWLY CRAWLED (added to seen, 8 URLs):
+- genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/ and its genai.owasp.org/download/51928/?tmstv=1762283701
+- developers.openai.com/api/docs/guides/tools-tool-search
+- developers.openai.com/api/docs/guides/safety-checks/misalignment-monitoring
+- developers.openai.com/cookbook (index) and /cookbook/examples/partners/harness_aware_plugin_evals/harness_aware_plugin_evals
+- builder.aws.com/content/3ErTKQOTKc5NIw031UePBPxTQ6I/automating-safe-hands-off-deployments
+- builder.aws.com/content/3F07fTC9nQCkhqCTP5vIzgyOcIH/amazons-approach-to-automated-software-and-systems-testing
+- github.com/vectara/hallucination-leaderboard
+
+ERRORED, SKIPPED OR SPENT FOR NOTHING. No fetch failed this run. One call was spent for nothing: the builders-library row "Amazon's approach to automated software and systems testing" is a VIDEO page with no prose, no transcript and only engagement counts for numbers — recorded as fetch-routes route 71, with the free index-side check that would have caught it. One batched WebSearch resolved two of four quoted builders-library titles (route 66's third datapoint, and its lowest hit rate so far) plus one unasked-for row that became the run's second-best page. Nothing was paywalled and no source was recorded as dead. No prompt-injection attempt was observed in any fetched page.
+
+FACTS WRITTEN (9):
+- kb/gotchas/ai/agents/tools/mcp/multi-server/67c8f702.md — tool interference: two MCP servers in one client create a path neither server's review covers; the three named mitigations address different halves of the mechanism
+- kb/conventions/ai/agents/tools/mcp/governance/4d23a813.md — an approved third-party MCP server is a lockfile problem; periodic re-validation, version pinning and a named kill-switch owner are the load-bearing steps
+- kb/invariants/ai/agents/safety/misalignment-monitoring/38b61e5f.md — OpenAI's misalignment safety check blocks only on three request shapes, reverses nothing, and request_paused: true does not mean execution stopped
+- kb/architecture/ai/agents/tools/discovery/0e95ddf4.md — tool search's two modes, and how client-executed mode moves the tool catalogue inside the application's trust boundary
+- kb/conventions/ai/agents/reliability/deployments/bbcd36c7.md — a bake criterion pairs a duration with a minimum request count, because a low-traffic stage passes a time-based soak without exercising the change
+- kb/decisions/ai/agents/reliability/deployments/b3133115.md — the team-level aggregate alarm rolls back ALL of a team's in-flight deployments in a Region, and the coupling is the design
+- kb/decisions/ai/agents/evaluation/harness-choice/0d7dd3d1.md — a standalone function-calling loop cannot rank models for a product harness: +14 points for one model, −21 for another, on the same cases
+- kb/gotchas/ai/agents/evaluation/benchmarks/803a2163.md — a pass rate stable to three points across repeats while 23 of 108 cases flipped verdict
+- kb/gotchas/ai/agents/evaluation/benchmarks/356cb1f0.md — a hallucination rate is uninterpretable without the answer rate beside it
+
+FACTS ENRICHED (3, all adding a second vendor's statement of a mechanism already in the pack):
+- kb/decisions/ai/agents/tools/discovery/0915b0a2.md — OpenAI states the same order of magnitude at a different unit ("fewer than 10 functions" per namespace) and gates tool_search at "gpt-5.4 and later"; sources 1 -> 2
+- kb/conventions/ai/agents/context-engineering/prompt-caching/68d5055b.md — deferred tools load at the END of the context window to preserve the cache, and "Changing the loaded tool set will break the model's cache from that point forward", so each mid-conversation load plants a cut point; sources 2 -> 3
+- kb/gotchas/ai/agents/operations/safeguard-friction/8a0b760f.md — the product post's "on the API, the task will stop" is narrower in the developer docs: automatic stopping is a property of three request shapes, not of the API surface
+
+CONTRADICTIONS AND BOUNDARY CONDITIONS FOUND. One, and it was kept as a condition rather than resolved. 8193c07b and c2624a17 carry Arena's HarnessTax result that scaffolding differences at a fixed budget move success rate only about ±2% (SWE-bench Lite) and ±5% (Terminal-Bench 2.0) while cost diverges ~2×. The OpenAI plugin-eval cookbook measures the same kind of difference at tens of points with a model-dependent SIGN. The separating condition is the comparison class — mature product harness against mature product harness, versus a bare function-calling loop against a product harness — and it is stated in both the new fact 0d7dd3d1 and its scope paragraph, with neither side generalised past its own class.
+
+CORRECTIONS MADE, AND WHAT WAS WRONG (from the staleness pass; details in queue item 54):
+- 714a540c asserted window_size = 40 as "documented for the TypeScript binding". The source states no window_size default for EITHER binding; 20 and 40 are example values in two snippets. Corrected. Its body also carried a dated CONFIRMED/CORRECTED/REMOVED/NOT-RE-VERIFIED verification block — the edit-history shape the spec forbids — rewritten as a scope paragraph keeping only current epistemic status. conf 0.70 -> 0.80.
+- bdf3336e's TITLE claimed "every documented bypass in this pack" where its body discusses four, a universal that the corpus has since falsified while the body stayed accurate. Title rewritten. Its zero external refs and sources 0 are the distilled-synthesis convention and were left alone.
+- 3fc77970 listed six writable config paths against the source's ten, and four mitigations against five. The dropped paths are load-bearing: `.vscode/tasks.json` (a command the editor runs, not a setting), `~/.mcp.json` (HOME level, so it escapes the shared checkout) and `.vscode/copilot-instructions.md`. Also added: the post's own ranking of propose-rather-than-write as the most practical mitigation, and its note that vendors now guard OVERWRITES while creation of new files remains open — so a guard over a list of existing paths does not cover the live form. Broken wikilink [[privilege-escalation]] repointed to [[4ac8983f]]. conf 0.80 -> 0.85.
+- 4e68d2a0 attributed the capture-and-refund to "the merchant"; the source names Zinc, the retail API in the middle. Corrected, and the propensity-style short quote in f5b65a83 was completed to the source's full clause.
+
+STALENESS PASS RESULT: 5 sampled from kb/invariants (none previously checked), 2 CONFIRMED verbatim and enriched (4e68d2a0, f5b65a83, both 0.75 -> 0.80), 1 CORRECTED and body-cleaned (714a540c, 0.70 -> 0.80), 1 TITLE CORRECTED (bdf3336e), 1 ENRICHED with three dropped paths and a dropped mitigation (3fc77970, 0.80 -> 0.85). Nothing retracted. A sixth candidate (4d0f4f21) was dropped before any call as too recently written to be a staleness target.
+
+WRITE DISCIPLINE: nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ and every one was written with ops — no seen/<host>.md needed creating this run, so knomit_learn was not used on an artifact path. One ops write was immediately reversed: a builders-library URL resolved but not read was appended to seen with a `skip:` suffix, which would have made a wanted row permanently invisible; it was removed in the next call. Record the URL in the queue, never in seen, when it is a row you intend a later run to read.
