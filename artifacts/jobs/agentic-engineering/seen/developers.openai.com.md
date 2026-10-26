@@ -31,3 +31,8 @@ https://developers.openai.com/api/docs/guides/compaction
 https://developers.openai.com/api/docs/guides/agents-api/multi-agent
 https://developers.openai.com/api/docs/guides/agents/orchestration
 https://developers.openai.com/api/docs/guides/tools-skills
+
+https://developers.openai.com/api/docs/guides/tools-tool-search
+https://developers.openai.com/api/docs/guides/safety-checks/misalignment-monitoring
+https://developers.openai.com/cookbook
+https://developers.openai.com/cookbook/examples/partners/harness_aware_plugin_evals/harness_aware_plugin_evals
