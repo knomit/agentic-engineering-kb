@@ -1,11 +1,11 @@
 ---
 type: process
 domain: [agentic-engineering, reliability, operations, distributed-systems, deployment, evaluation]
-confidence: 0.85
-sources: 1
+confidence: 0.9
+sources: 2
 entities: [Amazon, AWS Builders' Library, Clare Liguori, bake period, one-box stage, canary, rolling deployment, minimum sample, Principal Engineer]
 motifs: [soak-window-without-traffic, positional-threshold-not-uniform]
-refs: ['https://builder.aws.com/content/3ErTKQOTKc5NIw031UePBPxTQ6I/automating-safe-hands-off-deployments', 'kb://bc6eac5f37df/kb/conventions/ai/agents/reliability/deployments/84a39164.md']
+refs: ['https://builder.aws.com/content/3ErTKQOTKc5NIw031UePBPxTQ6I/automating-safe-hands-off-deployments', 'https://builder.aws.com/content/3F08Mhh186qOa4VhG19egs06NJa/going-faster-with-continuous-delivery', 'kb://bc6eac5f37df/kb/conventions/ai/agents/reliability/deployments/84a39164.md']
 ---
 # A soak window is not a test until it has traffic — Amazon's bake criteria pair a duration with a minimum request count
 
@@ -16,3 +16,5 @@ The rest of the mechanism that makes those windows meaningful: a one-box stage d
 WHY THIS TRANSFERS TO AGENT SYSTEMS, AND WHY THE SAMPLE CLAUSE MATTERS MORE THERE. An agent canary is usually both low-traffic and high-variance per request: a handful of sessions in an hour, each exercising a different tool path, and many of them not touching the change at all. A time-boxed soak therefore proves even less for an agent than it does for a request-response service. Gate promotion on a minimum count of COMPLETED TASKS of the kind the change affects, and keep the canary's metrics scoped to the canary rather than reading them off a fleet-wide dashboard.
 
 SCOPE. This is one organisation's internal practice as described in 2020, and the numbers are the article's examples rather than a current AWS policy or a published measurement of what the thresholds buy. The structure — positional bake durations, a minimum-sample clause, scoped canary metrics, asymmetric forward and rollback rates — is what is established here; the specific hour counts are not a recommendation for anyone else's traffic shape.
+
+A second Amazon account of the same practice states the criterion in its count form: "we might wait for 3,000 positive data points, with no negative data points, before continuing a deployment". Two things to carry from that phrasing. The bar is a count of positive observations AND a zero on negatives, so a single negative data point is disqualifying no matter how many positives accumulated; and the figure is given explicitly as an example, so 3,000 is not a recommended default but an illustration of the magnitude a high-traffic service can demand. The same account pairs this with automatic rollback when the error rate rises after a canary, and notes the duration half varies widely in practice: "Some teams wait for hours and others wait for minutes."
