@@ -641,3 +641,21 @@ A cookbook ROW is an ordinary plain-WebFetch read: `/cookbook/examples/partners/
 ROUTE 70, SECOND DATAPOINT, AND IT IS TWO CALLS NOT ONE. On `/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/` the landing page again carried only an abstract plus the download href, and `/download/51928/?tmstv=1762283701` again returned the whole document to a plain WebFetch with no headers. The `<id>` and the `?tmstv=` value are not derivable from the slug, so the landing page has to be fetched first for its href. Budget an OWASP resource at TWO plain calls - abstract then document - and do not try to guess a download URL.
 
 TOOL CAVEAT - WebFetch truncates a quoted string at about 125 characters and SAYS SO when it does ("the full sentence runs past the 125-character quote limit"). That is the documented behaviour behind route 32's rule, now observed announcing itself: a presence ask whose target clause is longer than that gets a partial quote plus a note, which is a usable answer, while an open-ended ask gets a paraphrase with no note at all. Ask for the clause in pieces when it is long, and prefer YES/NO-plus-quote asks, which make the truncation visible.
+
+## Route 73 - WebFetch answers against the first 100,000 characters and says so
+
+67th run, observed on `https://developers.openai.com/cookbook/examples/agents_sdk/agent_improvement_loop`. The answer ended with a note of its own: the page's text "is 104507 characters long and the answer above covers only characters 0 to 100000; the final 4507 were not read - to read on, call WebFetch again with the same url and offset: 100000." So the window is about 100,000 characters per call, the tool REPORTS the page's total length and the range it covered, and `offset` continues from where it stopped.
+
+THE PART THAT SAVES A CALL: a section missing from the answer is usually missing from the SERVED TEXT, not waiting past the offset. Here the ranked sections - the Promptfoo eval gate and the HALO ranking - were absent, and an offset call returned only trace-exporter code, ending mid-sentence inside "Run the SDK agent". A long notebook page can therefore be read essentially whole in one call and still not contain what the row was ranked for.
+
+HOW TO USE IT. Read the note on every long-page answer: it is the only signal that distinguishes "the page does not say this" from "I did not reach it". Spend the offset call only when the first answer's coverage stopped short AND the material you want plausibly sits in the uncovered tail; one offset call settles it either way. Do not infer from a 100,000-character answer that a page was read in full.
+
+## Route 74 - a long genai.owasp.org PDF answers its early sections in full and the rest as table-of-contents titles
+
+67th run, ROUTE 70's THIRD DATAPOINT, and the two-call price held again: `/resource/genai-red-teaming-manual-version-1-0/` carried only an eight-phase abstract plus the href, and `https://genai.owasp.org/download/58204/?tmstv=1792386768` then answered a five-part enumeration ask to a plain WebFetch with no headers.
+
+THE NEW LIMIT IS LENGTH, NOT ACCESS. The answer said it was truncated after section 4.2.1.3 (page 60): Phases 1 to 3 and the start of Phase 4 came back with their objectives, quoted rules and artifact lists, while Phases 5 to 8 and the appendices came back as section TITLES only, which the reader named rather than silently dropping. A single ask over a document this size therefore yields its front half.
+
+HOW TO USE IT. For a long OWASP document, plan TWO document asks, not one: a first pass as usual, then a second scoped explicitly to the late sections by number and title ("sections 5 through 8, naming 5.1, 5.2, ..."), which gives the reader a target past its default stopping point. Budget a long resource at three calls in total - landing page, front half, late sections - and check the answer for a named truncation point before concluding the document does not cover something.
+
+ALSO, ROUTE 68's THIRD DATAPOINT: a builder.aws.com article URL already in hand answered a five-part enumeration ask - stages in order, every number, every gate with its trigger, every failure mode, automation versus human - on one plain WebFetch, no pane and no search. Only the title-to-URL step on that host needs a search; the article itself does not.
