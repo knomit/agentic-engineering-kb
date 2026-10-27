@@ -1262,3 +1262,46 @@ CORRECTIONS MADE, AND WHAT WAS WRONG (from the staleness pass; details in queue 
 STALENESS PASS RESULT: 5 sampled from kb/invariants (none previously checked), 2 CONFIRMED verbatim and enriched (4e68d2a0, f5b65a83, both 0.75 -> 0.80), 1 CORRECTED and body-cleaned (714a540c, 0.70 -> 0.80), 1 TITLE CORRECTED (bdf3336e), 1 ENRICHED with three dropped paths and a dropped mitigation (3fc77970, 0.80 -> 0.85). Nothing retracted. A sixth candidate (4d0f4f21) was dropped before any call as too recently written to be a staleness target.
 
 WRITE DISCIPLINE: nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ and every one was written with ops — no seen/<host>.md needed creating this run, so knomit_learn was not used on an artifact path. One ops write was immediately reversed: a builders-library URL resolved but not read was appended to seen with a `skip:` suffix, which would have made a wanted row permanently invisible; it was removed in the next call. Record the URL in the queue, never in seen, when it is a row you intend a later run to read.
+
+## 2026-10-27 - 67th run
+
+DEDUP READS. feeds.md, discovered-sources.md, one-off-done.md (60 URLs, every one-off entry already crawled), queue.md (items 6 to 54; read as a local slice because the file is 111,388 characters and one explain exceeds the tool's output limit), fetch-routes.md (81,726 characters, read the same way, for the route numbering). seen lists read before fetching, with counts: developers.openai.com 24, genai.owasp.org 43, builder.aws.com 21, alignment.openai.com 20, code.claude.com 2. No failed call and no gap.
+
+FEEDS SWEPT. alignment.openai.com/misalignment-reports/ (tripwire, one enumeration call, 20 rows, header also said 20, all 20 reconcile against seen, nothing new in two days, nothing read). code.claude.com/docs/en/workflows (page tripwire, one plain WebFetch, whole page as raw text). Four feeds advanced WITHOUT re-fetching their indexes, rows taken from queue item 53: developers.openai.com/cookbook, developers.openai.com/api/docs/guides/, genai.owasp.org/resources/, builder.aws.com builders-library. The three tripwire feeds claude.dev/blog and genai.owasp.org/blog/ were deliberately not called for a second run (they grow about a row a week); misalignment-reports was called because it is the only one of the three that has ever grown between consecutive days.
+
+ARTICLES NEWLY CRAWLED (6 URLs added to seen):
+- https://genai.owasp.org/resource/genai-red-teaming-manual-version-1-0/ and https://genai.owasp.org/download/58204/?tmstv=1792386768 - the best yield of the run at three facts
+- https://developers.openai.com/api/docs/guides/prompt-caching/diagnostics
+- https://developers.openai.com/api/docs/guides/agents-api/environments/self-hosted
+- https://developers.openai.com/cookbook/examples/agents_sdk/agent_improvement_loop
+- https://builder.aws.com/content/3F08Mhh186qOa4VhG19egs06NJa/going-faster-with-continuous-delivery - three facts
+Re-read for the staleness pass, already in seen: blog.redwoodresearch.org/p/screwtape-adversarial-transcript, alignment.anthropic.com/2026/auditbench/, www.anthropic.com/research/project-swap, code.claude.com/docs/en/workflows.
+
+ERRORS, SKIPS, PAYWALLS. None. No source errored, nothing was blocked, and no new skip lines were written.
+
+FACTS WRITTEN (9):
+- kb/invariants/ai/agents/security/control-classification/603c94ca.md - the three control axes, the denied-call test, the secret-store rule, gating only deterministic control failures
+- kb/conventions/ai/agents/security/red-teaming/engagement-scoping/87631146.md - over-refusal as a mandatory oracle, production-test quotas, two isolated accounts, attack corpus out of training, retest owner in the deliverable
+- kb/conventions/ai/agents/security/red-teaming/delegation-chain/11a5ec4d.md - the authority ceiling is the originating user, the compromised-peer test, per-action reauthorization, the taxonomy-edition rule
+- kb/gotchas/ai/agents/context-engineering/prompt-caching/diagnostics/15f2fc77.md - nine miss reasons, first-reason-only, the phantom key miss, 1,024-token minimum
+- kb/invariants/ai/agents/operations/environment-lifecycle/self-hosted/55a7d1fe.md - one executor per session, outbound-only to two hosts, every other permission None, shared environment shares credentials
+- kb/gotchas/ai/agents/reliability/deployments/revocation/0e7dc830.md - deleting the package does not stop pipelines already carrying it
+- kb/conventions/ai/agents/operations/standards-rollout/3b455518.md - warn in the tool, then enforce, with a sanctioned exemption
+- kb/decisions/ai/agents/operations/pipeline-latency/841a9deb.md - 16 days, under an hour of work, almost 14 days of waiting, 90 percent for the pilot team
+- kb/gotchas/ai/agents/orchestration/fan-out/prompt-cache/f425205b.md - six matching attributes, the deliberate 5-second hold, the five-minute TTL bucket
+
+FACTS ENRICHED (7): 68d5055b (fourth source, the diagnostics guide; sources 3 -> 4), bbcd36c7 (second source and the count form of the bake criterion, "3,000 positive data points, with no negative data points"; sources 1 -> 2, conf 0.85 -> 0.90), e4b83ed8 (third source, the two-key split and "Set every other permission to None"; sources 2 -> 3), plus the four staleness enrichments below. Nothing retracted.
+
+CORRECTION MADE, AND THE DEFECT CLASS. 1224949f asserted that the best-performing AuditBench tools were scaffolded versions of three named probes; the page names TWO - "Scaffolded User Sampling and Scaffolded Text Completion are the best-performing tools overall" - and prefilling, scaffolded the same way, is not among them. A parenthesised list had turned a two-of-three result into a universal. Evidence: all three of the fact's quoted clauses were exact, so the defect was in the unquoted framing, not in the quotes. Its boundary condition was also loosely worded and is now anchored to "especially effective on synthetic document models (SDF)" with transcript-distilled gains "more modest but still positive". conf 0.75 -> 0.85. This is the third consecutive run to find the same shape (items 52 and 54 on 5f6330ef and bdf3336e), always a list or a title claiming more than the source's own superlative sentence.
+
+STALENESS PASS (5 sampled from kb/architecture, the lowest-confidence rows on its recent page; 85416afc and 89647c7d were dropped from the sample as already checked by earlier passes; two of the five share one source page, so five facts cost four fetches):
+- 725eb13b CONFIRMED (5 of 5 clauses verbatim) and ENRICHED with the verifier-to-attacker feedback iteration and the proxy-monitor sentence; conf 0.70 -> 0.80
+- 1224949f CORRECTED, as above; conf 0.75 -> 0.85
+- c0b36bb7 CONFIRMED (both quotes verbatim) and ENRICHED: only one of its three limits is a number on the page, and the one quantity is a footnote's "about 90" turns per agent; conf 0.75 -> 0.85
+- de01cc36 CONFIRMED (4 of 4 clauses verbatim, publication date "Sep 24, 2026" as stated) and ENRICHED with the measured honesty rate, "only about 1 in 100 agents who mentioned their top pick lied about it", and its denominator; conf 0.75 -> 0.85
+- 6fba697c CONFIRMED in substance against the workflows doc and ENRICHED to separate the script's lack of filesystem access from the agents' shared filesystem; conf 0.75 -> 0.80
+- d43b3db6 re-verified for free, because the tripwire page it is anchored to was being swept anyway: all quotes verbatim, no change needed
+
+CONTRADICTION FOUND BETWEEN SOURCES. One, and it resolved rather than standing: the workflows doc's "No direct filesystem or shell access from the workflow itself" appears to contradict the latent.space report that workflow agents share a filesystem to exchange information. The restriction is on the orchestration script and not on the agents, and 6fba697c now says so. No live disagreement needed a decisions fact this run.
+
+ROUTES RECORDED. fetch-routes 73 (WebFetch answers against the first 100,000 characters of a page, reports the total length and the covered range, and a section missing from the answer is usually missing from the served text rather than past the offset) and 74 (a long OWASP PDF answers its early sections in full and the rest as section titles only, naming its truncation point, so budget a second ask scoped to the late sections; plus route 68's third datapoint on builder.aws.com). No new feeds, so discovered-sources.md is unchanged; no one-off entries remained, so one-off-done.md is unchanged.
