@@ -36,3 +36,7 @@ https://developers.openai.com/api/docs/guides/tools-tool-search
 https://developers.openai.com/api/docs/guides/safety-checks/misalignment-monitoring
 https://developers.openai.com/cookbook
 https://developers.openai.com/cookbook/examples/partners/harness_aware_plugin_evals/harness_aware_plugin_evals
+
+https://developers.openai.com/cookbook/examples/agents_sdk/agent_improvement_loop
+https://developers.openai.com/api/docs/guides/prompt-caching/diagnostics
+https://developers.openai.com/api/docs/guides/agents-api/environments/self-hosted
