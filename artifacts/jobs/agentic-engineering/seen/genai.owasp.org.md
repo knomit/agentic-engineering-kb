@@ -60,3 +60,6 @@ https://genai.owasp.org/resource/owasp-aibom-generator/  skip: tool landing page
 
 https://genai.owasp.org/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/
 https://genai.owasp.org/download/51928/?tmstv=1762283701
+
+https://genai.owasp.org/resource/genai-red-teaming-manual-version-1-0/
+https://genai.owasp.org/download/58204/?tmstv=1792386768
