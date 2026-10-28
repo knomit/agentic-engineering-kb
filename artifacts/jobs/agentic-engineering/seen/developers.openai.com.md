@@ -40,3 +40,5 @@ https://developers.openai.com/cookbook/examples/partners/harness_aware_plugin_ev
 https://developers.openai.com/cookbook/examples/agents_sdk/agent_improvement_loop
 https://developers.openai.com/api/docs/guides/prompt-caching/diagnostics
 https://developers.openai.com/api/docs/guides/agents-api/environments/self-hosted
+
+https://developers.openai.com/cookbook/examples/agent_optimization/optimizing_agents_for_cost_and_quality
