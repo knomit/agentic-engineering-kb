@@ -13,3 +13,5 @@ One URL per line. A line "<URL>  skip: <reason>" was triaged and deliberately no
 https://deploymentsafety.openai.com/gpt-6-1-sol
 https://deploymentsafety.openai.com/gpt-6-astra
 https://deploymentsafety.openai.com/gpt-6-astra/safeguards
+
+https://deploymentsafety.openai.com/gpt-6-1-terra
