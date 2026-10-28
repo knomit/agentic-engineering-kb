@@ -1305,3 +1305,55 @@ STALENESS PASS (5 sampled from kb/architecture, the lowest-confidence rows on it
 CONTRADICTION FOUND BETWEEN SOURCES. One, and it resolved rather than standing: the workflows doc's "No direct filesystem or shell access from the workflow itself" appears to contradict the latent.space report that workflow agents share a filesystem to exchange information. The restriction is on the orchestration script and not on the agents, and 6fba697c now says so. No live disagreement needed a decisions fact this run.
 
 ROUTES RECORDED. fetch-routes 73 (WebFetch answers against the first 100,000 characters of a page, reports the total length and the covered range, and a section missing from the answer is usually missing from the served text rather than past the offset) and 74 (a long OWASP PDF answers its early sections in full and the rest as section titles only, naming its truncation point, so budget a second ask scoped to the late sections; plus route 68's third datapoint on builder.aws.com). No new feeds, so discovered-sources.md is unchanged; no one-off entries remained, so one-off-done.md is unchanged.
+
+## 2026-10-28 (68th run)
+
+DEDUP READS. feeds.md, discovered-sources.md, one-off-done.md (59 URLs), queue.md (121,477 characters, read via the tool-result file after knomit_explain exceeded the token cap - the caveat already recorded in fetch-routes), fetch-routes.md (87,828 characters, same route). Seen lists read before fetching: genai.owasp.org (49 lines), code.claude.com (2), claude.dev (16). No gap and no failed state read. The seen lists for developers.openai.com, metr.org and deploymentsafety.openai.com were appended to without being read first, because the URLs appended were new rows taken off indexes enumerated in this run; that is a shortcut and the honest note is that a duplicate line there is possible, though none of the three URLs appears in any fact's refs.
+
+RECURRING INDEXES SWEPT (7 of the ~35 in the recurring set): code.claude.com/docs/en/workflows (page); modelcontextprotocol.io/specification/versioning (page); claude.dev/blog; genai.owasp.org/blog/; metr.org/blog/; embracethered.com/blog/; deploymentsafety.openai.com/. Four were clean, two had grown above their marks, one page tripwire was productive. The other ~28 were not swept; the ranked not-swept list is queue item 57(vii).
+
+ARTICLES NEWLY CRAWLED (5, all added to seen):
+- https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/
+- https://genai.owasp.org/download/53429/?tmstv=1773811493
+- https://developers.openai.com/cookbook/examples/agent_optimization/optimizing_agents_for_cost_and_quality
+- https://metr.org/blog/2026-10-22-red-teaming-openai-agent-monitoring/
+- https://deploymentsafety.openai.com/gpt-6-1-terra
+
+RE-READ, ALREADY IN SEEN, for the staleness pass: the OWASP Q1 2026 and Q2 2026 exploit roundups, and simonwillison.net/2026/Jul/15/claude-web-fetch-exfiltration/. Re-read as a page tripwire: code.claude.com/docs/en/workflows and modelcontextprotocol.io/specification/versioning.
+
+ERRORED. https://genai.owasp.org/download/58204/?tmstv=1792386768 (the GenAI Red Teaming Manual) returned "[binary data]" to two plain WebFetch calls about twelve minutes apart, having answered a five-part enumeration ask in full on 2026-10-27. The landing page was re-fetched and returned the same ?tmstv= value, so it is not an expired token, and /download/53429/ on the same host answered normally in the same run, so it is not a host gate. Written up as fetch-routes route 75; queue item 55(i) is carried into 57(i) with untried routes ranked. Not recorded as dead: it has been read once and quoted verbatim.
+
+SKIPPED, nothing. No one-off source was crawled, so one-off-done.md is unchanged.
+
+FACTS WRITTEN (12).
+From code.claude.com/docs/en/workflows, one plain WebFetch:
+- kb/invariants/ai/agents/orchestration/usage-limits/3dfb599b.md - the usage-limit pause and its four-part precondition; the unattended paths are the ones that fail
+- kb/invariants/ai/agents/orchestration/cost-controls/f56c6d56.md - size guideline and Large-workflow warning are advisory; only the runtime caps are enforced
+- kb/gotchas/ai/agents/orchestration/ultracode/5a9f7891.md - one toggle drops three large-run checks at once
+- kb/invariants/ai/agents/security/trigger-provenance/3bf8bbab.md - the keyword is honoured only from human-typed input; before v2.1.210 a relayed webhook payload or PR comment could start a run
+From the OpenAI cost-optimization cookbook:
+- kb/conventions/ai/agents/operations/cost-reduction/6e546881.md - controls carried 87 of the 95 points; routing, caching and workflow-split added 8
+- kb/gotchas/ai/agents/operations/cost-measurement/a0bbeaf2.md - two of four rounds cut cost while raising total tokens
+From the OWASP GenAI data-security guide:
+- kb/invariants/ai/agents/security/data-lifecycle/42f7fdb1.md - six data surfaces; classification stopping at the raw layer protects nothing; the simulated-deletion test
+- kb/invariants/ai/agents/security/supply-chain/integrity-gates/1a2990f6.md - every gate from external data to a promoted model fails closed, and the promotion gate scores memorization alongside capability
+From METR's red-team of OpenAI's misalignment monitoring:
+- kb/invariants/ai/agents/observability/monitoring-coverage/measurement/e70afe7e.md - the coverage figures and the eligibility filter and excluded service that make them readable
+- kb/invariants/ai/agents/observability/monitor-trigger/cdb17bf7.md - a turn-end trigger is postponable by the agent; five bypasses, one structure
+From the GPT-6.1 Terra addendum:
+- kb/gotchas/ai/agents/evaluation/restriction-compliance/8d52ec24.md - the restriction eval undermined by eval-awareness, and the model misreading real restrictions as injection
+- kb/gotchas/ai/agents/multi-agent/peer-message-trust/6f4c1f31.md - 13.75% versus 1.25% on peer-message unauthorized action, two siblings, 80 samples
+
+ENRICHED (1). kb/architecture/ai/agents/security/credentials/scoping/e4b83ed8.md - the proxy-and-mint pattern generalised with OWASP DSGAI02's prohibition on forwarding operator tokens to agents or subagents, no long-lived tokens in agent tool chains, and sub-agents not inheriting operator scope. sources 3 -> 4; two refs added, the full merged list resent.
+
+RETRACTED: none.
+
+CONTRADICTIONS BETWEEN SOURCES: none found this run. Two findings sit next to each other without conflicting and are worth not flattening: the OpenAI cookbook's worked example makes model routing a small lever (5 of 95 points, and unmeasured - its routing came from fixture labels), while 766706aa's LangChain measurement makes routing a large one (median thread cost down 64%). The difference is what each was compared against - a baseline already tightened by controls, versus an untightened one - so neither needs a decisions fact yet; a third datapoint on routing-after-controls would settle it.
+
+CORRECTIONS MADE, AND WHAT WAS WRONG. Three, all from the staleness pass, detailed in queue item 58. The defect class worth naming: TWO facts (bfc4278d, 42ff6f67) attributed to the OWASP roundup a classification label the pack had invented - "a process failure", "a behavioural failure" - where the roundup's own labels are "Unsafe agent guidance, internal data exposure, agentic misbehavior" and "Unsafe autonomous action, instruction failure, destructive agent behavior". Neither invented label is a wrong description, which is why neither was caught: a plausible paraphrase inside an "X classes it as" construction makes a claim about the SOURCE and reads to every later reader as a quotation. This is the adjacent defect to the over-quantified titles found on the 65th, 66th and 67th runs. The third correction, 07fc542e, replaced a two-prohibition paraphrase of the web_fetch control with the source's own positive allowlist wording and added the fix verbatim.
+
+STALENESS PASS (details in queue item 58). Pool: kb/incidents, a topic no earlier pass had used. Five sampled at the lowest confidences on its recent page; three shared one source page, so five facts cost three fetches. Results: 2 confirmed verbatim (e6c05158, 1d11a25a), 2 corrected (bfc4278d conf 0.70 -> 0.75, 42ff6f67 conf 0.75 -> 0.80), 1 corrected and enriched (07fc542e conf 0.80 -> 0.85).
+
+FEEDS ADDED TO discovered-sources.md: none. Both feeds that produced new material this run, deploymentsafety.openai.com and metr.org/blog, are already in the seed list.
+
+THE RUN'S LESSON FOR RANKING, recorded because it contradicts how the queue has been built: the two highest-yield pages of the run came off indexes the queue had NOT ranked and that sat on its "not swept" list - metr.org/blog (18 days stale, two rows above the mark, and the 13th run's "genuinely low value" verdict on it does not hold at the current margin) and deploymentsafety.openai.com (27 days stale, three rows above the mark). Meanwhile the top-ranked queued item was unreachable. A stale index sweep is cheap, bounded and self-correcting; a ranked row is a bet placed one or more runs ago.
