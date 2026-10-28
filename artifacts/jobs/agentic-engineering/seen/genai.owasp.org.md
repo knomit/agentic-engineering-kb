@@ -63,3 +63,6 @@ https://genai.owasp.org/download/51928/?tmstv=1762283701
 
 https://genai.owasp.org/resource/genai-red-teaming-manual-version-1-0/
 https://genai.owasp.org/download/58204/?tmstv=1792386768
+
+https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/
+https://genai.owasp.org/download/53429/?tmstv=1773811493
