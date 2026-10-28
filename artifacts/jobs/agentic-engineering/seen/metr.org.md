@@ -19,3 +19,5 @@ https://metr.org/blog/2026-09-22-claude-opus-5-5/
 https://metr.org/blog/2026-09-30-chris-painter-senate-testimony/
 https://metr.org/blog/2026-10-06-ai-systems-could-cover-up-misbehavior/
 https://metr.org/hugging-face-incident-report-aug-2026.pdf
+
+https://metr.org/blog/2026-10-22-red-teaming-openai-agent-monitoring/
