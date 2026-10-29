@@ -31,3 +31,5 @@ https://openai.com/index/the-next-evolution-of-the-agents-sdk/
 https://openai.com/index/third-party-cyber-evaluations-involving-openai-models/
 https://openai.com/index/towards-safety-cases-for-frontier-ai-training/
 https://openai.com/index/unlocking-self-improvement-gpt-red/
+
+https://openai.com/index/scaling-storage-one-billion-users-part-two/
