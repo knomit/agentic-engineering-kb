@@ -30,3 +30,12 @@ https://www.langchain.com/blog/agents-that-can-pay-with-stripe-link
 
 https://www.langchain.com/blog/how-snyk-turned-an-internal-support-agent-into-a-customer-feature
 https://www.langchain.com/blog/slack-sdk-managed-deep-agents  skip: product release note ("Build great out-of-the-box user experiences with Managed Deep Agents"), same class as the eight already skipped
+
+https://www.langchain.com/blog/components-building-company-harness
+https://www.langchain.com/blog/october-2026-langchain-newsletter  skip: monthly newsletter roundup, points at other posts
+https://www.langchain.com/blog/how-numan-built-an-eval-first-ai-health-coach-with-langgraph-and-langsmith  skip: vertical customer case study, same class as the healthcare use-case post already skipped
+https://www.langchain.com/blog/how-orange-business-built-live-intelligence-on-langchain-and-langsmith  skip: customer case study
+https://www.langchain.com/blog/agent-traces-ai-search-langsmith  skip: product release note
+https://www.langchain.com/blog/langsmith-engine-v2-redteam  skip: product release note (LangSmith Engine v2 feature announcement), dated 2026-09-24, below the mark
+https://www.langchain.com/blog/own-your-intelligence  skip: positioning essay, dated 2026-07-25, far below the mark
+https://www.langchain.com/blog/building-long-running-agents-with-scaledown-and-deep-agents  skip: partner integration walkthrough
