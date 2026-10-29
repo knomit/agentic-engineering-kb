@@ -21,3 +21,5 @@ https://metr.org/blog/2026-10-06-ai-systems-could-cover-up-misbehavior/
 https://metr.org/hugging-face-incident-report-aug-2026.pdf
 
 https://metr.org/blog/2026-10-22-red-teaming-openai-agent-monitoring/
+
+https://metr.org/blog/2026-10-20-misalignment-risk-report-august-2026-review/
