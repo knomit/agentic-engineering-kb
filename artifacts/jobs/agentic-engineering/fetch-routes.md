@@ -671,3 +671,24 @@ THE CONTRAST THAT MAKES IT A ROUTE NOTE RATHER THAN A SITE VERDICT: on the same 
 WHAT TO DO, and what not to. Do not record the manual as dead - it has been read once and quoted verbatim. The honest wording is "unread by plain WebFetch on 2026-10-28, read by the same route on 2026-10-27". Untried alternatives, in cost order: the same URL after the 15-minute cache window; the browser pane, which route 67 showed renders genai.owasp.org pages; and the resource landing page asked for an alternate asset URL. `curl` is NOT an option on this host - the agent egress proxy returns 403 (route 70's hard limit).
 
 THE GENERALISATION WORTH CARRYING: a per-URL route recorded as working is a datapoint about one call, not a property of the URL. When a known-good fetch fails, re-test a DIFFERENT known-good URL on the same host in the same run before concluding anything about either the host or the tool - that one extra call is what separated "this host is gated again" from "this document did not decode today".
+
+## Route 76 - openai.com/news renders in the browser pane in two calls, with no approval prompt
+
+69th run. The archived route 1 recorded openai.com as a 403-to-plain-fetch host needing the browser, and three runs have since treated that as expensive enough to leave this feed unswept for 29 days - the longest staleness in the recurring set. It is not expensive. Two calls:
+
+    preview_start { url: "https://openai.com/news/" }        -> returns tabId "seed"
+    get_page_text { tabId: "seed" }                          -> the whole index as text
+
+No site-approval prompt appeared, nothing was gated, and the index came back with all nine rows, their section labels and their dates. An article page then needs one `navigate` plus one `get_page_text` on the same tab, so a read is two more calls. Total for sweep-plus-one-article: four calls, which is comparable to a plain-fetch feed and cheaper than the two-step /download/ route on genai.owasp.org.
+
+THE PRACTICAL UPSHOT: stop pricing openai.com as a hard host. Route 1's 403 finding still holds for WebFetch - do not spend a plain fetch on it - but the pane route is routine. Note this run executed with no human watching and the approval still did not fire, so the absence is not an artifact of someone clicking through.
+
+## Route 77 - an index read through the pane CANNOT be skip-marked, because get_page_text returns no hrefs
+
+69th run, and this is route 60's known limit showing its real cost for the first time. Route 60 recorded that get_page_text "returns titles, authors, dates and blurbs but NO hrefs" and treated that as a per-article resolution cost. The larger cost is to dedup: a triage verdict can only be written to seen/<host>.md as a line keyed by URL, so rows judged out of scope on a pane-read index cannot be skip-marked at all. Nine openai.com/news rows were triaged this run and NONE could be recorded in seen; the verdicts had to go into the feeds line and the queue instead, where no later run's dedup will consult them automatically.
+
+THE RULE THIS SETS: when you triage a pane-read index, either (a) spend one batched WebSearch (route 66) to resolve the slugs of the rows you are skipping as well as the ones you are reading, so the skips can be written to seen, or (b) write the verdicts into the feeds line AND say in the queue that the skips are unrecorded, so the next run reads them rather than re-triaging. Option (a) costs one call and is the right choice whenever more than about three rows are being skipped - which is most sweeps, since the skip ratio on a vendor newsroom runs around eight in nine.
+
+### 45a - langchain.com's pagination token has changed
+
+69th run. Route 45 recorded real pagination on https://www.langchain.com/blog/. The control now reads "1 / 35" and its target is `?8457a1db_page=2`. The hashed query-string parameter is evidently generated, so it should be read off the page each time rather than reused from this note or from route 45.
