@@ -33,3 +33,5 @@ https://openai.com/index/towards-safety-cases-for-frontier-ai-training/
 https://openai.com/index/unlocking-self-improvement-gpt-red/
 
 https://openai.com/index/scaling-storage-one-billion-users-part-two/
+
+https://openai.com/index/scaling-storage-one-billion-users-part-one/
