@@ -1410,3 +1410,52 @@ FETCH ROUTES RECORDED (3, in fetch-routes.md, not here): route 76 — openai.com
 PROMPT INJECTION: none observed. No fetched page contained text addressed to an AI agent.
 
 WRITE DISCIPLINE: nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ — feeds.md, discovered-sources.md, queue.md, fetch-routes.md, crawl-state.md, seen/openai.com.md, seen/metr.org.md, seen/langchain.com.md — and every one was written with ops (append or str_replace), never updates.body. No new seen/<host>.md file was needed, so knomit_learn was not used outside kb/.
+
+## 2026-10-30 (70th run)
+
+RECURRING-FEED INDEXES SWEPT (2): https://www.langchain.com/blog/ (one plain WebFetch enumeration; 20 rows, 18 unique, 18 days since last sweep) and https://openai.com/news/engineering/ (FIRST SWEEP EVER; browser pane, preview_start + get_page_text, two calls, no approval prompt, no 403; nine rows Oct 23 2026 to May 13 2026, plus an untried "Load more"). No other feed was swept: the 69th run had just taken the stalest indexes and nothing in the recurring set was over 19 days, so this run took the two highest-ranked queue items instead of a staleness sweep.
+
+ONE-OFF SOURCES: none. Every entry in one-off-sources.md is already in one-off-done.md.
+
+ARTICLES NEWLY CRAWLED (5):
+- https://www.langchain.com/blog/context-engineering-deep-agents-remember
+- https://www.langchain.com/blog/context-engineering-starts-with-retrieval
+- https://www.langchain.com/blog/building-agent-memory-openwiki-graphs
+- https://www.langchain.com/blog/design-agent
+- https://openai.com/index/scaling-storage-one-billion-users-part-one/
+
+INDEX ENTRIES TRIAGED AND SKIP-MARKED (3, all langchain.com): managed-deep-agents-browser-use-and-asynchronous-subagents and browser-use-in-managed-deep-agents (both v0.10 release notes, 2026-10-29), proactive-agents (positioning essay, 2026-10-28, ranked last in queue item 59(ii)). The eight unread openai.com/news/engineering/ rows could NOT be skip-marked (route 77: the pane returns no hrefs) and are enumerated by title and date in queue item 61(i) instead; seven of the eight are in-scope candidates rather than skips.
+
+ERRORS, FAILURES AND DEAD ENDS (none fatal, two worth recording):
+- A batched WebSearch carrying four quoted titles with allowed_domains ["openai.com"] returned only the index page. This is route 66's first recorded failure and it is host-dependent, not a change in the technique.
+- https://openai.com/index/scaling-storage-one-billion-users/ returns OpenAI's 404 page (which serves a haiku, so it renders as readable text in the pane - do not mistake it for a successful read). The real slug is -part-one. Both findings are written up as fetch-routes route 78.
+Nothing was paywalled and no source was unreachable.
+
+FACTS WRITTEN (9):
+- kb/conventions/ai/agents/context-engineering/offloading/23aa184c.md - Deep Agents' shipped offload and summarization thresholds (20,000 / 50,000 tokens, 85% window usage) and offload-not-truncate.
+- kb/decisions/ai/agents/rag/lexical-vs-semantic/35d39de8.md - "If you know the words, grep beats an embedding lookup", with vocabulary mismatch as the deciding condition.
+- kb/decisions/ai/agents/context-engineering/memory/compiled-corpus/bf003862.md - the OpenWiki measurement: no gain on single-hop, ~5x on multi-hop, and the citation-consistency problem the evidence graph fixed.
+- kb/architecture/ai/agents/context-engineering/memory/self-writing/fcaca279.md - a self-writing memory needs both a promotion gate and a size cap (200-line index after 500K tokens).
+- kb/conventions/ai/agents/multi-agent/pipeline-ordering/0ae48f0d.md - an instruction-only sequencing constraint gets skipped; put the gate in the pipeline.
+- kb/incidents/infrastructure/connection-pooling/reuse-order/fec61a52.md - aiohttp's LIFO connection reuse created a metastable failure; FIFO broke the loop.
+- kb/incidents/infrastructure/background-tasks/synchronised-polling/b0863eaa.md - unjittered 60-second flag refresh x a global config x 8 processes per pod = a tail-latency floor, plus event-loop delay as a saturation metric.
+- kb/decisions/ai/agents/architecture/data-apis/9dafcfd7.md - Habitat's deliberate refusal of a powerful query API as the scalability lever.
+- kb/decisions/ai/agents/coding-agents/migration/29135fb2.md - Python shipped as "a strategic incursion of technical debt" on a bet about future coding models, and the measured Rust outcome.
+
+FACTS ENRICHED (1): kb/gotchas/ai/agents/tools/scaffold-lifecycle/7812abaf.md gained a second organisation's instance of the same scaffold lifecycle (LangChain's 115-component design system constrained output immediately, and most hard-coded rules were removed on the Opus 5.5 upgrade with the principles kept). conf 0.80 -> 0.85, sources 1 -> 2.
+
+CONTRADICTIONS BETWEEN SOURCES: none found this run. The two context-engineering posts and the design-agent account agree with each other and with the existing offloading and progressive-disclosure cluster; the OpenWiki result does not contradict the pack's retrieval facts, it adds a question-depth condition none of them stated.
+
+PROMPT INJECTION OR INSTRUCTIONS ADDRESSED TO AN AGENT, found in fetched content: none.
+
+FEEDS ADDED TO discovered-sources.md: none. No new feed surfaced that is not already in the recurring set.
+
+STALENESS PASS (5 sampled from kb/architecture, the first pass to use that topic as its pool):
+- 85416afc (0.50) CONFIRMED verbatim, all six asked clauses, source live. No change: it remains an unvalidated research agenda with no measurements.
+- 89647c7d (0.70) CONFIRMED verbatim, all five asked clauses, source live. No change: still a qualitative review whose only numbers are its interview and pathway counts.
+- 7c40e64c (0.75) CONFIRMED verbatim, all six asked clauses, source live.
+- 5a36eb3b (0.75) CONFIRMED verbatim, all eight asked clauses, source live.
+- 0f82737b (0.75) CORRECTED. The body asserted the delivery address "is likewise kept out of the chat review the human sees"; the source says only "The delivery address stays private." and never says what it is withheld from. The body now states the source's wording and its silence. Defect class: an inference presented as the source's claim, sitting between two clauses that do re-read verbatim - which is what made it look sourced. Confidence unchanged at 0.75; the correction narrows the claim rather than weakening the fact.
+No fact was retracted. No fact under kb/principles/ was sampled or touched.
+
+PATHS WRITTEN OUTSIDE kb/ (all under artifacts/jobs/agentic-engineering/, all with ops): seen/langchain.com.md, seen/openai.com.md, feeds.md, fetch-routes.md, queue.md, crawl-state.md. Nothing was written under .knomit/.
