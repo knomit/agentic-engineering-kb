@@ -692,3 +692,22 @@ THE RULE THIS SETS: when you triage a pane-read index, either (a) spend one batc
 ### 45a - langchain.com's pagination token has changed
 
 69th run. Route 45 recorded real pagination on https://www.langchain.com/blog/. The control now reads "1 / 35" and its target is `?8457a1db_page=2`. The hashed query-string parameter is evidently generated, so it should be read off the page each time rather than reused from this note or from route 45.
+
+## Route 78 - openai.com/news/engineering/ reads in the pane like route 76, and the real cost is resolving its slugs
+
+70th run. The engineering-scoped slice of the newsroom behaves exactly as route 76 recorded for the site-wide index. Two calls, no approval prompt, no 403:
+
+    preview_start { url: "https://openai.com/news/engineering/" }   -> tabId "seed"
+    get_page_text { tabId: "seed" }                                 -> the whole index as text
+
+Nine rows came back with their section labels and dates (Oct 23 2026 down to May 13 2026) plus an untried "Load more". An article page is then one `navigate` plus one `get_page_text` on the same tab.
+
+WHAT COSTS MORE THAN THE FETCH IS THE SLUG, and this run priced three attempts:
+
+1. **The batched WebSearch did not work here, which is route 66's first recorded failure.** One `WebSearch` with `allowed_domains: ["openai.com"]` carrying FOUR distinct quoted titles returned a single result: the index page itself. Route 66 got four slugs out of one such query on claude.dev, so the technique is host-dependent - a newsroom whose article titles are not individually indexed under the queried domain does not answer it.
+2. **Guessing the stem 404s.** `part-two` exists at `/index/scaling-storage-one-billion-users-part-two/`, and the obvious Part I stem `/index/scaling-storage-one-billion-users/` returns OpenAI's 404 page (it serves a haiku, so the pane shows readable text rather than an error - do not mistake that for a successful read).
+3. **One single-title WebSearch with extra context resolved it immediately.** The query carried the full title plus "Habitat Part I September 2026" and no domain filter, and returned `/index/scaling-storage-one-billion-users-part-one/` along with a dozen localised `/<locale>/index/...` variants of the same path. The canonical path is the un-prefixed one.
+
+THE RULE: on this host, go straight to one WebSearch PER TITLE you intend to read, with a couple of distinguishing words added, and do not spend a batched query first. The naming lesson is worth keeping too - a two-part series here is `-part-one`/`-part-two`, so the earlier post is NOT at the bare stem.
+
+THE DEDUP CONSEQUENCE is route 77's, unchanged: the eight rows triaged but not read could not be skip-marked in `seen`, because `get_page_text` returns no hrefs. On this feed that is the right outcome rather than a loss - seven of the eight are in-scope candidates, not skips - so they are enumerated by title and date in queue item 61 instead.
