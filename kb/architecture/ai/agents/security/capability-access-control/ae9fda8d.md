@@ -13,7 +13,7 @@ refs: ['https://alignment.anthropic.com/2025/selective-gradient-masking/', 'kb:/
 
 The numbers that decide anything, each with the comparison it is against:
 
-- Against post-hoc unlearning, measured as resistance to adversarial recovery by fine-tuning rather than as an end-of-training score: "RMU ... recovered baseline biology performance in just 50 fine-tuning steps" while "SGTM required 350 steps", which the post states as "7x more resistant".
+- Against post-hoc unlearning, measured as resistance to adversarial recovery by fine-tuning rather than as an end-of-training score: RMU recovered, "recovering baseline biology performance in just 50 fine-tuning steps (13M tokens)", while "SGTM required 350 steps (92M tokens) to recover baseline performance—7× more resistant than RMU". The token counts matter as much as the step counts: steps alone are not comparable across setups, and the ratio the post claims holds in both units.
 - Against data filtering, in both the strengths it was run at: "SGTM achieves a better retain/forget trade-off than both approaches" — weak filtering (the target domain only) and strict filtering (the target domain plus adjacent fields).
 - Cost: "SGTM incurs a 5% compute penalty to achieve the same retain loss as standard training."
 
