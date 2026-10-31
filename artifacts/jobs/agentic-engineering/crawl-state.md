@@ -1459,3 +1459,41 @@ STALENESS PASS (5 sampled from kb/architecture, the first pass to use that topic
 No fact was retracted. No fact under kb/principles/ was sampled or touched.
 
 PATHS WRITTEN OUTSIDE kb/ (all under artifacts/jobs/agentic-engineering/, all with ops): seen/langchain.com.md, seen/openai.com.md, feeds.md, fetch-routes.md, queue.md, crawl-state.md. Nothing was written under .knomit/.
+
+## 2026-10-31 (71st run)
+
+**Recurring-feed indexes swept:** three, all cheap page-type or targeted reads. `openai.com/news/engineering/` (worked from item 61's enumerated row list rather than an index call, as that item instructed - no index fetch was spent this run); `modelcontextprotocol.io/community/feature-lifecycle`; `modelcontextprotocol.io/specification/2026-07-28/deprecated`. No other feed was swept: nothing in the recurring set had crossed item 59's three-week line (stalest was 17 days), so the ranked queue was preferred, per item 61's own lesson.
+
+**Articles newly crawled (3, all added to seen/openai.com.md):**
+
+- https://openai.com/index/building-self-improving-tax-agents-with-codex/
+- https://openai.com/index/building-codex-windows-sandbox/
+- https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug/
+
+**Errored, skipped or paywalled:** none. No fetch failed this run.
+
+**One-off sources:** none crawled. Every entry of `one-off-sources.md` is already in `one-off-done.md`, so that list contributed no work; the outstanding items against it are the counter-position tasks (lethal trifecta, Apple paper) carried in the queue, not uncrawled URLs.
+
+**Facts written (6 new, 1 ref-link, 2 staleness edits):**
+
+- kb/conventions/ai/agents/self-improvement/correction-signals/f2e46c24.md - a field-level predicted-vs-filed diff is not a failure label; four causes produce the same diff, so corrections are worthless as evals without end-to-end provenance. Includes the grader-defect failure mode ("if expected workflow noise is being counted as a failure").
+- kb/architecture/ai/agents/sandboxing/diagnosis-environment/16f28910.md - writable worktree vs read-only production context; the prediction and the filed value are exactly what the diagnosing agent must not be able to rewrite.
+- kb/invariants/ai/agents/security/sandboxing/network-enforcement/6ca32c6e.md - proxy env vars and PATH stubs are advisory ("it was still only advisory", "wasn't designed to hold up to adversarial code"); because "Windows doesn't allow matching a firewall rule to the non-principal identity of a restricted token", the enforceable identity had to be manufactured as two dedicated local users.
+- kb/invariants/ai/agents/security/sandboxing/writable-roots/99ca57b5.md - the writable set is the task's product surface minus the paths that configure the agent and record what it did; Codex denies writes to `<cwd>/.git`, `<cwd>/.codex`, `<cwd>/.agents` inside the writable area. Refs 3fc77970 and 92dc0441, whose enforcement side this is.
+- kb/conventions/ai/agents/operations/failure-triage/c7762541.md - label the whole artifact population mechanically before hypothesising; "Because we had been mixing counterexamples from both bugs, we couldn't find a single coherent explanation." Log text search had both false positives AND false negatives; the discriminator lived in register state.
+- kb/gotchas/ai/agents/reliability/latent-race-scaling/2b62ff3c.md - an 18-year-old one-instruction race became a crash every few hours once three independent rates rose together, the last being an unrelated `timer_getoverrun` call added to the SIGUSR2 handler. Ref-linked to c7762541 in a follow-up update (refs resent as a merged list, since update replaces refs wholesale).
+
+**Contradictions found between sources:** none this run. The three articles are single-operator accounts of their own systems and do not bear on each other.
+
+**Prompt injection:** none. No fetched page contained text addressed to an AI agent.
+
+**Corrections made, and what was wrong:**
+
+- 7a4f9061 (kb/conventions, 0.9): its TITLE read "replicating the attacker's own encoding" where the source says "replicating the attacker's own decoding recovered roughly 4x our initial findings" - and the fact's own body quoted it correctly. Encoding and decoding are opposite operations, and the title is the part a reader compresses the fact into. DEFECT CLASS: a title that paraphrases its own body's correct quotation and inverts a term doing so - a class no earlier pass has looked for, because every pass has compared body against source and never title against body. Also corrected: entities listed XOR alone where the source names "chunked+XOR+gzip encoded with a per-campaign key". Separately, its 2026-08-20 staleness narration block was removed under spec.md's body rule, keeping the two parts that are current epistemic status (the 4x-not-4x-more precision, and the fact that a fourth encoding step is unattested) as claim and scope.
+- ae9fda8d (kb/architecture, 0.75): not wrong, ENRICHED. The source pairs a token count to each fine-tuning step count - "50 fine-tuning steps (13M tokens)" against "350 steps (92M tokens)" - and the fact carried only the steps. Both units now stored, because steps alone are not comparable across setups. Confidence unchanged at 0.75: no source strengthened.
+
+**Staleness-pass results (5 facts):** 3 confirmed (8b0f7afe, 012daf73, d24435b9 - all via the two MCP tripwires, all verbatim, all sources live), 1 confirmed and enriched (ae9fda8d, seven clauses verbatim), 1 corrected (7a4f9061). Honest caveat recorded in queue item 64: three of the five came through tripwires at 0.85-0.9 rather than being sampled at low confidence, so this is not the clean five-low-confidence draw that items 39/41/43/45/47/50/52/54/56/58/60/62 took. kb/principles was queried by mistake at the start of the pass and abandoned without any write, correctly - it is designer-authored and `knomit_update` there fails with must-have-designer-entity.
+
+**Route finding - fetch-routes route 79, and it is the run's most reusable result:** a plain `WebFetch` read all three `openai.com/index/<slug>` article pages, with no browser pane, no custom `User-Agent`, no `Referer`, no approval prompt and no 403 - and route-42 verbatim asks worked on all three, returning exact identifiers (`_Ux86_64_setcontext`, `timer_getoverrun`, `CodexSandboxOffline`) and figures. Three for three. The variable is isolated in one direction only and route 79 says so: nothing was added, so nothing can be a passenger flag, but NO index URL was called this run, so routes 1/76/78 stand unchallenged for `openai.com/news/` and `/news/engineering/`. This is route 68's shape (article plain, index through the pane), and it does NOT mean openai.com no longer gates. Slug resolution is unchanged and is now the expensive half of a read: one WebSearch per title, and the sandbox row proves it cannot be guessed - "Building a safe, effective sandbox to enable Codex on Windows" lives at `/index/building-codex-windows-sandbox/`.
+
+**Feeds added to discovered-sources.md:** none.
