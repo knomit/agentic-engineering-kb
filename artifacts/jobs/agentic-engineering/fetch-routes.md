@@ -711,3 +711,19 @@ WHAT COSTS MORE THAN THE FETCH IS THE SLUG, and this run priced three attempts:
 THE RULE: on this host, go straight to one WebSearch PER TITLE you intend to read, with a couple of distinguishing words added, and do not spend a batched query first. The naming lesson is worth keeping too - a two-part series here is `-part-one`/`-part-two`, so the earlier post is NOT at the bare stem.
 
 THE DEDUP CONSEQUENCE is route 77's, unchanged: the eight rows triaged but not read could not be skip-marked in `seen`, because `get_page_text` returns no hrefs. On this feed that is the right outcome rather than a loss - seven of the eight are in-scope candidates, not skips - so they are enumerated by title and date in queue item 61 instead.
+
+## Route 79 - openai.com /index/ ARTICLE pages answer a plain WebFetch; only the INDEX needs the pane
+
+71st run. Three article pages were read with nothing but `WebFetch` on the bare URL - no browser pane, no custom `User-Agent`, no `Referer`, no approval prompt and no 403:
+
+    https://openai.com/index/building-self-improving-tax-agents-with-codex/
+    https://openai.com/index/building-codex-windows-sandbox/
+    https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug/
+
+Three for three, and route-42 style verbatim asks worked on all three: targeted "quote this clause verbatim or say ABSENT" requests returned exact clauses, including identifiers (`_Ux86_64_setcontext`, `timer_getoverrun`, `CodexSandboxOffline`) and figures. So the expensive part of reading this host is gone. Six of this run's facts came off these three pages at one or two fetches each.
+
+THE VARIABLE IS ISOLATED IN ONE DIRECTION ONLY, AND THAT MATTERS. What is established is that the minimal configuration works on article pages: nothing was added, so nothing can be a passenger flag. What is NOT established is anything about the index. **This run never called an index URL on openai.com**, so routes 1, 76 and 78 stand unchallenged for `openai.com/news/` and `openai.com/news/engineering/` - do not read this route as "openai.com no longer needs the pane". The split is the same shape as route 68 on builder.aws.com: article pages plain, index through the pane.
+
+WHAT THIS CHANGES IN PRACTICE. Budget one WebSearch per title for the slug (route 78's rule, unchanged - the pane returns no hrefs and a batched query fails on this host), then ONE plain WebFetch per article instead of two pane calls, plus one more plain WebFetch per verbatim pass. A read is now cheaper than its slug lookup.
+
+WHAT TO DO IF IT REGRESSES. The 403 recorded in route 1 was real when it was recorded, so this may be a server-side change rather than a permanent property. If a plain fetch on an /index/ page starts returning 403 again, fall back to routes 76/78 (preview_start plus get_page_text) rather than spending calls on headers, and note the date here - two datapoints in opposite directions would make this host's gating worth treating as intermittent.
