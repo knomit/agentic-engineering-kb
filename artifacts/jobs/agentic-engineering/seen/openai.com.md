@@ -35,3 +35,7 @@ https://openai.com/index/unlocking-self-improvement-gpt-red/
 https://openai.com/index/scaling-storage-one-billion-users-part-two/
 
 https://openai.com/index/scaling-storage-one-billion-users-part-one/
+
+https://openai.com/index/building-self-improving-tax-agents-with-codex/
+https://openai.com/index/building-codex-windows-sandbox/
+https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug/
