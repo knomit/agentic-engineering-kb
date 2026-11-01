@@ -39,3 +39,10 @@ https://openai.com/index/scaling-storage-one-billion-users-part-one/
 https://openai.com/index/building-self-improving-tax-agents-with-codex/
 https://openai.com/index/building-codex-windows-sandbox/
 https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug/
+
+https://openai.com/index/harness-engineering/
+https://openai.com/index/unrolling-the-codex-agent-loop/
+https://openai.com/index/unlocking-the-codex-harness/
+https://openai.com/index/inside-our-in-house-data-agent/
+https://openai.com/index/open-source-codex-orchestration-symphony/
+https://openai.com/index/building-chatgpt-ad-stack/  skip: FAILED FETCH on 2026-11-01, not a triage skip. Two plain WebFetch calls returned client_error with nothing retrieved, in the same run in which route 79 answered five other /index/ pages first try - so route 79 is non-deterministic per URL. Still a live candidate; needs the pane (route 1/76) or a later retry.
