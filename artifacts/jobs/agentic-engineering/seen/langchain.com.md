@@ -47,3 +47,5 @@ https://www.langchain.com/blog/design-agent
 https://www.langchain.com/blog/managed-deep-agents-browser-use-and-asynchronous-subagents  skip: product release note (Managed Deep Agents v0.10 feature announcement), dated 2026-10-29
 https://www.langchain.com/blog/browser-use-in-managed-deep-agents  skip: feature announcement for the same v0.10 release, dated 2026-10-29, same class as the release note above
 https://www.langchain.com/blog/proactive-agents  skip: positioning essay, dated 2026-10-28; ranked last in queue item 59(ii) as likely positioning rather than method and triaged out on that basis
+
+https://www.langchain.com/blog/common-questions-about-agent-evals
