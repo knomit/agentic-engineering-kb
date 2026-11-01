@@ -727,3 +727,19 @@ THE VARIABLE IS ISOLATED IN ONE DIRECTION ONLY, AND THAT MATTERS. What is establ
 WHAT THIS CHANGES IN PRACTICE. Budget one WebSearch per title for the slug (route 78's rule, unchanged - the pane returns no hrefs and a batched query fails on this host), then ONE plain WebFetch per article instead of two pane calls, plus one more plain WebFetch per verbatim pass. A read is now cheaper than its slug lookup.
 
 WHAT TO DO IF IT REGRESSES. The 403 recorded in route 1 was real when it was recorded, so this may be a server-side change rather than a permanent property. If a plain fetch on an /index/ page starts returning 403 again, fall back to routes 76/78 (preview_start plus get_page_text) rather than spending calls on headers, and note the date here - two datapoints in opposite directions would make this host's gating worth treating as intermittent.
+
+## Route 80 - openai.com: a domain-scoped WebSearch ENUMERATES, it does not only resolve a slug
+
+Added on the 72nd run. Route 78 priced one WebSearch per article title as the cost of resolving a slug on this host, because the pane returns no hrefs. That price buys more than route 78 claimed.
+
+ONE WebSearch for a single queued title - the title in quotes plus the word OpenAI, with allowed_domains: ["openai.com"] - returned ten links: the wanted slug, and SEVEN /index/ slugs no run had ever named, none of them in seen. A second, broader query on the same domain ("OpenAI engineering blog Codex agent infrastructure posts 2026") added another slug and surfaced a whole unswept feed on developers.openai.com. So the same call that costs a slug resolution also samples the back catalogue, and on this host the back catalogue is what the 403 and the pane have been hiding.
+
+WHAT THIS CHANGES. The nine rows the 70th run enumerated through the pane on /news/engineering/ are its FIRST PAGE, not its depth; the untried "Load more" is real. Enumerating this host no longer requires the pane at all: issue a domain-scoped WebSearch with a topic phrase, harvest every /index/ slug in the result, reconcile against seen, then read the survivors with a plain WebFetch (route 79). Budget: one search per topic area rather than one per article, and expect the result set to be capped around ten links, so several topic phrases beat one broad query.
+
+CAVEAT, and it is the reason this is an enumeration AID and not an index: a search result set is ranked and capped, so absence from it proves nothing and it gives no dates. It finds rows; it does not tell you the catalogue is exhausted. Only the index's own pagination can do that.
+
+## Route 79 is NON-DETERMINISTIC PER URL, like route 75
+
+Added on the 72nd run, correcting route 79's "3 for 3" reading. In one run a plain WebFetch answered five /index/ article pages first try, including route-42 verbatim asks - /harness-engineering/, /unlocking-the-codex-harness/, /unrolling-the-codex-agent-loop/, /inside-our-in-house-data-agent/, /open-source-codex-orchestration-symphony/ - with no 403, no headers and no pane. In the SAME run /index/building-chatgpt-ad-stack/ returned client_error with nothing retrieved on two consecutive tries.
+
+So route 79 is now 8 for 9 across two runs, and the one failure is a per-URL coin flip rather than a gate that has closed. Treat a route-79 failure the way route 75's non-deterministic decode is treated: free to retry on a later run, worth the pane only if it fails again, and never recorded as a dead source. Do not spend two calls on the same URL in one run once the first has failed - the second added nothing here.
