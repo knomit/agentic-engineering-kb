@@ -2,10 +2,10 @@
 type: reference
 domain: [agentic-engineering, context-engineering, api, reliability, cost, state-management]
 confidence: 0.85
-sources: 1
-entities: [OpenAI, Responses API, context_management, compact_threshold, /responses/compact, previous_response_id, compaction item, store=false, ZDR]
+sources: 2
+entities: [OpenAI, Responses API, context_management, compact_threshold, /responses/compact, previous_response_id, compaction item, store=false, ZDR, Codex, auto_compact_limit, encrypted_content]
 motifs: [mode-dependent-safety, remedy-needs-headroom]
-refs: ['https://developers.openai.com/api/docs/guides/compaction', 'kb://bc6eac5f37df/kb/invariants/ai/agents/context-engineering/compaction/714a540c.md']
+refs: ['https://developers.openai.com/api/docs/guides/compaction', 'https://openai.com/index/unrolling-the-codex-agent-loop/', 'kb://bc6eac5f37df/kb/invariants/ai/agents/context-engineering/compaction/714a540c.md', 'kb://bc6eac5f37df/kb/architecture/ai/agents/runtime/state/statelessness/92df8660.md']
 ---
 # OpenAI compaction returns an opaque encrypted item, and whether you may prune around it INVERTS with the chaining mode — prune before it on stateless input-array chaining, never prune with previous_response_id, never prune the standalone endpoint's output
 
@@ -22,3 +22,7 @@ THE LIMIT THAT DECIDES WHEN YOU CALL IT: the window you send to `/responses/comp
 Both surfaces are described as ZDR-friendly — the server-side one when `store=false`, the standalone one as fully stateless.
 
 WHAT IS NOT ESTABLISHED. The page does not state whether individual tool calls or reasoning items survive compaction as items; it says only that the compaction item carries key prior state and reasoning forward, and that the standalone output can include retained items. So do not build anything that depends on a specific earlier tool call still being addressable afterwards. This is the mechanics of one vendor's compaction, not a general model: Anthropic's compaction behaviour is recorded separately ([[714a540c]]), and the two differ in what the caller is responsible for.
+
+A SHIPPING CLIENT OF THE STATELESS-CHAINING MODE, which fixes which column of the table above applies in practice. OpenAI's Codex deliberately does not pass `previous_response_id`, in order to "keep requests fully stateless and to support Zero Data Retention (ZDR) configurations", and carries reasoning forward as `encrypted_content` instead. So a harness that wants ZDR is in the stateless input-array column by construction, not by preference, and inherits that column's pruning rule rather than being able to choose between them.
+
+Its trigger is client-side and must not be conflated with the API parameter. Codex "automatically uses this endpoint to compact the conversation when the auto_compact_limit is exceeded" — `auto_compact_limit` is the client's own configured threshold for deciding when to call, a different thing from the request-level `compact_threshold` the API exposes. Codex's published account gives no numeric value for it, so no default should be assumed. Its earlier approach was a manual `/compact` that summarised the conversation client-side and replaced the input with the summary; the move to the endpoint is what introduced the opaque compaction item into its loop.
