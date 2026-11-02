@@ -21,3 +21,10 @@ https://research.google/blog/millemiglia-a-realistic-instance-generator-for-midd
 https://research.google/blog/the-future-of-practice-enabling-teachers-to-create-learning-interactives-with-generative-ui/  skip: education product write-up, no agent-engineering content
 https://research.google/blog/transfer-learning-for-genomic-prediction-in-underrepresented-populations/  skip: genomics, out of scope
 https://research.google/blog/a-connectomics-milestone-mapping-the-complete-male-fruit-fly-brain/  skip: neuroscience, out of scope
+
+https://research.google/blog/analyzing-technical-documents-with-deep-review/
+https://research.google/blog/research-2026-10-ways-were-amplifying-human-ingenuity/  skip: annual round-up post
+https://research.google/blog/putting-earth-ai-to-work-geospatial-agents-for-our-planets-biggest-challenges/  skip: geospatial product announcement, domain-specific
+https://research.google/blog/bringing-foundational-models-to-the-front-lines-of-tb-screening/  skip: medical imaging, out of scope
+https://research.google/blog/empowering-frontline-maternal-care-with-ai-assisted-ultrasound/  skip: medical imaging, out of scope
+https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/  skip: continual-learning training method; model-training research rather than agent engineering
