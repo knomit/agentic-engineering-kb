@@ -743,3 +743,54 @@ CAVEAT, and it is the reason this is an enumeration AID and not an index: a sear
 Added on the 72nd run, correcting route 79's "3 for 3" reading. In one run a plain WebFetch answered five /index/ article pages first try, including route-42 verbatim asks - /harness-engineering/, /unlocking-the-codex-harness/, /unrolling-the-codex-agent-loop/, /inside-our-in-house-data-agent/, /open-source-codex-orchestration-symphony/ - with no 403, no headers and no pane. In the SAME run /index/building-chatgpt-ad-stack/ returned client_error with nothing retrieved on two consecutive tries.
 
 So route 79 is now 8 for 9 across two runs, and the one failure is a per-URL coin flip rather than a gate that has closed. Treat a route-79 failure the way route 75's non-deterministic decode is treated: free to retry on a later run, worth the pane only if it fails again, and never recorded as a dead source. Do not spend two calls on the same URL in one run once the first has failed - the second added nothing here.
+
+## Route 81 - developers.openai.com/blog: one plain WebFetch enumerates the WHOLE feed, 32 rows, no pagination
+
+73rd run, first contact. The call was the minimal one:
+
+    WebFetch { url: "https://developers.openai.com/blog",
+               prompt: "Enumerate every post listed on this index: exact title, URL path, date if shown.
+                        Also list any topic-filter paths and say whether a load-more/pagination control exists." }
+
+Nothing added: no custom User-Agent, no Referer, no pane, no approval prompt, no 403. It returned all 32 rows as a
+table with titles, paths and dates, the six /blog/topic/<name> paths, and an explicit statement that no pagination
+control exists - the listing ends at /blog/intro, the blog's own hello-world post, which is corroborating evidence
+that 32 rows is the entire feed rather than a first page. THE VARIABLE IS ISOLATED BY CONSTRUCTION: the minimal
+configuration worked, so no flag can be a passenger. Article pages on the same host then answered plain WebFetch
+too, including route-42 verbatim asks, three for three.
+
+WHY THIS MATTERS BEYOND ONE FEED. developers.openai.com is NOT behind the openai.com 403 gate (routes 1, 76, 78),
+and the pack had already established that for /cookbook and /api/docs/guides/. What is new is that on this host an
+index returns HREFS, which openai.com's pane route cannot do (route 77). So slug resolution on developers.openai.com
+costs nothing, while on openai.com proper it still costs a WebSearch per title or a route-80 topic search.
+
+THE TOPIC-VIEW QUESTION, OPEN SINCE THE 66TH RUN, IS ANSWERED FOR THIS TREE AND ONLY THIS TREE: the topic paths
+exist and are plain paths rather than query parameters, but they are not needed here because the unfiltered index
+already lists every row. That says nothing about /cookbook's filter tabs, which are a different control on a
+different tree - do not record the cookbook question as closed.
+
+## Route 82 - openai.com/index/building-chatgpt-ad-stack/ is a per-URL dead end, and it is NOT a wrong slug
+
+73rd run, third failure. Totals now: three runs, five plain WebFetch calls, five client_errors, zero bytes
+retrieved - while in each of those same runs plain WebFetch answered four or five OTHER /index/ pages first try.
+
+THE WRONG-SLUG HYPOTHESIS IS ELIMINATED, which is the only new information here and it cost one search. The
+standing rule says a 404 is usually a wrong slug (and the 72nd run had a real reason to suspect one, because the
+index's "Keep reading" block rendered the title as "how-we-built-chatgpts-novel-ad-stack..."). One domain-scoped
+WebSearch - "ad stack" ChatGPT how we built engineering, allowed_domains openai.com - returned this exact URL as
+its first hit, under the title "How we built ChatGPT's novel ad stack for user trust and relevance". The slug is
+right. The failure is the fetch.
+
+WHAT THIS CHANGES FOR ROUTE 79. Route 79's non-determinism is not per-call, it is PER-URL and it is sticky: the
+same URL has now failed in three separate runs on three separate days. So "free to retry" was the wrong price for
+this row. Retry a route-79 failure ONCE in a later run; after a second run fails on the same URL, stop spending
+plain fetches on it and either take it to the pane (routes 1/76) or drop it. Nothing here weakens route 79 for
+other URLs - its hit rate across the three runs is 12 of 13.
+
+THAT SAME SEARCH ALSO ENUMERATED, which is route 80's fourth confirmation: alongside the wanted URL it returned
+/index/mrc-supercomputer-networking/, never named by any run. Two further topic-phrase searches this run
+("inference serving reliability evals infrastructure" and "prompt injection agent security sandbox postmortem")
+returned /index/separating-signal-from-noise-coding-evaluations/, /index/hardening-atlas-against-prompt-injection/
+and /index/the-work-now-within-reach/, none of them in seen and none ever named - plus hits on
+developers.openai.com and cdn.openai.com. Three searches, four genuinely new in-scope slugs, two of which became
+facts. Route 80 remains the cheapest door into this host.
