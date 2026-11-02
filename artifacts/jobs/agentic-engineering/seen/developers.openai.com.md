@@ -42,3 +42,14 @@ https://developers.openai.com/api/docs/guides/prompt-caching/diagnostics
 https://developers.openai.com/api/docs/guides/agents-api/environments/self-hosted
 
 https://developers.openai.com/cookbook/examples/agent_optimization/optimizing_agents_for_cost_and_quality
+
+https://developers.openai.com/blog
+https://developers.openai.com/blog/skills-shell-tips
+https://developers.openai.com/blog/eval-skills
+https://developers.openai.com/blog/designing-failover-across-openai-model-providers
+https://developers.openai.com/blog/build-week-winners  skip: event round-up
+https://developers.openai.com/blog/rosalind-workbench  skip: life-sciences product announcement
+https://developers.openai.com/blog/bringing-my-led-display-to-life  skip: hobby build log
+https://developers.openai.com/blog/architectural-visualization-with-astra  skip: capability demo, no design constraints
+https://developers.openai.com/blog/how-to-build-games-with-astra  skip: capability demo, no design constraints
+https://developers.openai.com/blog/intro  skip: blog's hello-world post
