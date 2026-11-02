@@ -1544,3 +1544,55 @@ STALENESS-PASS RESULTS (5 sampled from kb/gotchas, a pool no earlier pass had us
 - c7290868 (0.75) - CONFIRMED. Both Cognition quotations verbatim; the training-cause clause now stored verbatim rather than paraphrased, and one sentence asserting that the fact's own quotes had been verified was removed under spec.md's body rule.
 
 WRITE DISCIPLINE. Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ - feeds.md, discovered-sources.md, fetch-routes.md, queue.md, crawl-state.md, seen/openai.com.md, seen/langchain.com.md - and every one with knomit_update ops (append or str_replace), never updates.body. No new seen/<host>.md was needed, so knomit_learn was not used on an artifact path this run.
+
+## 2026-11-02 - 73rd run
+
+DEDUP READS. feeds.md (41 feed lines), discovered-sources.md (8 entries), one-off-done.md was NOT read because no one-off source was crawled this run, queue.md (62 items; items 65 and 66 are the live ones). seen lists read before fetching, for the four hosts crawled: openai.com (31 URLs, 1 of them a skip line), developers.openai.com (26 URLs, 3 skip lines), research.google (10 URLs, 9 skip lines), sourcegraph.com (7 URLs, 3 skip lines). fetch-routes.md read in full for routes 76, 79 and 80. NO GAPS AND NO FAILED STATE READS: every path resolved first try. The archive was not read - nothing this run sent me there.
+
+RECURRING-FEED INDEXES SWEPT: developers.openai.com/blog (FIRST SWEEP EVER, 32 rows, fully enumerated, no pagination), research.google/blog (12 rows), sourcegraph.com/blog (20 rows). openai.com's index was NOT fetched; the host was worked through three domain-scoped WebSearch calls (route 80) instead, which is now the established cheaper door.
+
+ARTICLES NEWLY CRAWLED (8, all added to seen):
+- https://openai.com/index/separating-signal-from-noise-coding-evaluations/
+- https://openai.com/index/hardening-atlas-against-prompt-injection/
+- https://openai.com/index/scaling-postgresql/
+- https://openai.com/index/delivering-low-latency-voice-ai-at-scale/
+- https://developers.openai.com/blog (index)
+- https://developers.openai.com/blog/skills-shell-tips
+- https://developers.openai.com/blog/eval-skills
+- https://developers.openai.com/blog/designing-failover-across-openai-model-providers
+- https://research.google/blog/analyzing-technical-documents-with-deep-review/
+- https://sourcegraph.com/blog/php2shell-patching-php-is-easy-finding-it-is-the-hard-part
+
+ERRORED OR SKIPPED BY NAME. ERRORED: openai.com/index/building-chatgpt-ad-stack/ - one plain WebFetch, client_error, nothing retrieved. That is its THIRD failed run and FIFTH failed call. One domain-scoped WebSearch eliminated the wrong-slug hypothesis (the search returned this exact URL under its real title), so the row is now retired from the plain-fetch list and recorded as pane-only in route 82. SKIP-MARKED AFTER TRIAGE, not failures: openai.com /index/the-work-now-within-reach/, /index/mrc-supercomputer-networking/, /index/operator-system-card/, /index/introducing-chatgpt-agent/; six developers.openai.com/blog rows; five research.google rows. NOTHING WAS PAYWALLED and nothing was gated this run - no 403 was encountered on any host, including openai.com article pages. NO PROMPT-INJECTION ATTEMPT was observed in any fetched page.
+
+WHAT WAS FOUND - 8 FACTS WRITTEN:
+- kb/gotchas/ai/agents/evaluation/benchmark-construction/task-defects/c5f85395.md - ~30% of SWE-bench Pro's 731-task public split is broken, in four defect classes that fail in OPPOSITE directions, and OpenAI retracted its own recommendation to adopt it.
+- kb/conventions/ai/agents/evaluation/benchmark-auditing/96d78ae4.md - the agent-versus-human audit comparison: both modalities found about a third broken but agreed on the defect in only 74% of cases, and the agent pipeline was the conservative one, weakest on low-coverage tests (9.4% human versus 4.1% agent) - the class that inflates scores.
+- kb/gotchas/ai/agents/context-engineering/skills/triggering/2d6d1df7.md - adding a skill can make routing WORSE first: a ~20% triggering drop recovered only by negative examples and edge cases in the description.
+- kb/conventions/ai/agents/evaluation/skill-evals/749ffc4c.md - the five assertion classes for a skill eval, the negative control that is the only way to see over-triggering, and the 10-20 prompt sizing.
+- kb/conventions/ai/agents/reliability/model-provider-failover/8d7c713b.md - the error classification: most classes must NEVER trigger a provider switch, unclassified errors default to no switch, and throttling qualifies only when waiting breaches the deadline.
+- kb/gotchas/ai/agents/reliability/model-provider-failover/state/00579f96.md - switching providers carries no session state, which bounds the failover boundary to a single read-only inference call rather than an agent loop.
+- kb/architecture/ai/agents/multi-agent/document-review/8f407fa8.md - Deep Review partitions the ASSIGNMENT and the compute budget, not the context: every parallel verifier reads the whole document, and budget follows measured information density.
+- kb/architecture/ai/agents/security/adversarial-training/a924b5f8.md - the attacker is given a simulator that returns the victim's counterfactual reasoning and action trace, so its search signal is the defender's reasoning rather than a binary outcome.
+
+ONE ENRICHMENT: kb/invariants/ai/agents/reliability/retries/b54c0385.md (retry amplification) took a second independent source and went to 0.9 / sources 2. OpenAI states the single-retry-controller rule for the application/SDK/gateway triple, which shows the rule is not an artefact of pre-LLM service topology - the same three-layer collision exists in a plain model-API client before any agent loop is added.
+
+TWO PAGES READ FOR NO FACT, recorded so they are not re-read: openai.com/index/delivering-low-latency-voice-ai-at-scale/ (a WebRTC transport account whose "Results and learnings" section carries no latency, jitter or throughput figure at all) and sourcegraph.com/blog/php2shell (regex patterns plus a plain-English search ask, no precision, recall, repo count or runtime, limits at or below the pack's altitude bar). openai.com/index/scaling-postgresql/ produced no fact of its own but supplied the b54c0385 second source.
+
+ONE CANDIDATE DELIBERATELY NOT WRITTEN: the two-layer network allowlist for skill-running agents (org allowlist as the maximum, a request-level network_policy that must be a subset, out-of-scope domains erroring, domain_secrets injected by a sidecar). kb/gotchas/ai/agents/security/egress/fdad859e.md already holds the stronger and better-sourced claim that a domain allowlist does not bound where data goes, at 0.9 with three documented bypass classes, and the pack has two further egress invariants. A fact describing the allowlist mechanism would have read as a weaker restatement.
+
+NO CONTRADICTIONS FOUND between sources this run. One REFINEMENT rather than a contradiction: the Deep Review design bears on kb/decisions/ai/agents/multi-agent/f7dee43a.md, whose deciding condition for multi-agent versus single-threaded is whether subtask outputs must be mutually consistent. Deep Review's subtask outputs MUST be mutually consistent and it still went parallel, by giving every worker the full input and putting the consistency check in a synthesis stage. The new fact cites f7dee43a rather than amending it, because the condition is not wrong - it is met by a construction f7dee43a does not name.
+
+NO NEW FEEDS ADDED to discovered-sources.md. developers.openai.com/blog, the only candidate, was already added by the 72nd run.
+
+FETCH ROUTES ADDED: route 81 (developers.openai.com/blog enumerates its whole feed in one minimal plain WebFetch, with hrefs - the variable is isolated by construction since nothing was added) and route 82 (the ad-stack slug is confirmed correct by search, so route 79's non-determinism is PER-URL and sticky rather than per-call; retry such a failure once, then stop). Route 80 took its fourth confirmation: three searches, four never-named in-scope slugs, two of which became facts.
+
+STALENESS PASS (§5) - five facts re-checked from kb/conventions, drawn lowest-confidence first; full detail in queue item 68.
+- CONFIRMED: c19b24e3 (six clauses verbatim), 05066247 (five clauses verbatim), c5f51633 (five clauses verbatim).
+- CORRECTED - 64e5615b: the quoted heading "Level 2: Model & Human Eval (this includes debugging)" reversed the source's "Level 2: Human & Model Eval" and appended a parenthetical that does not exist in the source. Defect class: a reordered quotation. The RAG clause was also returned to the source's wording.
+- CORRECTED - 07ef9963: the fact asserted that proposed preference changes exist "for a human to promote". The source lists "changes it proposes to your preferences" among the state store's contents and says nothing about who promotes one or when. Defect class: a mechanism completed by inference, with the inferred half carrying the operational weight. The promotion gap is now marked as pack analysis, and the seeding bullet was made specific to the mechanism the source names.
+- CORRECTED - c5f51633: modality drift. The pair-programming guidance is hedged in the source ("you may want the opposite") and the fact stated it as the guidance. Defect class: an option read as a recommendation.
+- TWO CANDIDATES DROPPED BEFORE SPENDING A FETCH, both carrying recent staleness commits (f0fdc77a checked by the 60th run, c90c13e6 by the 64th). Item 60's sampling note held for a second run.
+- EVERY SOURCE IN THE SAMPLE STILL RESOLVES. There was no source rot this pass; all three corrections were the pack's own transcription defects, which is the second run running where that is true.
+
+WRITE DISCIPLINE. Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ - seen/openai.com.md, seen/developers.openai.com.md, seen/research.google.md, seen/sourcegraph.com.md, feeds.md, fetch-routes.md, queue.md and this file - and every one of those writes used knomit_update with ops (append or str_replace). No updates.body was sent to any job-state file, and no new seen/<host>.md needed creating.
