@@ -794,3 +794,49 @@ returned /index/separating-signal-from-noise-coding-evaluations/, /index/hardeni
 and /index/the-work-now-within-reach/, none of them in seen and none ever named - plus hits on
 developers.openai.com and cdn.openai.com. Three searches, four genuinely new in-scope slugs, two of which became
 facts. Route 80 remains the cheapest door into this host.
+
+## Route 83 - a WHOLE-ARTICLE verbatim ask is refused and comes back as a paraphrase that still carries the numbers
+
+74th run, on alignment.anthropic.com/2026/red-teaming-auto-mode/. The ask was "return the article's substantive
+content as close to verbatim as possible... reproduce the source's sentences". The reader REFUSED the
+reproduction and said so - "I can't reproduce the article's sections verbatim, so this is a condensed summary in
+my own words" - and then supplied a clean, confident, well-structured summary containing every figure in the
+article. That is the dangerous shape: the refusal is one line at the top, the eleven numbers underneath look
+exactly like a verbatim read, and five of them turned out to be right.
+
+THE VARIABLE IS ISOLATED, AND IT IS THE ASK SHAPE, NOT THE HOST. The SAME URL, in the same run, answered two
+follow-up asks of the form "quote word for word, in quotation marks, the exact sentence containing each of the
+following... write NOT PRESENT if absent" with ten exact clauses, including every figure. Nothing else changed:
+same tool, same URL, no headers, no pane. So this is not a gate and the host is not refusing anything - a
+reproduce-the-article ask trips the reader's own limit, and a quote-this-clause ask does not.
+
+THE RULE. Never send a whole-article verbatim ask. It costs a call and returns something that cannot support a
+figure (spec.md: "An open-ended reader's paraphrase never supports a figure, an identifier or an attribution").
+Send one open-ended ask to learn WHAT the article contains, then one or two clause-level asks naming each figure,
+identifier and attribution you intend to store, five or six per call, each with "write NOT PRESENT if absent".
+That is two or three calls for an article you will write facts from, and it is the only shape that has ever
+returned exact clauses on this pack's hosts. It is the same finding as route 42 (a presence/literal-text ask
+returns the page) seen from the failure side, and it is worth a route of its own because the failure is SILENT:
+the paraphrase arrives looking like an answer.
+
+ONE MORE SIGN TO WATCH FOR, same run, different host: a clause-level ask will sometimes answer "The sentence is
+longer than 125 characters, so this is an excerpt" or "so here are the key fragments". That is honest and usable -
+the fragments ARE verbatim - but it means the clause was truncated, so re-ask for the remainder by naming the
+words it should start after. The 74th run did exactly that on langchain.com's five-item cycles list and got the
+back half exactly.
+
+## Route 84 - scope an enumeration ask to the slice that can contain new material
+
+74th run, on alignment.anthropic.com. The recorded ask for this index is a whole-archive enumeration, and its
+result has varied wildly across runs: 8, 62, 62, 79 and 84 entries on the same URL (route 33). This run asked
+instead for "every entry on this index that is dated 2026 (any month of 2026)" with the usual
+list-every-row-individually, do-not-give-a-count instruction. One plain WebFetch returned 30 rows, complete and
+ordered, and it contained all five October 2026 rows - the only rows that could possibly be new against a
+2026-08 mark.
+
+WHY IT IS BETTER AND WHEN IT IS NOT. A narrower slice is a shorter answer, and a shorter answer is one the reader
+finishes, which is the mechanism behind the route-33 variance. Use the scoped form on any index whose mark is
+recent enough that only the current year matters. Do NOT use it when the job is to establish full coverage of a
+back catalogue - there the whole-archive ask is the right one, and route 33's rule still applies: ask for the
+enumeration, never act on the page's stated total, and reconcile a short enumeration against seen before
+concluding the feed shrank.
