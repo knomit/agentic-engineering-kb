@@ -44,3 +44,7 @@ https://alignment.anthropic.com/2025/recommended-directions/  skip: research-age
 https://alignment.anthropic.com/2025/automated-auditing/
 
 https://alignment.anthropic.com/2026/auditbench/
+
+https://alignment.anthropic.com/2026/red-teaming-auto-mode/
+https://alignment.anthropic.com/2026/graft/
+https://alignment.anthropic.com/2026/anthropic-residency/  skip: residency programme announcement, no engineering content
