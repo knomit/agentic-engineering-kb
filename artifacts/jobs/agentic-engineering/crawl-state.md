@@ -1596,3 +1596,45 @@ STALENESS PASS (§5) - five facts re-checked from kb/conventions, drawn lowest-c
 - EVERY SOURCE IN THE SAMPLE STILL RESOLVES. There was no source rot this pass; all three corrections were the pack's own transcription defects, which is the second run running where that is true.
 
 WRITE DISCIPLINE. Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/ - seen/openai.com.md, seen/developers.openai.com.md, seen/research.google.md, seen/sourcegraph.com.md, feeds.md, fetch-routes.md, queue.md and this file - and every one of those writes used knomit_update with ops (append or str_replace). No updates.body was sent to any job-state file, and no new seen/<host>.md needed creating.
+
+## 74th run - 2026-11-03
+
+DEDUP READS. feeds.md (39 feed lines), discovered-sources.md (8 discovered feeds), one-off-done.md (59 URLs - every one-off source is done), queue.md (items 6 to 68; 67 and 68 were the 73rd run's). fetch-routes.md read for the route numbering (routes up to 82). crawl-state.md NOT read, per SKILL.md. No archives read: nothing sent me there. seen lists read, for the five hosts crawled: alignment.anthropic.com (26 URLs), latent.space (14), huggingface.co (12), developers.openai.com (40), sourcegraph.com (8). No failed state read, no missing file.
+
+RECURRING INDEXES SWEPT (3). alignment.anthropic.com (18 days stale), www.latent.space/archive (19 days), huggingface.co/blog (19 days). All three were taken ahead of the top-ranked queue item because they were past item 59's three-week line, and that was the right call - see queue item 69's ranking lesson. Indexes NOT re-fetched: developers.openai.com/blog and sourcegraph.com/blog, whose rows were taken from the enumerations already in feeds.md and seen.
+
+ARTICLES NEWLY CRAWLED (7). alignment.anthropic.com/2026/red-teaming-auto-mode/; alignment.anthropic.com/2026/graft/; latent.space/p/claude-mods; latent.space/p/arca; huggingface.co/blog/huggingface/train-agents; developers.openai.com/blog/codex-as-a-platform; developers.openai.com/blog/run-long-horizon-tasks-with-codex; developers.openai.com/blog/connect-private-mcp-servers-to-openai-products; sourcegraph.com/blog/sre-runbooks-ai-driven-development. (Nine URLs; seven produced facts.) Index entries triaged and skip-marked: 46 - 1 on alignment.anthropic.com, 17 on latent.space, 28 on huggingface.co.
+
+ERRORED, PAYWALLED OR SKIPPED AS ALREADY DONE. Nothing errored. No fetch failed this run, no gate was hit, no pane was needed. One source was read and produced nothing: sourcegraph.com/blog/sre-runbooks-ai-driven-development, a product-promotion essay with no drift-detection method and only anecdotal numbers - the feed is now parked until 2026-12-02 (queue 67(iii) as amended). No prompt-injection text was encountered on any page read.
+
+FACTS WRITTEN (11).
+- kb/gotchas/ai/agents/observability/blocking-monitors/f7360077.md - two shipped blocking monitors bypassed on over 55% of attacks; 43% / 72% ASR when aimed at blind spots; Guardian Strict 31%; Auto Mode ++ down over 50pp; under 1% of 4,000 benign SWE-chat actions blocked.
+- kb/conventions/ai/agents/observability/monitor-injection/a8fc8e11.md - unforgeable per-turn framing (48-bit hex delimiter under a per-process key) against forged transcript turns.
+- kb/decisions/ai/agents/training/reward-hacking/621bbafa.md - GRAFT: route monitor-flagged gradients into ablatable adapter neurons instead of penalising the reward; single-turn, models up to 8B.
+- kb/gotchas/ai/agents/harness-extensions/trigger-design/ded709a5.md - a three-clause OR trigger fired on 99 of 111 turns, at 5-6k input-equivalent tokens per check on a 50k session.
+- kb/invariants/ai/agents/harness-extensions/trust-boundary/2338c9c6.md - a harness extension is unsandboxed and inherits the user's permissions, so installing one is the whole security decision.
+- kb/architecture/ai/agents/human-in-the-loop/long-horizon/d9f502e3.md - ten-day advisory tasks where agents prompt people more than people prompt agents; memory across handoffs is the load-bearing part; deterministic safety restrictions.
+- kb/architecture/ai/agents/code-execution/output-constraint/e4745f48.md - run the agent's code in a sandbox, translate it to a strict expected format, throw the code away, guardrail the format.
+- kb/architecture/ai/agents/tools/mcp/private-reachability/d422576b.md - outbound-only long-polling tunnel for private MCP servers, and the private-authorization-server trap.
+- kb/decisions/ai/agents/harness-design/build-vs-adopt/fac118c1.md - the ownership split when adopting a harness, the three integration shapes, and the stated limit of the open-source layer.
+- kb/conventions/ai/agents/coding-agents/long-horizon/run-structure/e5ddddfc.md - a ~25-hour, ~13M-token, ~30k-line run and the four things outside the context window that carried it.
+- kb/decisions/ai/agents/training/post-training-ladder/fa0c7945.md - five post-training rungs, each with what it structurally cannot teach, ending at harness-level RL.
+
+FACTS ENRICHED (2).
+- kb/decisions/ai/agents/harness-design/effort-allocation/fc5faf86.md - SECOND INDEPENDENT SOURCE, from a different vendor and task family: "on ARC-AGI-3, retained reasoning and context compaction raised" "GPT-5.6 Sol's score from 13.3% to 38.3% while reducing output tokens sixfold." sources 1 -> 2, confidence 0.8 -> 0.85. The reason it earns the raise beyond arithmetic: score up AND output tokens down by 6x breaks the assumption that scaffolding buys accuracy by spending tokens.
+- kb/invariants/ai/agents/observability/monitoring-scope/7502f0bb.md - the session-split blind spot, previously a benchmark result, now found in two shipped products, with COMPACTION named as a second boundary that sits inside a single session. Source count deliberately held at 1: the third document is Anthropic's as well.
+
+CONTRADICTIONS FOUND BETWEEN SOURCES. One, and it is held rather than resolved: the 25-hour Codex account has the AGENT maintaining a markdown status file, while 15e7bf02 records that agents overwrite markdown state files and recommends JSON for machine-maintained progress. The two are compatible only if human-authored spec/plan/constraints are kept separate from machine-maintained progress, which the Codex source does not say it did. Recorded as marked pack analysis on e5ddddfc with a link, not flattened into either position.
+
+FEEDS ADDED TO discovered-sources.md. None. Every index reached this run was already in the recurring set.
+
+FETCH ROUTES RECORDED (2). Route 83: a whole-article verbatim ask is REFUSED and silently downgraded to a confident paraphrase that still carries every figure - the variable was isolated to the ask shape, because the same URL answered ten clause-level "quote the exact sentence containing X, or write NOT PRESENT" requests exactly, same tool, same call, nothing else changed. Route 84: a year-scoped enumeration ask on alignment.anthropic.com returned 30 complete rows where the whole-archive ask has returned 8, 62, 62, 79 and 84 across five runs.
+
+STALENESS PASS (5 sampled, 1 confirmed, 4 corrected). The draw was oldest-unverified ACROSS topics - the method item 68 named as untried - over bootstrap-era facts committed 2026-07-26 with no staleness commit or none inside 90 days. Every source checked still resolves; none of the four defects was source rot.
+- fc249ffc CONFIRMED: four 12-factor numbers and headings verbatim, no change, 0.7 -> 0.75.
+- 760d8945 CORRECTED: routing's second condition ("and where classification can be handled accurately...") had been dropped, leaving advice that inverts in the case that matters; evaluator-optimizer's first sign restored to human-articulated feedback. DEFECT CLASS: dropped conjunct.
+- c926c07b CORRECTED twice: Magentic's "before or after implementation" had been narrowed to BEFORE in capitals; the cross-cutting "every dynamic pattern needs an iteration limit" was the pack's generalisation, not Microsoft's, which prescribes limits for two named cases only. Kept, now marked as pack reading. DEFECT CLASSES: disjunction read as its stronger branch; unsourced generalisation.
+- c93d93ee CORRECTED: "a loop is just a directed, cyclic graph" is attributed by the post to David Khourshid, not claimed by LangChain. DEFECT CLASS: attribution moved to the publisher. Edit-history paragraph removed.
+- c1e18090 CORRECTED: five factor titles confirmed exact, but the "live and not superseded" claim rested on a commit count read in July 2026 that has not moved since - main still reads 273 commits, so the project has had no commit in over three months. Restated as a stable position piece rather than a living standard. 0.75 -> 0.8. Edit-history paragraph removed.
+
+kb/principles/** was not sampled (designer-authored, not the job's to revise). Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/, written with ops.
