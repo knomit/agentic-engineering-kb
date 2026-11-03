@@ -21,3 +21,5 @@ https://sourcegraph.com/blog/agentic-batch-changes-pricing  skip: pricing announ
 https://sourcegraph.com/blog/introducing-agentic-batch-changes  skip: product launch note (framework post, not method post)
 
 https://sourcegraph.com/blog/php2shell-patching-php-is-easy-finding-it-is-the-hard-part
+
+https://sourcegraph.com/blog/sre-runbooks-ai-driven-development
