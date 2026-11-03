@@ -53,3 +53,7 @@ https://developers.openai.com/blog/bringing-my-led-display-to-life  skip: hobby 
 https://developers.openai.com/blog/architectural-visualization-with-astra  skip: capability demo, no design constraints
 https://developers.openai.com/blog/how-to-build-games-with-astra  skip: capability demo, no design constraints
 https://developers.openai.com/blog/intro  skip: blog's hello-world post
+
+https://developers.openai.com/blog/codex-as-a-platform
+https://developers.openai.com/blog/run-long-horizon-tasks-with-codex
+https://developers.openai.com/blog/connect-private-mcp-servers-to-openai-products
