@@ -840,3 +840,45 @@ recent enough that only the current year matters. Do NOT use it when the job is 
 back catalogue - there the whole-archive ask is the right one, and route 33's rule still applies: ask for the
 enumeration, never act on the page's stated total, and reconcile a short enumeration against seen before
 concluding the feed shrank.
+
+## Route 85 - trychroma.com research pages serve their prose with the NUMBERS STRIPPED OUT
+
+75th run, on https://www.trychroma.com/research/context-1 during the staleness pass. Clause-level asks came back with
+sentences that are grammatically broken exactly where a figure should be: "bound the context window to a fixed token
+budget .", "When usage exceeds tokens,", "Beyond a configurable cutoff in between and tokens". The sentences are
+otherwise intact and the reader quoted them faithfully - the numbers are simply not in the served text, presumably
+rendered client-side into the prose.
+
+WHY IT MATTERS MORE THAN AN ORDINARY TRUNCATION. The page still reads as complete and confident, and numbers DO survive
+in two other places: inside an inline example ("[Token usage: 14,203/32,768]") and in a different section's prose ("we
+give these models a token budget of 200k tokens (as opposed to 24k tokens)"). Those two disagree about the harness's
+budget, so a run that takes whichever one it happens to find will store a figure the page does not actually assert. The
+26th-run-era fact built on this page had carried 32,768 and ~24,000 as though both were stated.
+
+THE RULE FOR THIS HOST. Treat any figure from a trychroma.com research page as unverified unless a clause ask returns it
+inside a complete sentence. Ask explicitly whether a number appears in prose or only in an example or code block - that
+ask is what surfaced the problem here, and it is worth adding to any clause ask about a figure on an unfamiliar host. If
+the figure matters, the remedy is the pane, which was not spent this run.
+
+## Route 86 - a clause-level ask can UNDER-report, and the omission looks exactly like a correction
+
+75th run, on https://ai-sdk.dev/docs/agents/loop-control. A clause ask about `prepareStep` returned "It receives
+`messages` for the current step, plus `initialMessages` and `responseMessages`" and listed overrides starting at
+`maxOutputTokens`. The fact under check asserted `prepareStep` receives `stepNumber` and the prior `steps`. Read
+naively, the page had changed and the fact was wrong.
+
+IT HAD NOT. A second, narrower ask - "quote every sentence or clause that mentions `stepNumber`, or `steps` as a
+parameter of prepareStep, or that lists the full set of arguments" - returned nine clauses containing `stepNumber`,
+including the annotated argument list "stepNumber, // Current step number (0-indexed)" and "steps, // All previous
+steps with their results". The first ask had answered from the page's PROSE sentence and ignored the code block that
+carries the full list. Nothing had changed; the fact was right and was enriched rather than corrected.
+
+THE RULE, and it is the staleness pass's version of route 83. A clause ask answers from wherever it finds an answer
+first, so an ABSENCE in its reply is not evidence of absence on the page. Before recording any correction on the
+strength of something a clause ask did not return, send one more ask scoped to that one item, phrased as "quote EVERY
+sentence or clause mentioning X" rather than "the sentence containing X". One extra call is cheap; a false correction
+written into a fact is not, and it is invisible afterwards because the fact reads as freshly verified.
+
+The corollary for the same pass: route 83's warning is about a paraphrase that fabricates figures. This is the opposite
+error on the same tool - an honest, partial answer that fabricates nothing and still produces a wrong verdict. Both are
+silent, and the second is the more dangerous one during a staleness pass, because the pass's whole output is verdicts.
