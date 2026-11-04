@@ -2,10 +2,10 @@
 type: observation
 domain: [agentic-engineering, evaluation, benchmarks, reliability, security, operations, architecture]
 confidence: 0.85
-sources: 2
-entities: [Anthropic, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Fable 5.1, Claude Code, Zapier, AutomationBench, Terminal-Bench 4.0, safeguards, fallback, Cyber Verification Program, conversation-scoped classifier]
+sources: 3
+entities: [Anthropic, AWS, Amazon Bedrock, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Fable 5, Claude Fable 5.1, Claude Code, Zapier, AutomationBench, Terminal-Bench 4.0, safeguards, fallback, Cyber Verification Program, conversation-scoped classifier, Project Glasswing]
 motifs: [transparent-fallback-hides-substitution, guard-state-moves-score]
-refs: ['kb://bc6eac5f37df/kb/decisions/ai/agents/reliability/fallback-vs-failover/f876643c.md', 'kb://bc6eac5f37df/kb/invariants/ai/agents/reliability/0c0d403f.md', 'kb://bc6eac5f37df/kb/principles/ai/agents/evaluation/a829cfd4.md', 'https://www.anthropic.com/claude-opus-5-5', 'https://claude.dev/blog/getting-the-most-out-of-opus-5-5/']
+refs: ['kb://bc6eac5f37df/kb/decisions/ai/agents/reliability/fallback-vs-failover/f876643c.md', 'kb://bc6eac5f37df/kb/invariants/ai/agents/reliability/0c0d403f.md', 'kb://bc6eac5f37df/kb/principles/ai/agents/evaluation/a829cfd4.md', 'https://www.anthropic.com/claude-opus-5-5', 'https://claude.dev/blog/getting-the-most-out-of-opus-5-5/', 'https://aws.amazon.com/blogs/machine-learning/safely-releasing-frontier-models-to-customers/']
 ---
 # A safeguarded model can answer as a different, weaker model transparently — so one benchmark produced three different numbers for one model depending only on whether the fallback was enabled
 
@@ -27,3 +27,5 @@ THE TRIGGER IS CONVERSATION-SCOPED, NOT MESSAGE-SCOPED, which is what makes the 
 This sharpens the observability advice above. A long agent run that degrades partway through with no error and no configuration change has at least two candidate explanations — context exhaustion and a flag-driven model substitution — and they are indistinguishable from the outside, so log the model that ANSWERED each turn rather than the model you requested. An eval measured on short, clean conversations is not a prediction for a long run that has ingested untrusted documents.
 
 No rate, threshold, or detection method for the conversation-scoped trigger is published, so this is a mechanism to design observability around rather than a frequency to plan capacity against.
+
+THE SAME ROUTING APPEARS ON A SECOND VENDOR'S PLATFORM, FOR A DIFFERENT MODEL, WHICH MOVES THIS FROM ONE RELEASE'S POLICY TO A RELEASE PATTERN FOR CYBER-CAPABLE MODELS. AWS describes the identical mechanism for Anthropic's Claude Fable 5 on Amazon Bedrock: "When the guardrails are triggered, it automatically falls back to Opus 4.8". AWS's CISO frames the fallback as a deliberate release control, refined with Anthropic and other partners in Project Glasswing and strengthened by an AWS AI Red Team engagement, to resolve a stated tension: giving defenders access to deep vulnerability-research capability without "giv[ing] our adversaries meaningfully advanced visibility and capabilities". The AWS post publishes no intervention rate, no threshold and no measurements of any kind, so it corroborates the MECHANISM and its intent and adds nothing to the magnitude question — which means a builder on Bedrock faces the same unmeasurable silent-substitution exposure described above, and the observability advice applies there unchanged: log the model that answered, not the model you requested.
