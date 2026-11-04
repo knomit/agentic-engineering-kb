@@ -48,3 +48,6 @@ https://alignment.anthropic.com/2026/auditbench/
 https://alignment.anthropic.com/2026/red-teaming-auto-mode/
 https://alignment.anthropic.com/2026/graft/
 https://alignment.anthropic.com/2026/anthropic-residency/  skip: residency programme announcement, no engineering content
+
+https://alignment.anthropic.com/2026/training-alignment-auditors/
+https://alignment.anthropic.com/2026/automated-em-search/
