@@ -1638,3 +1638,140 @@ STALENESS PASS (5 sampled, 1 confirmed, 4 corrected). The draw was oldest-unveri
 - c1e18090 CORRECTED: five factor titles confirmed exact, but the "live and not superseded" claim rested on a commit count read in July 2026 that has not moved since - main still reads 273 commits, so the project has had no commit in over three months. Restated as a stable position piece rather than a living standard. 0.75 -> 0.8. Edit-history paragraph removed.
 
 kb/principles/** was not sampled (designer-authored, not the job's to revise). Nothing was written under .knomit/. Every path written outside kb/ is a job-state file under artifacts/jobs/agentic-engineering/, written with ops.
+
+## 75th run - 2026-11-04
+
+DEDUP READS. feeds.md (45 feed lines), discovered-sources.md (8 entries), one-off-done.md (59 URLs - every one-off
+source is done, so no one-off work this run), queue.md (items 6 to 70), fetch-routes.md (routes to 84). crawl-state.md
+was confirmed readable for the initialisation check and not read. seen lists read, four hosts, only the ones about to
+be crawled: alignment.anthropic.com (29 lines, 25 read + 4 skip), microsoft.com (34 lines, 8 read + 26 skip),
+aws.amazon.com (9 lines, 2 read + 7 skip), eugeneyan.com (3 lines, all read). No gaps and no failed calls on any state
+file. ONE TOOL NOTE: every one of these files now exceeds the harness's single-result token cap, so each read arrives as
+a saved file and has to be extracted from the JSON before it can be used - feeds.md is 60 KB, fetch-routes.md 105 KB,
+queue.md 204 KB, crawl-state.md 268 KB. Also note that `knomit_explain` reports `"deleted": true` on EVERY artifact
+under artifacts/, including ones it returns full content for; that flag is an artifact-visibility quirk and is NOT
+evidence that a state file is missing.
+
+RECURRING FEEDS SWEPT (4). eugeneyan.com/writing (19 days overdue), www.microsoft.com/en-us/research/blog (19 days),
+www.microsoft.com/en-us/security/blog/topic/ai-and-machine-learning/?sort-by=newest-oldest (19 days, mark was unknown),
+aws.amazon.com/blogs/machine-learning (19 days, mark was unknown and the feed had sat behind a ranked row for seven
+runs). All four with one plain WebFetch and an enumeration ask; no pane, no gates, no failures.
+
+NOT SWEPT, so no last-swept date moved: alignment.anthropic.com's index (the two rows read came from item 69's existing
+enumeration), the microsoft.com SITE-WIDE security index, and everything in queue item 71(v).
+
+ARTICLES NEWLY CRAWLED (6, all added to seen):
+- alignment.anthropic.com/2026/training-alignment-auditors/
+- alignment.anthropic.com/2026/automated-em-search/
+- microsoft.com/en-us/research/blog/agent-lightning-v1-0-a-3500-line-lightweight-agentic-rl-framework-for-training-agents-with-real-harnesses/
+- microsoft.com/en-us/research/blog/from-synthetic-enterprise-data-evaluations-to-real-microsoft-copilot-ai-confidence/
+- microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/
+- aws.amazon.com/blogs/machine-learning/safely-releasing-frontier-models-to-customers/
+
+SKIP-MARKED (9): two Microsoft research rows (an interactive-data-visualisation language; the KLS conjecture) and seven
+AWS ML rows (product walkthroughs and customer stories). Three AWS rows and two Microsoft security rows were queued
+instead of skipped - see item 71(i) and 71(ii).
+
+NOTHING ERRORED AND NOTHING WAS PAYWALLED. No source was unreachable this run; the one genuine read problem was route
+85's stripped numbers on trychroma.com, which is a parsing hazard rather than a gate.
+
+FACTS WRITTEN (9):
+- kb/conventions/ai/agents/training/reward-design/ed604adf.md - pairwise reward over pointwise for an investigating
+  agent, AND the 50% benign-target mix that is the load-bearing second half
+- kb/conventions/ai/agents/training/rollout-analysis/008d8da4.md - contrastive clustering of 81,000 rollout
+  transcripts as a reward-hacking diagnostic the reward curve cannot provide
+- kb/decisions/ai/agents/evaluation/auditor-selection/13485790.md - a finetuned Haiku-class auditor at 72.7 audit
+  quality against Opus 4.6's 68.0, with transfer to AuditBench in the Claude Code scaffold
+- kb/architecture/ai/agents/training/harnessed-rl/31d03618.md - training through the deployed harness via an
+  OpenAI-compatible proxy, the four mechanical challenges it creates, and rollout-level advantage and normalisation;
+  41.8% -> 56.4% on SWE-bench Verified from ~6,000 samples
+- kb/conventions/ai/agents/evaluation/synthetic-environments/1860a08f.md - grounding a synthetic enterprise eval
+  environment in O*NET, job postings and SEC filings, and why its quality score measures resemblance not transfer
+- kb/incidents/ai/agents/security/agentic-attack-tooling/f2df901b.md - Storm-0940 driving ARTEX: 151,000+ failed
+  logons at 2,900/minute with zero successful authentications, against privileged access in under 3 hours by the
+  stolen multi-tenant app credential path
+- kb/decisions/ai/agents/security/detection-signal/d24d986f.md - three measured intrusions put the signal in three
+  places (rate, sequence, timing) and credential state is the deciding condition
+- kb/conventions/ai/agents/evaluation/automated-red-team/e41c659c.md - pair every hard gate in a search agent's
+  objective with a penalty proportional to how close it came
+- kb/gotchas/ai/agents/security/monitor-evasion/8b0dcd84.md - fiction and roleplay framing carried misaligned
+  finetuning data past a row-level monitor, because the harmful property is corpus-level
+
+FACT ENRICHED (1): kb/gotchas/ai/agents/evaluation/safeguard-routing/bdbdd228.md, sources 2 -> 3. AWS describes the
+same transparent guardrail fallback on Bedrock for a different model ("When the guardrails are triggered, it
+automatically falls back to Opus 4.8"), which moves the pattern from one vendor's single release to a release pattern
+for cyber-capable models. The AWS post publishes no intervention rate, so it corroborates the mechanism and adds
+nothing to the magnitude question.
+
+TWO WRITES WERE REFUSED BEFORE LANDING, both usefully. e41c659c was refused twice for sharing a subject across
+categories - first with c807bcd3 (scorer-noise re-rolling) and then with 04380886 (the automated-researcher harness's
+four anti-shortcut mechanisms) - and the second refusal was the valuable one: reading 04380886 showed that both
+harnesses independently separate the capability gate from the score, and that what this source adds is the penalty
+INSIDE the gate. The fact was rewritten around that difference and both paths named in distinct_from and in refs. The
+refusal improved the fact; it was not an obstacle. Separately, three facts were rejected on a motif-length rule
+(motifs must be 2 to 4 kebab-case words; "absent-negative-class-inflates-positives",
+"shared-credential-widens-blast-radius" and "aggregate-property-escapes-per-item-check" are all five) - cheap to fix,
+but worth knowing before writing a batch.
+
+CONTRADICTIONS AND TENSIONS FOUND BETWEEN SOURCES. One, and it produced d24d986f rather than being flattened. The
+Storm-0940 telemetry says an agentic attack is enormously loud (2,900 failures a minute, lockouts at nearly 98% of all
+activity); 56cefe53, from the Hugging Face agent intrusion, says an agent intrusion is almost entirely quiet recon and
+staging that exfiltration-volume detection sees 0.3% of; and f4911519, from Storm-3168, says what gave that automation
+away was two tokens live in the same 70 seconds. All three are true and the condition that separates them is whether
+the agent already holds valid credentials. The uncomfortable part, written into the fact: in the one campaign where
+both phases are measured, the loud phase achieved nothing and the quiet phase reached privileged access, so
+volume-based detection can be fully functional and have bought no coverage of the path that succeeds. A SECOND, MILDER
+TENSION, inside one fact: d64ceb8c now records that Cognition's reviewer is deliberately diff-only while Anthropic's
+drives the live application through Playwright - reconciled as "the generator's CONVERSATION must stay clean, not the
+evaluator's tool access".
+
+CORRECTIONS MADE, AND WHAT WAS WRONG - the staleness pass, five facts, four changed. The pool was built by reading
+`committed_at` off prefix queries and then using `knomit_explain` history to separate genuine first-writes from the
+2026-08-25 motif backfill, which bumped nearly every fact's commit date and is NOT a verification. A fact whose only
+revisions are "learn" plus "motif backfill" has never been checked.
+
+1. 24ee3382 (kb/invariants, idempotency, AWS Builders' Library) - CONFIRMED CLEAN. All five clauses re-read verbatim:
+   the ACID requirement, the parameter-mismatch validation error, the retention bound with "if some future request
+   identifier collides with one used much earlier", the EC2 lifetime-plus-interval rule, and "that complexity is not
+   right for all solutions". Confidence 0.85 -> 0.9. It carried no motifs at all, predating the backfill's reach, so
+   two were added.
+2. 9920b5d6 (kb/invariants, Goose subagents) - A VERSION-DEPENDENT NUMBER THAT MOVED 40x AND INVERTED THE ADVICE. Max
+   turns is no longer 25 but 1000, resolved through a five-level precedence chain the docs now publish, and the
+   fact's advice to size tasks against "the 5-minute and 25-turn envelope" now reads against the timeout alone,
+   because with a 1000-turn ceiling the turn count never fires. A new trap recorded from level 4 of the chain: a
+   parent-level GOOSE_MAX_TURNS silently becomes the subagent's limit. An edit-history line ("Re-verified against the
+   source 2026-07-31") was removed in the same revision.
+3. dee636a2 (kb/architecture, Chroma Context-1) - TWO FIGURES THAT CANNOT BE RE-READ FROM THEIR OWN SOURCE, plus an
+   omitted comparison condition. The page serves its prose with the numbers stripped (route 85), so neither the
+   32,768 budget nor the ~24,000 soft threshold is asserted in prose anywhere; 32,768 survives only in an inline
+   example, and the Results prose attributes 24k to Context-1. The fact had carried both as stated. The mechanism
+   itself re-verified cleanly. NEW: the frontier comparison was not budget-matched - "we give these models a token
+   budget of 200k tokens (as opposed to 24k tokens)" - which the fact had never said.
+4. d64ceb8c (kb/architecture, reviewer clean context) - AN ATTRIBUTION, and it was in the TITLE. The fact claimed two
+   independent vendors describe the clean-context constraint; the Anthropic post does not state it at all. It is
+   Cognition's alone. Also tightened: Anthropic's verbatim finding is "agents reliably skew positive when grading
+   their own work", and the blandness claim is scoped to "design and originality" where the fact had generalised it.
+   And the "unnecessary overhead" measurement is pinned to Opus 4.6, two generations back and never re-measured, so
+   the fact now carries the shape rather than the verdict.
+5. 8d8fad97 (kb/invariants, Vercel AI SDK loop control) - A SCOPED DEFAULT READ AS A GLOBAL ONE. The 20-step default
+   belongs to a named class ("By default, `ToolLoopAgent` stops after 20 steps using `isStepCount(20)`"), not to
+   agent loops in general, and prepareStep's argument list and override surface are both wider than recorded. A FALSE
+   CORRECTION WAS ONE CALL AWAY HERE: the first clause ask omitted `stepNumber` and `steps` from prepareStep's
+   arguments, which read exactly like a breaking change, and a second narrower ask returned nine clauses containing
+   them. Recorded as route 86, because the failure mode is an honest partial answer producing a wrong verdict - the
+   mirror image of route 83.
+
+FETCH ROUTES ADDED (2): route 85 (trychroma.com research pages serve prose with the numbers stripped out, and two
+surviving figures elsewhere on the page disagree) and route 86 (a clause-level ask can under-report, and the omission
+looks exactly like a correction; send a second "quote EVERY clause mentioning X" ask before recording any correction
+built on an absence).
+
+FEEDS ADDED TO discovered-sources.md: none. No new feed was found this run; the Microsoft research blog's deep
+pagination is a depth route on an existing feed, not a feed, and is recorded in its feeds.md note and in queue item
+71(iv).
+
+NO PROMPT-INJECTION ATTEMPTS were observed in any page read this run.
+
+PATHS WRITTEN OUTSIDE kb/: artifacts/jobs/agentic-engineering/seen/alignment.anthropic.com.md,
+seen/microsoft.com.md, seen/aws.amazon.com.md, feeds.md, fetch-routes.md, queue.md and this file - all with ops, none
+with updates.body, no new seen file needed. Nothing was written under .knomit/.
