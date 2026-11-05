@@ -75,3 +75,15 @@ https://www.anthropic.com/research/employment-at-anthropic  skip: economics, no 
 https://www.anthropic.com/research/expectations-for-the-future  skip: economics, no agent-engineering content
 
 https://www.anthropic.com/research/distillation-defenses
+
+https://www.anthropic.com/research/alignment-assessment-ukaisi
+https://www.anthropic.com/news/ai-for-science-expands-foundations-research-institutions  skip: programme expansion announcement, no engineering content
+https://www.anthropic.com/news/expanding-partnership-gsa  skip: government partnership announcement, no engineering content
+https://www.anthropic.com/news/s1-sec  skip: corporate filing, no engineering content
+https://www.anthropic.com/news/public-benefit-fund  skip: funding announcement, no engineering content
+https://www.anthropic.com/news/open-call-guest-investigators-life-sciences  skip: programme call, no engineering content
+https://www.anthropic.com/news/christopher-stubbs-joins-long-term-benefit-trust  skip: governance appointment, no engineering content
+https://www.anthropic.com/research/early-progress-drug-development  skip: science application, no agent-engineering content
+https://www.anthropic.com/research/investigating-vault-particles-with-claude  skip: science application, no agent-engineering content
+https://www.anthropic.com/research/claude-scorpion-toxin-binder-design  skip: science application, no agent-engineering content
+https://www.anthropic.com/research/designing-efficient-quantum-circuits  skip: science application, no agent-engineering content
