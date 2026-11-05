@@ -53,3 +53,9 @@ https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-a
 
 https://www.microsoft.com/en-us/research/blog/flint-interactive-a-language-for-creating-interactive-data-visualizations/  skip: a language for interactive data visualisations, no agent-harness or eval content
 https://www.microsoft.com/en-us/research/blog/solving-a-31-year-old-grand-challenge-in-mathematics-the-kls-conjecture/  skip: pure mathematics, out of scope
+
+https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/
+https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/  skip: conventional commodity malware, no agent content
+https://www.microsoft.com/en-us/security/blog/2026/11/03/microsoft-named-a-leader-in-the-2026-gartner-magic-quadrant-for-ai-agent-management-platforms/  skip: analyst-report marketing, no engineering content
+https://www.microsoft.com/en-us/security/blog/2026/11/02/exploited-vulnerabilities-common-data-driven-analysis-real-world-attacks/  skip: conventional vulnerability analysis, no agent content
+https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/  skip: conventional AD CS intrusion analysis, no agent content
