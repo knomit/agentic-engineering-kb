@@ -37,3 +37,6 @@ https://www.aisi.gov.uk/blog/introducing-controlarena-a-library-for-running-ai-c
 https://www.aisi.gov.uk/blog/will-it-become-harder-to-oversee-ai-systems
 
 https://www.aisi.gov.uk/blog/towards-technical-best-practice-for-frontier-ai-development
+
+https://www.aisi.gov.uk/blog/investigating-alignment-failures-in-aisis-incident
+https://www.aisi.gov.uk/blog/pretraining-data-filtering-in-open-weight-biological-models  skip: biosecurity data filtering, no agent-engineering content
