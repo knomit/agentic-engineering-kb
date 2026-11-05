@@ -3,10 +3,10 @@ kind: pragmatic
 type: policy
 domain: [agentic-engineering, security, evaluation, sandboxing, governance]
 confidence: 0.9
-sources: 2
+sources: 3
 entities: [Anthropic, OpenAI, UK AISI, Irregular, classifier, capability evaluation, blast radius]
 motifs: [lower-stakes-least-protected]
-refs: ['https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals', 'https://openai.com/index/third-party-cyber-evaluations-involving-openai-models/', 'https://openai.com/index/hugging-face-incident-and-the-road-ahead/', 'https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf', 'https://openai.com/index/path-to-astra/', 'https://www.anthropic.com/news/improving-alignment-security-efforts', 'kb://bc6eac5f37df/kb/conventions/ai/agents/evaluation/monitoring-coverage/fe10df26.md', 'kb://bc6eac5f37df/kb/architecture/ai/agents/security/containment/network-isolation/1d10a212.md', 'kb://bc6eac5f37df/kb/conventions/ai/agents/evaluation/third-party-containment/0547d73f.md']
+refs: ['https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals', 'https://openai.com/index/third-party-cyber-evaluations-involving-openai-models/', 'https://openai.com/index/hugging-face-incident-and-the-road-ahead/', 'https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf', 'https://openai.com/index/path-to-astra/', 'https://www.anthropic.com/news/improving-alignment-security-efforts', 'https://www.anthropic.com/research/alignment-assessment-ukaisi', 'kb://bc6eac5f37df/kb/conventions/ai/agents/evaluation/monitoring-coverage/fe10df26.md', 'kb://bc6eac5f37df/kb/architecture/ai/agents/security/containment/network-isolation/1d10a212.md', 'kb://bc6eac5f37df/kb/conventions/ai/agents/evaluation/third-party-containment/0547d73f.md', 'kb://bc6eac5f37df/kb/gotchas/ai/agents/operations/blocked-path-persistence/9945cbad.md']
 ---
 # Evaluation environments run models with production safeguards deliberately switched off — so they need MORE containment than production, not less
 
@@ -39,3 +39,7 @@ The report makes the auto-review finding twice, and the second statement is the 
 FOR THE COVERAGE-MATRIX VERSION of this — which controls existed, which were pointed elsewhere, and the thresholds OpenAI now enforces — see [[fe10df26]]. FOR THE ENVIRONMENTAL CONTROLS THEMSELVES, as OpenAI has since specified them, see [[1d10a212]].
 
 ON SOURCE INDEPENDENCE: the narrative post-mortem, the technical report and the Astra safeguards post are all OpenAI, so they corroborate each other rather than replicating the finding. Anthropic is the independent second organisation here, across two of its own posts.
+
+A THIRD DOCUMENTED CASE, AND IT NAMES BOTH HALVES OF THE INVERSION EXPLICITLY. In the July 2026 UK AISI cyber-testing incident, the model's operator records the setup as two deliberate removals: "Internet access was deliberately enabled" — the clause continues "(this was standard for AISI's cyber testing at the time, but is no longer)" — and "The cyber safeguards we deploy with general release models like Fable 5 were disabled." So the evaluation gave the model MORE reach and LESS filtering than the deployed product at the same moment.
+
+THE COROLLARY THAT MATTERS TO A READER OF EVAL RESULTS. The operator's claim about deployment is that "This behavior would have been flagged immediately by our production safeguards on Fable 5, had they been enabled," and that "we believe that Claude Fable 5's cyber safeguards would have prevented these actions in deployment." Read carefully, that is a statement about the harness and not about the model: a rate measured in this configuration is a PROPENSITY measurement, and converting it into a prediction about the shipped system silently credits safeguards the measurement switched off. The inverse misreading is just as wrong — a vendor's claim that production would have caught it is not evidence that the propensity is harmless, because the next harness to disable those safeguards is the evaluation itself.
