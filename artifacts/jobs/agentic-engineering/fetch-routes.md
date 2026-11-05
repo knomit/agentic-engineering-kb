@@ -882,3 +882,88 @@ written into a fact is not, and it is invisible afterwards because the fact read
 The corollary for the same pass: route 83's warning is about a paraphrase that fabricates figures. This is the opposite
 error on the same tool - an honest, partial answer that fabricates nothing and still produces a wrong verdict. Both are
 silent, and the second is the more dangerous one during a staleness pass, because the pass's whole output is verdicts.
+
+## Route 87 - anthropic.com/engineering is now a FILTERED VIEW of /research, and no existing ref is broken
+
+76th run. Both indexes were swept in the same run and the result changes how this host is read.
+
+- Every row on `https://www.anthropic.com/engineering`, hero carousel included, now prints a
+  `https://www.anthropic.com/research/<slug>` URL. There are no `/engineering/<slug>` links left on it.
+- `https://www.anthropic.com/research` lists the engineering posts too, tagged with an Engineering team
+  label. So the two feeds OVERLAP and /engineering is the engineering-tagged slice of /research.
+- THE OLD FORM STILL WORKS. `https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents`
+  answers HTTP 200 with the full article; so does `.../research/demystifying-evals-for-ai-agents`, and the
+  two responses were byte-identical in length (46,921 characters). The page's `canonical` and `og:url`
+  both name the `/research/` form.
+
+WHAT TO DO WITH IT. Do NOT rewrite the dozens of `/engineering/<slug>` refs already in the corpus: they
+resolve, and a mass ref edit would be churn with no reader benefit. Do compare index rows against `seen`
+by SLUG rather than by full path on this host, because the same article is now reachable at two paths and
+the normalisation rules in spec.md (scheme, www, trailing slash, fragment) do not cover a changed path
+segment. A row that looks new on /research may be an /engineering URL already in seen, and the reverse.
+
+## Route 88 - the WebFetch answer is verbatim for about 39,400 characters and a MODEL SUMMARY after that, and the summary's "NOT PRESENT" answers are FALSE
+
+76th run, measured four times in one run on four different hosts. This is route 73's window with the part
+route 73 did not record, and it is the most dangerous reading failure found so far.
+
+THE SHAPE. A long page comes back as real page text up to roughly character 39,400, and everything after
+that is a model-written summary of the rest. The seam is not always announced the way route 73's note
+announced it.
+
+MEASUREMENTS.
+- `code.claude.com/docs/en/best-practices` (52,163 chars): verbatim to 39,941. The summary of the tail
+  answered NOT PRESENT for four clauses that WERE present in the verbatim part.
+- `platform.claude.com/.../claude-4-best-practices` (71,514 chars): verbatim to 39,895, cut mid-word. The
+  summary answered NOT PRESENT for all three asked clauses; all three were in the verbatim part. The
+  summary also offered a sentence ("Claude's latest models perform especially well in using git to track
+  state across multiple sessions") that could not be found in the verbatim text at all.
+- `blog.cloudflare.com/verified-bots-with-cryptography/` (76,333 chars): verbatim to 39,398, and THE CUT
+  LANDED INSIDE THE SITE'S TAG NAVIGATION. The article body was never in the verbatim portion at all, so
+  the entire post was only available as summary. Nothing from it was storable.
+- `anthropic.com/research/alignment-assessment-ukaisi`: verbatim to about 39,396, then summary - see route 89
+  for the fix that worked there.
+
+THE RULE, and it supersedes any reading of route 86 that treats a missing clause as evidence of change.
+A "NOT PRESENT" is only a finding when it comes from text you can see. Before recording a claim as absent,
+or a fact as stale because its clause has gone, establish that the asked-for region was inside the verbatim
+portion. A page over about 40,000 characters needs the offset continuation (route 89) before any absence
+claim. And a long page whose boilerplate is front-loaded - a blog with a nav or tag index above the article -
+may yield NO verbatim article text whatsoever; check what the verbatim portion actually contains rather
+than assuming it starts at the headline.
+
+## Route 89 - offset continues PAST the 39.4k cut and comes back verbatim
+
+76th run, on `anthropic.com/research/alignment-assessment-ukaisi`. The first call returned the article
+verbatim only to about character 39,396 and then a summary. A second WebFetch on the same URL with
+`offset=39396` returned THE REST AS REAL TEXT, and every figure in the second half (the 95-100%, 62%, 67%,
+4-of-25 and compaction-cycle numbers) came off that second call rather than the summary.
+
+SO THE FIX IS CHEAP AND SHOULD BE ROUTINE ON ANY LONG PAGE WHOSE TAIL MATTERS: one extra call with
+`offset` set to where the verbatim text stopped. Two calls for a long article is the correct price, and it
+is much cheaper than the alternative, which is storing a summary's numbers and discovering it three runs
+later. Route 73's observation that "a section missing from the answer is usually missing from the SERVED
+TEXT" holds for pages that are genuinely short of the section; it does NOT license skipping the offset call
+on a page whose length exceeds the window.
+
+## Tool caveat, 76th run - THIS SESSION HAD NO WebFetch TOOL OF ITS OWN
+
+Neither `WebFetch` nor any direct fetch tool was in the session's tool list, and `ToolSearch` for it
+returned "No matching deferred tools found". `WebSearch` was available. All fetching this run therefore
+went through a `web-fetch` SUBAGENT, which has WebFetch and returns its report as the tool result.
+
+WHAT THIS CHANGES, for a future run that finds itself in the same position. The routes in this file still
+apply unchanged, because the subagent is running the same WebFetch against the same hosts - routes 87, 88
+and 89 above were all measured through it. What changes is the ASK: the clause-level verbatim discipline
+(routes 32, 46, 83, 86) has to be written INTO the subagent's prompt, because the subagent decides how to
+query the page and an open-ended brief gets an open-ended read back. Prompts that worked: state the two
+passes explicitly, give the "quote word for word, in quotation marks ... write NOT PRESENT if absent"
+format verbatim, cap each requested clause at about 120 characters, and ask the subagent to report where
+the verbatim portion ended. Every subagent asked that way complied and flagged its own summary-derived
+answers; one refused outright to supply figures it could not quote, which is the correct behaviour.
+
+ALSO SEEN FOUR TIMES, AND IT IS NOT A PAGE INJECTION. Every subagent reported that the fetched content
+carried a block of "reporting rules" (a 125-character quote cap, a bar on word-for-word reproduction).
+Two of them checked and confirmed it came from the TOOL OUTPUT and not from the page. Treat it as the
+fetch tool's own copyright guard. Do not record it as prompt injection, and do not let it suppress the
+verbatim asks this pack's quality bar requires.
