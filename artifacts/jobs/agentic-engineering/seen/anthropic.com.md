@@ -87,3 +87,5 @@ https://www.anthropic.com/research/early-progress-drug-development  skip: scienc
 https://www.anthropic.com/research/investigating-vault-particles-with-claude  skip: science application, no agent-engineering content
 https://www.anthropic.com/research/claude-scorpion-toxin-binder-design  skip: science application, no agent-engineering content
 https://www.anthropic.com/research/designing-efficient-quantum-circuits  skip: science application, no agent-engineering content
+
+https://www.anthropic.com/research/agents-judgment-calls
