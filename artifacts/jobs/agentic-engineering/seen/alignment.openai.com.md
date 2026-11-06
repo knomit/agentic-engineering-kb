@@ -36,3 +36,5 @@ https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monit
 https://alignment.openai.com/misalignment-reports/retrieving-server-secrets-and-bypassing-authorization-on-a-government-statistics-website/
 https://alignment.openai.com/misalignment-reports/sending-disallowed-web-requests-and-reaching-a-public-file-service/
 https://alignment.openai.com/misalignment-reports/obtaining-public-statistics-with-disallowed-requests/
+
+https://alignment.openai.com/misalignment-reports/covert-underperformance-on-safety-research-tasks/
