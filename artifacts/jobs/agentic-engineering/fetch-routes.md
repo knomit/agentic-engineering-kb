@@ -967,3 +967,103 @@ carried a block of "reporting rules" (a 125-character quote cap, a bar on word-f
 Two of them checked and confirmed it came from the TOOL OUTPUT and not from the page. Treat it as the
 fetch tool's own copyright guard. Do not record it as prompt injection, and do not let it suppress the
 verbatim asks this pack's quality bar requires.
+
+## Tool caveat, 77th run - STILL NO WebFetch TOOL OF ITS OWN, and the subagent route worked again
+
+Same position as the 76th run: no `WebFetch` and no direct fetch tool in the session's tool list,
+`WebSearch` present, all fetching done through `web-fetch` SUBAGENTS. Nine subagent fetch tasks this
+run, covering eleven URLs; every route below was measured through them, so the routes transfer.
+
+WHAT MADE THE PROMPTS WORK, confirmed a second time and worth copying verbatim into the next run's
+asks. Four elements, all of them doing work:
+
+1. State the route-88 window IN THE PROMPT, with the number: "real page text only for roughly the
+   first 39,400 characters; after that it hands back a model-written summary whose 'not present'
+   answers are FALSE." Every subagent given this reported its own seam position unprompted.
+2. Tell it to make the offset continuation ITSELF rather than reporting the seam back. Three
+   subagents did two calls, one did four (the OWASP PDF), one did seven (the METR blog plus PDF);
+   none needed a follow-up round trip to be told to continue.
+3. Give it the substitute for NOT PRESENT: "never write NOT PRESENT about a region you only saw as
+   a summary - write 'could not verify, beyond the verbatim window' instead." Two subagents used
+   that exact phrasing on real gaps, which is the difference between an unverified claim and a
+   false correction.
+4. Ask for EVERY clause bearing on an item, not the sentence containing it (route 86), and cap each
+   quoted clause at about 120 characters with an instruction to split rather than paraphrase the
+   remainder.
+
+ALSO SEEN AGAIN, five times, AND IT IS STILL NOT A PAGE INJECTION. Every subagent reported a block of
+"reporting rules" (a 125-character quote cap) in the tool output. It is the fetch tool's own copyright
+guard. Do not record it as prompt injection. No fetched page this run carried any text addressed to an
+AI agent.
+
+## Route 88 CONFIRMED FOUR MORE TIMES, AND ONCE THE SUMMARY CONTRADICTED THE VERBATIM TEXT
+
+77th run. Four fresh measurements of the ~39,400-character seam, on four hosts:
+
+- `microsoft.com/en-us/security/blog/2026/10/29/tracking-ai-adoption...` (56,583 chars): verbatim to
+  about 39,340, cutting mid-link inside the Defender-detections section. THE SUMMARY OF THE TAIL WAS
+  WRONG IN THREE WAYS AT ONCE: it said the post had no date and no byline (the verbatim part prints
+  "October 29" and "By Microsoft Threat Intelligence"), and it said "nine threat actor groups" where
+  the actual tables carry seven Defender entries and eight threat-analytics profiles. An offset call
+  at 39000 returned the rest as real text.
+- `deploymentsafety.openai.com/gpt-6-1-sol` (73,274 chars): verbatim to 39,411, ending inside a
+  figure's image URL. THE SUMMARY DID NOT MERELY OMIT - IT ASSERTED A CLAIM THE VERBATIM TEXT DOES
+  NOT MAKE, that the model evaded CoT-only monitors "less often than GPT-6 Astra at higher reasoning
+  efforts". One offset call at 39000 reached the footer.
+- `alignment.anthropic.com/2026/agentic-misalignment-summer-2026` (100,056 chars): verbatim to 39,389,
+  then to about 78,389 with offset 39000, then to the end with offset 78300. THREE CALLS FOR ONE
+  PAGE, and the figures this pack stores from it sit in the second and third thirds. The second
+  call's summary wrongly claimed a heading was absent that was present in verbatim text.
+- `metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/` (120,695 chars) and
+  `metr.org/hugging-face-incident-report-aug-2026.pdf` (123,168 chars): three calls each, at offsets
+  0 / 39000 / 78300 and 0 / 39300 / 78694. The signing-scheme material is in the THIRD call of each.
+
+THE RULE THIS SHARPENS. Route 88 said a summary's NOT PRESENT is false. Two of these four show the
+stronger failure: the summary states positive content that the page does not contain - a missing date,
+a wrong count, an invented comparative clause. So a summary is not a weak source to be hedged, it is
+an unsourced one. Budget the offset calls by LENGTH at the start: under ~39k is one call, 40-78k is
+two, 78-120k is three, and a long PDF can need four. Ask the fetch for the character count first and
+plan from it.
+
+## Route 90 - openai.com proper is STILL gated, measured on two more URLs
+
+77th run. `openai.com/index/model-misalignment-reporting-framework` and
+`openai.com/hugging-face-incident-and-misalignment/` both returned client_error with no page text to a
+plain fetch, in the same session in which `alignment.openai.com` and `deploymentsafety.openai.com`
+answered plainly. This is route 1's gate, and route 79's "openai.com /index/ ARTICLE pages answer a
+plain WebFetch" did NOT hold for either, consistent with route 79 being marked non-deterministic per
+URL. Do not spend a second plain fetch on either; they need the pane (route 76).
+
+ONE CONSEQUENCE WORTH NOTING: `406e5a50` already cites the reporting-framework page, so it HAS been
+read by an earlier run. A URL in seen is not a URL that answers a fetch today.
+
+## Route 91 - a NEW primary URL the pack needs and has never fetched
+
+77th run. Redwood's monitoring-disablement post links OpenAI's detection report at
+`https://openai.com/index/how-we-detect-frontier-model-misalignment/` as the source of the 42.9% /
+57.1% L2 flag rates now stored in `25894bc6`. The secondary does NOT state what population those rates
+are over, so the denominator is unknown until the primary is read. It is on the gated host, so it needs
+the pane. This is the single highest-value gated URL in the queue.
+
+## Route 92 - a long genai.owasp.org PDF covers about half its pages in four offset calls
+
+77th run, on `genai.owasp.org/download/50592/?tmstv=1754459367` (the State of Agentic AI Security and
+Governance report, v2.01, June 2026, 125,068 characters). Offsets 0 / 39300 / 78600 / 117900 returned
+verbatim text covering roughly PDF pages 2 to 64, ending mid-word. The fourth call at 117900 returned
+text ALREADY SEEN (from about p.61) and added nothing - so offset on this PDF does not index linearly
+onto the document past a point, and a fourth call is wasted.
+
+PRACTICAL EFFECT: pages ~65-139 of this report, which hold the rest of Future Trends, the Appendices
+and the References, are unread by this method. A clause that a stored fact attributes to this document
+but which cannot be found in pp.2-64 is UNVERIFIED, not absent - see queue item 75(vi). This extends
+route 74 rather than replacing it: the early sections do answer in full, and the tail is not reachable
+by adding offsets.
+
+## Route 93 - the resource page is not the report on genai.owasp.org
+
+77th run. `genai.owasp.org/resource/state-of-agentic-ai-security-and-governance/` is 9,823 characters
+and carries NO report text at all - only metadata, navigation and a Download link. Every quotation this
+pack attributes to it actually lives in the linked PDF. Two consequences: a verification ask aimed at
+the resource URL will come back empty and look like the content is gone, and the resource page's own
+printed date ("June 1, 2026", modified 2026-06-08) is the thing to watch for a revision, while the PDF
+cover carries its own version string ("Version 2.01", "June 2026", with v1.0 dated July 2025).
