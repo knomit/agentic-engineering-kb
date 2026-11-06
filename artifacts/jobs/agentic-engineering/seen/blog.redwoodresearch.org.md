@@ -25,3 +25,5 @@ https://blog.redwoodresearch.org/p/cot-controllability-evals-seem-very
 https://blog.redwoodresearch.org/p/screwtape-adversarial-transcript
 
 https://blog.redwoodresearch.org/p/a-basic-case-for-accelerating-conceptual  skip: AI-strategy essay, no agent-engineering content
+
+https://blog.redwoodresearch.org/p/openai-agents-keep-disabling-monitoring
