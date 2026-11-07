@@ -1067,3 +1067,72 @@ pack attributes to it actually lives in the linked PDF. Two consequences: a veri
 the resource URL will come back empty and look like the content is gone, and the resource page's own
 printed date ("June 1, 2026", modified 2026-06-08) is the thing to watch for a revision, while the PDF
 cover carries its own version string ("Version 2.01", "June 2026", with v1.0 dated July 2025).
+
+## Route 94 - the blog.cloudflare.com seam is CLOSED, and it cost ONE call
+
+78th run. `blog.cloudflare.com/verified-bots-with-cryptography/` was carried as blocked from the 76th
+run to the 77th on the strength of route 88: two plain fetches had returned verbatim text only to about
+character 39,398, with the cut landing inside the site's tag navigation, so the article body was never
+in the verbatim portion and nothing from the post was storable.
+
+THE FIX WAS TO SKIP THE FIRST CALL ENTIRELY. A single WebFetch with `offset=39300` as the FIRST call
+returned real page text from 39,300 to the end of the 76,423-character page - byline, title, the whole
+article, the footer - with no summary notice. No second offset was needed. Every literal the pack wanted
+(`/.well-known/http-message-signature-directory`, the `Signature`/`Signature-Input`/`Signature-Agent`
+header list, the Ed25519 verification step, the plan coverage, the fail-open fallback) came off that one
+call.
+
+THE GENERAL RULE THIS ADDS, and it is cheaper than route 89 as usually practised: when a previous run
+has ALREADY measured where a page's verbatim window ends and reported that the window held only
+boilerplate, do not re-spend the offset-0 call to rediscover it. Start at the recorded offset. Route 89
+says "spend one extra call"; on a page already known to front-load its navigation, the correct price is
+one call, not two.
+
+## Route 95 - four offset calls tile a 134,503-character anthropic.com page with NO gaps, unlike the OWASP PDF
+
+78th run, on `www.anthropic.com/threat-intelligence-report-september-2026`. Offsets 0 / 39924 / 79848 /
+119772, each call returning verbatim text for its own ~39,900-character window and then a model summary
+of the remainder. The four windows tile the page exactly: every character was read verbatim in some
+call, and the fourth call reached the end with no summary at all.
+
+THIS IS THE OPPOSITE OF ROUTE 92, which found that on a long genai.owasp.org PDF a fourth offset call
+returned text already seen and added nothing, leaving pages ~65-139 unreachable. So offset behaviour is
+a property of the SOURCE TYPE, not of the window: on an HTML page the offset indexes linearly into the
+served text and tiling works, while on a PDF served through `/download/` it does not. Budget
+ceil(length / 39,900) calls for a long HTML page and expect full coverage; budget three for a long OWASP
+PDF and expect the tail to stay unread.
+
+AND THE SUMMARIES LIED AGAIN, THREE TIMES IN ONE RUN. Call 1's summary and call 2's summary both reported
+items absent or differently worded that call 2's verbatim region carried exactly; call 1's summary
+asserted the page "does not say whether these cases are typical" when the verbatim intro says precisely
+that. Route 88's rule held under every test: a NOT PRESENT is a finding only when it comes from text you
+can see.
+
+## Route 96 - a Substack article ignores a clause-level ask and returns the whole page, which is the GOOD outcome
+
+78th run, on `blog.redwoodresearch.org/p/simulated-control-evaluations` (34,837 characters). Three
+clause-level asks of the route-83 shape, six items each, all returned the ENTIRE page as raw markdown
+instead of per-item answers, identically each time. That is route 42's shape on a third host class: a
+page comfortably inside the verbatim window may ignore the answer FORMAT and serve the text, and the
+text is what the format was for.
+
+PRACTICAL EFFECT: on a Substack post under about 35,000 characters, send ONE call, read the markdown it
+returns, and quote from that. Sending the second and third clause asks bought nothing here. The check
+that the page really is short enough still has to happen first - this is not licence to skip route 89 on
+a long Substack post.
+
+## Tool caveat, 78th run - STILL NO WebFetch IN THE SESSION'S OWN TOOL LIST
+
+The 76th run's caveat held again: no `WebFetch` and no direct fetch tool in the session, so all nine
+fetches this run went through `web-fetch` SUBAGENTS, with `WebSearch` available but unused. Routes 94,
+95 and 96 were all measured through subagents, which confirms again that the routes transfer unchanged.
+
+WHAT HAD TO BE WRITTEN INTO EVERY SUBAGENT PROMPT, because the subagent chooses how to query the page:
+the two-pass shape; the "quote word for word, in quotation marks ... write NOT PRESENT if absent" format
+given verbatim; a cap of about 120 characters per requested clause and six clauses per call; the explicit
+ban on a whole-article verbatim ask; the instruction to send the offset continuation BEFORE reporting any
+absence on a page over ~40,000 characters; and a request to report where the verbatim portion ended.
+Every subagent asked that way complied, and two of them flagged their own summary-derived answers as
+unreliable without being asked twice - which is what caught the Microsoft and Anthropic summary defects
+above. A verification prompt should additionally ask for EVERY MODAL AND QUANTIFYING WORD in the sentence
+carrying each claim; that one line produced four of this run's five staleness findings.
