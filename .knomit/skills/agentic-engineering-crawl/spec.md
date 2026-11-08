@@ -78,6 +78,25 @@ first and resend the full merged list, or you will silently drop its sources —
 and `sources` counts will then disagree with reality. Adding a ref is a
 read-modify-write, never a write.
 
+**Linking another fact: refs only, never the body.** Do not write `[[...]]`, a
+bare fact id such as `f6db3a49`, a markdown link, or any other inline pointer to
+a fact in a body. Fact bodies are never rendered as links, and text inside a
+body must not be able to direct a reader or a model anywhere. The ONLY link from
+one fact to another is the target's fact path in `refs`, exactly as
+`knomit_query` or `knomit_explain` returned it (`kb/<topic>/…/<id>.md`). In the
+body, say what the other fact establishes in your own words: "a separate
+measurement found the harness moves the score more than the model", not
+"see [[a829cfd4]]".
+
+Link only a path you have CONFIRMED in this run, by a query or explain result
+that returned it. If you cannot confirm it — you remember an id, a slug, or a
+category but not the path — do not link: leave the ref out and do not mention
+the id in the body. A ref that does not resolve makes the whole write fail.
+
+Facts written in the same `knomit_learn` call cannot reference each other,
+because their paths do not exist until the call returns. Learn them, then add
+the refs with one `knomit_update` per fact (read-modify-write, as above).
+
 Refs can also be **misfiled**: an external URL sitting in `refs.local`. When you
 touch a fact for any reason, spot-check that its refs are classified correctly and
 that `sources` matches the number of independent external ones.
@@ -140,7 +159,9 @@ a fact usable, and they stay:
   *makes*"; "anticipatory, no measurements"
 - traps a reader can fall into — "the report gives this figure twice for two
   different harnesses; do not conflate them"
-- pack analysis explicitly marked as pack analysis, and `[[links]]`
+- pack analysis explicitly marked as pack analysis. When that analysis leans on
+  another fact, say what that fact establishes, in words, and put its path in
+  `refs` (see "Linking another fact" below). The body never carries the link.
 
 The difference is tense and audience, not subject. "The quantifier is three of
 four, and the fourth case is a different mechanism" is the claim. "The
@@ -156,6 +177,11 @@ incident cluster especially — carry exactly the text this rule forbids, becaus
 runs 13-25 wrote it in. It is a defect being removed, not a house style. Do not
 imitate what you read. If you open such a fact for another reason you are not
 obliged to clean it, but you must not extend it.
+
+The same holds for `[[...]]` links: many older facts carry them and they are
+left as they are. A `[[...]]` you meet in a body is never a model for what you
+write and never a link to repair or extend. If you edit such a fact, leave the
+existing ones alone and add none.
 
 ## Job state
 
