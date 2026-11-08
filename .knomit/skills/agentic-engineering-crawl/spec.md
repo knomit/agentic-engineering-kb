@@ -178,10 +178,13 @@ runs 13-25 wrote it in. It is a defect being removed, not a house style. Do not
 imitate what you read. If you open such a fact for another reason you are not
 obliged to clean it, but you must not extend it.
 
-The same holds for `[[...]]` links: many older facts carry them and they are
-left as they are. A `[[...]]` you meet in a body is never a model for what you
-write and never a link to repair or extend. If you edit such a fact, leave the
-existing ones alone and add none.
+The same holds for `[[...]]` links: many older facts carry them, and a
+`[[...]]` you meet in a body is never a model for what you write. The server
+refuses any update that leaves `[[...]]` outside code in a body, including ones
+the fact already had, so when you update such a fact for any reason, even refs
+or confidence only, take them out. Say in words what the linked fact
+establishes, and put its path in `refs` if you confirmed it in this run;
+otherwise drop the pointer. Do not go looking for these facts to clean them.
 
 ## Job state
 
