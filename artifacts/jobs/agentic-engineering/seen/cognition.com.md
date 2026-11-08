@@ -35,3 +35,11 @@ https://cognition.com/blog/devin-security-vulnerability-remediation-program  ski
 https://cognition.com/blog/frontier-code  skip: product launch
 https://cognition.com/blog/ai-guarantee  skip: commercial offer, no engineering content
 https://cognition.com/blog/introducing-devin-desktop  skip: product launch
+
+https://cognition.com/blog/swe-2-flash  skip: model launch announcement
+https://cognition.com/blog/corridor-joining-cognition  skip: acquisition announcement
+https://cognition.com/blog/frontier-code-2.0  skip: product release note
+https://cognition.com/blog/devin-security  skip: product launch
+https://cognition.com/blog/building-in-london  skip: office announcement
+https://cognition.com/blog/introducing-devin-security-swarm  skip: product launch
+https://cognition.com/blog/devin-fusion  skip: product and pricing announcement
