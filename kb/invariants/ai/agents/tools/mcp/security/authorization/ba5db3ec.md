@@ -3,10 +3,10 @@ kind: pragmatic
 type: policy
 domain: [agentic-engineering, mcp, security, authorization]
 confidence: 0.9
-sources: 1
-entities: [MCP, token passthrough, OAuth, audience, RFC 9068, confused deputy]
+sources: 2
+entities: [MCP, token passthrough, OAuth, audience, RFC 9068, RFC 8693, confused deputy, OWASP, On-Behalf-Of]
 motifs: [conflation-hides-second-defect]
-refs: ['https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices', 'https://modelcontextprotocol.io/specification/2025-06-18', 'https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices', 'https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/docs/2026-07-28/tutorials/security/security_best_practices.mdx']
+refs: ['https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices', 'https://modelcontextprotocol.io/specification/2025-06-18', 'https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices', 'https://raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/docs/docs/2026-07-28/tutorials/security/security_best_practices.mdx', 'https://genai.owasp.org/resource/a-practical-guide-for-secure-mcp-server-development/', 'https://genai.owasp.org/download/52676/?tmstv=1771286427']
 ---
 # MCP servers MUST NOT accept tokens that were not issued to them — audience-validation failure and token passthrough are two separate defects, and only the second is the one people name
 
@@ -23,4 +23,6 @@ The reasoning is not merely hygiene. Four stated consequences: (1) downstream ra
 
 What this does NOT mean: it is not a ban on the MCP server calling downstream APIs on the user's behalf. The server should hold its own separately-issued downstream credential, obtained through its own authorization flow — the ban is on reusing the client's inbound token as the outbound one.
 
-**VERIFICATION.** Re-verified 2026-08-12 against both the originally cited `2025-06-18` revision (unchanged) and `2026-07-28` (which adds the two-dimension framing quoted above). Read from the specification repository while `modelcontextprotocol.io` was refusing connections; the page has moved within the repo to `docs/<rev>/tutorials/security/`.
+**A SECOND, INDEPENDENT SOURCE NAMES THE REMEDY MORE CONCRETELY THAN THE SPEC DOES.** OWASP's "A Practical Guide for Secure MCP Server Development" (16 February 2026) carries the same prohibition under the heading "Prohibit Token Passthrough" — do not forward client tokens downstream; use server-issued tokens or On-Behalf-Of flows — and it adds the mechanism: token delegation per RFC 8693, used to narrow permissions while the server keeps a distinct non-human identity of its own. That last clause is the part worth implementing deliberately. Exchanging the inbound token for a narrower downstream one satisfies the letter of the rule, but if the exchange does not also give the server its own identity, the fourth consequence above still bites — there is nothing to hang the server's own controls, rate limits or audit trail on.
+
+The OWASP guide places this alongside two constraints in the same section that bound how the surviving credential may be handled: issue short-lived (minutes) and narrowly scoped access tokens, revalidating signature, audience and expiry on every call; and centralise authentication, authorization, consent, tool filtering and audit logging in a policy or gateway layer rather than reimplementing them per server.

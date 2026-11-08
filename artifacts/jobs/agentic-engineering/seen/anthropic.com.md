@@ -47,4 +47,45 @@ https://www.anthropic.com/news/life-sciences-verification-program
 https://www.anthropic.com/news/model-hardware-standard-research-preview
 https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents
 https://www.anthropic.com/research/glm-5-3-and-the-spread-of-advanced-cyber-capabilities
+https://www.anthropic.com/claude-haiku-5-5
+https://www.anthropic.com/news/2026-usage-policy-update  skip: usage-policy change, no engineering content
+https://www.anthropic.com/news/anthropic-cyber-mission  skip: programme announcement, not a method post
+https://www.anthropic.com/news/genesis-mission-commitment  skip: partnership announcement, no engineering content
+https://www.anthropic.com/research/project-swap
 https://www.anthropic.com/threat-intelligence-report-september-2026
+
+https://www.anthropic.com/research/claude-shaped-science
+https://www.anthropic.com/engineering/claude-code-best-practices  skip: dated 2025-04-18, superseded by the live code.claude.com/docs/en/best-practices page already read
+
+https://www.anthropic.com/research/investigating-unintended-model-actions
+https://www.anthropic.com/research/yes-claude-can-do-nine-loops
+https://www.anthropic.com/research/your-thoughts-on-ai  skip: public-attitudes survey, no agent-engineering content
+https://www.anthropic.com/research/what-work-can-robots-do  skip: economic task survey, no agent-engineering content
+
+https://www.anthropic.com/research/the-missing-map-of-the-sky
+
+https://www.anthropic.com/research/launching-opt-in-vuln-finding-service-for-open-source
+
+https://www.anthropic.com/news/an-update-on-independent-evaluators
+https://www.anthropic.com/engineering/redesigning-source-control
+https://www.anthropic.com/news/2026-us-midterms  skip: election-integrity policy, no engineering content
+https://www.anthropic.com/news/singapore-office-opening  skip: office and MOU announcement, no engineering content
+https://www.anthropic.com/research/ai-expectations-gap  skip: economics survey, no agent-engineering content
+https://www.anthropic.com/research/employment-at-anthropic  skip: economics, no agent-engineering content
+https://www.anthropic.com/research/expectations-for-the-future  skip: economics, no agent-engineering content
+
+https://www.anthropic.com/research/distillation-defenses
+
+https://www.anthropic.com/research/alignment-assessment-ukaisi
+https://www.anthropic.com/news/ai-for-science-expands-foundations-research-institutions  skip: programme expansion announcement, no engineering content
+https://www.anthropic.com/news/expanding-partnership-gsa  skip: government partnership announcement, no engineering content
+https://www.anthropic.com/news/s1-sec  skip: corporate filing, no engineering content
+https://www.anthropic.com/news/public-benefit-fund  skip: funding announcement, no engineering content
+https://www.anthropic.com/news/open-call-guest-investigators-life-sciences  skip: programme call, no engineering content
+https://www.anthropic.com/news/christopher-stubbs-joins-long-term-benefit-trust  skip: governance appointment, no engineering content
+https://www.anthropic.com/research/early-progress-drug-development  skip: science application, no agent-engineering content
+https://www.anthropic.com/research/investigating-vault-particles-with-claude  skip: science application, no agent-engineering content
+https://www.anthropic.com/research/claude-scorpion-toxin-binder-design  skip: science application, no agent-engineering content
+https://www.anthropic.com/research/designing-efficient-quantum-circuits  skip: science application, no agent-engineering content
+
+https://www.anthropic.com/research/agents-judgment-calls

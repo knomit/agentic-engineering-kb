@@ -3,7 +3,7 @@ type: process
 domain: [agentic-engineering, context-engineering, prompting, evaluation, coding-agents]
 confidence: 0.75
 sources: 1
-entities: [Microsoft Research, SkillOpt, SKILL.md, SpreadsheetBench, OfficeQA, GPT-5.5, Claude Code, Codex, textual learning rate]
+entities: [Microsoft Research, SkillOpt, SKILL.md, SearchQA, SpreadsheetBench, OfficeQA, DocVQA, LiveMathematicianBench, ALFWorld, GPT-5.5, GPT-5.4, GPT-5.4-mini, Qwen3.5-4B, Claude Code, Codex, textual learning rate, validation gating]
 motifs: [conditioning-substitutes-for-capacity]
 refs: ['https://www.microsoft.com/en-us/research/blog/skillopt-agent-skills-as-trainable-parameters/']
 ---

@@ -3,11 +3,11 @@ type: observation
 domain: [agentic-engineering, tools, reliability, error-handling, distributed-systems]
 confidence: 0.8
 sources: 1
-entities: [Amazon, AWS Builders' Library, idempotency, semantic equivalence, principle of least astonishment, Amazon EC2]
+entities: [Amazon, AWS Builders' Library, idempotency, ResourceAlreadyExists, semantic equivalence, unique request identifier, principle of least astonishment, Amazon EC2]
 motifs: [implementation-shaped-interface]
 refs: ['https://builder.aws.com/content/3Ev0BENTyBr0XxzRk5FDZzgNYos/making-retries-safe-with-idempotent-apis']
 ---
-# Returning AlreadyExists to a retried tool call is a side effect from the caller's point of view — return a semantically equivalent response instead
+# Returning ResourceAlreadyExists to a retried call is a side effect from the CALLER's point of view, even though it is idempotent on the server — return a semantically equivalent response keyed on the request identifier instead
 
 A subtle distinction from Amazon's Builders' Library that decides whether idempotency actually buys you anything.
 
@@ -18,3 +18,5 @@ The alternative Amazon implements: return a SEMANTICALLY EQUIVALENT response to 
 For agents this is the difference between an invisible retry and a derailed trajectory. A model that issues a tool call, gets a timeout, retries, and receives `AlreadyExists` will not treat that as a successful retry. It typically concludes either that it made an error, or that some other actor created the resource, and it will go and investigate, apologise to the user, or attempt a cleanup — spending turns and sometimes doing real damage. Handing back the same successful result it would have received the first time keeps the trajectory on rails. This is a specific instance of the general rule that a tool result is a prompt: `AlreadyExists` reads to the model as 'something is wrong', because in a non-retry context it usually is.
 
 They also apply the principle of least astonishment to the awkward late-arrival case — a retry that arrives after some other actor deleted the resource still gets the semantically equivalent response (their example returns the instance in `terminated` state rather than erroring), because a consistent contract beats a technically-accurate surprise.
+
+The source's exact terms matter if you go looking for them. The return code it discusses is `ResourceAlreadyExists`, and its argument is not that this breaks idempotency — it concedes "This meets the basic tenets for idempotency because there is no side effect for retrying the call" — but that "returning ResourceAlreadyExists has a side effect from the client's perspective" and "leads to uncertainty from the perspective of the caller". The alternative it prescribes is to "deliver a semantically equivalent response in every case for the same unique request identifier", so that a retry carries "the same meaning as the first response returned for the first successful request" and the calling code can be "completely unaware of any retries that happen within the SDK code". Note the scope condition: the guarantee is offered for an interval, keyed on a unique request identifier, so it requires the caller to send one.

@@ -23,3 +23,31 @@ https://alignment.anthropic.com/2026/modular-pretraining/
 https://alignment.anthropic.com/2026/reward-seeker/
 https://alignment.anthropic.com/2026/sleight-bench/
 https://alignment.anthropic.com/2026/taste/
+
+https://alignment.anthropic.com/2026/backdooring-classifiers/
+
+https://alignment.anthropic.com/2026/hot-mess-of-ai/
+
+https://alignment.anthropic.com/2025/strengthening-red-teams/
+
+https://alignment.anthropic.com/2025/pretraining-data-filtering/
+
+https://alignment.anthropic.com/2026/conceptual-reasoning-index/
+
+https://alignment.anthropic.com/2026/petri-v2/
+
+https://alignment.anthropic.com/2025/anthropic-fellows-program-2026/  skip: fellowship programme announcement, no engineering content
+https://alignment.anthropic.com/2024/anthropic-fellows-program/  skip: fellowship programme announcement, no engineering content
+https://alignment.anthropic.com/2025/introducing-safeguards-research-team/  skip: team announcement, no engineering content
+https://alignment.anthropic.com/2025/recommended-directions/  skip: research-agenda positioning, no agent-engineering content
+
+https://alignment.anthropic.com/2025/automated-auditing/
+
+https://alignment.anthropic.com/2026/auditbench/
+
+https://alignment.anthropic.com/2026/red-teaming-auto-mode/
+https://alignment.anthropic.com/2026/graft/
+https://alignment.anthropic.com/2026/anthropic-residency/  skip: residency programme announcement, no engineering content
+
+https://alignment.anthropic.com/2026/training-alignment-auditors/
+https://alignment.anthropic.com/2026/automated-em-search/

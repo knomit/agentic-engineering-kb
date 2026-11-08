@@ -1,7 +1,7 @@
 ---
 type: pattern
 domain: [agentic-engineering, architecture, state-management]
-confidence: 0.7
+confidence: 0.75
 sources: 1
 entities: [12-factor-agents, HumanLayer, stateless reducer]
 motifs: [duplicated-representation-drift]

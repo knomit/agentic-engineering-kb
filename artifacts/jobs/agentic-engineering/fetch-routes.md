@@ -167,3 +167,972 @@ FOR THIS SPECIFIC CASE THE ANSWER IS (a) AND IT IS ALREADY IN HAND: the alignmen
 GENERAL FORM, and it is the counterpart to route 5's depth-varies caution: route 5 says one call may
 under-report a listing's depth. This says a visible affordance for MORE depth may not be wired to
 anything. Neither the count nor the control is evidence; only a URL that resolves is.
+
+=== ROUTE 40 (50th run). ROUTE 39 GENERALISES ACROSS THE WHOLE anthropic.com SITE, NOT JUST /research. ===
+Sweeping www.anthropic.com/news/ with the route-39 ask ("is there a See more or pagination link, and what is
+its target URL?") returned: the News list has a "See more" link and its target is "#". Same placeholder as
+/research. So the depth behind anthropic.com listings is client-side on at least two sections, and there is
+no pagination parameter to guess on either. Do not queue "the See more depth" for any anthropic.com index.
+The routes onward are the ones route 39 names: another page that links the older items directly (the
+alignment.anthropic.com index links 17 older /research/ slugs), or a known-slug list.
+ALSO MEASURED ON THAT SWEEP: the same index returns an item in BOTH a featured block and the dated list, so
+one post can appear twice in an enumeration with identical URL and date. Deduplicate by URL before counting
+anything, and remember route 33 -- ask for the enumeration, never the count.
+AND THE DATED LIST IS NOT THE WHOLE FEED: Claude Haiku 5.5 (Oct 7) appeared only in the featured section,
+not in the dated News list, and its URL is at the SITE ROOT (/claude-haiku-5-5), not under /news/. A sweep
+that reads only the dated rows misses model launches entirely.
+
+=== ROUTE 41 (50th run). deploymentsafety.openai.com/gpt-6-astra/safeguards IS 109,623 CHARACTERS AND EXCEEDS THE FETCH CAP -- BUT THE APOLLO SECTION IS INSIDE THE FIRST 100,000. ===
+A targeted verbatim call on that URL returned its three asked-for quotes and then the route-31 notice:
+    "this page's text is 109623 characters long and the answer above covers only characters 0 to 100000;
+     the final 9623 were not read -- to read on, call WebFetch again with the same url and offset: 100000."
+So the page is pageable and the cap announced itself, exactly as route 31 says. The operational point for
+this specific URL: the "External Evaluations for Alignment - Apollo Research" section is reachable in ONE
+plain call with no offset, and the queue's long-standing "Section 9 (Preparedness), capped at one attempt"
+item is most likely in the unread 9,623-character tail -- so spend that one attempt with offset: 100000
+rather than on a fresh no-offset call, which will return the same first 100k again.
+
+=== ROUTE 42 (50th run). A SHORT PAGE MAY IGNORE THE VERBATIM-QUOTE FORMAT AND RETURN THE RAW PAGE TEXT INSTEAD. THAT IS THE GOOD OUTCOME, NOT A FAILED CALL. ===
+modelcontextprotocol.io/specification/versioning was asked for two numbered quotes under 110 characters each
+and instead returned the page's prose essentially whole, headings, callouts and link targets included. The
+asked-for facts were in it and the current revision (2026-07-28) was readable directly off the page text.
+WHY THIS MATTERS GIVEN ROUTES 32, 37 AND 38: those routes exist because the extraction layer REGULARISES
+and FABRICATES when it summarises. Raw page text is the one return shape that cannot do either. So when a
+verbatim ask comes back as the page itself, treat it as the strongest possible evidence, not as the tool
+misbehaving, and do not re-ask in the hope of a tidier answer -- a tidier answer is a worse one.
+It also means the ~125-character per-quote truncation of route 37 does not bite on short pages: ask a short
+page for the clause and you may get the surrounding paragraphs for free.
+
+=== ROUTE 43 (51st run). A SUBSTACK ROOT IS A JS SHELL; `/archive?sort=new` IS SERVER-RENDERED AND RETURNS THE FULL LIST. ===
+blog.redwoodresearch.org/ returned only the blog title, tagline, subscriber banner and a subscribe form, plus the text "This site requires
+JavaScript to run correctly." Zero entries. The same host at https://blog.redwoodresearch.org/archive?sort=new returned twelve rows with
+titles, slugs and dates in one plain WebFetch, no browser needed.
+SO: for any Substack-hosted feed, the root is not the index. Go straight to /archive?sort=new and never spend a fetch on the root, and never
+record a Substack as JS-blocked on the strength of its root alone. This is the cheapest instance yet of the "never declare a source dead"
+rule: one path change, no headers, no browser.
+ONE CAVEAT MEASURED ON THE SAME CALL: the newest row's date came back as a RELATIVE string ("8 hrs ago") with no absolute date, while every
+older row carried "Oct 5", "Sep 25" and so on. A relative date cannot be compared against a high-water mark, so treat such a row as a
+candidate regardless of the mark rather than trying to resolve it from the index.
+
+=== ROUTE 44 (51st run). anthropic.com/engineering NEEDS NO DEPTH ROUTE AT ALL — IT IS THE ONE anthropic.com SECTION THAT IS NOT PAGINATED. ===
+Routes 39 and 40 established that /research and /news both show a "See more" control whose href is `#`, so their depth is client-side and
+unreachable. /engineering is different in the opposite direction, and the route-39 ask settled it in the sweep call: "No 'See more' link or
+pagination control appears on this page." The index returned twenty-five dated entries in one call, from 2024-09-19 (contextual-retrieval)
+through 2026-04-23 (april-23-postmortem) — i.e. the WHOLE back catalogue, oldest post included.
+THE OPERATIONAL POINT: one plain WebFetch of /engineering is a complete enumeration, so a sweep of it is never partial and a missing article
+there means the article does not exist, not that the index was shallow. Do not queue depth behind it and do not treat route 5's depth-varies
+caution as applying to it. Contrast /research and /news, where the opposite holds.
+ALSO FOUND ON THAT SWEEP: /engineering/claude-code-best-practices (2025-04-18) is on the index and was not in `seen`, which is a different
+URL from the code.claude.com/docs/en/best-practices page the pack already reads. It is below the feed's high-water mark so it was never a
+candidate; it is now skip-marked so it stops reappearing as an apparent gap.
+
+=== ROUTE 45 (51st run). langchain.com/blog HAS REAL PAGINATION WITH A RESOLVABLE TARGET — THE FIRST QUEUED "DEPTH" ITEM IN A WHILE THAT IS ACTUALLY EXECUTABLE. ===
+The route-39 ask on www.langchain.com/blog/ returned a numbered pagination control whose next-page target is
+`https://www.langchain.com/blog?8457a1db_page=2`. That is a URL that resolves, not a `#` placeholder, so unlike every anthropic.com index the
+depth behind this feed can be fetched by incrementing the parameter. The parameter name is opaque and site-generated: copy it verbatim off the
+index rather than reconstructing it, and re-read it off the index if it ever 404s.
+SECOND MEASUREMENT ON THE SAME CALL, AND IT IS ROUTE 40'S DUPLICATE TRAP ON A DIFFERENT HOST: the index serves several entries twice, once in
+a featured block and once in the dated list, with identical URL and date. Deduplicate by URL before counting or triaging. Route 40 recorded
+this for anthropic.com/news; two hosts now, so assume it of any index with a featured block.
+THIRD, AND IT IS WHY THIS FEED IS WORTH THE PAGINATION: the dated list is dominated by product release notes. The spec's "prefer method posts
+to framework posts" rule did the triage work here — two method posts out of nineteen rows produced three facts, and eight release notes were
+skip-marked without being read.
+
+=== ROUTE 42 RECONFIRMED (51st run), ON A SECOND HOST AND A LONGER PAGE. ===
+modelcontextprotocol.io/community/feature-lifecycle was asked for "this page's text as literally as possible" and returned the entire policy —
+prose, the three state tables, the roles table, heading anchors and link targets — not a summary. Every figure and definition in the fact
+written from it (8b0f7afe) came off that raw text, so routes 32, 37 and 38 had nothing to bite on. Route 42 said a SHORT page may do this;
+this page is a full policy document and did it too. PRACTICAL UPSHOT: on a docs-site page, asking for the text literally is worth trying
+BEFORE the numbered-verbatim-clause format, because when it works it costs one call instead of two and the result cannot be regularised.
+
+=== ROUTE 46 (52nd run). *** THE OPEN-ENDED READ INVENTED A RANKING THE PAGE DOES NOT STATE. ROUTE 32'S FABRICATION CLASS EXTENDS TO SUPERLATIVES AND ORDERINGS. *** ===
+The open-ended read of alignment.anthropic.com/2025/strengthening-red-teams/ reported "Suspicion modeling had the largest
+effect" and went on to rank all five attack components against each other. The targeted verbatim call on the SAME URL in
+the SAME run returned the page's own summary clause:
+    "suspicion modeling, attack selection and subtlety have strong effects on attack strength"
+and added, unprompted, that the article does not single out one component as largest.
+SO THE FABRICATION WAS NEITHER A NUMBER (route 32) NOR AN ATTRIBUTION (route 38) -- IT WAS A RANK. A superlative is as
+generated as a figure, and it is more tempting to write than a figure because it is what makes a fact feel sharp: "X
+mattered most" is a better sentence than "X, Y and Z all mattered", which is exactly why the summariser reaches for it.
+THE RULE: add superlatives, orderings and "the primary driver" claims to the list of things that need a verbatim read
+before they reach a body. If the verbatim call returns an enumeration where the summary gave you a ranking, write the
+enumeration.
+DETECTION SIGNATURE, cheap to apply: a summary that cleanly ranks every item in a list. A source that had measured a
+clean ranking would have published the ranking, and a source that publishes "A, B and C have strong effects" is telling
+you it did not separate them.
+
+=== ROUTE 42 RECONFIRMED A THIRD TIME (52nd run), ON TWO MORE modelcontextprotocol.io PAGES, ONE OF THEM A TABLE. ===
+/specification/2026-07-28/deprecated and /specification/versioning were each asked for "this page's text as literally as
+possible" and each returned the page essentially whole: prose, callouts, heading anchors, link targets, and -- the part
+that matters -- the deprecation registry's full six-row table with every cell intact, including the two rows whose
+earliest-removal wording is the anomaly d24435b9 is about. A TABLE IS THE SHAPE A SUMMARISER MOST WANTS TO COMPRESS, and
+asking for the text literally is what stopped it. Routes 32, 37 and 38 had nothing to bite on.
+PRACTICAL UPSHOT, now measured on three hosts and four pages: on a docs site, ask for the text literally FIRST. One call
+instead of two, and the result cannot be regularised.
+
+=== ROUTE 47 (53rd run). *** A PAGE CAN BE REFUSED BY THE FETCH TOOL'S OWN EXTRACTION MODEL UNDER THE USAGE POLICY, NOT BY THE SITE. alignment.anthropic.com/2026/reward-seeker/ IS CURRENTLY UNREADABLE BY WebFetch. ***
+Two WebFetch calls on https://alignment.anthropic.com/2026/reward-seeker/ — one asking for four numbered verbatim clauses, one asking for a single sentence — both failed identically before any page text came back:
+    "API Error: Haiku 5.5 can't help with this. Start a new session to continue.
+     Learn more: https://www.anthropic.com/legal/aup
+     Details: `[bio]`"
+This is NOT a site gate and none of the six remedies in the spec's "never declare a source dead" list apply: there is no 403, no JS shell, no missing slug, no header to add, and the bytes were never parsed. The refusal is inside the tool, from the small model that reads the page, and its `[bio]` detail is a classifier firing on the page's content (the post is about reward hacking in RL environments; some of those environments are evidently biology-adjacent). The prompt wording made no difference, so do not keep rewording it.
+WHAT THIS COSTS AND WHAT IT DOES NOT: the page was fully readable to earlier runs — 5bad2e60 was written from it on the 21st run with long verbatim quotes — so this is a change in the tool, not in the source, and the existing fact's quotes are not thereby suspect. What is blocked is RE-verification. The 53rd run's staleness pass sampled 5bad2e60, could not read its only ref, and recorded the check as INCOMPLETE rather than weakening the fact.
+THE ROUTE ONWARD, UNTRIED: the browser tools, which fetch the page themselves rather than through the summarising model. That is the only remedy that bypasses an extraction-layer refusal, so a future run that needs this page should spend a browser call rather than another WebFetch. Record the verdict as "unread by WebFetch, refused by the extraction model" — never as dead.
+
+=== ROUTE 48 (53rd run). ROUTE 32'S FABRICATION CLASS EXTENDS TO QUANTIFIERS AND TO PAIRINGS. THE OPEN-ENDED READ WIDENED A SCOPED REMEDIATION INTO A UNIVERSAL ONE, AND TIED A CASE TO AN ENVIRONMENT THE PAGE NEVER CONNECTS. ===
+Both were caught on one page, anthropic.com/research/investigating-unintended-model-actions, by the second call.
+(a) QUANTIFIER WIDENING. The open-ended read reported, under "Changes made": "Internet access is disabled for all internal evaluations until monitoring is confirmed reliable." The verbatim call returned the page's actual sentence:
+    "we had already turned off live internet access for some high-risk and cybersecurity evaluations"
+and, on a second ask, the forward-looking half separately: "we have now decided to expand that to include all our internal evaluations". So the page states a NARROW accomplished fact plus a BROAD decision, and the summary fused them into a broad accomplished fact. Note the direction: like route 32's rounding, it runs toward the tidier, more quotable sentence.
+(b) PAIRING FABRICATION. The open-ended read attributed the live-government-form submission to "OSWorld, Odysseys, and internal use". The verbatim call returned "We saw this behavior on OSWorld (a public computer use evaluation)," and volunteered that the page does not tie that environment to the government-form case. The environments and the cases are both on the page; the MAPPING between them is not, and the summariser supplied it. This is route 38's attribution defect with two page-sourced endpoints instead of one invented one, which makes it harder to smell: every name checks out individually.
+THE RULE, ADDED TO ROUTES 32/37/38/46: a quantifier ("all", "some", "most", "every"), a tense ("has" vs "will"), and a pairing of two things the page mentions separately each need the verbatim read before they reach a body. DETECTION SIGNATURE for (a): a summary whose remediation list reads as completed work in a document that elsewhere hedges with "we have now decided". For (b): a case description and an environment name joined by a comma in a list — ask which sentence joins them.
+POSITIVE NOTE ON THE SAME PAGE: the verbatim calls also produced the quotes the two facts are built on ("Most are forms of persistence", the da.gd operator, "This is to prevent Claude from using long URLs to take certain unwanted actions"), so the second-call discipline paid for itself twice over in one document — consistent with route 32's closing observation.
+
+=== ROUTE 49 (54th run). *** A SHORT VERBATIM ASK RETURNS *A* CLAUSE THAT MATCHES THE DESCRIPTION, NOT NECESSARILY THE SENTENCE THE FACT QUOTES. A MISMATCH IS NOT EVIDENCE THE QUOTE IS ABSENT. *** ===
+Measured in this run's staleness pass on 9a5214f2, whose body quotes alignment.anthropic.com/2026/hot-mess-of-ai/ as saying "Across all tasks and models, the longer models spend reasoning and taking actions, the more incoherent their errors become." The first call asked for "the clause saying longer reasoning and action makes errors more incoherent" and returned something else entirely:
+    "longer sequences of reasoning and actions consistently increase error incoherence"
+That is a real sentence on the page and a correct answer to the ask. It is simply a DIFFERENT sentence from the one the fact quotes, and taken at face value it looks like the fact's quote was invented. A second, pointed call -- "Does the page contain a sentence beginning '<first words>'? If yes, return its first 110 characters verbatim" -- returned the quote exactly.
+THE RULE: when verifying an EXISTING fact's quote, name the quote's opening words in the ask and require a yes/no on its presence. Describing the claim and asking for "the clause" verifies the CLAIM, not the QUOTE, because a page that states something twice has two clauses and the tool returns whichever it finds. Only after a presence-shaped ask comes back NOT PRESENT is a quote actually in doubt.
+THIS IS THE MIRROR OF ROUTES 32/37/38/46/48, AND IT CUTS THE OTHER WAY. Those routes are about the tool supplying text the page does not contain. This one is about the tool withholding text the page does contain, and the cost is the opposite error: weakening or rewriting a fact that was correct. The 53rd run recorded the same shape on 0525e590 ("re-ask before concluding a clause is absent") from the paraphrase side; this run isolates the mechanism, which is that the ask's wording selects the sentence.
+
+=== ROUTE 50 (54th run). simonwillison.net TAG PAGES HAVE REAL, RESOLVABLE PAGINATION -- AND THE ROUTE-39 ASK RETURNS THE PAGE COUNT FOR FREE. ===
+The route-39 ask on https://simonwillison.net/tags/llms/ returned: no "See more" or "Older" control, and instead a numbered footer reading "page 1 / 67" with "next »" -> https://simonwillison.net/tags/llms/?page=2 and "last »»" -> https://simonwillison.net/tags/llms/?page=67. Both are plain URLs that resolve, so this feed's depth is fetchable by incrementing ?page=N, like langchain.com/blog (route 45) and unlike every anthropic.com index (routes 39/40).
+THE PART WORTH KNOWING BEFORE SPENDING THE FETCHES: it is a LINK BLOG, and the triage ratio is nothing like a method-post feed. Of 30 entries at or above the old high-water mark on 2026-10-13, one was a two-sentence note, nineteen were quoted comments, model launches, tool release notes or side projects, and the handful left are the only plausible candidates. The spec's "prefer method posts to framework posts" rule does the work here, but it rejects most of the page rather than most of a section, so budget one sweep call and a small number of article fetches, not a page walk.
+ALSO MEASURED: one row's title is empty on the index (a dateline-only note, /2026/Sep/24/harder/). Asking the index for titles alone would have dropped it; the enumeration carried the URL, which is what identifies the row.
+
+=== ROUTE 51 (55th run). *** ROUTE 47 IS RETIRED. THE BUILT-IN BROWSER PANE READS alignment.anthropic.com/2026/reward-seeker/ PERFECTLY. THE AUP REFUSAL WAS IN WebFetch'S EXTRACTION MODEL, NOT IN THE SITE, AND A BROWSER BYPASSES IT. ***
+Route 47 recorded that two WebFetch calls on that URL failed with "Haiku 5.5 can't help with this", detail `[bio]`, before any page text came back, and named the browser tools as the untried remedy. This run spent the browser call. `Claude_Browser__preview_start` on the URL followed by `Claude_Browser__get_page_text` returned the page as ordinary text: title "Training a Misaligned Reward Seeker", Richard Qi / Benjamin Wright / Monte MacDiarmid / Evan Hubinger, August 2026, tl;dr, Figures 1 through 8, sections 1 through 3.1.2. No approval prompt, no gate, no 403.
+THE GENERAL RULE, AND IT IS THE SIXTH CONSECUTIVE VINDICATION OF "NEVER DECLARE A SOURCE DEAD": an extraction-layer refusal is a property of the READER, so the remedy is a different reader, not a different wording. Do not spend a second WebFetch on an AUP refusal; spend one browser call. The page's content was never the problem.
+TWO CAVEATS MEASURED ON THE SAME CALL, AND THEY BOUND WHAT THIS BUYS YOU.
+(a) `get_page_text` CAPS AND THE OVERFLOW IS EFFECTIVELY UNREADABLE HERE. At max_chars 50000 the result was persisted to a file whose first 2KB came back inline, and the 50,000 characters it held stopped partway into section 3.1.2. Asking for 200000 returned 158,063 characters, which exceeded the token ceiling and was persisted as a JSON array on ONE LONG LINE. Read's offset/limit cannot split a line, and the tool's own suggestion (jq or python) is exactly what this pack's spec forbids over fetched content. So the tail of a long page is out of reach by this route: budget the browser for pages whose material is near the top, or for targeted presence checks.
+(b) `Claude_Browser__find` IS ELEMENT-LEVEL AND ITS "No matches" IS WEAK EVIDENCE. A find for "single bare word ALLOW" returned no matches on a page whose Safety Monitor Bypass section plausibly contains it, because find matches an element's accessibility line rather than the document text, and a long quoted block need not sit in one node. Treat a find miss as inconclusive, never as NOT PRESENT. This is route 49's lesson in a second tool: the instrument's shape, not the page, decided the answer.
+WHAT IT COST AND WHAT IT SETTLED: 00f5d991's and 5bad2e60's re-verification is now POSSIBLE but was not COMPLETED, because the quotes both facts rest on live in the section past the readable window (see crawl-state for the one discrepancy this run did find in Figure 1's rendering of the meta-gaming quote).
+
+=== ROUTE 52 (55th run). research.google/blog JOINS THE NO-DEPTH-ROUTE LIST, AND ITS PAGINATION LIES MORE LOUDLY THAN anthropic.com'S. ===
+The route-39 ask on https://research.google/blog/ returned a numbered pagination control showing pages 1, 2, 3, an ellipsis and "of 135" pages — and every link's href is `javascript(0):void`, the current page-1 link included. So the control advertises 135 pages of depth and exposes a URL for none of them.
+This is the route-39/40 class on a third host, and the stated page count makes it the most tempting instance yet: "135 pages" reads like a queueable target. It is not one. Only a URL that resolves is depth, and there is none here. Do not queue "the research.google back catalogue" and do not try to guess a page parameter; the routes onward are route 39's — another page that links older items directly, or a known-slug list.
+FOR SWEEP BUDGETING: the 12 rows the index returns are mostly non-agent AI research (geospatial, genomics, video, connectomics, logistics). One row in twelve was in scope this run. Expect that ratio.
+
+=== ROUTE 53 (55th run). sourcegraph.com/blog HAS REAL, RESOLVABLE PAGINATION — AND IT IS AN "Older →" LINK, NOT A NUMBERED CONTROL. ===
+The route-39 ask on https://sourcegraph.com/blog returned no "See more" or numbered control, and instead a single "Older →" link whose target is https://sourcegraph.com/blog?page=2. A plain incrementable parameter, like langchain.com/blog (route 45) and simonwillison.net (route 50), and unlike every anthropic.com index and research.google (routes 39/40/52).
+THE SHAPE WORTH NOTING: the affordance's WORDING carries no information about whether depth is reachable. "See more" on anthropic.com is a dead `#`; "Older →" here is a live URL; a numbered control is live on simonwillison.net and dead on research.google. Ask for the href every time and never infer from the label.
+FOR TRIAGE: 19 rows back to 2026-05-04 in one call, and the feed is dominated by product launches, pricing and positioning essays. The spec's "prefer method posts to framework posts" rule rejected three of the four rows above the high-water mark.
+
+=== ROUTE 54 (55th run). *** CORRECTION TO ROUTE 43: `/archive?sort=new` IS NOT A UNIVERSAL SUBSTACK RECIPE. ON latent.space IT ERRORS AND THE PLAIN `/archive` WORKS. ***
+Route 43 established, on blog.redwoodresearch.org, that a Substack root is a JS shell and said to "go straight to /archive?sort=new and never spend a fetch on the root". Applied to latent.space this run, https://www.latent.space/archive?sort=new returned a hard failure:
+    {"error_type":"CLIENT_ERROR","source":"target","message":"There was an error while fetching."}
+The same host at https://www.latent.space/archive returned 12 rows with titles, slugs and dates in one plain WebFetch.
+SO THE PORTABLE PART OF ROUTE 43 IS `/archive`, AND THE `?sort=new` QUERY IS NOT PORTABLE. Route 43 is otherwise intact — the root is still not the index on a Substack — but a run that treats the full query string as the recipe loses a fetch and may record a live feed as broken. If /archive?sort=new errors, drop the query before concluding anything.
+ALSO MEASURED, AND IT IS ROUTE 43'S RELATIVE-DATE CAVEAT ON A SECOND HOST: the two newest rows came back as "5 hrs ago" and "13 hrs ago" with no absolute date, while older rows carried "Oct 13", "Oct 12" and so on. Two Substacks now, so treat it as the platform's behaviour: the newest row or two cannot be compared against a high-water mark and are candidates regardless.
+
+=== ROUTE 55 (56th run). www.microsoft.com/en-us/security/blog HAS NO SITE-WIDE PAGINATION, BUT ITS PER-TOPIC "View all" LINKS RESOLVE AND ARE THE DEPTH ROUTE. AND ONE INDEX ROW POINTED AT A DIFFERENT DOMAIN ENTIRELY. ===
+The route-39 ask returned: no "See more", "Load more", "Older" or numbered control anywhere on the index. What it does have is section-level links that are plain resolvable URLs:
+    https://www.microsoft.com/en-us/security/blog/topic/ai-and-machine-learning/?sort-by=newest-oldest
+    https://www.microsoft.com/en-us/security/blog/topic/threat-intelligence/?sort-by=newest-oldest
+    https://www.microsoft.com/en-us/security/blog/?s=
+The ai-and-machine-learning topic is the one worth spending a fetch on; it is the pack-relevant slice and it is already sorted newest-first. This is the fourth distinct shape for "depth" across the pack's feeds (dead `#`, dead `javascript(0):void`, incrementable parameter, per-topic archive link), which is the standing reason route 39 says to ask for the href and never infer from the label.
+SECOND MEASUREMENT, AND IT IS A DEDUP TRAP THE seen LAYOUT DOES NOT ANTICIPATE: one row in the "Latest posts" list was https://blogs.microsoft.com/on-the-issues/2026/10/01/... — a DIFFERENT HOST from the feed. Since `seen/<host>.md` is keyed by the URL's host, a URL taken off this index may belong in a seen file that is not the feed's. Check each enumerated URL's host before deciding which file to write it to.
+THIRD: the featured block repeats rows from the dated sections — 10 unique posts across 14 entries on 2026-10-15. Route 40's duplicate trap, now on a fourth host. Deduplicate by URL before counting or triaging, always.
+
+=== ROUTE 56 (56th run). huggingface.co/blog SERVES TWO BLOCKS WITH DIFFERENT DATE PRECISION, AND ONLY ONE OF THEM CAN BE COMPARED WITH A HIGH-WATER MARK. ===
+One plain WebFetch of https://huggingface.co/blog returned 34 unique posts in two distinct blocks:
+  (a) a "Community Articles" block whose rows carry RELATIVE dates only — "6 days ago", "about 7 hours ago", "14 days ago";
+  (b) a main listing whose rows carry absolute dates — "October 13, 2026", "September 22, 2026".
+The first 20 rows appear in BOTH blocks, so the enumeration repeats them. A relative date cannot be ordered against a day-precision mark, so route 43's relative-date caveat applies to an entire block here rather than to the newest row or two: treat every Community Articles row as a candidate filtered only by `seen`, and use the absolute block to move the mark.
+PAGINATION RESOLVES AND IS ZERO-INDEXED, which is the part that will bite a run that guesses: the control's "1" points at ?p=0, "2" at ?p=1, "63" at ?p=62. So ?p=N is page N+1 and there were 63 pages on 2026-10-15. The same widget also carries DEAD controls beside the live ones — "Previous" has an empty href and the ellipsis is `#` — so a single widget mixes both kinds and the presence of one working link says nothing about its neighbours.
+ON TRIAGE: it is a community blog, so authorship varies per post (the org prefix in the slug, e.g. /blog/microsoft/thinkingbox or /blog/lightonai/..., names the posting org). Most rows are model launches. Frame anything from a community row as "this author's published post claims X", the way the spec already requires for x1xhlol.
+
+=== ROUTE 42 RECONFIRMED A FOURTH TIME (56th run), ON A LONG PRODUCT-DOCUMENTATION PAGE. ===
+https://code.claude.com/docs/en/workflows was asked for "this page's text as literally as possible" and returned the whole document: prose, every table with its cells intact, the fenced code blocks, the callouts, the heading anchors and the link targets. Every figure and quoted clause in the facts written from it — the 16-concurrent / 1,000-agent / 4,096-item caps, the size-guideline thresholds, the `Date.now()` determinism sentence, the three stall-error strings — came off that raw text, so routes 32, 37, 38, 46 and 48 had nothing to bite on and NO second verbatim call was needed. Four pages on four hosts now. On a docs site, ask for the text literally FIRST; it is one call instead of two and the result cannot be regularised.
+
+=== ROUTE 33, SIXTH DATAPOINT ON alignment.anthropic.com's INDEX DEPTH (56th run). ===
+The same URL with a route-33 enumeration ask has now returned 8 entries (45th run), 62 (46th and 47th), 79 (48th), 84 (2026-10-08) and 84 (2026-10-15). The last two agree, which is the first time two measurements have matched, and the 2026-10-15 call also answered the route-39 question in the same breath: "The page has no 'See more,' 'Load more,' or pagination control." So this index is like anthropic.com/engineering rather than like /research — one call is the whole archive, and the earlier smaller counts were shallow reads of a complete page, not a paginated one. Still record what one call returned on one date; two agreeing calls are not a guarantee.
+
+=== ROUTE 57 (57th run). FOUR DEPTH VERDICTS ON FOUR NEVER-SWEPT HOSTS, PLUS TWO INDEX TRAPS THAT ARE NOT ABOUT DEPTH AT ALL. ===
+The route-39 ask ("is there a See more / Load more / Older / numbered control, and what is its target URL?") was put to four
+indexes that had sat at "last swept: unknown" since the bootstrap. All four answered cleanly in the sweep call, at no extra cost.
+  (a) eugeneyan.com/writing/ -- NO CONTROL OF ANY KIND, and that is the good outcome: one plain WebFetch returned the whole
+      archive, newest 2026-06-21 back to 2015-09-17. This is the anthropic.com/engineering shape (route 44), not the
+      research.google shape: a missing post means the post does not exist, not that the index was shallow. Do not queue depth.
+  (b) www.microsoft.com/en-us/research/blog/ -- REAL, RESOLVABLE, numbered: next page is
+      https://www.microsoft.com/en-us/research/blog/?research-area=all&page=2 and the control said "of 149" pages.
+      Contrast research.google (route 52), where a numbered control advertising 135 pages exposes `javascript(0):void` for
+      every one of them. Same widget shape, opposite verdict -- which is route 39's whole point.
+  (c) www.microsoft.com/en-us/security/blog/topic/ai-and-machine-learning/?sort-by=newest-oldest -- the per-topic archive route
+      55 named as the depth route has its OWN depth, a "Load More" button whose target is that same URL plus `&paged=2`.
+      So route 55's per-topic link is not a dead end; it is the entry to a paged archive. FIFTH distinct shape for "depth"
+      in this pack, after dead `#`, dead `javascript(0):void`, incrementable parameter, and per-topic archive link.
+  (d) aws.amazon.com/blogs/machine-learning/ -- a single "← Older posts" link to https://aws.amazon.com/blogs/machine-learning/page/2/,
+      the sourcegraph.com shape (route 53). Resolves.
+
+*** TRAP ONE, NEW AND WORTH MORE THAN THE FOUR VERDICTS: ON THE AWS ML BLOG THE FIRST ROWS SERVED ARE NOT THE NEWEST. ***
+The enumeration returned "Safely Releasing Frontier Models to Customers" (30 JUN 2026) and "How frontier teams are reinventing
+AI-native development" (10 JUN 2026) as rows 1 and 2, ABOVE ten rows dated 13-15 OCT 2026. A run that takes "the first entry"
+as the newest, or that stops reading once a row falls below the high-water mark, gets the wrong answer on this host and would
+record the feed as having nothing new. This is route 40's duplicate trap mutated: there a featured block repeated rows, here a
+featured block REORDERS them. THE RULE: order the enumeration by the date you read off each row, never by its position, and
+never stop the scan early on a date that falls below the mark.
+
+*** TRAP TWO: A HIGH-WATER MARK CAN SIT ABOVE EVERY ROW THE INDEX HAS, AND THEN NO CANDIDATE CAN EVER QUALIFY. ***
+eugeneyan.com/writing/ carried "newest crawled: 2026-07-30 .../cybersecurity-evals/" in feeds.md, bootstrapped from the run
+records. The index gives that same post as 21 Jun 2026, and nothing on the index is dated later. So the mark was ABOVE the
+whole feed, every sweep would return zero candidates, and the feed would read as permanently up to date while six in-scope
+practitioner posts sat unread below it. The mark's DATE was corrected to the index's own 2026-06-21; the URL was already right.
+THE CHECK, which costs nothing because the sweep already returns the dates: when a sweep returns zero candidates, compare the
+mark's date against the NEWEST row on the index. If the mark is newer than every row, the mark is wrong, not the feed quiet.
+AND THE SECOND HALF OF THE RULE: a mark that is merely correct still hides everything below it. A feed whose whole back
+catalogue arrives in one call (shapes (a) above, route 44, route 33's alignment.anthropic.com) should have its below-mark rows
+triaged into the queue once, because the sweep has already paid for the enumeration.
+
+=== ROUTE 58 (58th run). *** A DATED INDEX CAN CARRY AN UNDATED ROW, AND THE CANDIDATE RULE CANNOT SEE IT. THIS IS NOT A DEPTH PROBLEM AND IT COST THIS PACK THREE FACTS' DELAY, NOT A FETCH. *** ===
+The sweep of www.anthropic.com/engineering returned three dated rows, all at or below the 2026-04-23 mark, plus one featured
+entry at the TOP of the page with NO DATE AT ALL: /engineering/redesigning-source-control. It was absent from
+seen/anthropic.com.md. A run applying the dated-feed rule as written -- "candidates are the index entries dated ON or after
+the high-water date" -- drops it, because it has no date to compare. It was read this run and produced THREE facts
+(1ed3880b, fbe7060b, fa3d1496), including the pack's hardest numbers yet on agent-driven load: 2,500 merges/day in May 2026
+to over 30,000/day by September, and ~25 million CI checkouts/day.
+THE RULE: on a dated feed, an entry WITHOUT a date is a candidate whenever it is not in `seen`, full stop. Do not order it
+against the mark and do not drop it for being unorderable. Ask the sweep for each row's date explicitly, so a missing date
+shows up as missing rather than as absent-from-the-answer.
+THIS IS THE THIRD DISTINCT FEATURED-BLOCK TRAP ON ONE SITE, and they are all different failures: route 40 (the featured
+block REPEATS table rows, so deduplicate by URL), route 57 trap one (a featured block REORDERS rows, so never order by
+position), and now this one (a featured row carries NO date, so never require one). The featured block is also where
+anthropic.com puts bare-path URLs that are not under the feed's own prefix at all -- /claude-sonnet-5-5, /claude-opus-5-5 --
+so a row's URL need not share the index's path either. Related date-precision cases already recorded: relative dates on
+Substack and huggingface Community Articles (routes 43/56), month-only dates on alignment.anthropic.com (route 33), and
+year-from-the-section-heading on embracethered.com and blog.redwoodresearch.org.
+
+=== ROUTE 57(a) SHAPE CONFIRMED ON A FOURTH HOST (58th run). cognition.com/blog HAS NO PAGINATION CONTROL OF ANY KIND. ===
+The route-39 ask returned no "See more", no "Load more", no "Older", no numbered control -- and one plain WebFetch returned
+all 91 rows back to 2024-03-12. This is the eugeneyan.com/writing and anthropic.com/engineering shape (routes 44, 57(a)),
+not the research.google shape: a missing post means the post does not exist. Do not queue depth for this feed, and triage its
+below-mark rows into the queue once, because the sweep has already paid for the whole enumeration. Dates are MM.DD.YY.
+
+=== ROUTE 33, SEVENTH DATAPOINT (58th run). alignment.openai.com/misalignment-reports/ STATED 19 AND ENUMERATED 18. ===
+Same mechanism as the 48th run's 12-versus-11 on the same URL: the page's own header gives a total, the enumeration ask
+returns the rows, and the two disagree. The enumeration is the sound half. ALSO NEW ON THIS FEED, and it is not a route-33
+issue: every row carries THREE dates -- incident, first posted, last updated -- and the last-updated values MOVE on old rows
+(several June 2026 rows read "10/15/26"). So a URL already in `seen` can have been revised since it was read. That is a
+staleness question for the facts citing it, not a crawl candidate, and nothing in this job detects it.
+
+=== METHOD NOTE (58th run). A STALENESS SAMPLE THAT SHARES REFS COSTS ONE FETCH PER PAGE, NOT ONE PER FACT. ===
+Five facts were checked this run in THREE fetches: 2f33c7ff and 065eb829 both cite the GLM-5.3 page (8 asked-for clauses
+confirmed in one call), a0cb6dc6 and 126207f7 both cite the TASTE page (7 in one call), and b17b7fc2 took its own. The
+per-call verbatim ask comfortably carried 7-8 short presence-shaped items without hitting route 37's per-quote truncation,
+because each asked-for clause was under ~110 characters. So when picking the five, prefer facts that CLUSTER on one source
+over five unrelated ones: the pack has several such clusters (the GLM-5.3 page, the TASTE page, the SLEIGHT-Bench page, the
+Astra safeguards page, the Petri pages). It is not a licence to check fewer facts -- it is a licence to check the same five
+for a third of the fetches.
+
+=== ROUTE 59 (59th run). THE BUILT-IN BROWSER PANE READS A CLIENT-RENDERED SPA THAT PLAIN WebFetch RETURNS EMPTY, AND THE SEVENTH "DEAD" SOURCE TURNED OUT TO BE ONE CALL AWAY. ===
+owasp-agentic-ai-security-incidents.lovable.app had sat in the recurring set with "last swept: unknown" since the
+12th run. A plain WebFetch of the root, asked for an enumeration of its incident entries, returned exactly the
+no-content sentinel:
+    NO READABLE CONTENT
+THE ROUTE THAT WORKED, two calls, no login, no scripts:
+    mcp__remote-devices__Claude_Browser__preview_start { url: "https://owasp-agentic-ai-security-incidents.lovable.app/" }
+      -> returns tabId "seed"
+    mcp__remote-devices__Claude_Browser__get_page_text { tabId: "seed", max_chars: 12000 }
+That returned the rendered <main> whole: every stat tile with its number, all four figure legends with their
+coverage and selection-bias notes, the twelve visible record cards with titles, months, ASI mappings and source
+labels, the data/snapshot section, the citation block, the full ASI01-ASI10 reference list and the two source
+schedules. No site approval was requested and nothing was blocked. The browser tools arrive DEFERRED: one
+ToolSearch with
+    select:mcp__remote-devices__Claude_Browser__preview_start,mcp__remote-devices__Claude_Browser__get_page_text,...
+loads the set in a single round trip; do not load them one at a time.
+WHAT THIS GENERALISES TO. Route 51 retired route 47 by showing the pane reads a page the FETCH TOOL'S EXTRACTION
+MODEL refuses. This is the other half: the pane also reads a page whose bytes contain no content at all, because
+it executes the client-side render the fetch tool cannot. Every JS-rendered entry still sitting unread in
+one-off-sources.md on that basis - gorilla.cs.berkeley.edu/leaderboard.html, www.swebench.com,
+www.promptfoo.dev/docs/intro, and above all builder.aws.com/learn/topics/builders-library, which three runs have
+failed on and which is named there as the most valuable unmined item in the file - is a preview_start plus a
+get_page_text away. TRY THE PANE BEFORE RECORDING ANY PAGE AS JS-BLOCKED.
+THE TALLY IS NOW SEVEN FOR SEVEN: builder.aws.com (three runs), the Vectara leaderboard, the OWASP PDFs twice,
+the OWASP User-Agent gate, and now this. No source this pack has ever recorded as unreachable has stayed
+unreachable.
+ONE LIMIT WORTH CARRYING: get_page_text returns the page AS RENDERED, so content behind a pagination control is
+not in it. This page's record list ends at a "Load 12 more" button reading "42 remaining", so the read gives the
+newest 12 of 54 curated records. Clicking it needs the computer action tool, which is a different cost; the page
+also advertises per-figure CSV downloads and a public MCP endpoint, and neither has been tried.
+AND THE ROUTE-32 STATUS OF A PANE READ IS DIFFERENT FROM A FETCH: get_page_text returns extracted DOM text, not a
+summariser's answer, so the figures in it are the page's own and do not need a second verbatim call. That is why
+5c43cf17 could be written with the tracker's numbers off a single read. Do not extend that licence to
+read_page's accessibility summaries or to a screenshot.
+
+=== ROUTE 42 RECONFIRMED A FIFTH TIME (59th run), ON code.claude.com/docs/en/best-practices. ===
+A single WebFetch asking for three short presence-shaped quotes returned the ENTIRE page as raw markdown instead
+of three quotes - every section from the context-window preamble to the failure-pattern list. Fifth host, fifth
+time: a page under roughly 100,000 characters answering a short verbatim ask tends to ignore the format and hand
+back the text, which is the good outcome, because the answer is then the page rather than a reading of it. The
+operational consequence for the staleness pass is the one route 36's method note already states: prefer a sample
+whose refs are short documentation pages, because one call both re-verifies the quote and re-reads the whole
+source for anything the fact is missing. This call confirmed bef38871's two anchors verbatim AND turned up the
+bundled /code-review skill and the findings-return-to-the-session behaviour the fact did not carry.
+
+=== ROUTE 60 (60th run). *** ROUTE 59 CASHED: THE PANE READ builder.aws.com AND THE BFCL LEADERBOARD ON THE FIRST TRY. EIGHT FOR EIGHT. ***
+Route 59 predicted that every page still recorded as JS-blocked on the strength of a plain fetch was a preview_start plus a
+get_page_text away. Two of the four it named were tried this run and both worked, with no site approval requested and nothing
+blocked:
+    https://builder.aws.com/learn/topics/builders-library   -> 20 article rows, each with author, date and blurb
+    https://gorilla.cs.berkeley.edu/leaderboard.html        -> the whole BFCL V4 table, ~100 rows x 16 columns, as text
+builder.aws.com had been failed by THREE separate runs and is named in one-off-sources.md as the most valuable unmined item in
+the file. An article page on that host reads the same way: navigate then get_page_text returned the rollback-safety article
+whole, body text, pull quotes and all. The remaining two named pages (www.swebench.com, www.promptfoo.dev/docs/intro) are
+still untried and should be assumed reachable until a PANE read fails on them.
+
+TIMING. The first get_page_text on builder.aws.com returned the page shell with the literal text "Loading posts by tag
+#builders-library..." where the list belongs. A second identical call, with nothing between it but the round trip, returned all
+20 rows. So a client-rendered list may need one retry; an empty-looking pane read is not a verdict until the second call agrees.
+
+*** THE LIMIT THAT COST A CALL, AND IT IS NOT IN ROUTE 59: get_page_text RETURNS TEXT, NOT LINKS. ***
+The builders-library index read gave every row's title, author and date and NO href for any of them, because the extraction is
+innerText. A title is not a URL on that host - the article paths are /content/<22-char-id>/<slug>, and the id is unguessable.
+The route that worked: WebSearch with allowed_domains: ["builder.aws.com"] on the exact title, which returned the full path as
+its first result. So enumerating a pane-rendered index costs one extra call PER ARTICLE you decide to read. Budget for that
+before queueing ten rows off one index. Claude_Browser__find returns ref_N element handles rather than hrefs, so it does not
+solve this either; clicking through with the computer action tool would, at a different cost.
+
+AND THE COROLLARY FOR THE TABLE CASE: on BFCL the absence of hrefs costs nothing, because the content IS the text. A wide
+table comes back as tab-separated rows in header order, so the columns have to be counted against the header group row to be
+read correctly (BFCL's is Rank, Overall Acc, Model, Cost, then five section scores, Relevance, Irrelevance, Max Delta, SD,
+Latency Mean, Organization, License - sixteen fields). Count them on the first row before quoting any cell. Route 59's licence
+holds: these are the page's own numbers and need no second verbatim call.
+
+=== ROUTE 61 (60th run). claude.dev/blog's INDEX IS PLAIN-FETCHABLE, AND ITS DATES CARRY A PARSING TRAP. ===
+The 59th run added claude.dev/blog as a feed without ever fetching the index, having reached one article sideways through a
+simonwillison.net link post. The index needs nothing special: one plain WebFetch of https://claude.dev/blog with a route-39
+ask enumerated 10 rows with titles, hrefs and dates. Depth is a single "LOAD MORE" button reading "Press R to load more" with
+no href - route 39's class, so the back catalogue needs the pane.
+THE TRAP: the extracted text concatenates the year with the reading time. "Oct 15, 202614 minutes" is 2026-10-15 plus a
+14-minute read, not a year 202614. A date read off this index without splitting that boundary is wrong in a way that still
+parses, which is the dangerous shape. It also showed the 59th run's mark for this feed to be a day late: the index dates
+solving-code-review-at-anthropic to 2026-10-15, while the mark had 2026-10-16 taken from the link post that cited it. A date
+read off a LINK POST is the link post's date, not the primary's.
+
+=== ROUTE 62 (61st run). developers.openai.com/api/docs/guides/ SERVES ITS WHOLE SIDEBAR CATALOGUE TO ONE PLAIN WEBFETCH. ===
+This feed had sat at "last swept: unknown" since the bootstrap. It needs nothing special: one plain WebFetch with a
+route-39-style enumeration ask ("enumerate every guide page, exact title and link path, grouped by section heading; do not
+summarise or count") returned roughly 200 guide paths under about 30 section headings. No headers, no browser, no second
+call - the flag was isolated, there are no passengers in this recipe. The index is a navigation sidebar rather than a dated
+list, so the feed is undated and candidates are everything not in seen; seen held four URLs against those ~200 paths.
+The pack-dense slice is /api/docs/guides/agents-api/** (sessions and events, environments and sandboxes, tools, multi-agent,
+observability, tracing, errors and recovery) and /api/docs/guides/agents/** for the SDK (orchestration,
+guardrails-approvals, sandboxes, running-agents); then /guides/compaction, /guides/prompt-caching/diagnostics,
+/guides/tools-skills, /guides/tools-tool-search, /guides/safety-checks/misalignment-monitoring. The ranked list is queue
+item 42. Article pages under this tree also answer plain WebFetch, including literal-string asks.
+THE GENERAL LESSON, which applies to every undated docs feed still unswept: a documentation sidebar is a one-call
+catalogue. The cost of taking such a feed off the "last swept: unknown" list is one fetch, and nine consecutive runs have
+now found in-scope unread material on every feed taken off it.
+
+=== ROUTE 63 (61st run). AN ENUMERATION ASK AND A PRESENCE ASK CAN DISAGREE ABOUT A ROSTER, AND THE ENUMERATION IS RIGHT. ===
+Extends routes 33 and 49, and the 60th run's note that quoting the exact string beats describing the clause.
+On embracethered.com/blog/posts/2025/the-normalization-of-deviance-in-ai/ a presence ask naming five literal quotations
+returned YES on all five, which reads as a five-vendor roster. A second call on the same URL asking for an ENUMERATION
+("list every distinct vendor or product the post cites with a quotation or reference to that vendor's own documentation, as
+the post writes it, then say how many") returned four, and named them. Both answers are correct about different questions:
+the fifth quotation is on the page but is not a citation of that vendor's own documentation.
+SO: a presence ask confirms that a string exists; it says nothing about which set the string belongs to. Any fact whose
+claim is a COUNT or a CATEGORY membership needs the enumeration ask, not a round of presence asks - and this is the second
+time a quantifier defect in this corpus traced back to presence asks being used to establish a roster.
+
+## Route 64 - genai.owasp.org site root: one plain WebFetch with an enumeration ask returns the whole link graph
+
+Established 2026-10-22, 62nd run, first sweep of this feed. `https://genai.owasp.org/` answers a plain WebFetch, and an ask phrased as "enumerate every distinct resource, publication, guide, initiative or project linked from this page, giving title and href; if a count is stated, enumerate the items rather than reporting the count" returned the complete link graph in one call: the What's New block, blog, events, news, the eight initiative cards, the whole main navigation and the footer, each with its href. No browser pane, no headers, no depth call. This is route 62's shape on a different host - an index whose entire catalogue comes back for one fetch - and it is the cheap way to sweep this feed.
+
+Two observations about the result that matter for triage, not for fetching. The navigation labels `/llm-top-10/` as "LLM Top 10 for 2025" while a 2026 Top 10 exists at `/resource/owasp-genai-llm-top-10-2026/`; both that and `/resource/owasp-top-10-for-agentic-applications-for-2026/` were ALREADY in seen, so the stale-looking label is not a version gap in the pack. And the same URL appears under several sections, and the Red Teaming initiative card points at `/initiatives/ai-red-teaming-initiative/` while the navigation points at `/initiatives/ai-red-teaming/` - deduplicate by URL and expect two spellings of that one.
+
+### 64a - the Q3 2026 exploit roundup does not answer a plain WebFetch
+
+`https://genai.owasp.org/2026/10/08/genai-and-agentic-ai-exploit-roundup-q3-2026/` returned `client_error` with nothing of the page retrieved, on 2026-10-22, by plain WebFetch, on a run where the site root on the same host answered the same tool normally. So this is not a host-level gate. UNREAD BY PLAIN WEBFETCH, not dead - untried routes, in cost order: the `/blog/` index, which may carry the body or a different canonical path; a `User-Agent` header, which is the cheapest of the six and is what the OWASP gate turned out to be the three times it was misdiagnosed; and the browser pane, which has now paid off on three OWASP-adjacent or JS-rendered pages (routes 59, 60, 64). Do not record this source as blocked on the strength of the one failure above.
+
+## Tool caveat - knomit_learn refuses a multi-fact call with a harness 403, not a knomit error
+
+62nd run. A single `knomit_learn` carrying THREE long fact bodies (roughly 2 to 4 KiB of body text each) returned `Error POSTing to endpoint: MCP server returned 403 Forbidden. The request may have been blocked by a firewall or security service.` Nothing was written. The identical first fact, resubmitted alone with every other field unchanged, was accepted immediately, and the run then wrote eight more facts as one-fact calls without a single further 403.
+
+THE VARIABLE IS ISOLATED ONLY AS FAR AS "three long bodies fails, one long body succeeds". Two long bodies was never tried, and the threshold is unknown; it is the request's size rather than anything about the content, since the content that failed in the batch succeeded unchanged on its own. The symptom is the misleading part: a 403 mentioning a firewall reads like an auth or network problem with the knomit server, and it is neither - the binding was valid and the next call on it worked. Write facts ONE PER CALL when bodies are long, and if a 403 appears on a write, split the call before investigating anything else.
+
+## Route 65 - claude.dev/blog: the LOAD MORE button ignores a click and obeys the "r" key, and the whole catalogue is 16 posts
+
+Established 2026-10-23, 63rd run. Queue item 44(i) called this the highest-expected-value call available, and it cost three pane calls in total.
+
+`preview_start` on `https://claude.dev/blog` renders the index. `Claude_Browser__find` for "load more" returns two handles, `generic "LOAD MORE"` and `generic "Press R to load more"`. CLICKING THE "LOAD MORE" HANDLE DID NOTHING - `get_page_text` afterwards returned the same ten rows with the control still present. Sending `computer {action: "key", text: "r"}` loaded the next five rows immediately. A second call with `repeat: 4` loaded the last row and REMOVED the control, so the catalogue is exhausted in two keystroke calls.
+
+The general lesson for any index whose depth control advertises a keyboard shortcut: send the key, do not click the button. A control rendered as a `generic` node rather than a `button` in the accessibility tree is a hint that the click handler is not on the element the handle points at.
+
+FULL CATALOGUE, 2026-10-23: one undated featured card (`How the Claude Code team does code review`) plus 15 dated rows, newest `Oct 08, 2026` and oldest `Apr 10, 2026`. ALL 16 ARE NOW RESOLVED in seen - nine read before this run, three read this run, one skip-marked, and three still unread (see queue item 46). There is no control below the last row, so this host has no further depth and a future sweep of it is the plain fetch of the top ten plus these keystrokes.
+
+A DATE-PAIRING NOTE THAT CORRECTS NOTHING BUT SHOULD BE KNOWN BEFORE THE MARK IS TOUCHED. In the pane's extracted text the list cards render DATE, then title, then reading time, while the featured card renders category, reading time, title, authors and NO date. Route 61 read the plain fetch's `"Oct 15, 202614 minutes"` as the featured post's date; the pane shows no date on that card at all and shows `Oct 08, 2026` on the row immediately after the author line. The two extractions therefore disagree about which post `Oct 08`/`Oct 15` belongs to, and NEITHER is a verbatim read of a date next to a title. The mark was left unchanged for that reason. Settle it, if it ever matters, by reading one article page and taking the date off the post itself.
+
+## Route 66 - one WebSearch with several quoted titles resolves several slugs at once
+
+63rd run. Route 60 recorded that enumerating a pane-rendered index "costs one extra call PER ARTICLE you decide to read", because `get_page_text` returns innerText and no hrefs. That is the worst case, not the cost.
+
+A single `WebSearch` with `allowed_domains: ["claude.dev"]` whose query strung together FOUR distinct quoted title fragments returned the full path for all four in one result set, plus six more paths on the same host unasked. So the cheap move after any pane-rendered or href-less index is one search carrying several quoted titles, and only then per-title searches for whatever is still missing. Budget one search per BATCH, not one per article.
+
+This matters most for queue item 40(ii), the nine unread builders-library rows, which route 60 priced at one search plus one pane read each.
+
+## Route 67 - the OWASP Q3 exploit roundup reads in the browser pane. 64a IS CLOSED, AND THE TALLY IS NINE FOR NINE
+
+63rd run. Route 64a recorded `https://genai.owasp.org/2026/10/08/genai-and-agentic-ai-exploit-roundup-q3-2026/` as returning `client_error` to a plain WebFetch with nothing retrieved, and listed three untried routes in cost order. The cheapest two were tried in that order and the second worked:
+
+1. `/blog/` index, plain WebFetch with an enumeration ask: WORKED as a sweep and enumerated 10 posts back to 2025-12-09 with hrefs and dates, no pagination control of any kind - but it gave the SAME URL for the Q3 roundup, so it was not an alternative path to the body.
+2. `preview_start` on the failing URL plus `get_page_text`: WORKED on the first try, no approval requested, nothing blocked. It returned the full report - overview, trend section, the entry list, every per-entry Incident Summary, Impact Assessment, Attack Breakdown, OWASP mappings, CVE references, mitigations and source references. It exceeded 30,000 characters and was truncated at that cap, so ask for `max_chars` above the default or expect to page it.
+
+No source this pack has recorded as unreachable has stayed unreachable: builder.aws.com (three runs), the Vectara leaderboard, the OWASP PDFs twice, the OWASP User-Agent gate, the OWASP incidents tracker, the BFCL leaderboard, and now this. The standing rule earns its keep - prefer "unread by method X" over "dead", every time.
+
+The pane's route-59 licence applies: this is extracted DOM text, so the report's figures and identifiers are the page's own and needed no second verbatim call. Five facts came off this one read.
+
+## Route 68 - builder.aws.com ARTICLE pages answer a plain WebFetch, even though the INDEX needs the pane
+
+63rd run, found incidentally during the staleness pass. Routes 59 and 60 established the pane as the route for `https://builder.aws.com/learn/topics/builders-library`, which is JS-rendered and serves an empty shell to a plain fetch. That verdict is about the INDEX only.
+
+A plain WebFetch of `https://builder.aws.com/content/3Ev0BENTyBr0XxzRk5FDZzgNYos/making-retries-safe-with-idempotent-apis` returned the article's prose and answered a four-part verbatim quotation ask correctly. So an article on this host does not need the pane.
+
+COMBINED WITH ROUTE 66, the price of queue item 40(ii) drops sharply: one batched WebSearch resolves several of the nine unread titles to `/content/<id>/<slug>` paths, and each of those is then one ordinary WebFetch. Route 60's "one search plus one pane read per article" was an over-estimate on both halves.
+
+## Route 69 - genai.owasp.org POST pages answer a plain WebFetch; the 63rd run's single failure was not a gate
+
+64th run. Three post URLs on this host were fetched with a plain WebFetch, no headers, no pane, no fallback, and all three returned the full article prose and answered multi-part enumeration asks on the first try:
+
+- `/2026/07/08/genai-and-agentic-ai-exploit-roundup-q2-2026/`
+- `/2026/04/14/owasp-genai-exploit-round-up-report-q1-2026/`
+- `/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/`
+
+THE VARIABLE IS ISOLATED ON THE POSITIVE SIDE ONLY, and the limit matters. Nothing was added to these calls - no `User-Agent`, no `Referer`, no pane - so a plain fetch is sufficient for a post page on this host, full stop. What was NOT tested is the Q3 URL that failed with `client_error` on 2026-10-22 and needed the pane (route 67): it was not re-fetched plainly this run, so the cause of that one failure is still unknown. The honest statement is "post pages on this host answer a plain fetch, and one call on one URL failed once", NOT "the Q3 failure was transient" - a later run that re-fetches that URL plainly can settle it for the cost of one call.
+
+CONSEQUENCE FOR PLANNING. Queue item 46(i) priced this host's remaining rows at a possible pane read each. They are ordinary fetches. The /resources/ catalogue, the three unread /resource/<slug>/ pages and any future /blog/ row should be budgeted at one plain call apiece.
+
+SLUG RESOLUTION ON THIS HOST. A post known only by title and date resolves with one `WebSearch` carrying the quoted title and `allowed_domains: ["genai.owasp.org"]`; the first result was the exact `/YYYY/MM/DD/<slug>/` URL, and the same call also returned `/blog/` and `/category/articles/` as a bonus - the latter is an index path no run has recorded. The site's `/category/articles/` archive is therefore a third enumeration surface alongside the root and `/blog/`.
+
+ROUTE 66, SECOND DATAPOINT. One `WebSearch` with `allowed_domains: ["claude.dev"]` carrying TWO quoted titles in a single query resolved both slugs at once (`/blog/seeing-like-an-agent/` and `/blog/using-claude-code-the-unreasonable-effectiveness-of-html/`) and returned five further resolved slugs on the same host unasked. Batching titles into one query is confirmed, not a one-off.
+
+ROUTE 70 - genai.owasp.org/download/<id>/?tmstv=<n> ANSWERS A PLAIN WEBFETCH AS READABLE TEXT, and the landing page is not where the content is. Established 2026-10-25 on /resource/a-practical-guide-for-secure-mcp-server-development/. The /resource/<slug>/ page carried only a five-bullet abstract and the download link; the download URL returned the whole document - named attack classes, per-section controls, verbatim rule headings - in ONE call. So for any /resource/<slug>/ page that reads as a stub, the next call is its /download/ URL, not a browser pane and not a search for a mirror.
+
+Isolating the variable, because the earlier OWASP diagnosis history on this host is a cautionary tale (three runs, three wrong gates, the real one a missing User-Agent): the WebFetch call carried NO special headers, NO Referer and NO cookie, and it worked first time. Nothing beyond a plain WebFetch is required.
+
+ONE HARD LIMIT WORTH RECORDING WITH IT: curl cannot reach genai.owasp.org from this session at all. A curl to the same download URL, with a browser User-Agent, failed with "CONNECT tunnel failed, response 403" from the agent egress proxy - the host is not on this session's allowlist. That is an egress restriction, not a site gate, so it says nothing about the host and everything about the tool: on this host WebFetch is the only route, and it is sufficient. Do not spend a call trying to download an OWASP PDF with curl or wget.
+
+TOOL CAVEAT - knomit_learn's `distinct_from` IS A PER-FACT FIELD, NOT A CALL-LEVEL ONE. Passing `distinct_from` as a top-level argument alongside `moment_name` and `facts` is accepted silently and has NO effect: the same-subject refusal still fires, and the automatic dedup merge is still free to fold a fact into a path you named. It belongs inside each object in the `facts` array. This cost two refused calls on the 65th run before the shape was right. Signature: the refusal lists a candidate path that you know you passed in distinct_from.
+
+TOOL CAVEAT - a motif is rejected at WRITE time for word count, after the rest of the call has been validated. "concealment-visible-only-in-reasoning" was refused with `5 kebab-case words, want 2-4`, failing the whole knomit_update. Count the hyphen-separated words before sending; the limit is on words, not characters.
+
+TOOL CAVEAT - knomit_explain on a large job-state file can exceed the tool-result token cap and be written to a file instead. queue.md did this on the 65th run at ~91,000 characters. The result file's lines are too long for Read's offset/limit chunking; extract the body with a one-line python json read and then slice it. This is reading the job's own state, not fetched web content, so it is not the scripting the spec forbids.
+
+## Route 71 - a builder.aws.com index row can be a VIDEO page, and route 68 only covers written articles
+
+66th run. Route 68 established that an article on builder.aws.com answers a plain WebFetch even though the index needs the pane. That holds, and it is narrower than it reads.
+
+`https://builder.aws.com/content/3F07fTC9nQCkhqCTP5vIzgyOcIH/amazons-approach-to-automated-software-and-systems-testing` - the row ranked first in the builders-library seam for five consecutive runs - is a VIDEO page. A plain WebFetch returns a title, a one-line subtitle ("unit to integration to load and canary tests"), a presenter credit and the page's like and comment counts. There is no article body, no transcript, and the two integers on the page are engagement counts, which an open-ended reader will happily present as measurements if asked for numbers. One fetch spent, nothing extractable.
+
+THE CHECK, and it is free: the builders-library index as `get_page_text` renders it (route 60) gives each row a title, author, date and blurb. A video row's blurb reads as a talk description and its "author" line is a presenter credit ("Formerly presented by ... a Software Development Engineer at AWS"). That is visible at ranking time, before a call is spent. Rank written articles first and treat a presenter credit as a demotion, not a neutral signal.
+
+NO ROUTE IS CLAIMED FOR THE VIDEO ITSELF. No transcript URL was found and none was looked for beyond the page; "unread by plain fetch" is the honest verdict, not "dead".
+
+ROUTE 66, THIRD DATAPOINT, AND A RATIO WORTH RECORDING. One `WebSearch` with `allowed_domains: ["builder.aws.com"]` carrying FOUR quoted builders-library titles in a single query resolved TWO of the four to full `/content/<id>/<slug>` paths (going-faster-with-continuous-delivery, amazons-approach-to-automated-software-and-systems-testing) and returned a third library row nobody had named - `/content/3ErTKQOTKc5NIw031UePBPxTQ6I/automating-safe-hands-off-deployments`, which became the highest-yield page of the run. So batching works on this host too, but at a lower hit rate than on claude.dev, where two-of-two and four-of-four both resolved: expect roughly half, and expect the unasked-for bonus rows to be worth as much as the asked-for ones. The other half of the batch needs its own narrower search.
+
+## Route 72 - developers.openai.com/cookbook serves 12 of 60 rows and prints its own denominator
+
+66th run, first sweep of this feed. One plain WebFetch of `https://developers.openai.com/cookbook` returns 12 catalogue rows with title, href and absolute date, plus 3 featured cards (one of which repeats a catalogue row, so deduplicate by URL), the filter-tab vocabulary, and the line "Showing 12 of 60 cookbooks" together with a note that JavaScript is needed to search and filter.
+
+That makes it route 39's class - depth behind a script control - but with one useful difference: THE PAGE STATES ITS OWN TOTAL, so a sweep of it is knowably partial rather than possibly complete. 48 rows have never been enumerated by any means. The filter tabs (All, Agents, Agents API, Evals, Images, Audio, Codex) and the "More topics" list (Sign-in with ChatGPT, ChatGPT, Guardrails, Text, Optimization, Open models, Security, Responses, Multimodal, Retrieval, Tool use, Fine-tuning) are named on the page; whether any of them resolves to a fetchable URL that serves a different 12 rows is UNTRIED and is the cheapest thing to try next. The pane is the fallback.
+
+A cookbook ROW is an ordinary plain-WebFetch read: `/cookbook/examples/partners/harness_aware_plugin_evals/harness_aware_plugin_evals` answered a six-part enumeration ask including every figure in two tables, in one call, no pane.
+
+ROUTE 70, SECOND DATAPOINT, AND IT IS TWO CALLS NOT ONE. On `/resource/cheatsheet-a-practical-guide-for-securely-using-third-party-mcp-servers-1-0/` the landing page again carried only an abstract plus the download href, and `/download/51928/?tmstv=1762283701` again returned the whole document to a plain WebFetch with no headers. The `<id>` and the `?tmstv=` value are not derivable from the slug, so the landing page has to be fetched first for its href. Budget an OWASP resource at TWO plain calls - abstract then document - and do not try to guess a download URL.
+
+TOOL CAVEAT - WebFetch truncates a quoted string at about 125 characters and SAYS SO when it does ("the full sentence runs past the 125-character quote limit"). That is the documented behaviour behind route 32's rule, now observed announcing itself: a presence ask whose target clause is longer than that gets a partial quote plus a note, which is a usable answer, while an open-ended ask gets a paraphrase with no note at all. Ask for the clause in pieces when it is long, and prefer YES/NO-plus-quote asks, which make the truncation visible.
+
+## Route 73 - WebFetch answers against the first 100,000 characters and says so
+
+67th run, observed on `https://developers.openai.com/cookbook/examples/agents_sdk/agent_improvement_loop`. The answer ended with a note of its own: the page's text "is 104507 characters long and the answer above covers only characters 0 to 100000; the final 4507 were not read - to read on, call WebFetch again with the same url and offset: 100000." So the window is about 100,000 characters per call, the tool REPORTS the page's total length and the range it covered, and `offset` continues from where it stopped.
+
+THE PART THAT SAVES A CALL: a section missing from the answer is usually missing from the SERVED TEXT, not waiting past the offset. Here the ranked sections - the Promptfoo eval gate and the HALO ranking - were absent, and an offset call returned only trace-exporter code, ending mid-sentence inside "Run the SDK agent". A long notebook page can therefore be read essentially whole in one call and still not contain what the row was ranked for.
+
+HOW TO USE IT. Read the note on every long-page answer: it is the only signal that distinguishes "the page does not say this" from "I did not reach it". Spend the offset call only when the first answer's coverage stopped short AND the material you want plausibly sits in the uncovered tail; one offset call settles it either way. Do not infer from a 100,000-character answer that a page was read in full.
+
+## Route 74 - a long genai.owasp.org PDF answers its early sections in full and the rest as table-of-contents titles
+
+67th run, ROUTE 70's THIRD DATAPOINT, and the two-call price held again: `/resource/genai-red-teaming-manual-version-1-0/` carried only an eight-phase abstract plus the href, and `https://genai.owasp.org/download/58204/?tmstv=1792386768` then answered a five-part enumeration ask to a plain WebFetch with no headers.
+
+THE NEW LIMIT IS LENGTH, NOT ACCESS. The answer said it was truncated after section 4.2.1.3 (page 60): Phases 1 to 3 and the start of Phase 4 came back with their objectives, quoted rules and artifact lists, while Phases 5 to 8 and the appendices came back as section TITLES only, which the reader named rather than silently dropping. A single ask over a document this size therefore yields its front half.
+
+HOW TO USE IT. For a long OWASP document, plan TWO document asks, not one: a first pass as usual, then a second scoped explicitly to the late sections by number and title ("sections 5 through 8, naming 5.1, 5.2, ..."), which gives the reader a target past its default stopping point. Budget a long resource at three calls in total - landing page, front half, late sections - and check the answer for a named truncation point before concluding the document does not cover something.
+
+ALSO, ROUTE 68's THIRD DATAPOINT: a builder.aws.com article URL already in hand answered a five-part enumeration ask - stages in order, every number, every gate with its trigger, every failure mode, automation versus human - on one plain WebFetch, no pane and no search. Only the title-to-URL step on that host needs a search; the article itself does not.
+
+## Route 75 - a genai.owasp.org /download/ URL is not stably readable: the same URL that answered yesterday can return "[binary data]"
+
+68th run. `https://genai.owasp.org/download/58204/?tmstv=1792386768` is the GenAI Red Teaming Manual, and the 67th run read it in full through a plain WebFetch on 2026-10-27 (route 70, route 74). On 2026-10-28 the SAME URL returned only `[binary data]` to the reader - no decoded text at all, so the answer correctly reported every requested section as absent rather than inventing one.
+
+TWO CALLS WERE SPENT, roughly twelve minutes apart, with different asks. Both came back identical. WebFetch caches a response for about 15 minutes per URL, so the second call may have been served from the first one's cache; treat this as ONE confirmed observation and not two independent ones.
+
+THE CONTRAST THAT MAKES IT A ROUTE NOTE RATHER THAN A SITE VERDICT: on the same run, the same host, the same call shape, `https://genai.owasp.org/download/53429/?tmstv=1773811493` (the data-security guide) answered a five-part enumeration ask as readable text on the first try. So route 70 still holds on this host in general; what does not hold is the assumption that a /download/ URL recorded as readable stays readable. The landing page was re-fetched and returned the SAME `?tmstv=` value, so this is not an expired token in the query string.
+
+WHAT TO DO, and what not to. Do not record the manual as dead - it has been read once and quoted verbatim. The honest wording is "unread by plain WebFetch on 2026-10-28, read by the same route on 2026-10-27". Untried alternatives, in cost order: the same URL after the 15-minute cache window; the browser pane, which route 67 showed renders genai.owasp.org pages; and the resource landing page asked for an alternate asset URL. `curl` is NOT an option on this host - the agent egress proxy returns 403 (route 70's hard limit).
+
+THE GENERALISATION WORTH CARRYING: a per-URL route recorded as working is a datapoint about one call, not a property of the URL. When a known-good fetch fails, re-test a DIFFERENT known-good URL on the same host in the same run before concluding anything about either the host or the tool - that one extra call is what separated "this host is gated again" from "this document did not decode today".
+
+## Route 76 - openai.com/news renders in the browser pane in two calls, with no approval prompt
+
+69th run. The archived route 1 recorded openai.com as a 403-to-plain-fetch host needing the browser, and three runs have since treated that as expensive enough to leave this feed unswept for 29 days - the longest staleness in the recurring set. It is not expensive. Two calls:
+
+    preview_start { url: "https://openai.com/news/" }        -> returns tabId "seed"
+    get_page_text { tabId: "seed" }                          -> the whole index as text
+
+No site-approval prompt appeared, nothing was gated, and the index came back with all nine rows, their section labels and their dates. An article page then needs one `navigate` plus one `get_page_text` on the same tab, so a read is two more calls. Total for sweep-plus-one-article: four calls, which is comparable to a plain-fetch feed and cheaper than the two-step /download/ route on genai.owasp.org.
+
+THE PRACTICAL UPSHOT: stop pricing openai.com as a hard host. Route 1's 403 finding still holds for WebFetch - do not spend a plain fetch on it - but the pane route is routine. Note this run executed with no human watching and the approval still did not fire, so the absence is not an artifact of someone clicking through.
+
+## Route 77 - an index read through the pane CANNOT be skip-marked, because get_page_text returns no hrefs
+
+69th run, and this is route 60's known limit showing its real cost for the first time. Route 60 recorded that get_page_text "returns titles, authors, dates and blurbs but NO hrefs" and treated that as a per-article resolution cost. The larger cost is to dedup: a triage verdict can only be written to seen/<host>.md as a line keyed by URL, so rows judged out of scope on a pane-read index cannot be skip-marked at all. Nine openai.com/news rows were triaged this run and NONE could be recorded in seen; the verdicts had to go into the feeds line and the queue instead, where no later run's dedup will consult them automatically.
+
+THE RULE THIS SETS: when you triage a pane-read index, either (a) spend one batched WebSearch (route 66) to resolve the slugs of the rows you are skipping as well as the ones you are reading, so the skips can be written to seen, or (b) write the verdicts into the feeds line AND say in the queue that the skips are unrecorded, so the next run reads them rather than re-triaging. Option (a) costs one call and is the right choice whenever more than about three rows are being skipped - which is most sweeps, since the skip ratio on a vendor newsroom runs around eight in nine.
+
+### 45a - langchain.com's pagination token has changed
+
+69th run. Route 45 recorded real pagination on https://www.langchain.com/blog/. The control now reads "1 / 35" and its target is `?8457a1db_page=2`. The hashed query-string parameter is evidently generated, so it should be read off the page each time rather than reused from this note or from route 45.
+
+## Route 78 - openai.com/news/engineering/ reads in the pane like route 76, and the real cost is resolving its slugs
+
+70th run. The engineering-scoped slice of the newsroom behaves exactly as route 76 recorded for the site-wide index. Two calls, no approval prompt, no 403:
+
+    preview_start { url: "https://openai.com/news/engineering/" }   -> tabId "seed"
+    get_page_text { tabId: "seed" }                                 -> the whole index as text
+
+Nine rows came back with their section labels and dates (Oct 23 2026 down to May 13 2026) plus an untried "Load more". An article page is then one `navigate` plus one `get_page_text` on the same tab.
+
+WHAT COSTS MORE THAN THE FETCH IS THE SLUG, and this run priced three attempts:
+
+1. **The batched WebSearch did not work here, which is route 66's first recorded failure.** One `WebSearch` with `allowed_domains: ["openai.com"]` carrying FOUR distinct quoted titles returned a single result: the index page itself. Route 66 got four slugs out of one such query on claude.dev, so the technique is host-dependent - a newsroom whose article titles are not individually indexed under the queried domain does not answer it.
+2. **Guessing the stem 404s.** `part-two` exists at `/index/scaling-storage-one-billion-users-part-two/`, and the obvious Part I stem `/index/scaling-storage-one-billion-users/` returns OpenAI's 404 page (it serves a haiku, so the pane shows readable text rather than an error - do not mistake that for a successful read).
+3. **One single-title WebSearch with extra context resolved it immediately.** The query carried the full title plus "Habitat Part I September 2026" and no domain filter, and returned `/index/scaling-storage-one-billion-users-part-one/` along with a dozen localised `/<locale>/index/...` variants of the same path. The canonical path is the un-prefixed one.
+
+THE RULE: on this host, go straight to one WebSearch PER TITLE you intend to read, with a couple of distinguishing words added, and do not spend a batched query first. The naming lesson is worth keeping too - a two-part series here is `-part-one`/`-part-two`, so the earlier post is NOT at the bare stem.
+
+THE DEDUP CONSEQUENCE is route 77's, unchanged: the eight rows triaged but not read could not be skip-marked in `seen`, because `get_page_text` returns no hrefs. On this feed that is the right outcome rather than a loss - seven of the eight are in-scope candidates, not skips - so they are enumerated by title and date in queue item 61 instead.
+
+## Route 79 - openai.com /index/ ARTICLE pages answer a plain WebFetch; only the INDEX needs the pane
+
+71st run. Three article pages were read with nothing but `WebFetch` on the bare URL - no browser pane, no custom `User-Agent`, no `Referer`, no approval prompt and no 403:
+
+    https://openai.com/index/building-self-improving-tax-agents-with-codex/
+    https://openai.com/index/building-codex-windows-sandbox/
+    https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug/
+
+Three for three, and route-42 style verbatim asks worked on all three: targeted "quote this clause verbatim or say ABSENT" requests returned exact clauses, including identifiers (`_Ux86_64_setcontext`, `timer_getoverrun`, `CodexSandboxOffline`) and figures. So the expensive part of reading this host is gone. Six of this run's facts came off these three pages at one or two fetches each.
+
+THE VARIABLE IS ISOLATED IN ONE DIRECTION ONLY, AND THAT MATTERS. What is established is that the minimal configuration works on article pages: nothing was added, so nothing can be a passenger flag. What is NOT established is anything about the index. **This run never called an index URL on openai.com**, so routes 1, 76 and 78 stand unchallenged for `openai.com/news/` and `openai.com/news/engineering/` - do not read this route as "openai.com no longer needs the pane". The split is the same shape as route 68 on builder.aws.com: article pages plain, index through the pane.
+
+WHAT THIS CHANGES IN PRACTICE. Budget one WebSearch per title for the slug (route 78's rule, unchanged - the pane returns no hrefs and a batched query fails on this host), then ONE plain WebFetch per article instead of two pane calls, plus one more plain WebFetch per verbatim pass. A read is now cheaper than its slug lookup.
+
+WHAT TO DO IF IT REGRESSES. The 403 recorded in route 1 was real when it was recorded, so this may be a server-side change rather than a permanent property. If a plain fetch on an /index/ page starts returning 403 again, fall back to routes 76/78 (preview_start plus get_page_text) rather than spending calls on headers, and note the date here - two datapoints in opposite directions would make this host's gating worth treating as intermittent.
+
+## Route 80 - openai.com: a domain-scoped WebSearch ENUMERATES, it does not only resolve a slug
+
+Added on the 72nd run. Route 78 priced one WebSearch per article title as the cost of resolving a slug on this host, because the pane returns no hrefs. That price buys more than route 78 claimed.
+
+ONE WebSearch for a single queued title - the title in quotes plus the word OpenAI, with allowed_domains: ["openai.com"] - returned ten links: the wanted slug, and SEVEN /index/ slugs no run had ever named, none of them in seen. A second, broader query on the same domain ("OpenAI engineering blog Codex agent infrastructure posts 2026") added another slug and surfaced a whole unswept feed on developers.openai.com. So the same call that costs a slug resolution also samples the back catalogue, and on this host the back catalogue is what the 403 and the pane have been hiding.
+
+WHAT THIS CHANGES. The nine rows the 70th run enumerated through the pane on /news/engineering/ are its FIRST PAGE, not its depth; the untried "Load more" is real. Enumerating this host no longer requires the pane at all: issue a domain-scoped WebSearch with a topic phrase, harvest every /index/ slug in the result, reconcile against seen, then read the survivors with a plain WebFetch (route 79). Budget: one search per topic area rather than one per article, and expect the result set to be capped around ten links, so several topic phrases beat one broad query.
+
+CAVEAT, and it is the reason this is an enumeration AID and not an index: a search result set is ranked and capped, so absence from it proves nothing and it gives no dates. It finds rows; it does not tell you the catalogue is exhausted. Only the index's own pagination can do that.
+
+## Route 79 is NON-DETERMINISTIC PER URL, like route 75
+
+Added on the 72nd run, correcting route 79's "3 for 3" reading. In one run a plain WebFetch answered five /index/ article pages first try, including route-42 verbatim asks - /harness-engineering/, /unlocking-the-codex-harness/, /unrolling-the-codex-agent-loop/, /inside-our-in-house-data-agent/, /open-source-codex-orchestration-symphony/ - with no 403, no headers and no pane. In the SAME run /index/building-chatgpt-ad-stack/ returned client_error with nothing retrieved on two consecutive tries.
+
+So route 79 is now 8 for 9 across two runs, and the one failure is a per-URL coin flip rather than a gate that has closed. Treat a route-79 failure the way route 75's non-deterministic decode is treated: free to retry on a later run, worth the pane only if it fails again, and never recorded as a dead source. Do not spend two calls on the same URL in one run once the first has failed - the second added nothing here.
+
+## Route 81 - developers.openai.com/blog: one plain WebFetch enumerates the WHOLE feed, 32 rows, no pagination
+
+73rd run, first contact. The call was the minimal one:
+
+    WebFetch { url: "https://developers.openai.com/blog",
+               prompt: "Enumerate every post listed on this index: exact title, URL path, date if shown.
+                        Also list any topic-filter paths and say whether a load-more/pagination control exists." }
+
+Nothing added: no custom User-Agent, no Referer, no pane, no approval prompt, no 403. It returned all 32 rows as a
+table with titles, paths and dates, the six /blog/topic/<name> paths, and an explicit statement that no pagination
+control exists - the listing ends at /blog/intro, the blog's own hello-world post, which is corroborating evidence
+that 32 rows is the entire feed rather than a first page. THE VARIABLE IS ISOLATED BY CONSTRUCTION: the minimal
+configuration worked, so no flag can be a passenger. Article pages on the same host then answered plain WebFetch
+too, including route-42 verbatim asks, three for three.
+
+WHY THIS MATTERS BEYOND ONE FEED. developers.openai.com is NOT behind the openai.com 403 gate (routes 1, 76, 78),
+and the pack had already established that for /cookbook and /api/docs/guides/. What is new is that on this host an
+index returns HREFS, which openai.com's pane route cannot do (route 77). So slug resolution on developers.openai.com
+costs nothing, while on openai.com proper it still costs a WebSearch per title or a route-80 topic search.
+
+THE TOPIC-VIEW QUESTION, OPEN SINCE THE 66TH RUN, IS ANSWERED FOR THIS TREE AND ONLY THIS TREE: the topic paths
+exist and are plain paths rather than query parameters, but they are not needed here because the unfiltered index
+already lists every row. That says nothing about /cookbook's filter tabs, which are a different control on a
+different tree - do not record the cookbook question as closed.
+
+## Route 82 - openai.com/index/building-chatgpt-ad-stack/ is a per-URL dead end, and it is NOT a wrong slug
+
+73rd run, third failure. Totals now: three runs, five plain WebFetch calls, five client_errors, zero bytes
+retrieved - while in each of those same runs plain WebFetch answered four or five OTHER /index/ pages first try.
+
+THE WRONG-SLUG HYPOTHESIS IS ELIMINATED, which is the only new information here and it cost one search. The
+standing rule says a 404 is usually a wrong slug (and the 72nd run had a real reason to suspect one, because the
+index's "Keep reading" block rendered the title as "how-we-built-chatgpts-novel-ad-stack..."). One domain-scoped
+WebSearch - "ad stack" ChatGPT how we built engineering, allowed_domains openai.com - returned this exact URL as
+its first hit, under the title "How we built ChatGPT's novel ad stack for user trust and relevance". The slug is
+right. The failure is the fetch.
+
+WHAT THIS CHANGES FOR ROUTE 79. Route 79's non-determinism is not per-call, it is PER-URL and it is sticky: the
+same URL has now failed in three separate runs on three separate days. So "free to retry" was the wrong price for
+this row. Retry a route-79 failure ONCE in a later run; after a second run fails on the same URL, stop spending
+plain fetches on it and either take it to the pane (routes 1/76) or drop it. Nothing here weakens route 79 for
+other URLs - its hit rate across the three runs is 12 of 13.
+
+THAT SAME SEARCH ALSO ENUMERATED, which is route 80's fourth confirmation: alongside the wanted URL it returned
+/index/mrc-supercomputer-networking/, never named by any run. Two further topic-phrase searches this run
+("inference serving reliability evals infrastructure" and "prompt injection agent security sandbox postmortem")
+returned /index/separating-signal-from-noise-coding-evaluations/, /index/hardening-atlas-against-prompt-injection/
+and /index/the-work-now-within-reach/, none of them in seen and none ever named - plus hits on
+developers.openai.com and cdn.openai.com. Three searches, four genuinely new in-scope slugs, two of which became
+facts. Route 80 remains the cheapest door into this host.
+
+## Route 83 - a WHOLE-ARTICLE verbatim ask is refused and comes back as a paraphrase that still carries the numbers
+
+74th run, on alignment.anthropic.com/2026/red-teaming-auto-mode/. The ask was "return the article's substantive
+content as close to verbatim as possible... reproduce the source's sentences". The reader REFUSED the
+reproduction and said so - "I can't reproduce the article's sections verbatim, so this is a condensed summary in
+my own words" - and then supplied a clean, confident, well-structured summary containing every figure in the
+article. That is the dangerous shape: the refusal is one line at the top, the eleven numbers underneath look
+exactly like a verbatim read, and five of them turned out to be right.
+
+THE VARIABLE IS ISOLATED, AND IT IS THE ASK SHAPE, NOT THE HOST. The SAME URL, in the same run, answered two
+follow-up asks of the form "quote word for word, in quotation marks, the exact sentence containing each of the
+following... write NOT PRESENT if absent" with ten exact clauses, including every figure. Nothing else changed:
+same tool, same URL, no headers, no pane. So this is not a gate and the host is not refusing anything - a
+reproduce-the-article ask trips the reader's own limit, and a quote-this-clause ask does not.
+
+THE RULE. Never send a whole-article verbatim ask. It costs a call and returns something that cannot support a
+figure (spec.md: "An open-ended reader's paraphrase never supports a figure, an identifier or an attribution").
+Send one open-ended ask to learn WHAT the article contains, then one or two clause-level asks naming each figure,
+identifier and attribution you intend to store, five or six per call, each with "write NOT PRESENT if absent".
+That is two or three calls for an article you will write facts from, and it is the only shape that has ever
+returned exact clauses on this pack's hosts. It is the same finding as route 42 (a presence/literal-text ask
+returns the page) seen from the failure side, and it is worth a route of its own because the failure is SILENT:
+the paraphrase arrives looking like an answer.
+
+ONE MORE SIGN TO WATCH FOR, same run, different host: a clause-level ask will sometimes answer "The sentence is
+longer than 125 characters, so this is an excerpt" or "so here are the key fragments". That is honest and usable -
+the fragments ARE verbatim - but it means the clause was truncated, so re-ask for the remainder by naming the
+words it should start after. The 74th run did exactly that on langchain.com's five-item cycles list and got the
+back half exactly.
+
+## Route 84 - scope an enumeration ask to the slice that can contain new material
+
+74th run, on alignment.anthropic.com. The recorded ask for this index is a whole-archive enumeration, and its
+result has varied wildly across runs: 8, 62, 62, 79 and 84 entries on the same URL (route 33). This run asked
+instead for "every entry on this index that is dated 2026 (any month of 2026)" with the usual
+list-every-row-individually, do-not-give-a-count instruction. One plain WebFetch returned 30 rows, complete and
+ordered, and it contained all five October 2026 rows - the only rows that could possibly be new against a
+2026-08 mark.
+
+WHY IT IS BETTER AND WHEN IT IS NOT. A narrower slice is a shorter answer, and a shorter answer is one the reader
+finishes, which is the mechanism behind the route-33 variance. Use the scoped form on any index whose mark is
+recent enough that only the current year matters. Do NOT use it when the job is to establish full coverage of a
+back catalogue - there the whole-archive ask is the right one, and route 33's rule still applies: ask for the
+enumeration, never act on the page's stated total, and reconcile a short enumeration against seen before
+concluding the feed shrank.
+
+## Route 85 - trychroma.com research pages serve their prose with the NUMBERS STRIPPED OUT
+
+75th run, on https://www.trychroma.com/research/context-1 during the staleness pass. Clause-level asks came back with
+sentences that are grammatically broken exactly where a figure should be: "bound the context window to a fixed token
+budget .", "When usage exceeds tokens,", "Beyond a configurable cutoff in between and tokens". The sentences are
+otherwise intact and the reader quoted them faithfully - the numbers are simply not in the served text, presumably
+rendered client-side into the prose.
+
+WHY IT MATTERS MORE THAN AN ORDINARY TRUNCATION. The page still reads as complete and confident, and numbers DO survive
+in two other places: inside an inline example ("[Token usage: 14,203/32,768]") and in a different section's prose ("we
+give these models a token budget of 200k tokens (as opposed to 24k tokens)"). Those two disagree about the harness's
+budget, so a run that takes whichever one it happens to find will store a figure the page does not actually assert. The
+26th-run-era fact built on this page had carried 32,768 and ~24,000 as though both were stated.
+
+THE RULE FOR THIS HOST. Treat any figure from a trychroma.com research page as unverified unless a clause ask returns it
+inside a complete sentence. Ask explicitly whether a number appears in prose or only in an example or code block - that
+ask is what surfaced the problem here, and it is worth adding to any clause ask about a figure on an unfamiliar host. If
+the figure matters, the remedy is the pane, which was not spent this run.
+
+## Route 86 - a clause-level ask can UNDER-report, and the omission looks exactly like a correction
+
+75th run, on https://ai-sdk.dev/docs/agents/loop-control. A clause ask about `prepareStep` returned "It receives
+`messages` for the current step, plus `initialMessages` and `responseMessages`" and listed overrides starting at
+`maxOutputTokens`. The fact under check asserted `prepareStep` receives `stepNumber` and the prior `steps`. Read
+naively, the page had changed and the fact was wrong.
+
+IT HAD NOT. A second, narrower ask - "quote every sentence or clause that mentions `stepNumber`, or `steps` as a
+parameter of prepareStep, or that lists the full set of arguments" - returned nine clauses containing `stepNumber`,
+including the annotated argument list "stepNumber, // Current step number (0-indexed)" and "steps, // All previous
+steps with their results". The first ask had answered from the page's PROSE sentence and ignored the code block that
+carries the full list. Nothing had changed; the fact was right and was enriched rather than corrected.
+
+THE RULE, and it is the staleness pass's version of route 83. A clause ask answers from wherever it finds an answer
+first, so an ABSENCE in its reply is not evidence of absence on the page. Before recording any correction on the
+strength of something a clause ask did not return, send one more ask scoped to that one item, phrased as "quote EVERY
+sentence or clause mentioning X" rather than "the sentence containing X". One extra call is cheap; a false correction
+written into a fact is not, and it is invisible afterwards because the fact reads as freshly verified.
+
+The corollary for the same pass: route 83's warning is about a paraphrase that fabricates figures. This is the opposite
+error on the same tool - an honest, partial answer that fabricates nothing and still produces a wrong verdict. Both are
+silent, and the second is the more dangerous one during a staleness pass, because the pass's whole output is verdicts.
+
+## Route 87 - anthropic.com/engineering is now a FILTERED VIEW of /research, and no existing ref is broken
+
+76th run. Both indexes were swept in the same run and the result changes how this host is read.
+
+- Every row on `https://www.anthropic.com/engineering`, hero carousel included, now prints a
+  `https://www.anthropic.com/research/<slug>` URL. There are no `/engineering/<slug>` links left on it.
+- `https://www.anthropic.com/research` lists the engineering posts too, tagged with an Engineering team
+  label. So the two feeds OVERLAP and /engineering is the engineering-tagged slice of /research.
+- THE OLD FORM STILL WORKS. `https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents`
+  answers HTTP 200 with the full article; so does `.../research/demystifying-evals-for-ai-agents`, and the
+  two responses were byte-identical in length (46,921 characters). The page's `canonical` and `og:url`
+  both name the `/research/` form.
+
+WHAT TO DO WITH IT. Do NOT rewrite the dozens of `/engineering/<slug>` refs already in the corpus: they
+resolve, and a mass ref edit would be churn with no reader benefit. Do compare index rows against `seen`
+by SLUG rather than by full path on this host, because the same article is now reachable at two paths and
+the normalisation rules in spec.md (scheme, www, trailing slash, fragment) do not cover a changed path
+segment. A row that looks new on /research may be an /engineering URL already in seen, and the reverse.
+
+## Route 88 - the WebFetch answer is verbatim for about 39,400 characters and a MODEL SUMMARY after that, and the summary's "NOT PRESENT" answers are FALSE
+
+76th run, measured four times in one run on four different hosts. This is route 73's window with the part
+route 73 did not record, and it is the most dangerous reading failure found so far.
+
+THE SHAPE. A long page comes back as real page text up to roughly character 39,400, and everything after
+that is a model-written summary of the rest. The seam is not always announced the way route 73's note
+announced it.
+
+MEASUREMENTS.
+- `code.claude.com/docs/en/best-practices` (52,163 chars): verbatim to 39,941. The summary of the tail
+  answered NOT PRESENT for four clauses that WERE present in the verbatim part.
+- `platform.claude.com/.../claude-4-best-practices` (71,514 chars): verbatim to 39,895, cut mid-word. The
+  summary answered NOT PRESENT for all three asked clauses; all three were in the verbatim part. The
+  summary also offered a sentence ("Claude's latest models perform especially well in using git to track
+  state across multiple sessions") that could not be found in the verbatim text at all.
+- `blog.cloudflare.com/verified-bots-with-cryptography/` (76,333 chars): verbatim to 39,398, and THE CUT
+  LANDED INSIDE THE SITE'S TAG NAVIGATION. The article body was never in the verbatim portion at all, so
+  the entire post was only available as summary. Nothing from it was storable.
+- `anthropic.com/research/alignment-assessment-ukaisi`: verbatim to about 39,396, then summary - see route 89
+  for the fix that worked there.
+
+THE RULE, and it supersedes any reading of route 86 that treats a missing clause as evidence of change.
+A "NOT PRESENT" is only a finding when it comes from text you can see. Before recording a claim as absent,
+or a fact as stale because its clause has gone, establish that the asked-for region was inside the verbatim
+portion. A page over about 40,000 characters needs the offset continuation (route 89) before any absence
+claim. And a long page whose boilerplate is front-loaded - a blog with a nav or tag index above the article -
+may yield NO verbatim article text whatsoever; check what the verbatim portion actually contains rather
+than assuming it starts at the headline.
+
+## Route 89 - offset continues PAST the 39.4k cut and comes back verbatim
+
+76th run, on `anthropic.com/research/alignment-assessment-ukaisi`. The first call returned the article
+verbatim only to about character 39,396 and then a summary. A second WebFetch on the same URL with
+`offset=39396` returned THE REST AS REAL TEXT, and every figure in the second half (the 95-100%, 62%, 67%,
+4-of-25 and compaction-cycle numbers) came off that second call rather than the summary.
+
+SO THE FIX IS CHEAP AND SHOULD BE ROUTINE ON ANY LONG PAGE WHOSE TAIL MATTERS: one extra call with
+`offset` set to where the verbatim text stopped. Two calls for a long article is the correct price, and it
+is much cheaper than the alternative, which is storing a summary's numbers and discovering it three runs
+later. Route 73's observation that "a section missing from the answer is usually missing from the SERVED
+TEXT" holds for pages that are genuinely short of the section; it does NOT license skipping the offset call
+on a page whose length exceeds the window.
+
+## Tool caveat, 76th run - THIS SESSION HAD NO WebFetch TOOL OF ITS OWN
+
+Neither `WebFetch` nor any direct fetch tool was in the session's tool list, and `ToolSearch` for it
+returned "No matching deferred tools found". `WebSearch` was available. All fetching this run therefore
+went through a `web-fetch` SUBAGENT, which has WebFetch and returns its report as the tool result.
+
+WHAT THIS CHANGES, for a future run that finds itself in the same position. The routes in this file still
+apply unchanged, because the subagent is running the same WebFetch against the same hosts - routes 87, 88
+and 89 above were all measured through it. What changes is the ASK: the clause-level verbatim discipline
+(routes 32, 46, 83, 86) has to be written INTO the subagent's prompt, because the subagent decides how to
+query the page and an open-ended brief gets an open-ended read back. Prompts that worked: state the two
+passes explicitly, give the "quote word for word, in quotation marks ... write NOT PRESENT if absent"
+format verbatim, cap each requested clause at about 120 characters, and ask the subagent to report where
+the verbatim portion ended. Every subagent asked that way complied and flagged its own summary-derived
+answers; one refused outright to supply figures it could not quote, which is the correct behaviour.
+
+ALSO SEEN FOUR TIMES, AND IT IS NOT A PAGE INJECTION. Every subagent reported that the fetched content
+carried a block of "reporting rules" (a 125-character quote cap, a bar on word-for-word reproduction).
+Two of them checked and confirmed it came from the TOOL OUTPUT and not from the page. Treat it as the
+fetch tool's own copyright guard. Do not record it as prompt injection, and do not let it suppress the
+verbatim asks this pack's quality bar requires.
+
+## Tool caveat, 77th run - STILL NO WebFetch TOOL OF ITS OWN, and the subagent route worked again
+
+Same position as the 76th run: no `WebFetch` and no direct fetch tool in the session's tool list,
+`WebSearch` present, all fetching done through `web-fetch` SUBAGENTS. Nine subagent fetch tasks this
+run, covering eleven URLs; every route below was measured through them, so the routes transfer.
+
+WHAT MADE THE PROMPTS WORK, confirmed a second time and worth copying verbatim into the next run's
+asks. Four elements, all of them doing work:
+
+1. State the route-88 window IN THE PROMPT, with the number: "real page text only for roughly the
+   first 39,400 characters; after that it hands back a model-written summary whose 'not present'
+   answers are FALSE." Every subagent given this reported its own seam position unprompted.
+2. Tell it to make the offset continuation ITSELF rather than reporting the seam back. Three
+   subagents did two calls, one did four (the OWASP PDF), one did seven (the METR blog plus PDF);
+   none needed a follow-up round trip to be told to continue.
+3. Give it the substitute for NOT PRESENT: "never write NOT PRESENT about a region you only saw as
+   a summary - write 'could not verify, beyond the verbatim window' instead." Two subagents used
+   that exact phrasing on real gaps, which is the difference between an unverified claim and a
+   false correction.
+4. Ask for EVERY clause bearing on an item, not the sentence containing it (route 86), and cap each
+   quoted clause at about 120 characters with an instruction to split rather than paraphrase the
+   remainder.
+
+ALSO SEEN AGAIN, five times, AND IT IS STILL NOT A PAGE INJECTION. Every subagent reported a block of
+"reporting rules" (a 125-character quote cap) in the tool output. It is the fetch tool's own copyright
+guard. Do not record it as prompt injection. No fetched page this run carried any text addressed to an
+AI agent.
+
+## Route 88 CONFIRMED FOUR MORE TIMES, AND ONCE THE SUMMARY CONTRADICTED THE VERBATIM TEXT
+
+77th run. Four fresh measurements of the ~39,400-character seam, on four hosts:
+
+- `microsoft.com/en-us/security/blog/2026/10/29/tracking-ai-adoption...` (56,583 chars): verbatim to
+  about 39,340, cutting mid-link inside the Defender-detections section. THE SUMMARY OF THE TAIL WAS
+  WRONG IN THREE WAYS AT ONCE: it said the post had no date and no byline (the verbatim part prints
+  "October 29" and "By Microsoft Threat Intelligence"), and it said "nine threat actor groups" where
+  the actual tables carry seven Defender entries and eight threat-analytics profiles. An offset call
+  at 39000 returned the rest as real text.
+- `deploymentsafety.openai.com/gpt-6-1-sol` (73,274 chars): verbatim to 39,411, ending inside a
+  figure's image URL. THE SUMMARY DID NOT MERELY OMIT - IT ASSERTED A CLAIM THE VERBATIM TEXT DOES
+  NOT MAKE, that the model evaded CoT-only monitors "less often than GPT-6 Astra at higher reasoning
+  efforts". One offset call at 39000 reached the footer.
+- `alignment.anthropic.com/2026/agentic-misalignment-summer-2026` (100,056 chars): verbatim to 39,389,
+  then to about 78,389 with offset 39000, then to the end with offset 78300. THREE CALLS FOR ONE
+  PAGE, and the figures this pack stores from it sit in the second and third thirds. The second
+  call's summary wrongly claimed a heading was absent that was present in verbatim text.
+- `metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/` (120,695 chars) and
+  `metr.org/hugging-face-incident-report-aug-2026.pdf` (123,168 chars): three calls each, at offsets
+  0 / 39000 / 78300 and 0 / 39300 / 78694. The signing-scheme material is in the THIRD call of each.
+
+THE RULE THIS SHARPENS. Route 88 said a summary's NOT PRESENT is false. Two of these four show the
+stronger failure: the summary states positive content that the page does not contain - a missing date,
+a wrong count, an invented comparative clause. So a summary is not a weak source to be hedged, it is
+an unsourced one. Budget the offset calls by LENGTH at the start: under ~39k is one call, 40-78k is
+two, 78-120k is three, and a long PDF can need four. Ask the fetch for the character count first and
+plan from it.
+
+## Route 90 - openai.com proper is STILL gated, measured on two more URLs
+
+77th run. `openai.com/index/model-misalignment-reporting-framework` and
+`openai.com/hugging-face-incident-and-misalignment/` both returned client_error with no page text to a
+plain fetch, in the same session in which `alignment.openai.com` and `deploymentsafety.openai.com`
+answered plainly. This is route 1's gate, and route 79's "openai.com /index/ ARTICLE pages answer a
+plain WebFetch" did NOT hold for either, consistent with route 79 being marked non-deterministic per
+URL. Do not spend a second plain fetch on either; they need the pane (route 76).
+
+ONE CONSEQUENCE WORTH NOTING: `406e5a50` already cites the reporting-framework page, so it HAS been
+read by an earlier run. A URL in seen is not a URL that answers a fetch today.
+
+## Route 91 - a NEW primary URL the pack needs and has never fetched
+
+77th run. Redwood's monitoring-disablement post links OpenAI's detection report at
+`https://openai.com/index/how-we-detect-frontier-model-misalignment/` as the source of the 42.9% /
+57.1% L2 flag rates now stored in `25894bc6`. The secondary does NOT state what population those rates
+are over, so the denominator is unknown until the primary is read. It is on the gated host, so it needs
+the pane. This is the single highest-value gated URL in the queue.
+
+## Route 92 - a long genai.owasp.org PDF covers about half its pages in four offset calls
+
+77th run, on `genai.owasp.org/download/50592/?tmstv=1754459367` (the State of Agentic AI Security and
+Governance report, v2.01, June 2026, 125,068 characters). Offsets 0 / 39300 / 78600 / 117900 returned
+verbatim text covering roughly PDF pages 2 to 64, ending mid-word. The fourth call at 117900 returned
+text ALREADY SEEN (from about p.61) and added nothing - so offset on this PDF does not index linearly
+onto the document past a point, and a fourth call is wasted.
+
+PRACTICAL EFFECT: pages ~65-139 of this report, which hold the rest of Future Trends, the Appendices
+and the References, are unread by this method. A clause that a stored fact attributes to this document
+but which cannot be found in pp.2-64 is UNVERIFIED, not absent - see queue item 75(vi). This extends
+route 74 rather than replacing it: the early sections do answer in full, and the tail is not reachable
+by adding offsets.
+
+## Route 93 - the resource page is not the report on genai.owasp.org
+
+77th run. `genai.owasp.org/resource/state-of-agentic-ai-security-and-governance/` is 9,823 characters
+and carries NO report text at all - only metadata, navigation and a Download link. Every quotation this
+pack attributes to it actually lives in the linked PDF. Two consequences: a verification ask aimed at
+the resource URL will come back empty and look like the content is gone, and the resource page's own
+printed date ("June 1, 2026", modified 2026-06-08) is the thing to watch for a revision, while the PDF
+cover carries its own version string ("Version 2.01", "June 2026", with v1.0 dated July 2025).
+
+## Route 94 - the blog.cloudflare.com seam is CLOSED, and it cost ONE call
+
+78th run. `blog.cloudflare.com/verified-bots-with-cryptography/` was carried as blocked from the 76th
+run to the 77th on the strength of route 88: two plain fetches had returned verbatim text only to about
+character 39,398, with the cut landing inside the site's tag navigation, so the article body was never
+in the verbatim portion and nothing from the post was storable.
+
+THE FIX WAS TO SKIP THE FIRST CALL ENTIRELY. A single WebFetch with `offset=39300` as the FIRST call
+returned real page text from 39,300 to the end of the 76,423-character page - byline, title, the whole
+article, the footer - with no summary notice. No second offset was needed. Every literal the pack wanted
+(`/.well-known/http-message-signature-directory`, the `Signature`/`Signature-Input`/`Signature-Agent`
+header list, the Ed25519 verification step, the plan coverage, the fail-open fallback) came off that one
+call.
+
+THE GENERAL RULE THIS ADDS, and it is cheaper than route 89 as usually practised: when a previous run
+has ALREADY measured where a page's verbatim window ends and reported that the window held only
+boilerplate, do not re-spend the offset-0 call to rediscover it. Start at the recorded offset. Route 89
+says "spend one extra call"; on a page already known to front-load its navigation, the correct price is
+one call, not two.
+
+## Route 95 - four offset calls tile a 134,503-character anthropic.com page with NO gaps, unlike the OWASP PDF
+
+78th run, on `www.anthropic.com/threat-intelligence-report-september-2026`. Offsets 0 / 39924 / 79848 /
+119772, each call returning verbatim text for its own ~39,900-character window and then a model summary
+of the remainder. The four windows tile the page exactly: every character was read verbatim in some
+call, and the fourth call reached the end with no summary at all.
+
+THIS IS THE OPPOSITE OF ROUTE 92, which found that on a long genai.owasp.org PDF a fourth offset call
+returned text already seen and added nothing, leaving pages ~65-139 unreachable. So offset behaviour is
+a property of the SOURCE TYPE, not of the window: on an HTML page the offset indexes linearly into the
+served text and tiling works, while on a PDF served through `/download/` it does not. Budget
+ceil(length / 39,900) calls for a long HTML page and expect full coverage; budget three for a long OWASP
+PDF and expect the tail to stay unread.
+
+AND THE SUMMARIES LIED AGAIN, THREE TIMES IN ONE RUN. Call 1's summary and call 2's summary both reported
+items absent or differently worded that call 2's verbatim region carried exactly; call 1's summary
+asserted the page "does not say whether these cases are typical" when the verbatim intro says precisely
+that. Route 88's rule held under every test: a NOT PRESENT is a finding only when it comes from text you
+can see.
+
+## Route 96 - a Substack article ignores a clause-level ask and returns the whole page, which is the GOOD outcome
+
+78th run, on `blog.redwoodresearch.org/p/simulated-control-evaluations` (34,837 characters). Three
+clause-level asks of the route-83 shape, six items each, all returned the ENTIRE page as raw markdown
+instead of per-item answers, identically each time. That is route 42's shape on a third host class: a
+page comfortably inside the verbatim window may ignore the answer FORMAT and serve the text, and the
+text is what the format was for.
+
+PRACTICAL EFFECT: on a Substack post under about 35,000 characters, send ONE call, read the markdown it
+returns, and quote from that. Sending the second and third clause asks bought nothing here. The check
+that the page really is short enough still has to happen first - this is not licence to skip route 89 on
+a long Substack post.
+
+## Tool caveat, 78th run - STILL NO WebFetch IN THE SESSION'S OWN TOOL LIST
+
+The 76th run's caveat held again: no `WebFetch` and no direct fetch tool in the session, so all nine
+fetches this run went through `web-fetch` SUBAGENTS, with `WebSearch` available but unused. Routes 94,
+95 and 96 were all measured through subagents, which confirms again that the routes transfer unchanged.
+
+WHAT HAD TO BE WRITTEN INTO EVERY SUBAGENT PROMPT, because the subagent chooses how to query the page:
+the two-pass shape; the "quote word for word, in quotation marks ... write NOT PRESENT if absent" format
+given verbatim; a cap of about 120 characters per requested clause and six clauses per call; the explicit
+ban on a whole-article verbatim ask; the instruction to send the offset continuation BEFORE reporting any
+absence on a page over ~40,000 characters; and a request to report where the verbatim portion ended.
+Every subagent asked that way complied, and two of them flagged their own summary-derived answers as
+unreliable without being asked twice - which is what caught the Microsoft and Anthropic summary defects
+above. A verification prompt should additionally ask for EVERY MODAL AND QUANTIFYING WORD in the sentence
+carrying each claim; that one line produced four of this run's five staleness findings.

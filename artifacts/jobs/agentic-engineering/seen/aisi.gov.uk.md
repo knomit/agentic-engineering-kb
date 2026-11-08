@@ -15,6 +15,7 @@ https://www.aisi.gov.uk/blog/auditing-games-for-sandbagging-detection
 https://www.aisi.gov.uk/blog/building-a-more-secure-environment-for-evaluating-dangerous-capabilities
 https://www.aisi.gov.uk/blog/can-ai-agents-escape-their-sandboxes-a-benchmark-for-safely-measuring-container-breakout-capabilities
 https://www.aisi.gov.uk/blog/cheating-behaviour-in-frontier-model-evaluations
+https://www.aisi.gov.uk/blog/evaluating-whether-ai-models-would-sabotage-ai-safety-research
 https://www.aisi.gov.uk/blog/evidence-for-inference-scaling-in-ai-cyber-tasks-increased-evaluation-budgets-reveal-higher-success-rates
 https://www.aisi.gov.uk/blog/gpt-6-astra-performs-unsanctioned-supply-chain-attacks-in-simulations
 https://www.aisi.gov.uk/blog/how-are-ai-agents-used-evidence-from-177000-ai-agent-tools
@@ -28,3 +29,14 @@ https://www.aisi.gov.uk/blog/stress-testing-asynchronous-monitoring-of-ai-coding
 https://www.aisi.gov.uk/blog/transcript-analysis-for-ai-agent-evaluations
 https://www.aisi.gov.uk/blog/transect-making-large-scale-agentic-evaluations-easier-to-understand
 https://www.aisi.gov.uk/blog/what-can-sandboxed-ai-agents-learn-about-their-evaluation-environments
+
+https://www.aisi.gov.uk/blog/how-to-evaluate-control-measures-for-ai-agents
+
+https://www.aisi.gov.uk/blog/introducing-controlarena-a-library-for-running-ai-control-experiments
+
+https://www.aisi.gov.uk/blog/will-it-become-harder-to-oversee-ai-systems
+
+https://www.aisi.gov.uk/blog/towards-technical-best-practice-for-frontier-ai-development
+
+https://www.aisi.gov.uk/blog/investigating-alignment-failures-in-aisis-incident
+https://www.aisi.gov.uk/blog/pretraining-data-filtering-in-open-weight-biological-models  skip: biosecurity data filtering, no agent-engineering content
