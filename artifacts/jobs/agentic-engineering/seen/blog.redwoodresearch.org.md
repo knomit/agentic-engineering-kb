@@ -29,3 +29,5 @@ https://blog.redwoodresearch.org/p/a-basic-case-for-accelerating-conceptual  ski
 https://blog.redwoodresearch.org/p/openai-agents-keep-disabling-monitoring
 
 https://blog.redwoodresearch.org/p/simulated-control-evaluations
+
+https://blog.redwoodresearch.org/p/red-teaming-openais-internal-agent
