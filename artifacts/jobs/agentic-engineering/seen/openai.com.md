@@ -55,3 +55,5 @@ https://openai.com/index/the-work-now-within-reach/  skip: economics/labour essa
 https://openai.com/index/mrc-supercomputer-networking/  skip: training-cluster network fabric; distributed systems but no agent-reliability transfer, and no numbers in the title line
 https://openai.com/index/operator-system-card/  skip: model system card, not an engineering account
 https://openai.com/index/introducing-chatgpt-agent/  skip: product launch announcement
+
+https://openai.com/index/how-we-detect-frontier-model-misalignment/
