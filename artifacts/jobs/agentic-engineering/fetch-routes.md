@@ -1136,3 +1136,80 @@ Every subagent asked that way complied, and two of them flagged their own summar
 unreliable without being asked twice - which is what caught the Microsoft and Anthropic summary defects
 above. A verification prompt should additionally ask for EVERY MODAL AND QUANTIFYING WORD in the sentence
 carrying each claim; that one line produced four of this run's five staleness findings.
+
+## Route 97 - THE PANE HAS NO 39.4k VERBATIM SEAM, SO A LONG ARTICLE COSTS TWO CALLS THERE AND FOUR BY WebFetch
+
+79th run, and this is the cheapest finding in several runs. `openai.com/index/how-we-detect-frontier-model-misalignment/`
+failed a plain WebFetch with `client_error` (route 90's gate, route 79's coin flip landing tails again, and
+it was not retried per route 79's rule). The pane then read it whole:
+
+    preview_start { url: "<the article>" }              -> tabId "seed"
+    get_page_text { tabId: "seed", max_chars: 50000 }   -> the ENTIRE article as text
+
+A second article on the same host then cost `navigate` + `get_page_text` on the SAME tab - two calls, no new
+pane, no approval prompt, no 403. That is route 76's price confirmed on article pages rather than the index.
+
+*** THE PART THAT CHANGES COSTING ACROSS THE WHOLE PACK. *** `get_page_text` returns extracted DOM text. It is
+NOT a model-mediated answer, so routes 88, 89 and 95 - the ~39,400-character verbatim window, the lying tail
+summary, the offset tiling - DO NOT APPLY TO IT. There is no seam to tile past and no summary to distrust. A
+20-minute-read article (an announced listen time of 19:44) came back complete in one call, including every
+figure caption and the canary strings in the footer.
+
+SO THE COMPARISON IS: a 70k-100k-character article costs TWO or THREE WebFetch calls under route 88/89/95 and
+still hands back regions you must treat as unsourced, versus ONE OR TWO pane calls that hand back the text.
+For any page over about 40,000 characters where the tail matters, the pane is now the CHEAPER route as well as
+the safer one, on gated and ungated hosts alike. Raise `max_chars` rather than paging; 50000 was enough here.
+
+WHAT THE PANE STILL CANNOT DO, unchanged from route 77: `get_page_text` returns no hrefs, so an index read
+through the pane cannot be skip-marked. Use a plain WebFetch for indexes where you need the URLs, and the pane
+for articles where you need the text. AND NOTE WHAT DOM TEXT STILL MISSES: the figures on this page are images,
+and their values are simply absent from the extraction. A percentage that lives in a chart is not readable by
+this route, and its absence from the text is not evidence the page lacks the claim - see queue item 79 on the
+42.9%/57.1% denominator, which stayed unread for exactly this reason.
+
+## Route 98 - A QUEUED ROW NEVER ENTERS `seen`, SO EVERY RE-SWEEP RE-SURFACES IT, AND A DEMOTED INDEX STILL ACCUMULATES
+
+79th run, on `cognition.com/blog`. One plain WebFetch, 30,646 characters, returned all 97 rows with titles,
+paths and dates - route 57(a) confirmed a second time on this host, and the archive still costs one call.
+
+TWO THINGS WORTH KNOWING BEFORE THE NEXT INDEX RE-SWEEP, and neither is about fetching.
+
+(a) 33 rows sat at or above the mark and 12 were absent from `seen`. SIX OF THE TWELVE WERE THE 58TH RUN'S OWN
+RANKED QUEUE (item 33), unread for 21 runs. The bootstrap rule is that queued-and-unread URLs were deliberately
+not added to `seen`, which is correct - a `seen` line would hide them - but the consequence is that a re-sweep
+cannot tell "never triaged" from "triaged and queued". So on any index whose feed line reports queued rows,
+read the queue item BEFORE re-triaging the gap, or you will re-rank what is already ranked. The cheap tell: a
+row above the mark, absent from `seen`, and dated before the last sweep was almost certainly queued, not missed.
+
+(b) The other six rows were new since the previous sweep 21 days earlier, and one was in scope. This feed had
+been demoted to back-catalogue-only on an index-level triage, and it has accrued roughly one in-scope row every
+two months since. WHERE THE INDEX IS ONE FREE CALL, A LOW HIT RATE IS NOT A REASON TO DEMOTE: the sweep costs
+one call whether it finds anything or not, and the demotion costs the rows. Demote for cost, never for yield.
+
+## Route 99 - THE METR HUGGING FACE REPORT'S TWO PUBLISHED VERSIONS DISAGREE, AND THE PDF CARRIES MATERIAL THE BLOG'S BODY DOES NOT
+
+79th run, verifying `b33ed20e` against both
+`metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/` (120,226 characters) and
+`metr.org/hugging-face-incident-report-aug-2026.pdf` (123,168 characters). Three calls each at offsets
+0 / 39000 / 78300 and 0 / 39300 / 78694 covered about 118,200 and 118,600 characters as real text; the last
+~2,000 and ~4,500 characters of each were NOT read, and the blog's footnote bodies live in that unread tail.
+
+THREE FINDINGS.
+
+(a) THE TWO VERSIONS STATE DIFFERENT DATES FOR THE SAME FIGURE. The blog's Figure 3 caption says the agents
+were launched "on July 9th and 10th"; the PDF's Figure 3 caption says "on July 10th and 11th". The coordination
+passages are worded identically in both. So cite the version you actually read, and do not reconcile a date
+across them.
+
+(b) THE PDF'S FOOTNOTES CARRY CLAIMS THE BLOG'S READABLE BODY DOES NOT. The assignment-share movement
+("closer to ~20%", "dropped to ~5%"), its uncertainty statement, the "never succeeded at their goal of finding
+a general way to bypass the ExploitGym scorer" sentence and the "difficult to determine how much of the
+coordination ... meaningfully helped" sentence are all in PDF footnotes 24 and 25. A clause missing from the
+blog's body is therefore NOT missing from the report - go to the PDF before recording an absence on this source.
+
+(c) ROUTE 88 CONFIRMED AGAIN, AND THE SUMMARY'S FALSE NEGATIVES WERE SPECTACULAR. The blog's tail summary
+reported NOT PRESENT for Table 1, for the 30-trajectory sample and for the whole recruiter section; all three
+are in the real text of the second region. Call 1's summary additionally asserted that GTG-10007 "is mentioned
+only once" on the Anthropic threat-intelligence page and has no section of its own, when the real text carries
+a dedicated heading. The rule holds without exception across this pack now: a NOT PRESENT from a summary is
+worthless, and a POSITIVE claim from one is unsourced.
