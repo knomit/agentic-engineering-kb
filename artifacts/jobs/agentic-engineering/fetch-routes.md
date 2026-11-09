@@ -1317,3 +1317,35 @@ ONE LENGTH NOTE ON THE ALIGNMENT BLOG, because it is not a uniform host: this ru
 117,107-character one, offsets 0 / 39300 / 78600 left the tail from Appendix E.1 onward unread, so route
 95's ceil(length / 39,900) formula wants a FOURTH call here and the three-offset habit silently leaves
 appendices out.
+
+## Tool caveat, 81st run - STILL NO WebFetch IN THE SESSION'S OWN TOOL LIST, A FOURTH TIME
+
+Same position as the 76th, 77th, 78th and 80th runs: no WebFetch and no direct fetch tool in the
+session, so all eleven fetches went through `web-fetch` SUBAGENTS. `WebSearch` was available and
+unused. The 80th run's verification prompt shape was copied verbatim into every staleness ask and
+complied with every time, including the route-103 body-table-figure line, which again produced a real
+finding (the VS Code README version badges are images and were correctly reported as unread).
+
+ONE NEW ELEMENT EARNED ITS PLACE IN THE PROMPT, for a dated reference fact: ask the subagent to
+report the page's own `meta-ms.date` or footer date. Both Microsoft docs pages came back stamped
+11/4/2026, which is what established that the page had been rewritten rather than that the stored
+fact had been misread.
+
+## Route 104 - THE BROWSER PANE IS IN THIS SESSION AND READ A REFUSED openai.com ARTICLE IN ONE CALL
+
+81st run, and it is route 97 confirmed on a second host-and-URL. A plain WebFetch of
+`openai.com/index/towards-safety-cases-for-frontier-ai-training/` returned route 79's coin flip
+landing tails - "failed at its site (client_error), and nothing of the page was retrieved" - and was
+not retried. The pane then read the entire article:
+
+    preview_start { url: "<the article>" }                -> tabId "seed"
+    get_page_text { tabId: "seed", max_chars: 50000 }     -> the WHOLE article as text
+
+Two calls, no approval prompt, no 403, and the tools had to be loaded first with ONE ToolSearch
+(`select:` on preview_start, get_page_text, tabs_context, request_access). The text arrived with the
+printed date, every section heading, the full bullet lists and the "Keep reading" footer rows - which
+is how this run confirmed two stored quotations word for word after WebFetch had failed outright.
+
+THE PLANNING CONSEQUENCE: a staleness check against an openai.com /index/ source is no longer a
+coin flip. Budget it as two pane calls and skip the WebFetch attempt entirely when the fact being
+checked turns on exact wording.
