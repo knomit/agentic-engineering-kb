@@ -1349,3 +1349,37 @@ is how this run confirmed two stored quotations word for word after WebFetch had
 THE PLANNING CONSEQUENCE: a staleness check against an openai.com /index/ source is no longer a
 coin flip. Budget it as two pane calls and skip the WebFetch attempt entirely when the fact being
 checked turns on exact wording.
+
+## Route 105 - ON developers.openai.com/api/docs/** THE FIRST 39.4k IS NAVIGATION, AND THE BODY IS IN THE CONTINUATION
+
+81st run, measured on five pages of that tree, and it reprices every read on this host.
+
+    /api/docs/guides/                        72,101 chars   verbatim to 39,945, all sidebar
+    /api/docs/guides/preserved-reasoning     59,542 chars   verbatim to 39,926, all sidebar
+    /api/docs/guides/async-tool-calling      76,972 chars   verbatim to 39,927, all sidebar
+    /api/docs/guides/evaluation-best-practices 83,140 chars verbatim to 39,920, all sidebar
+    /api/docs/guides/graders                 69,431 chars   verbatim to 39,938, all sidebar
+
+In every case the page's own `# Heading` fell INSIDE the offset continuation, and in every case the
+first call's tail summary was a model-written account of a body it had not reached. One of them
+asserted the page "ended at 'Loading docs agent...'" and invented a heading; route 88 holds without
+exception.
+
+SO: a guide page on this host is TWO calls, always, and the single-call read is worthless for
+content. The offset to use is whatever the first call reports as its cut, around 39,9xx. The
+corollary is the useful half: ONE call is exactly right when what you want is the CATALOGUE, because
+the sidebar is the whole feed listing and it is all in window one.
+
+## Route 106 - A code.visualstudio.com DOCS PAGE HIDES PER-ITEM CONTENT BEHIND TABS, AND ONLY ONE TAB'S BODY COMES BACK
+
+81st run. `/docs/agents/run/agent-harnesses` (52,664 chars, read in two calls) prints a tab strip
+"Copilot Claude Codex Local" and a comparison table. The TABLE came back whole, and so did the
+Copilot and Codex requirements prose - but the Claude tab's body did not appear in the extracted
+text at all, and there were no Claude or Codex subsection headings in the heading list.
+
+THE TRAP IS THE REPORT, NOT THE PAGE: a subagent asked "is clause X still present?" answers "none in
+the real text I read", and that reads exactly like a removal. Three stored clauses about the Claude
+harness were in that position this run and were recorded as NOT READ rather than as absent, which is
+the only safe handling. On a tabbed page, ask for the tab strip's labels first and treat any tab
+other than the fronted one as unread unless its prose appears; the pane (route 104) can click a tab,
+which a fetch cannot.
