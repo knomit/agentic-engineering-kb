@@ -66,3 +66,14 @@ https://genai.owasp.org/download/58204/?tmstv=1792386768
 
 https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/
 https://genai.owasp.org/download/53429/?tmstv=1773811493
+
+https://genai.owasp.org/resource/agent-control-standard-acs/
+https://genai.owasp.org/resource/agent-control-standard/
+https://genai.owasp.org/2026/09/01/owasp-genai-security-project-unveils-2026-top-10-for-llm-applications-new-agent-control-standard-and-sponsors-as-community-tops-30000-members/  skip: project announcement
+https://genai.owasp.org/2026/03/17/owasp-genai-security-project-expands-ai-security-frameworks-ahead-of-rsa-2026-celebrates-continued-sponsor-support/  skip: project announcement
+https://genai.owasp.org/2025/12/18/evolving-ai-transparency-the-journey-of-the-aibom-generator-and-its-new-home-at-owasp/  skip: project history announcement
+https://genai.owasp.org/2025/12/09/owasp-genai-security-project-releases-top-10-risks-and-mitigations-for-agentic-ai-security/  skip: release announcement for a resource already read
+https://genai.owasp.org/2026/04/14/finbot-ctf-is-live-a-hands-on-companion-to-the-owasp-genai-security-project/  skip: CTF launch announcement
+https://genai.owasp.org/events/  skip: event listing
+https://genai.owasp.org/news/  skip: external press listing
+https://genai.owasp.org/initiatives/  skip: initiative card index, no field knowledge
