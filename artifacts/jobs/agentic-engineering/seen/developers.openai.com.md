@@ -57,3 +57,10 @@ https://developers.openai.com/blog/intro  skip: blog's hello-world post
 https://developers.openai.com/blog/codex-as-a-platform
 https://developers.openai.com/blog/run-long-horizon-tasks-with-codex
 https://developers.openai.com/blog/connect-private-mcp-servers-to-openai-products
+
+https://developers.openai.com/api/docs/guides/
+https://developers.openai.com/api/docs/guides/text
+https://developers.openai.com/api/docs/guides/preserved-reasoning
+https://developers.openai.com/api/docs/guides/async-tool-calling
+https://developers.openai.com/api/docs/guides/evaluation-best-practices
+https://developers.openai.com/api/docs/guides/graders
