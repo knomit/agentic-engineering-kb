@@ -1383,3 +1383,31 @@ harness were in that position this run and were recorded as NOT READ rather than
 the only safe handling. On a tabbed page, ask for the tab strip's labels first and treat any tab
 other than the fronted one as unread unless its prose appears; the pane (route 104) can click a tab,
 which a fetch cannot.
+
+## Route 107 - AN OWASP RESOURCE PAGE'S "DOWNLOAD" CAN POINT OFF-HOST, SO ROUTE 70 IS NOT UNIVERSAL
+
+81st run. Routes 70, 74, 92 and 93 all price a genai.owasp.org resource as two calls: a landing page
+carrying an abstract plus a `/download/<id>/?tmstv=<n>` href, then the download URL as readable text.
+That is a property of the PDF-backed resources, not of the resource type.
+
+On the Agent Control Standard resource page (9,970 chars, one call, whole page) there is NO
+`/download/` link at all. The Download control's href is
+`https://github.com/GenAI-Security-Project/agent-control-standard` - another host, and a repository
+rather than a document. So budget a resource row at one call plus whatever its target needs, and read
+the href off the landing page rather than assuming the download form.
+
+WHAT THAT TARGET COSTS, measured. The repo README is 51,975 chars and read in two calls (offset
+39,000 reached the footer). But the spec itself is NOT reachable:
+`github.com/<org>/<repo>/tree/<branch>/<dir>` answered `robots_disallowed`, permanently, so
+`specification/`, `docs/spec/conformance.md` and `CONTRIBUTING.md` could not be read by this tool.
+README-level requirements are therefore the ceiling on this source, and a fact built from it has to
+say so. Untried, in cost order, for a future run that needs the normative text: the project's
+docs site on github.io, which is a different host and not a repo subtree; the pane (route 104);
+and raw.githubusercontent.com per-file URLs, which are not a tree listing and so may not be covered
+by the same rule.
+
+AND A SLUG DISCREPANCY THAT IS NOT RESOLVED. The /resources/ index prints the row as
+`/resource/agent-control-standard-acs/`, which is also the URL in the existing fact's refs; the
+subagent asked for that URL reported reading `/resource/agent-control-standard/` and returned a real
+page with the right title and date. Both spellings appear to answer. Both are now in seen so neither
+is re-fetched; a future run that needs to know which is canonical can settle it with one pane load.
