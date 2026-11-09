@@ -43,3 +43,5 @@ https://cognition.com/blog/devin-security  skip: product launch
 https://cognition.com/blog/building-in-london  skip: office announcement
 https://cognition.com/blog/introducing-devin-security-swarm  skip: product launch
 https://cognition.com/blog/devin-fusion  skip: product and pricing announcement
+
+https://cognition.com/blog/practical-guide-to-security-november-2026
