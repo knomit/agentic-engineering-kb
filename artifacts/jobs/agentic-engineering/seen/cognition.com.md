@@ -45,3 +45,6 @@ https://cognition.com/blog/introducing-devin-security-swarm  skip: product launc
 https://cognition.com/blog/devin-fusion  skip: product and pricing announcement
 
 https://cognition.com/blog/practical-guide-to-security-november-2026
+
+https://cognition.com/blog/measuring-open-source-model-trustworthiness
+https://cognition.com/blog/ai-productivity
