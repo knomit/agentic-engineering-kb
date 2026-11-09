@@ -54,3 +54,22 @@ https://simonwillison.net/2026/Oct/12/llm-meta-ai/  skip: tool release note
 https://simonwillison.net/2026/Oct/9/built-using-my-voice/  skip: the author's own blog feature, no agent-engineering content
 https://simonwillison.net/2026/Oct/1/matthew-green/  skip: quoted comment on sandboxing, no engineering consequence
 https://simonwillison.net/2026/Sep/29/openai-devday-2026-live-blog/  skip: live blog of product announcements
+
+https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/  skip: model-interpretability curiosity, no agent-engineering consequence
+https://simonwillison.net/2026/Nov/2/census-bureau-super-intelligence/  skip: policy commentary, no engineering content
+https://simonwillison.net/2026/Nov/2/llm/  skip: tool release note
+https://simonwillison.net/2026/Nov/1/kyle-kingsbury/  skip: quoted comment
+https://simonwillison.net/2026/Oct/30/nesformer/  skip: side project, no agent-engineering content
+https://simonwillison.net/2026/Oct/29/api-credits/  skip: pricing announcement
+https://simonwillison.net/2026/Oct/28/ted-sanders/  skip: quoted comment
+https://simonwillison.net/2026/Oct/28/github-octoverse-2026/  skip: adoption statistics round-up, no agent-engineering consequence
+https://simonwillison.net/2026/Oct/28/vibe-game-development/  skip: game-development commentary
+https://simonwillison.net/2026/Oct/28/terk-terkowitz/  skip: quoted comment
+https://simonwillison.net/2026/Oct/27/game-boy-color-on-my-conference-badge/  skip: side project, no agent-engineering content
+https://simonwillison.net/2026/Oct/26/gpt-61-terra/  skip: model-launch commentary; the deploymentsafety.openai.com page for that model is read
+https://simonwillison.net/2026/Oct/26/jason-koebler/  skip: quoted comment
+https://simonwillison.net/2026/Oct/23/kimi-k31-pro/  skip: model release announcement
+https://simonwillison.net/2026/Oct/22/donating-agent-skills/  skip: link post; prefer the primary, anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation, which is queued unread
+https://simonwillison.net/2026/Oct/22/armin-ronacher/  skip: quoted comment
+https://simonwillison.net/2026/Oct/20/battledrones/  skip: side project, no agent-engineering content
+https://simonwillison.net/2026/Oct/19/my-obituary-for-programming/  skip: opinion essay on the profession, no agent-engineering consequence
