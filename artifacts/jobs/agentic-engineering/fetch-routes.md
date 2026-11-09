@@ -1213,3 +1213,107 @@ are in the real text of the second region. Call 1's summary additionally asserte
 only once" on the Anthropic threat-intelligence page and has no section of its own, when the real text carries
 a dedicated heading. The rule holds without exception across this pack now: a NOT PRESENT from a summary is
 worthless, and a POSITIVE claim from one is unsourced.
+
+## Route 100 - simonwillison.net/tags/llms/ is 73,706 characters, so one call triages about three weeks of it
+
+80th run. One plain WebFetch returned the whole page length but verbatim text only to character
+39,955, ending inside the tag list of the nineteenth entry. Those 19 verbatim entries covered 2026-11-03
+back to 2026-10-19 - almost exactly three weeks of posting. The remaining 11 entries came back only as a
+model summary.
+
+WHAT THAT MEANS FOR SWEEP CADENCE, and it is the first time this pack has been able to price a feed by its
+window rather than by its row count: sweep this index at or under three weeks and one call triages every
+candidate verbatim; leave it longer and the older candidates fall into the summary, where their URLs are
+unsourced and must not be skip-marked (a wrong skip line hides a row permanently). So on a longer gap,
+send the offset continuation at 39300 before triaging the tail.
+
+AND THE PAGINATION FIGURE CAME FROM THE SUMMARY, WHICH MEANS IT IS NOT HELD. The summary reported "page
+1 / 68" with next at ?page=2 and last at ?page=68. Route 50 established that these tag pages have real
+resolvable pagination and said the route-39 ask returns the page count for free; this run did NOT get it
+from verbatim text, so treat 68 as unsourced and re-measure it from real text if the depth ever matters.
+The 67-pages figure already in feeds.md is from an earlier date and is equally worth re-checking.
+
+## Route 101 - ROUTE 42 HAS EXPIRED ON code.claude.com/docs/en/best-practices. THE PAGE OUTGREW THE WINDOW
+
+80th run, and this is a route being retired rather than added. Route 42 was reconfirmed a FIFTH time on
+this exact URL on the 59th run: a short page ignores the verbatim-quote format and returns the raw page
+text, which is the good outcome. That no longer holds here. The page is now 52,163 characters, so it
+needs TWO calls: offset 0 returns verbatim text to 39,941, and offset 39,941 returns verbatim text to the
+end. The first call's tail summary was superseded by the second call's raw text and nothing was taken
+from it.
+
+THE GENERAL RULE THIS ADDS, and it applies to every "page" entry in feeds.md: a route-42 verdict is a
+measurement of a page at a LENGTH, not a property of the page or the host. A living documentation page
+grows, and the run that re-reads it on the strength of an old route-42 note will take a summary for text.
+Ask for the character count on every page-class re-read and compare it against the length the route was
+measured at.
+
+AND THE SECOND LESSON IS ABOUT THE ASK, NOT THE ROUTE. A presence ask aimed at the clauses an earlier run
+stored would have returned all of them verbatim and found nothing new - the page had grown four whole
+sections. The five facts this run took from it came from reading the page's heading list first and then
+asking for the new sections. On a tripwire page, ask for the ordered heading list before asking about any
+stored clause.
+
+## Route 102 - cognition.com ARTICLE pages answer a plain WebFetch, confirmed
+
+80th run. /blog/practical-guide-to-security-november-2026 is 15,341 characters and came back whole in one
+plain call, with its printed date ("2026.11.03"), its meta published_time and its byline. That confirms
+item 79(i)'s claim about this host. Route 98 already prices the INDEX at one call for all 97 rows, so
+this host is now fully priced: one call for the index, one call per article.
+
+## Route 103 - A FIGURE-ONLY VALUE IS A DISTINCT CLASS OF UNREAD, AND THE VERIFICATION ASK MUST NAME IT
+
+80th run, and two of this run's five staleness checks turned on it in OPPOSITE directions, which is why
+it is worth a route of its own.
+
+- On `alignment.anthropic.com/2026/sleight-bench/` the stored fact asserted that the post publishes no
+  catch-rate comparison between the agentic (Claude Code) monitor and the passive one. The prose and
+  tables carry no such comparison, so the negative held on text - but Figure 3's caption reads "Catch
+  rate by attack class and monitor configuration for the Opus 4.6 monitor", and "monitor configuration"
+  could be exactly that comparison, inside an image. The claim moved from ABSENT to NOT READ.
+- On `alignment.anthropic.com/2026/ai-organizations/` the four Loan Profit scores were expected to be
+  chart values and turned out to be in body text, word for word. So the guess runs wrong in both
+  directions.
+
+THE ASK TO ADD TO EVERY NUMERIC VERIFICATION: "say whether this value is in body text, in a table, or
+only in a figure image." A table is text and reads fine - the SLEIGHT-Bench blind-spot table returned as
+real markdown. A figure is not, by WebFetch or by the pane (route 97's own stated limit). Without that
+one line, a figure-only value is reported as NOT PRESENT and a true claim gets weakened or deleted.
+
+AND A TABLE CAN STILL CARRY AN ATTRIBUTION TRAP. That same blind-spot table is headed only "Catch rate at
+1% FPR" and names no monitor and no configuration; the stored fact had attributed its four percentages to
+the passive monitor specifically, which the source does not do. So for a table, ask what the table's
+header and caption attribute the numbers TO, not just what the numbers are.
+
+## Tool caveat, 80th run - STILL NO WebFetch IN THE SESSION'S OWN TOOL LIST, A THIRD TIME
+
+The 76th and 78th runs' caveat held again: no WebFetch and no direct fetch tool in the session, so all
+ten fetches went through `web-fetch` SUBAGENTS, with `WebSearch` available and used once. Routes 100
+through 103 were all measured through subagents, which confirms for a third run that the routes transfer
+unchanged.
+
+THE VERIFICATION PROMPT SHAPE THAT PRODUCED EVERY FINDING THIS RUN, written into each subagent prompt
+because the subagent chooses how to query the page: the character count first; quote word for word in
+quotation marks, about 120 characters per quote, splitting a longer sentence into CONSECUTIVE quoted
+clauses with no words dropped between them; report EVERY modal and quantifying word in the sentence
+carrying each claim; send the offset continuation BEFORE reporting any absence on a page over ~40,000
+characters; say where each call's verbatim portion ended; name whether a value is body text, a table or a
+figure (route 103); and, for each stored NEGATIVE claim, test it explicitly and answer "none in the real
+text I read" rather than "not present". Every subagent asked that way complied, two of them volunteered
+that their own calls' summaries contradicted the verbatim text of the same calls, and the modal-and-
+quantifier line again produced the run's sharpest findings ("major", "multiple", "may also be mitigated,
+for example").
+
+THE SUMMARIES LIED AGAIN, AND IN A NEW SHAPE WORTH NAMING. On the 134,503-character threat-intelligence
+report, the offset-0 call's summary asserted that GTG-10007 "appears only once" and that the page has no
+title, and the offset-39924 call's summary asserted that the GTG-10007 section was NOT in its own
+window - while that same call's verbatim text contained the whole section. So a summary can be wrong
+about the call it is attached to, not merely about the region beyond it. Route 88's rule stands without
+exception: a NOT PRESENT from a summary is worthless and a POSITIVE claim from one is unsourced.
+
+ONE LENGTH NOTE ON THE ALIGNMENT BLOG, because it is not a uniform host: this run measured
+/2026/ai-organizations/ at 9,448 characters, /2026/sleight-bench/ at 19,150 and
+/2026/automated-alignment-researchers/ at 117,107. Ask for the count; do not budget by host. On the
+117,107-character one, offsets 0 / 39300 / 78600 left the tail from Appendix E.1 onward unread, so route
+95's ceil(length / 39,900) formula wants a FOURTH call here and the three-offset habit silently leaves
+appendices out.
