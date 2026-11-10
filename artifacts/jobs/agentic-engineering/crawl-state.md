@@ -2123,3 +2123,98 @@ STALENESS PASS - 5 facts, the draw item 82 prescribed, 4 CORRECTED. Pool: 37 nev
 - b6441d84 (cross-sample channels): CONFIRMED AND ENRICHED, nothing wrong. Both quotations are verbatim, including "easily discoverable by agents" and the separate "Also red-team all services that the model could touch during training (e.g., internet cache)". The negative claim held too: no side-channel discovery rate, no channel count, no red-team result anywhere in the page. ENRICHED with three things the fact was missing: the printed date (September 28, 2026); the page's own subject exclusion ("this document is focused on frontier reinforcement learning training; internal and external deployment require considering a much broader set of alignment properties"); and the fact that EVERY control group is introduced with "This could include:", so the bullets are examples of containment practice and not an enumeration of it - which bounds what a compliance reading of the page can claim. Conf 0.8 to 0.9.
 
 WRITE DISCIPLINE: nothing was written under `.knomit/`. Every path written outside `kb/` is a job-state file under `artifacts/jobs/agentic-engineering/`, written with `ops` (feeds.md 4 line replacements across two calls, queue.md 1 replacement plus items 83 and 84, fetch-routes.md 4 appends, four seen lists appended, this record appended). No new `seen/<host>.md` was created, so `knomit_learn` was not used on a job-state path. `if_commit` was passed on every job-state write and on every fact update; no conflict occurred. One knomit_update call was refused twice as unparseable JSON at roughly 4.8KB and 6.9KB of input and succeeded when split - a harness input limit, not a knomit error, and worth knowing: keep a job-state write under about 4KB per call.
+
+## 2026-11-10 — 82nd run
+
+RECURRING-FEED INDEXES SWEPT: none. Every page read this run was a row taken off an enumeration an
+earlier run had already paid for (genai.owasp.org/resources/ and developers.openai.com/api/docs/guides/,
+both swept by the 81st run on 2026-11-09). No index was re-fetched, so no feed's "last swept" date moved
+and the not-swept list in queue item 85(v) is item 83(iv)'s list one day staler. builder.aws.com, at 21
+days the most overdue feed in the pack, went unread for the fourth consecutive run; the reason and the
+fix are in queue item 85(iii).
+
+ARTICLES NEWLY CRAWLED (4 pages, 7 fetches, all by `web-fetch` subagent; no pane, no WebSearch):
+- https://genai.owasp.org/resource/llm-exploit-generation-guide-2-0/ (landing, 1 call)
+- https://genai.owasp.org/download/58316/?tmstv=1793097168 (PDF, 3 calls; tail after page 49 unread)
+- https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part1/ (landing, 1 call)
+- https://genai.owasp.org/download/58362/?tmstv=1793716010 (PDF, 2 calls, whole document verbatim)
+- https://developers.openai.com/api/docs/guides/agents-api/architecture (2 calls, route 105)
+- https://developers.openai.com/api/docs/guides/agents-api/tools/vaults (2 calls, route 105)
+All six URLs appended to their hosts' seen files.
+
+SOURCES THAT ERRORED, WERE SKIPPED OR WERE PAYWALLED: none. Every fetch succeeded on its first
+attempt. No source was unreachable and none is recorded as blocked.
+
+FACTS WRITTEN (6 new):
+- kb/gotchas/ai/agents/evaluation/benchmarks/static-vs-live/0b8318eb.md — static/known cyber scores
+  overstate live/novel by ~2x to ~8x across four benchmarks, plus the 37.1%-unintended-route audit
+  (1,518 traces, 22 models) as a second, compounding inflation mechanism. Written with distinct_from
+  c858a924, which shares the Cybench entity but claims the defended-vs-undefended gap, not this one.
+- kb/gotchas/ai/agents/autonomy/long-task-ceiling/d5e93755.md — no autonomous run completed
+  exploitation across nine framework configurations; uplift concentrates in recon and knowledge
+  retrieval and falls off at architecture setup, loop resolution and final execution; the terminal stop
+  was a provider cybersecurity-event guardrail, which makes the observed ceiling a property of the
+  hosted deployment path rather than of the capability.
+- kb/invariants/ai/agents/security/credentials/proxy-substitution/79661c1d.md — the four conditions a
+  proxy-substituted secret needs (HTTPS header only, port 443/8443, both allowlists naming the host,
+  openai_hosted environment), and the stated hard limit that it cannot serve local computation such as
+  request signing. distinct_from e4b83ed8.
+- kb/gotchas/ai/agents/security/credentials/rotation/1f81b60f.md — three documented non-propagations:
+  a vault update does not reach a running sandbox, deletion does not revoke upstream, expiry does not
+  delete. distinct_from e4b83ed8.
+- kb/architecture/ai/agents/runtime/environment-modes/662c5e23.md — environment mode subtracts tool
+  capability, not just compute; what `type: none` removes and what survives it; and the open-ended
+  failure where a missing function-tool handler can leave the agent waiting with no documented timeout.
+- kb/conventions/ai/agents/security/data-controls/genai-delta/5df7e3a1.md — six control families and
+  the one GenAI-specific extension each needs. distinct_from 42f7fdb1 and e4b83ed8.
+- kb/decisions/ai/agents/security/posture-program/rollout-order/0baa3b78.md — the four AI-DSPM
+  capability dependency chains that fix rollout order, and the full published KPI target list carried
+  together with the source's own statement that those targets are illustrative planning benchmarks
+  rather than measured population statistics. (That makes 7 new facts, not 6.)
+
+FACTS ENRICHED (1, outside the staleness pass):
+- kb/decisions/ai/agents/harness-design/effort-allocation/fc5faf86.md — third independent measurement
+  of harness-over-model leverage, and the first with a ratio: "harness variance roughly 7.8 times model
+  variance" and "the harness alone produced a 23.8-point gap on a fixed model pool". sources 2 -> 3,
+  confidence 0.85 -> 0.9. The boundary was tightened in the same edit rather than loosened: two of the
+  three measurements now come from offensive-security benchmarks, so the cross-domain evidence for the
+  ratio's SIZE is still one datapoint even though the direction has three.
+
+CONTRADICTIONS FOUND BETWEEN SOURCES: none between sources. One source contradicts ITSELF and the fact
+written from it says so: the data-security playbook gives EU AI Act high-risk obligations as "from 2 Dec
+2026" in a footnote and Article 10 obligations as "from 2 December 2027" in two other sections. Neither
+date is usable from that source without checking the regulation. A second, softer case: the same
+playbook publishes KPI targets that read as industry attainment rates and states in its conventions
+section that they are not measurements — recorded in the fact as the foreseeable misreading.
+
+CORRECTIONS MADE, AND WHAT WAS WRONG: no stored claim was found to be false this run. The five defects
+found were all defects of FORM or COMPLETENESS rather than of fact, and each is recorded against its
+fact in queue item 86. Summarised by class: (1) forbidden [[...]] inline fact pointers in a body
+(5da76ff0, four of them) — removed and replaced with prose plus refs; (2) in-body edit-history narration
+(43155c66's "VERIFICATION (2026-08-15, 18th run)" paragraph, outstanding across seven runs) — removed,
+with the two scope-bearing statements it carried re-stated in present tense; (3) a spec violation of the
+one-URL rule (42ef1590 had no external ref at all) — the four builder.aws.com articles its evidence
+facts cite were added; (4) a synthesis never re-derived against its own evidence (42ef1590, all six refs
+superseded since the 79th run) — re-derived, with four additions the evidence base carried and the
+synthesis did not; (5) under-reported source content on three facts (a duplicated accuracy figure at two
+precisions, a named protocol variant, a containment mechanism stated more sharply by the source than by
+the fact).
+
+STALENESS PASS: five facts, five distinct commits, five distinct sources, all five changed, none
+retracted. 5da76ff0, 7c40e64c and 9dda5723 all CONFIRMED verbatim against their sources on every clause
+asked for, and enriched. 42ef1590 RE-DERIVED and enriched. 43155c66 CLEANED UP. d1f26b45 was the
+intended fifth and was set aside, not checked, on the grounds that route 104 records the 81st run
+reading its exact source URL through the pane; 43155c66 was taken in its place. Full detail, counts and
+the draw for the next pass are in queue item 86.
+
+OTHER STATE WRITTEN: fetch-routes.md gained route 105 confirmed on two more pages (the cut landed at
+39,922 both times, seventh page of that tree), route 107 NARROWED (both resource rows read this run
+carried same-host /download/ hrefs, so the Agent Control Standard's off-host Download is the exception
+and the two-call PDF price remains the default), two OWASP PDF length datapoints bearing on routes 74
+and 92, and a tool caveat recording a fifth consecutive run with no WebFetch in the session's own tool
+list. No feed was added to discovered-sources.md. one-off-done.md unchanged — every entry in
+one-off-sources.md is already recorded as done.
+
+PROMPT INJECTION OR AGENT-DIRECTED TEXT IN FETCHED CONTENT: none. Two OWASP pages carry an "Ask Sage,
+GenAI Security Advisor" chat widget, reported by the subagents as page UI containing no instructions and
+not interacted with.
