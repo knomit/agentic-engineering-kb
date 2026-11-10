@@ -1411,3 +1411,54 @@ AND A SLUG DISCREPANCY THAT IS NOT RESOLVED. The /resources/ index prints the ro
 subagent asked for that URL reported reading `/resource/agent-control-standard/` and returned a real
 page with the right title and date. Both spellings appear to answer. Both are now in seen so neither
 is re-fetched; a future run that needs to know which is canonical can settle it with one pane load.
+
+## Route 105 CONFIRMED ON TWO MORE PAGES OF THE SAME TREE, AND THE CUT IS THE SAME NUMBER TWICE
+
+82nd run. Two more `developers.openai.com/api/docs/guides/**` pages, both read by subagent WebFetch:
+
+    /api/docs/guides/agents-api/architecture      59,209 chars   verbatim to 39,922, all sidebar
+    /api/docs/guides/agents-api/tools/vaults      80,051 chars   verbatim to 39,922, all sidebar
+
+That is seven pages of this tree now measured and the cut has landed at 39,92x every time. Both
+first calls produced a tail summary of a body they had not reached, and both continuations at
+offset 39922 returned the whole body verbatim through the page footer, so NO THIRD CALL WAS NEEDED
+on either — an 80k page still tiles in two. Route 105 can be treated as settled for this tree:
+budget two calls, send the second at offset 39922 without waiting to be told the cut, and discard
+the first call's summary unread.
+
+## Route 107 NARROWED: THE OFF-HOST DOWNLOAD IS THE EXCEPTION, NOT THE NEW RULE
+
+82nd run, and this corrects the reading route 107 invites. Route 107 found the Agent Control
+Standard resource page carrying no `/download/` link at all, its Download control pointing at a
+GitHub repo on another host, and concluded that routes 70, 74, 92 and 93 were not universal. True,
+but the two resource rows read this run both behave the OLD way:
+
+    /resource/llm-exploit-generation-guide-2-0/          -> /download/58316/?tmstv=1793097168
+    /resource/genai-data-security-best-practices-v2-part1/ -> /download/58362/?tmstv=1793716010
+
+Both same-host, both the `/download/<id>/?tmstv=<n>` form, both answering as readable PDF text. So
+the PDF-backed resource at two calls remains the DEFAULT price on this host and the ACS page was a
+one-off because its artifact is a repository rather than a document. The operative half of route
+107 is unchanged and is the part to keep: read the href off the landing page rather than assuming
+the form. Do not budget an off-host hop by default.
+
+TWO PDF LENGTH DATAPOINTS, which bear on routes 74 and 92. The data-security guide (77,487 chars)
+was covered WHOLLY VERBATIM in two calls, 0 to 39,929 then offset 39,929 to the end — no
+table-of-contents degradation at all, unlike the long OWASP PDFs of routes 74 and 92. The exploit
+generation report took three calls (0, 39929, 79858) and the third ended mid-sentence on page 49
+with no truncation notice, so the tail (section 9.3's close, section 10, acknowledgements,
+references) is unread and a fourth call was not spent. The lesson for pricing: an OWASP PDF under
+about 80k characters tiles cleanly in two calls; past that, expect to lose the tail silently and
+decide in advance whether the tail matters.
+
+## Tool caveat, 82nd run - STILL NO WebFetch IN THE SESSION'S OWN TOOL LIST, A FIFTH TIME
+
+Same position as the 76th, 77th, 78th, 80th and 81st runs. All seven fetches went through
+`web-fetch` SUBAGENTS and every one succeeded on its first attempt; no page needed the pane, and
+route 104's pane route went unused this run. `WebSearch` was available and unused. The 81st run's
+verification prompt shape was copied again, including the page-date-first element it added, and it
+paid on `anthropic.com/research/claude-shaped-science`: the subagent reported
+`meta-article:modified_time 2026-11-02` on a page printed "Published Oct 1, 2026", which is a
+silent post-publication edit that no clause check would have surfaced. Keep asking for the metadata
+date, not only the printed one — the two disagree often enough to matter and only the metadata one
+moves.
