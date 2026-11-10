@@ -77,3 +77,8 @@ https://genai.owasp.org/2026/04/14/finbot-ctf-is-live-a-hands-on-companion-to-th
 https://genai.owasp.org/events/  skip: event listing
 https://genai.owasp.org/news/  skip: external press listing
 https://genai.owasp.org/initiatives/  skip: initiative card index, no field knowledge
+
+https://genai.owasp.org/resource/llm-exploit-generation-guide-2-0/
+https://genai.owasp.org/download/58316/?tmstv=1793097168
+https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part1/
+https://genai.owasp.org/download/58362/?tmstv=1793716010
