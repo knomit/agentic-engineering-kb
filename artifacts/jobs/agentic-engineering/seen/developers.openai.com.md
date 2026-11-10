@@ -64,3 +64,6 @@ https://developers.openai.com/api/docs/guides/preserved-reasoning
 https://developers.openai.com/api/docs/guides/async-tool-calling
 https://developers.openai.com/api/docs/guides/evaluation-best-practices
 https://developers.openai.com/api/docs/guides/graders
+
+https://developers.openai.com/api/docs/guides/agents-api/architecture
+https://developers.openai.com/api/docs/guides/agents-api/tools/vaults
