@@ -2,11 +2,11 @@
 kind: pragmatic
 type: heuristic
 domain: [agentic-engineering, architecture, evaluation, security]
-confidence: 0.85
-sources: 2
-entities: [Incalmo, ExpertPromptShell, MHBench, Multi-Host Bench, Claude Sonnet 4, Eugene Yan, attack graph, Equifax replica, OpenAI, Codex, ARC-AGI-3, GPT-5.6 Sol, context compaction, retained reasoning]
+confidence: 0.9
+sources: 3
+entities: [Incalmo, ExpertPromptShell, MHBench, Multi-Host Bench, Claude Sonnet 4, Eugene Yan, attack graph, Equifax replica, OpenAI, Codex, ARC-AGI-3, GPT-5.6 Sol, context compaction, retained reasoning, OWASP, GenAI Security Project, harness variance]
 motifs: [wrong-deciding-variable]
-refs: ['https://eugeneyan.com/writing/cybersecurity-evals/', 'https://developers.openai.com/blog/codex-as-a-platform', 'kb://bc6eac5f37df/kb/decisions/ai/agents/harness-design/build-vs-adopt/fac118c1.md']
+refs: ['https://eugeneyan.com/writing/cybersecurity-evals/', 'https://developers.openai.com/blog/codex-as-a-platform', 'https://genai.owasp.org/resource/llm-exploit-generation-guide-2-0/', 'https://genai.owasp.org/download/58316/?tmstv=1793097168', 'kb://bc6eac5f37df/kb/decisions/ai/agents/harness-design/build-vs-adopt/fac118c1.md', 'kb://bc6eac5f37df/kb/gotchas/ai/agents/evaluation/benchmarks/static-vs-live/0b8318eb.md']
 ---
 # Harness architecture dominates model choice: the same model went from 3/40 to 37/40 networks with a better scaffold
 
@@ -27,3 +27,9 @@ A SECOND INDEPENDENT MEASUREMENT, FROM A DIFFERENT TASK FAMILY AND A DIFFERENT V
 This matters for the spend argument beyond adding a second datapoint, because it breaks the assumption that scaffolding buys accuracy by spending more tokens. Here the score nearly tripled WHILE output tokens fell by a factor of six, so on this benchmark the harness change was Pareto-improving rather than a quality-for-cost trade. The two features named are both state-retention choices — what the harness carries forward between steps, and how it compresses what it carries — which is the same lever as this fact's external-state-representation finding, arrived at independently.
 
 The boundary is the same as above and worth restating against this source too: ARC-AGI-3 is a puzzle benchmark with discrete steps and a verifiable outcome, which is exactly the shape where externalising state pays. Neither measurement establishes the effect on open-ended work.
+
+A THIRD MEASUREMENT, AND THIS ONE PUTS A RATIO ON THE EFFECT RATHER THAN A PAIR OF SCORES. An OWASP GenAI Security Project assessment of cyber-capability benchmarks reports "harness variance roughly 7.8 times model variance", and separately that "the harness alone produced a 23.8-point gap on a fixed model pool". Holding the model set constant and changing only the scaffold moved the result by nearly a quarter of the scale.
+
+What the ratio adds to the two score pairs above is a decision rule with a magnitude in it: if the harness contributes close to eight times the spread that the model does, then a model upgrade is the smaller of the two levers by roughly an order of magnitude, and a leaderboard gap smaller than the harness's own spread carries no information about the models at all. The same assessment's accompanying rule follows from this directly — a cyber score should not be accepted without the harness alongside k, trial count and the compute or cost budget.
+
+The same boundary applies as to the other two measurements, and here it is narrower than the ratio's generality suggests: the 7.8x figure is drawn from offensive-security benchmarks, which is the third source from that one task family. The ARC-AGI-3 result is the only one of the three from a different domain, so the cross-domain evidence for the ratio's size remains one datapoint even though the direction of the effect now has three.
